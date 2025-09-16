@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMovement : MonoBehaviour
+public class HandMovement : MonoBehaviour
 {
     public float speed = 5f;
     private Vector2 moveInput;
@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
 
             Vector2 stickMove = moveAction.ReadValue<Vector2>();
             Vector2 dpadMove = dpadAction.ReadValue<Vector2>();
-            Vector3 stickMovement = new Vector3(stickMove.x, stickMove.y, 0);
+            Vector3 stickMovement = new Vector3(-1 * stickMove.x, stickMove.y, 0);
             Vector3 dpadMovement = new Vector3(0, 0, dpadMove.y) * -1;
             movement = (stickMovement + dpadMovement) * speed;
             rb.linearVelocity = movement;

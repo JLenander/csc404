@@ -13,12 +13,12 @@ public class Console : Interactable
     public override void Interact(GameObject player)
     {
         player.GetComponent<Player>().TurnOff();
-        handRigTarget.GetComponent<PlayerMovement>().TurnOn(player);
+        handRigTarget.GetComponent<HandMovement>().TurnOn(player);
     }
 
     public override void Return(GameObject player)
     {
         player.GetComponent<Player>().TurnOn();
-        handRigTarget.GetComponent<PlayerMovement>().TurnOff(player);
+        handRigTarget.GetComponent<HandMovement>().TurnOff(player);
     }
 }

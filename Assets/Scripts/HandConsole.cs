@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class Console : Interactable
+public class HandConsole : Interactable
 {
-    private GameObject handRigTarget;
+    public GameObject handRigTarget;
 
     void Start()
     {

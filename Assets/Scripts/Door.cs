@@ -3,7 +3,6 @@ using UnityEngine;
 public class Door : Interactable
 {
     [SerializeField] private Transform Destination;
-    [SerializeField] private float range = 3f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     // Update is called once per frame

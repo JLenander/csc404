@@ -1,13 +1,12 @@
 using UnityEngine;
 
-public class Console : Interactable
+public class HandConsole : Interactable
 {
-    private GameObject handRigTarget;
+    public GameObject handRigTarget;
 
     void Start()
     {
         DisableOutline();
-        handRigTarget = GameObject.Find("HandRig_target");
     }
 
     public override void Interact(GameObject player)

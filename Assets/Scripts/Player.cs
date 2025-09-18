@@ -41,6 +41,9 @@ public class Player : MonoBehaviour
         _moveAction = input.actions.FindAction("Move");
         _lookAction = input.actions.FindAction("Look");
         animator = GetComponentInChildren<Animator>();
+        _characterController.enabled = false;
+        this.transform.position = new Vector3(-1.0f, 5.0f, -3.0f);
+        _characterController.enabled = true;
     }
 
     void FixedUpdate()

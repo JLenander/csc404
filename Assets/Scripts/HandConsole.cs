@@ -7,7 +7,6 @@ public class HandConsole : Interactable
     void Start()
     {
         DisableOutline();
-        handRigTarget = GameObject.Find("HandRig_target");
     }
 
     public override void Interact(GameObject player)

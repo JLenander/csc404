@@ -37,19 +37,20 @@ public class HandMovement : MonoBehaviour
     {
         if (_disable)
         {
+            // hand rigid body movement
             Vector2 stickMove = _moveAction.ReadValue<Vector2>();
             Vector2 dpadMove = _dpadAction.ReadValue<Vector2>();
             Vector3 stickMovement = new Vector3(-1 * stickMove.x, stickMove.y, 0);
             Vector3 dpadMovement = new Vector3(0, 0, dpadMove.y) * -1;
             movement = (stickMovement + dpadMovement) * speed;
+            // movement done in FixedUpdate
 
+            // rotation movement (done in LateUpdate)
             Vector2 lookMove = _lookAction.ReadValue<Vector2>();
             wristRotate += lookMove.y * lookSensitivity;
             armRotate += lookMove.x * lookSensitivity * -1.0f;
             wristRotate = Mathf.Clamp(wristRotate, -90f, 90f);
             armRotate = Mathf.Clamp(armRotate, -60f, 60f);
-
-            //movement done in FixedUpdate
 
             bool movingNow = movement.magnitude > 0.5f;
 

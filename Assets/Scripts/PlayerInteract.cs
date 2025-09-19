@@ -47,9 +47,10 @@ public class PlayerInteract : MonoBehaviour
         // Debug.Log("Current Item: " + interacting);
         if (_interactAction.WasPressedThisFrame() && currentItem != null && interacting == null)
         {
-            Debug.Log("Interacting with " + currentItem);
-            currentItem.Interact(gameObject);
-            if (currentItem.InteractionSuccess()) {
+            if (currentItem.CanInteract())
+            {
+                Debug.Log("Interacting with " + currentItem);
+                currentItem.Interact(gameObject);
                 interacting = currentItem;
             }
         }

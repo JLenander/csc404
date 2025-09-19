@@ -10,16 +10,11 @@ public class HeadConsole : Interactable
     private Quaternion originalLocalRotation; // player camera local rotation
     private Transform parent; // camera's parent (player object)
 
-    private bool _hasPlayer = false;
-    private bool _interactionSuccess = false;
+    private bool _canInteract = true;
 
     public override void Interact(GameObject player)
     {
-        if (_hasPlayer)
-        {
-            _interactionSuccess = false;
-            return;
-        }
+        if (!_canInteract) return;
         PlayerInput playerInput = player.GetComponent<PlayerInput>();
 
         // get camera from player input and save old rotation and position
@@ -36,8 +31,7 @@ public class HeadConsole : Interactable
 
         player.GetComponent<Player>().TurnOff();
         player.GetComponent<Player>().switchToHead();
-        _hasPlayer = true;
-        _interactionSuccess = true;
+        _canInteract = false;
     }
 
     public override void Return(GameObject player)
@@ -54,11 +48,10 @@ public class HeadConsole : Interactable
         player.GetComponent<Player>().TurnOn();
         player.GetComponent<Player>().switchOffHead();
 
-        _hasPlayer = false;
-        _interactionSuccess = false;
+        _canInteract = true;
     }
-    public override bool InteractionSuccess()
+    public override bool CanInteract()
     {
-        return _interactionSuccess;
+        return _canInteract;
     }
 }

@@ -42,4 +42,8 @@ public class Interactable : MonoBehaviour
     {
         return true;
     }
+    public virtual bool CanInteract()
+    {
+        return true;
+    }
 }

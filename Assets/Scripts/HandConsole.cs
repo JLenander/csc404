@@ -3,8 +3,7 @@ using UnityEngine;
 public class HandConsole : Interactable
 {
     public GameObject handRigTarget;
-    private bool _hasPlayer = false;
-    private bool _interactionSuccess = false;
+    private bool _canInteract = true;
 
     void Start()
     {
@@ -13,26 +12,21 @@ public class HandConsole : Interactable
 
     public override void Interact(GameObject player)
     {
-        if (_hasPlayer) {
-            _interactionSuccess = false;
-            return;
-        }
+        if (!_canInteract) return;  // check if there is already a player on the console
         player.GetComponent<Player>().TurnOff();
         handRigTarget.GetComponent<HandMovement>().TurnOn(player);
-        _hasPlayer = true;
-        _interactionSuccess = true;
+        _canInteract = false;
     }
 
     public override void Return(GameObject player)
     {
         player.GetComponent<Player>().TurnOn();
         handRigTarget.GetComponent<HandMovement>().TurnOff(player);
-        _hasPlayer= false;
-        _interactionSuccess = false;
+        _canInteract= true; // current player leaves
     }
 
-    public override bool InteractionSuccess()
+    public override bool CanInteract()
     {
-        return _interactionSuccess;
+        return _canInteract;
     }
 }

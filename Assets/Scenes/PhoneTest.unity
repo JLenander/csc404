@@ -160,6 +160,7 @@ GameObject:
   m_Component:
   - component: {fileID: 216162256}
   - component: {fileID: 216162257}
+  - component: {fileID: 216162258}
   m_Layer: 0
   m_Name: SwipeArea
   m_TagString: SwipeArea
@@ -203,6 +204,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.033876754, y: 0.01810601, z: 0.014995989}
   m_Center: {x: 0.0024475323, y: -0.011019466, z: 0.003432424}
+--- !u!114 &216162258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 216162255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf1e9291eb48e914ca1563409ebabe8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DebugCollider
+  color: {r: 1, g: 0, b: 0, a: 0.25}
 --- !u!1 &271057825
 GameObject:
   m_ObjectHideFlags: 0
@@ -441,6 +455,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &727325968 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0516ec30d35b7364a994169a0c0d8356, type: 3}
+  m_PrefabInstance: {fileID: 1490653071}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &826056709
 GameObject:
   m_ObjectHideFlags: 0
@@ -451,6 +470,7 @@ GameObject:
   m_Component:
   - component: {fileID: 826056710}
   - component: {fileID: 826056711}
+  - component: {fileID: 826056712}
   m_Layer: 0
   m_Name: AppButtonArea
   m_TagString: PhoneButton
@@ -494,6 +514,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.0059879245, y: 0.012474394, z: 0.0027896974}
   m_Center: {x: 0.000910586, y: -0.008203659, z: -0.0026707228}
+--- !u!114 &826056712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 826056709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf1e9291eb48e914ca1563409ebabe8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DebugCollider
+  color: {r: 1, g: 0, b: 0, a: 0.25}
 --- !u!1 &1062484121
 GameObject:
   m_ObjectHideFlags: 0
@@ -624,12 +657,12 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0516ec30d35b7364a994169a0c0d8356, type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 2094965877}
     - targetCorrespondingSourceObject: {fileID: -971658082878048829, guid: 0516ec30d35b7364a994169a0c0d8356, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1508895663}
-    - targetCorrespondingSourceObject: {fileID: -971658082878048829, guid: 0516ec30d35b7364a994169a0c0d8356, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2094965877}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6413430945410268847, guid: 0516ec30d35b7364a994169a0c0d8356, type: 3}
       insertIndex: -1
@@ -1099,13 +1132,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1916946012}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.9918298, z: -0.1275683, w: 0}
-  m_LocalPosition: {x: 60, y: 30.2, z: 32.4}
+  m_LocalRotation: {x: 0.020591984, y: 0.8797617, z: -0.18635137, w: -0.43688512}
+  m_LocalPosition: {x: 73.6, y: 21.4, z: 3.6}
   m_LocalScale: {x: 0.11858349, y: 0.11858349, z: 0.11858349}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 14.658, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 18.053, y: 234.744, z: 12.085}
 --- !u!114 &1916946016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1161,6 +1194,7 @@ GameObject:
   - component: {fileID: 2094965877}
   - component: {fileID: 2094965878}
   - component: {fileID: 2094965879}
+  - component: {fileID: 2094965880}
   m_Layer: 0
   m_Name: FingerTip
   m_TagString: Untagged
@@ -1176,12 +1210,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2094965876}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.713, y: 1.27, z: -13.05}
+  m_LocalRotation: {x: -0.000000037748947, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.71300125, y: 1.2699995, z: -13.050001}
   m_LocalScale: {x: 0.89393, y: 0.4854207, z: 0.89393}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1490653094}
+  m_Father: {fileID: 727325968}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &2094965878
 SphereCollider:
@@ -1198,7 +1232,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -1216,6 +1250,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86c9db962aca17541932b72ddec569d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+--- !u!54 &2094965880
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2094965876}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &2121673641
 GameObject:
   m_ObjectHideFlags: 0

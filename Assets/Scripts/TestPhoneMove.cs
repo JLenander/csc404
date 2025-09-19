@@ -20,16 +20,19 @@ public class TestPhoneMove : MonoBehaviour
     private void Update()
     {
         Vector2 moveInput = moveAction.ReadValue<Vector2>();
-        float rotateInput = rotateAction.ReadValue<float>();
+        Vector2 rotateInput = rotateAction.ReadValue<Vector2>();
 
         // Move phone using Transform
         Vector3 move = new Vector3(-1 * moveInput.x, moveInput.y, 0) * (moveSpeed * Time.deltaTime);
         transform.position += move;
 
-        // Rotate phone along X axis (tilt)
-        if (Mathf.Abs(rotateInput) > 0.01f)
+        // Rotate phone along X (tilt) and Y (turn) axes
+        if (rotateInput.sqrMagnitude > 0.01f)
         {
-            transform.Rotate(Vector3.right * (rotateInput * rotateSpeed * Time.deltaTime));
+            float tilt = rotateInput.x * rotateSpeed * Time.deltaTime;
+            float turn = rotateInput.y * rotateSpeed * Time.deltaTime;
+            transform.Rotate(Vector3.right * tilt, Space.Self);
+            transform.Rotate(Vector3.up * turn, Space.World);
         }
     }
 }

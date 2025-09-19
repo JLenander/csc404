@@ -8,7 +8,7 @@ public class HeadConsole : Interactable
     private Quaternion originalPlayerRotation; // player rotation
     private Vector3 originalCamPosition; // player camera position
     private Quaternion originalCamLocalRotation; // player camera local rotation
-    private Transform parent; // camera's parent (player object)
+    private Transform camParent; // camera's parent (player object)
 
     private bool _canInteract = true;
 
@@ -22,7 +22,7 @@ public class HeadConsole : Interactable
         originalCamPosition = playerCam.transform.position;
         originalPlayerRotation = player.transform.localRotation;
         originalCamLocalRotation = playerCam.transform.localRotation;
-        parent = playerCam.transform.parent; //save player camera's parent
+        camParent = playerCam.transform.parent; //save player camera's parent
         playerCam.transform.parent = exteriorHead;// make the exterior head the new parent
 
         // teleport camera to exterior head and align angle
@@ -40,7 +40,7 @@ public class HeadConsole : Interactable
         Camera playerCam = playerInput.camera;
 
         // reinput player's data
-        playerCam.transform.parent = parent;
+        playerCam.transform.parent = camParent;
         playerCam.transform.position = originalCamPosition;
         player.transform.rotation = originalPlayerRotation;
         playerCam.transform.localRotation = originalCamLocalRotation;

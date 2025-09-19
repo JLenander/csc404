@@ -37,4 +37,13 @@ public class Interactable : MonoBehaviour
     {
         outline.enabled = true;
     }
+
+    public virtual bool InteractionSuccess()
+    {
+        return true;
+    }
+    public virtual bool CanInteract()
+    {
+        return true;
+    }
 }

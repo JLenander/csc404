@@ -19,18 +19,16 @@ public class HandMovement : MonoBehaviour
 
     private GameObject _currPlayer;
 
-    public float lookSensitivity = 2.5f;
+    public float lookSensitivity = 0.4f;
 
     private Transform _wrist;
-    private Transform _top;
-    private float wristRotate;
-    private float armRotate;
+    private float wristRotateX;
+    private float wristRotateY;
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
         _wrist = _rb.gameObject.transform.parent.parent.Find("jt_top/jt_mid/jt_bot");
-        _top = _rb.gameObject.transform.parent.parent.transform.Find("jt_top");
     }
 
     private void Update()
@@ -47,10 +45,9 @@ public class HandMovement : MonoBehaviour
 
             // rotation movement (done in LateUpdate)
             Vector2 lookMove = _lookAction.ReadValue<Vector2>();
-            wristRotate += lookMove.y * lookSensitivity;
-            armRotate += lookMove.x * lookSensitivity * -1.0f;
-            wristRotate = Mathf.Clamp(wristRotate, -90f, 90f);
-            armRotate = Mathf.Clamp(armRotate, -60f, 60f);
+            wristRotateX += lookMove.x * lookSensitivity * -1.0f;
+            wristRotateY += lookMove.y * lookSensitivity;
+            wristRotateY = Mathf.Clamp(wristRotateY, -90f, 90f);
 
             bool movingNow = movement.magnitude > 0.5f;
 
@@ -87,8 +84,7 @@ public class HandMovement : MonoBehaviour
 
     private void LateUpdate()
     {
-        _wrist.localRotation *= Quaternion.Euler(wristRotate, 0, 0);
-        _top.localRotation *= Quaternion.Euler(0, armRotate, 0);
+        _wrist.localRotation *= Quaternion.Euler(wristRotateY, wristRotateX, 0);
     }
 
 

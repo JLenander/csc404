@@ -557,6 +557,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 857f1d38f1436ab42841bd630d9411a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  input: {fileID: -944628639613478452, guid: 487b377fda672dd4694b543e63ae9f09, type: 3}
   moveSpeed: 5
   rotateSpeed: 50
 --- !u!4 &318855671 stripped
@@ -576,7 +577,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 927992f83ca21944182e52118d79749e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  screenImage: {fileID: 0}
+  screenImage: {fileID: 1062484123}
   faceIDSprite: {fileID: 0}
   homeSprite: {fileID: 0}
   swipeSprite: {fileID: 0}
@@ -1562,6 +1563,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PhoneTestHandMove
   speed: 5
+  input: {fileID: -944628639613478452, guid: 487b377fda672dd4694b543e63ae9f09, type: 3}
   movement: {x: 0, y: 0, z: 0}
   moveSource: {fileID: 1788191963}
   stopSource: {fileID: 1788191962}

@@ -44,6 +44,7 @@ public class Player : MonoBehaviour
         _characterController.enabled = false;
         this.transform.position = new Vector3(-1.0f, 5.0f, -3.0f);
         _characterController.enabled = true;
+
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -134,11 +135,13 @@ public class Player : MonoBehaviour
 
     public void switchToHead()
     {
+        disable = true;
         outOfBody = true;
     }
 
     public void switchOffHead()
     {
+        disable = false;
         outOfBody = false;
     }
 }

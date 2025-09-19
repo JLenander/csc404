@@ -25,6 +25,7 @@ public class FingerTouch : MonoBehaviour
         }
         else if (other.CompareTag("SwipeArea"))
         {
+            Debug.Log("Enter swipe ->");
             inSwipeArea = true;
             lastPos = transform.position;
         }
@@ -60,6 +61,7 @@ public class FingerTouch : MonoBehaviour
     {
         if (other.CompareTag("SwipeArea"))
         {
+            Debug.Log("Exit swipe");
             inSwipeArea = false;
         }
     }

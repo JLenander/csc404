@@ -19,11 +19,9 @@ public class TestPhoneMove : MonoBehaviour
 
     private void Update()
     {
-        Vector2 moveInput = moveAction.ReadValue<Vector2>();
+        Vector3 moveInput = moveAction.ReadValue<Vector3>();
+        Vector3 move = moveInput * (moveSpeed * Time.deltaTime);
         Vector2 rotateInput = rotateAction.ReadValue<Vector2>();
-
-        // Move phone using Transform
-        Vector3 move = new Vector3(-1 * moveInput.x, moveInput.y, 0) * (moveSpeed * Time.deltaTime);
         transform.position += move;
 
         // Rotate phone along X (tilt) and Y (turn) axes
@@ -35,4 +33,17 @@ public class TestPhoneMove : MonoBehaviour
             transform.Rotate(Vector3.up * turn, Space.World);
         }
     }
+    
+    private void OnEnable()
+    {
+        moveAction.Enable();
+        rotateAction.Enable();
+    }
+
+    private void OnDisable()
+    {
+        moveAction.Disable();
+        rotateAction.Disable();
+    }
+
 }

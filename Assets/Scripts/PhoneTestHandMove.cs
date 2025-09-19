@@ -54,4 +54,15 @@ public class PhoneTestHandMove : MonoBehaviour
     {
         _rb.MovePosition(_rb.position + movement);
     }
+    
+    private void OnEnable()
+    {
+        moveAction.Enable();
+    }
+
+    private void OnDisable()
+    {
+        moveAction.Disable();
+    }
+
 }

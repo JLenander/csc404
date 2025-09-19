@@ -135,11 +135,13 @@ public class Player : MonoBehaviour
 
     public void switchToHead()
     {
+        disable = true;
         outOfBody = true;
     }
 
     public void switchOffHead()
     {
+        disable = false;
         outOfBody = false;
     }
 }

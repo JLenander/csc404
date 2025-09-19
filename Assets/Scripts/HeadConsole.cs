@@ -6,17 +6,27 @@ public class HeadConsole : Interactable
     [SerializeField] private Transform exteriorHead; //reference for robot head
     [SerializeField] private Quaternion camAngle; // current robot head angle
     private Vector3 originalPosition; // player camera position
-    private Quaternion originalRotation; // player camera rotation
+    private Quaternion originalRotation; // player rotation
+    private Quaternion originalLocalRotation; // player camera local rotation
     private Transform parent; // camera's parent (player object)
+
+    private bool _hasPlayer = false;
+    private bool _interactionSuccess = false;
 
     public override void Interact(GameObject player)
     {
+        if (_hasPlayer)
+        {
+            _interactionSuccess = false;
+            return;
+        }
         PlayerInput playerInput = player.GetComponent<PlayerInput>();
 
         // get camera from player input and save old rotation and position
         Camera playerCam = playerInput.camera;
         originalPosition = playerCam.transform.position;
-        originalRotation = playerCam.transform.rotation;
+        originalRotation = player.transform.localRotation;
+        originalLocalRotation = playerCam.transform.localRotation;
         parent = playerCam.transform.parent; //save player camera's parent
         playerCam.transform.parent = exteriorHead;// make the exterior head the new parent
 
@@ -26,6 +36,8 @@ public class HeadConsole : Interactable
 
         player.GetComponent<Player>().TurnOff();
         player.GetComponent<Player>().switchToHead();
+        _hasPlayer = true;
+        _interactionSuccess = true;
     }
 
     public override void Return(GameObject player)
@@ -34,11 +46,19 @@ public class HeadConsole : Interactable
         Camera playerCam = playerInput.camera;
 
         // reinput player's data
-        playerCam.transform.position = originalPosition;
-        playerCam.transform.rotation = originalRotation;
         playerCam.transform.parent = parent;
+        playerCam.transform.position = originalPosition;
+        player.transform.rotation = originalRotation;
+        playerCam.transform.localRotation = originalLocalRotation;
 
         player.GetComponent<Player>().TurnOn();
         player.GetComponent<Player>().switchOffHead();
+
+        _hasPlayer = false;
+        _interactionSuccess = false;
+    }
+    public override bool InteractionSuccess()
+    {
+        return _interactionSuccess;
     }
 }

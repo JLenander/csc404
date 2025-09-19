@@ -5,9 +5,9 @@ public class HeadConsole : Interactable
 {
     [SerializeField] private Transform exteriorHead; //reference for robot head
     [SerializeField] private Quaternion camAngle; // current robot head angle
-    private Vector3 originalPosition; // player camera position
-    private Quaternion originalRotation; // player rotation
-    private Quaternion originalLocalRotation; // player camera local rotation
+    private Quaternion originalPlayerRotation; // player rotation
+    private Vector3 originalCamPosition; // player camera position
+    private Quaternion originalCamLocalRotation; // player camera local rotation
     private Transform parent; // camera's parent (player object)
 
     private bool _canInteract = true;
@@ -19,9 +19,9 @@ public class HeadConsole : Interactable
 
         // get camera from player input and save old rotation and position
         Camera playerCam = playerInput.camera;
-        originalPosition = playerCam.transform.position;
-        originalRotation = player.transform.localRotation;
-        originalLocalRotation = playerCam.transform.localRotation;
+        originalCamPosition = playerCam.transform.position;
+        originalPlayerRotation = player.transform.localRotation;
+        originalCamLocalRotation = playerCam.transform.localRotation;
         parent = playerCam.transform.parent; //save player camera's parent
         playerCam.transform.parent = exteriorHead;// make the exterior head the new parent
 
@@ -41,9 +41,9 @@ public class HeadConsole : Interactable
 
         // reinput player's data
         playerCam.transform.parent = parent;
-        playerCam.transform.position = originalPosition;
-        player.transform.rotation = originalRotation;
-        playerCam.transform.localRotation = originalLocalRotation;
+        playerCam.transform.position = originalCamPosition;
+        player.transform.rotation = originalPlayerRotation;
+        playerCam.transform.localRotation = originalCamLocalRotation;
 
         player.GetComponent<Player>().TurnOn();
         player.GetComponent<Player>().switchOffHead();

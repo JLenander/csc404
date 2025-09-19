@@ -8,6 +8,7 @@ public class HandMovement : MonoBehaviour
 
     private InputAction _moveAction;
     private InputAction _dpadAction;
+    private InputAction _lookAction;
     public Vector3 movement;
     private bool _disable;
 
@@ -17,9 +18,20 @@ public class HandMovement : MonoBehaviour
 
     private GameObject _currPlayer;
 
+    public float lookSensitivity = 2.5f;
+
+    public GameObject rootBone;
+    private Transform _wrist;
+    private Transform _top;
+
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        _wrist = rootBone.transform.Find("jt_top/jt_mid/jt_bot");
+        _top = rootBone.transform.Find("jt_top");
+
+        Debug.Log(rootBone);
+        Debug.Log(_top);
     }
 
     private void Update()
@@ -28,11 +40,16 @@ public class HandMovement : MonoBehaviour
         {
             Vector2 stickMove = _moveAction.ReadValue<Vector2>();
             Vector2 dpadMove = _dpadAction.ReadValue<Vector2>();
+            Vector2 lookMove = _lookAction.ReadValue<Vector2>();
             Vector3 stickMovement = new Vector3(-1 * stickMove.x, stickMove.y, 0);
             Vector3 dpadMovement = new Vector3(0, 0, dpadMove.y) * -1;
             movement = (stickMovement + dpadMovement) * speed;
+
+            _wrist.Rotate(Vector3.right, lookMove.y * lookSensitivity * Time.deltaTime);
+
+
             // movement done in FixedUpdate
-            
+
             bool movingNow = movement.magnitude > 0.5f;
 
             // Movement started
@@ -74,6 +91,7 @@ public class HandMovement : MonoBehaviour
         var input = _currPlayer.GetComponent<PlayerInput>();
         _moveAction = input.actions.FindAction("Move");
         _dpadAction = input.actions.FindAction("DpadMove");
+        _lookAction = input.actions.FindAction("Look");
         _disable = true;
     }
 

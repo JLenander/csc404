@@ -10,8 +10,15 @@ public class TestPhoneMove : MonoBehaviour
     public float moveSpeed = 5f;
     public float rotateSpeed = 50f;
     
+    private Rigidbody rb;
+    
+    // cache inputs read in Update, apply in FixedUpdate
+    private Vector3 moveInput;
+    private Vector2 rotateInput;
+    
     private void Awake()
     {
+        rb = GetComponent<Rigidbody>();
         var map = input.FindActionMap("PhoneControls");
         moveAction = map.FindAction("Move");
         rotateAction = map.FindAction("Rotate");
@@ -19,18 +26,31 @@ public class TestPhoneMove : MonoBehaviour
 
     private void Update()
     {
-        Vector3 moveInput = moveAction.ReadValue<Vector3>();
-        Vector3 move = moveInput * (moveSpeed * Time.deltaTime);
-        Vector2 rotateInput = rotateAction.ReadValue<Vector2>();
-        transform.position += move;
+        moveInput = moveAction.ReadValue<Vector3>();
+        rotateInput = rotateAction.ReadValue<Vector2>();
+    }
+    
+    private void FixedUpdate()
+    {
+        // Move using Rigidbody.MovePosition
+        Vector3 move = moveInput * (moveSpeed * Time.fixedDeltaTime);
+        Vector3 targetPos = rb.position + move;
+        rb.MovePosition(targetPos);
 
-        // Rotate phone along X (tilt) and Y (turn) axes
+        // Rotate using Rigidbody.MoveRotation
         if (rotateInput.sqrMagnitude > 0.01f)
         {
-            float tilt = rotateInput.x * rotateSpeed * Time.deltaTime;
-            float turn = rotateInput.y * rotateSpeed * Time.deltaTime;
-            transform.Rotate(Vector3.right * tilt, Space.Self);
-            transform.Rotate(Vector3.up * turn, Space.World);
+            float tilt = rotateInput.x * rotateSpeed * Time.fixedDeltaTime; // local X
+            float turn = rotateInput.y * rotateSpeed * Time.fixedDeltaTime; // world Y
+
+            // apply local X tilt, then global Y turn
+            Quaternion localTilt = Quaternion.Euler(tilt, 0f, 0f);
+            Quaternion worldTurn = Quaternion.Euler(0f, turn, 0f);
+
+            Quaternion newRot = rb.rotation * localTilt;      // local tilt
+            newRot = worldTurn * newRot;                      // then global Y turn
+
+            rb.MoveRotation(newRot);
         }
     }
     

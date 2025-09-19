@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class FingerTouch : MonoBehaviour
 {
-    private Vector3 lastPos;
+    public GameObject phone;
+    private Vector3 startPos;
     private bool inSwipeArea;
     private PhoneUIController phoneUI;
 
@@ -27,7 +28,7 @@ public class FingerTouch : MonoBehaviour
         {
             Debug.Log("Enter swipe ->");
             inSwipeArea = true;
-            lastPos = transform.position;
+            startPos = phone.transform.InverseTransformPoint(transform.position);
         }
     }
 
@@ -35,7 +36,8 @@ public class FingerTouch : MonoBehaviour
     {
         if (inSwipeArea && other.CompareTag("SwipeArea"))
         {
-            Vector3 delta = transform.position - lastPos;
+            Vector3 localPos = phone.transform.InverseTransformPoint(transform.position);
+            Vector3 delta = localPos - startPos;
 
             if (Mathf.Abs(delta.x) > 0.05f) // threshold
             {
@@ -52,8 +54,6 @@ public class FingerTouch : MonoBehaviour
 
                 inSwipeArea = false; // prevent double trigger
             }
-
-            lastPos = transform.position;
         }
     }
 

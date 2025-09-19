@@ -26,7 +26,8 @@ public class Player : MonoBehaviour
     private Vector3 velocity;
     private bool isGrounded;
 
-    private bool disable = false;
+    private bool disableMovement = false;
+    private bool disableRotate = false;
     private bool outOfBody = false;
     private Animator animator;
 
@@ -49,7 +50,7 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!disable)
+        if (!disableMovement)
         {
             isGrounded = Physics.CheckSphere(transform.position, groundCheckDistance, groundMask);
             // Movement
@@ -90,13 +91,13 @@ public class Player : MonoBehaviour
             }
         }
 
+        if (disableRotate) return;
+
         // Look
         Vector2 lookValue = _lookAction.ReadValue<Vector2>();
         Vector3 lookRotate = new Vector3(0, lookValue.x * lookSensitivity * -1, 0);
         xRotation -= lookValue.y * lookSensitivity;
         yRotation -= lookValue.x * lookSensitivity * -1;
-        // xRotation = Math.Clamp(xRotation, -90f, 90f);
-
 
         if (outOfBody)
         {
@@ -124,16 +125,19 @@ public class Player : MonoBehaviour
 
     public void TurnOff()
     {
-        disable = true;
+        disableMovement = true;
+        disableRotate = true;
     }
 
     public void TurnOn()
     {
-        disable = false;
+        disableMovement = false;
+        disableRotate = false;
     }
 
     public void switchToHead()
     {
+        disableRotate = false;
         outOfBody = true;
     }
 

@@ -7,7 +7,7 @@ public class PhoneTestHandMove : MonoBehaviour
     private Rigidbody _rb;
 
     public InputActionAsset input;
-    private InputAction moveAction;
+    private InputAction _moveAction;
     public Vector3 movement;
 
     private bool _isMoving;
@@ -17,7 +17,7 @@ public class PhoneTestHandMove : MonoBehaviour
     private void Awake()
     {
         var map = input.FindActionMap("HandControls");
-        moveAction = map.FindAction("Move");
+        _moveAction = map.FindAction("Move");
     }
     
     private void Start()
@@ -27,7 +27,7 @@ public class PhoneTestHandMove : MonoBehaviour
 
     private void Update()
     {
-        Vector2 moveInput = moveAction.ReadValue<Vector2>();
+        Vector2 moveInput = _moveAction.ReadValue<Vector2>();
         movement = new Vector3(moveInput.x, moveInput.y, 0) * speed;
         bool movingNow = movement.magnitude > 0.5f;
 
@@ -57,12 +57,12 @@ public class PhoneTestHandMove : MonoBehaviour
     
     private void OnEnable()
     {
-        moveAction.Enable();
+        _moveAction.Enable();
     }
 
     private void OnDisable()
     {
-        moveAction.Disable();
+        _moveAction.Disable();
     }
 
 }

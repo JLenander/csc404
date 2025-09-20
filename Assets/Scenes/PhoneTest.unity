@@ -369,9 +369,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3595074964024518419, guid: fabd580c3de01dc40b885c2cb9fce109, type: 3}
       insertIndex: -1
       addedObject: {fileID: 271057826}
-    - targetCorrespondingSourceObject: {fileID: 3595074964024518419, guid: fabd580c3de01dc40b885c2cb9fce109, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 624675468}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4228762459284225449, guid: fabd580c3de01dc40b885c2cb9fce109, type: 3}
       insertIndex: -1
@@ -492,37 +489,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &624675467
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 624675468}
-  m_Layer: 0
-  m_Name: SwipeReference
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &624675468
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 624675467}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 318855671}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &727325968 stripped
 Transform:
@@ -1320,6 +1286,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   phone: {fileID: 318855669}
+  finger: {fileID: 2094965877}
 --- !u!54 &2094965880
 Rigidbody:
   m_ObjectHideFlags: 0

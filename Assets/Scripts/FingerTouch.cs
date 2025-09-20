@@ -2,15 +2,24 @@ using UnityEngine;
 
 public class FingerTouch : MonoBehaviour
 {
-    public GameObject phone;
-    private Vector3 startPos;
-    private bool inSwipeArea;
-    private PhoneUIController phoneUI;
-
+    public GameObject phone;              // Phone prefab
+    public Transform finger;              // fingertip for position
+    private Transform _swipeArea;           // SwipeArea for position
+    
+    private readonly float _swipeThreshold = 0.02f;  // world units in local X, for distance to validate a "swipe"
+    private bool _inSwipeArea;
+    private Vector3 _startLocalPos;
+    private PhoneUIController _phoneUI;
+    
     private void Start()
     {
-        // Find phone in scene (or assign manually in Inspector if multiple phones exist)
-        phoneUI = FindObjectOfType<PhoneUIController>();
+        // can do FindObjectOfType but deprecated, so find through phone Object
+        _phoneUI = phone.GetComponent<PhoneUIController>();
+        // Using swipeArea axis so movement in swipeArea's perspective
+        // should be able to work with phone but this way more linked to the actual collider we want to work with
+        _swipeArea = phone.transform.Find("SwipeArea"); 
+        if (_swipeArea == null)
+            Debug.LogError("SwipeArea not found under phone!");
     }
 
     // Detect entering button or swipe area, fires once only
@@ -19,50 +28,56 @@ public class FingerTouch : MonoBehaviour
     // For swipe, need OnTriggerStay to track movement while inside area and OnTriggerExit to reset state
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("PhoneButton"))
+        if (other.CompareTag("SwipeArea"))
         {
-            Debug.Log("Tapped app button!");
-            phoneUI.ShowSwipe(); // open swipe screen
+            _inSwipeArea = true;
+            Debug.Log($"Entered swipe area");
+            // Convert finger world pos to swipeArea local space
+            _startLocalPos = _swipeArea.InverseTransformPoint(finger.position);
         }
-        else if (other.CompareTag("SwipeArea"))
+        else if (other.CompareTag("PhoneButton"))
         {
-            Debug.Log("Enter swipe ->");
-            inSwipeArea = true;
-            startPos = phone.transform.InverseTransformPoint(transform.position);
+            Debug.Log("Tapped app button");
+            _phoneUI.ShowSwipe();
         }
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (inSwipeArea && other.CompareTag("SwipeArea"))
+        // ignores non‑SwipeArea colliders and prevents processing when already cleared _inSwipeArea
+        if (!_inSwipeArea || !other.CompareTag("SwipeArea"))
+            return;
+
+        // Get current finger pos in swipeArea local space
+        Vector3 localFingerPos = _swipeArea.InverseTransformPoint(finger.position);
+        // Calc local X traveled since entering area
+        float deltaX = localFingerPos.x - _startLocalPos.x;
+
+        // Check if traveled far enough to count as a swipe
+        if (Mathf.Abs(deltaX) > _swipeThreshold)
         {
-            Vector3 localPos = phone.transform.InverseTransformPoint(transform.position);
-            Vector3 delta = localPos - startPos;
-
-            if (Mathf.Abs(delta.x) > 0.05f) // threshold
+            // delta is relative to swipeArea local X axis, so <0 is right swipe, >0 is left swipe
+            if (deltaX < 0)
             {
-                if (delta.x > 0)
-                {
-                    Debug.Log("Swipe Right");
-                    phoneUI.ShowMatch(); // show match
-                }
-                else
-                {
-                    Debug.Log("Swipe Left");
-                    phoneUI.ShowSwipe(); // load next photo
-                }
-
-                inSwipeArea = false; // prevent double trigger
+                Debug.Log("Swipe Right");
+                _phoneUI.ShowMatch();
             }
+            else
+            {
+                Debug.Log("Swipe Left");
+                _phoneUI.ShowSwipe();
+            }
+            _inSwipeArea = false; // stop multiple swipes
         }
     }
 
+    // Reset state when finger exits swipe area, in case not a left/right swipe
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("SwipeArea"))
         {
-            Debug.Log("Exit swipe");
-            inSwipeArea = false;
+            _inSwipeArea = false;
+            Debug.Log("Exited swipe area");
         }
     }
 }

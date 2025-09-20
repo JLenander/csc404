@@ -8,7 +8,7 @@ public class FingerTouch : MonoBehaviour
     private Transform _swipeArea;           // SwipeArea for position
     
     private readonly float _swipeThreshold = 0.01f;  // world units in local X, for distance to validate a "swipe"
-    // (0.02 was too far, 0.01 can be too short, try 0.015 next time)
+    // (0.02 was too far, 0.01 can be too short, try 0.015 next time)  (CHANGEABLE)
     private bool _inSwipeArea;
     private Vector3 _startLocalPos;
     private PhoneUIController _phoneUI;

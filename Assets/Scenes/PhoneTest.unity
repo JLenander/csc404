@@ -372,6 +372,9 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4228762459284225449, guid: fabd580c3de01dc40b885c2cb9fce109, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 318855679}
+    - targetCorrespondingSourceObject: {fileID: 4228762459284225449, guid: fabd580c3de01dc40b885c2cb9fce109, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 318855678}
   m_SourcePrefab: {fileID: 100100000, guid: fabd580c3de01dc40b885c2cb9fce109, type: 3}
 --- !u!1 &318855669 stripped
@@ -411,6 +414,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &318855679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 318855669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36ae96cea6d31f44db807f7e49205641, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PhoneScreen
+  playerCamera: {fileID: 1916946014}
 --- !u!1 &320486918
 GameObject:
   m_ObjectHideFlags: 0

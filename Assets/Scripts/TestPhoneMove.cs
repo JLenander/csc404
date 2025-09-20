@@ -41,16 +41,17 @@ public class TestPhoneMove : MonoBehaviour
         // Rotate using Rigidbody.MoveRotation
         if (rotateInput.sqrMagnitude > 0.01f)
         {
-            float tilt = rotateInput.y * rotateSpeed * Time.fixedDeltaTime;
-            // Flip x to match player perspective
-            float turn = -rotateInput.x * rotateSpeed * Time.fixedDeltaTime;
+            // Flip y to tilt is towards input
+            float tilt = -rotateInput.y * rotateSpeed * Time.fixedDeltaTime;
+            // Keep flipped x so turn is towards input
+            float turn = rotateInput.x * rotateSpeed * Time.fixedDeltaTime;
 
             // apply local X tilt, then global Y turn
-            Quaternion localTilt = Quaternion.Euler(tilt, 0f, 0f);
-            Quaternion worldTurn = Quaternion.Euler(0f, turn, 0f);
+            Quaternion localTilt = Quaternion.Euler(tilt, 0f, turn);
+            // Quaternion worldTurn = Quaternion.Euler(0f, turn, 0f); -- for a world axis turn
 
             Quaternion newRot = rb.rotation * localTilt;      // local tilt
-            newRot = worldTurn * newRot;                      // then global turn
+            // newRot = worldTurn * newRot;                    // then global turn
 
             rb.MoveRotation(newRot);
         }

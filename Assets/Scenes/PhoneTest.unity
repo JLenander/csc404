@@ -1286,7 +1286,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   phone: {fileID: 318855669}
-  finger: {fileID: 2094965877}
 --- !u!54 &2094965880
 Rigidbody:
   m_ObjectHideFlags: 0

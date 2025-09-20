@@ -3,10 +3,12 @@ using UnityEngine;
 public class FingerTouch : MonoBehaviour
 {
     public GameObject phone;              // Phone prefab
-    public Transform finger;              // fingertip for position
+    // public Transform finger;              // fingertip for position
+    // refactored to use built-in "this" GameObject's "transform" for position instead of separate public finger
     private Transform _swipeArea;           // SwipeArea for position
     
-    private readonly float _swipeThreshold = 0.02f;  // world units in local X, for distance to validate a "swipe"
+    private readonly float _swipeThreshold = 0.01f;  // world units in local X, for distance to validate a "swipe"
+    // (0.02 was too far, 0.01 can be too short, try 0.015 next time)
     private bool _inSwipeArea;
     private Vector3 _startLocalPos;
     private PhoneUIController _phoneUI;
@@ -33,7 +35,8 @@ public class FingerTouch : MonoBehaviour
             _inSwipeArea = true;
             Debug.Log($"Entered swipe area");
             // Convert finger world pos to swipeArea local space
-            _startLocalPos = _swipeArea.InverseTransformPoint(finger.position);
+            // Recall this transform is of the attached finger touch object
+            _startLocalPos = _swipeArea.InverseTransformPoint(transform.position);
         }
         else if (other.CompareTag("PhoneButton"))
         {
@@ -49,7 +52,8 @@ public class FingerTouch : MonoBehaviour
             return;
 
         // Get current finger pos in swipeArea local space
-        Vector3 localFingerPos = _swipeArea.InverseTransformPoint(finger.position);
+        // Recall this transform is of the attached finger touch object
+        Vector3 localFingerPos = _swipeArea.InverseTransformPoint(transform.position);
         // Calc local X traveled since entering area
         float deltaX = localFingerPos.x - _startLocalPos.x;
 

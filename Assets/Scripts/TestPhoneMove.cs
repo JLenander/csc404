@@ -33,22 +33,24 @@ public class TestPhoneMove : MonoBehaviour
     private void FixedUpdate()
     {
         // Move using Rigidbody.MovePosition
-        Vector3 move = moveInput * (moveSpeed * Time.fixedDeltaTime);
+        // Flip x-axis to match hand coord system - relative to player perspective
+        Vector3 move = new Vector3(-moveInput.x, moveInput.y, moveInput.z) * (moveSpeed * Time.fixedDeltaTime);
         Vector3 targetPos = rb.position + move;
         rb.MovePosition(targetPos);
 
         // Rotate using Rigidbody.MoveRotation
         if (rotateInput.sqrMagnitude > 0.01f)
         {
-            float tilt = rotateInput.x * rotateSpeed * Time.fixedDeltaTime; // local X
-            float turn = rotateInput.y * rotateSpeed * Time.fixedDeltaTime; // world Y
+            float tilt = rotateInput.y * rotateSpeed * Time.fixedDeltaTime;
+            // Flip x to match player perspective
+            float turn = -rotateInput.x * rotateSpeed * Time.fixedDeltaTime;
 
             // apply local X tilt, then global Y turn
             Quaternion localTilt = Quaternion.Euler(tilt, 0f, 0f);
             Quaternion worldTurn = Quaternion.Euler(0f, turn, 0f);
 
             Quaternion newRot = rb.rotation * localTilt;      // local tilt
-            newRot = worldTurn * newRot;                      // then global Y turn
+            newRot = worldTurn * newRot;                      // then global turn
 
             rb.MoveRotation(newRot);
         }

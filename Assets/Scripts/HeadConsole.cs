@@ -3,25 +3,35 @@ using UnityEngine.InputSystem;
 
 public class HeadConsole : Interactable
 {
-    [SerializeField] private Transform camPosition;
-    [SerializeField] private Quaternion camAngle;
-    private Vector3 originalPosition;
-    private Quaternion originalRotation;
+    [SerializeField] private Transform exteriorHead; //reference for robot head
+    [SerializeField] private Quaternion camAngle; // current robot head angle
+    private Quaternion originalPlayerRotation; // player rotation
+    private Vector3 originalCamPosition; // player camera position
+    private Quaternion originalCamLocalRotation; // player camera local rotation
+    private Transform camParent; // camera's parent (player object)
+
+    private bool _canInteract = true;
 
     public override void Interact(GameObject player)
     {
+        if (!_canInteract) return;
         PlayerInput playerInput = player.GetComponent<PlayerInput>();
 
-        // save old rotation
+        // get camera from player input and save old rotation and position
         Camera playerCam = playerInput.camera;
-        originalPosition = playerCam.transform.position;
-        originalRotation = playerCam.transform.rotation;
+        originalCamPosition = playerCam.transform.position;
+        originalPlayerRotation = player.transform.localRotation;
+        originalCamLocalRotation = playerCam.transform.localRotation;
+        camParent = playerCam.transform.parent; //save player camera's parent
+        playerCam.transform.parent = exteriorHead;// make the exterior head the new parent
 
-        playerCam.transform.position = camPosition.position;
+        // teleport camera to exterior head and align angle
+        playerCam.transform.position = exteriorHead.position;
         playerCam.transform.rotation = camAngle;
 
         player.GetComponent<Player>().TurnOff();
         player.GetComponent<Player>().switchToHead();
+        _canInteract = false;
     }
 
     public override void Return(GameObject player)
@@ -29,10 +39,19 @@ public class HeadConsole : Interactable
         PlayerInput playerInput = player.GetComponent<PlayerInput>();
         Camera playerCam = playerInput.camera;
 
-        playerCam.transform.position = originalPosition;
-        playerCam.transform.rotation = originalRotation;
+        // reinput player's data
+        playerCam.transform.parent = camParent;
+        playerCam.transform.position = originalCamPosition;
+        player.transform.rotation = originalPlayerRotation;
+        playerCam.transform.localRotation = originalCamLocalRotation;
 
         player.GetComponent<Player>().TurnOn();
         player.GetComponent<Player>().switchOffHead();
+
+        _canInteract = true;
+    }
+    public override bool CanInteract()
+    {
+        return _canInteract;
     }
 }

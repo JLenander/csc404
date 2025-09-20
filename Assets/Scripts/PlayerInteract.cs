@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -46,9 +47,12 @@ public class PlayerInteract : MonoBehaviour
         // Debug.Log("Current Item: " + interacting);
         if (_interactAction.WasPressedThisFrame() && currentItem != null && interacting == null)
         {
-            Debug.Log("Interacting with " + currentItem);
-            currentItem.Interact(gameObject);
-            interacting = currentItem;
+            if (currentItem.CanInteract())
+            {
+                Debug.Log("Interacting with " + currentItem);
+                currentItem.Interact(gameObject);
+                interacting = currentItem;
+            }
         }
 
         if (_returnAction.WasPressedThisFrame() && interacting != null)

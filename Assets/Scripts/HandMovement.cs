@@ -21,14 +21,13 @@ public class HandMovement : MonoBehaviour
 
     public float lookSensitivity = 0.4f;
 
-    private Transform _wrist;
+    [SerializeField] Transform _wrist;
     private float wristRotateX;
     private float wristRotateY;
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
-        _wrist = _rb.gameObject.transform.parent.parent.Find("jt_top/jt_mid/jt_bot");
     }
 
     private void Update()

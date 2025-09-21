@@ -313,6 +313,10 @@ PrefabInstance:
       propertyPath: screenImage
       value: 
       objectReference: {fileID: 1062484123}
+    - target: {fileID: 176791885357414516, guid: fabd580c3de01dc40b885c2cb9fce109, type: 3}
+      propertyPath: faceIDSprite
+      value: 
+      objectReference: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 3595074964024518419, guid: fabd580c3de01dc40b885c2cb9fce109, type: 3}
       propertyPath: m_LocalPosition.x
       value: 54.49

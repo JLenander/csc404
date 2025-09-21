@@ -92,6 +92,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.011091778, y: 0.012693191, z: 0.012455758}
   m_Center: {x: 0, y: -0.0013465954, z: 0.000028253067}
+--- !u!114 &8576002134430324515
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -102,7 +103,6 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 857f1d38f1436ab42841bd630d9411a4, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TestPhoneMove
   input: {fileID: -944628639613478452, guid: 487b377fda672dd4694b543e63ae9f09, type: 3}
   moveSpeed: 5
   rotateSpeed: 50
@@ -117,7 +117,6 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 927992f83ca21944182e52118d79749e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PhoneUIController
   screenImage: {fileID: 0}
   faceIDSprite: {fileID: 0}
   homeSprite: {fileID: 0}

@@ -25,17 +25,16 @@ public class HandMovement : MonoBehaviour
     public float lookSensitivity = 0.4f;
 
     [SerializeField] public Transform _wrist;
-    private BoxCollider _wristCollider;
     private float wristRotateX;
     private float wristRotateY;
 
-    private GameObject _currHandUsing;
-    private bool _canInteract;
+    private GameObject _toInteractObj;  // check which object is it colliding with
+    private InteractableObject _currObj;    // currently interacting with hand
+    private bool _canInteract;  // can interact status
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
-        _wristCollider = _wrist.GetComponent<BoxCollider>();
         if (_wrist.GetComponent<Rigidbody>() != null)
         {
             _wrist.GetComponent<Rigidbody>().isKinematic = true;
@@ -84,12 +83,24 @@ public class HandMovement : MonoBehaviour
                 if (stopSource != null)
                     stopSource.Play();
             }
-            if (_interactAction.WasPressedThisFrame() && _currHandUsing != null && _canInteract)
+
+            // check if hand is empty and is there an object to interact with
+            if (_interactAction.WasPressedThisFrame() && _toInteractObj != null && _canInteract)
             {
-                if (_currHandUsing.TryGetComponent(out InteractableObject interactable))
+                if (_toInteractObj.TryGetComponent(out InteractableObject interactable))
                 {
                     InteractWithObject(interactable);
+                    _currObj = interactable;
+                    _canInteract = false;
                 }
+            }
+
+            // check if hand is not empty
+            else if (_interactAction.WasPressedThisFrame() && _currObj != null)
+            {
+                Debug.Log("interaction " + _toInteractObj + _canInteract);
+                StopInteractingWithObject(_currObj);
+                _currObj = null;
             }
 
         }
@@ -127,21 +138,20 @@ public class HandMovement : MonoBehaviour
 
     public void SetCurrentInteractableObject(GameObject handUsing, bool canInteract)
     {
-        _currHandUsing = handUsing;
+        _toInteractObj = handUsing;
         _canInteract = canInteract;
     }
 
     private void InteractWithObject(InteractableObject interactableObject)
     {
         Debug.Log("Interacting with " + interactableObject);
-        interactableObject.transform.parent = _wrist;
-        interactableObject.transform.localPosition = new Vector3(0.0f, 5.2f, -1.0f);
-        interactableObject.transform.localRotation = Quaternion.Euler(-88f, 10f, 0f);
-        interactableObject.InteractWithHand();
-        // Example: Move the interactable object towards the wrist (hand)
-        //interactableObject.transform.position = Vector3.Lerp(interactableObject.transform.position, wrist.position, Time.deltaTime * speed);
+        interactableObject.InteractWithHand(_wrist);
+    }
 
-        // You could also trigger animations, sounds, or other actions here.
+    private void StopInteractingWithObject(InteractableObject interactableObject)
+    {
+        Debug.Log("Stopping interaction with " + interactableObject);
+        interactableObject.StopInteractWithHand();
     }
 
 }

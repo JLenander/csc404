@@ -8,14 +8,10 @@ public class InteractableObject : MonoBehaviour
     public Outline outline;
     public bool canInteract = true;
     private HandMovement hand;
-    private InputAction _interactAction;
-    private GameObject _currPlayer;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected virtual void Start()
     {
         DisableOutline();
-        //handMovement = FindFirstObjectByType<HandMovement>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -47,7 +43,7 @@ public class InteractableObject : MonoBehaviour
         outline.enabled = true;
     }
 
-    public virtual void InteractWithHand()
+    public virtual void InteractWithHand(Transform obj)
     {
     }
 

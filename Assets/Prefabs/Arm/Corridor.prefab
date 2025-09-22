@@ -700,7 +700,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1458080755886111844, guid: 5398ea82530591c489fc08f67aeb1e0e, type: 3}
       propertyPath: m_Name
-      value: Left Tunnel Door
+      value: Tunnel Door
       objectReference: {fileID: 0}
     - target: {fileID: 2267549306269263582, guid: 5398ea82530591c489fc08f67aeb1e0e, type: 3}
       propertyPath: m_LocalPosition.x

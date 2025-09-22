@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.Universal;
 using static UnityEngine.Timeline.AnimationPlayableAsset;
 
 public class HandMovement : MonoBehaviour
@@ -10,6 +11,8 @@ public class HandMovement : MonoBehaviour
     private InputAction _moveAction;
     private InputAction _dpadAction;
     private InputAction _lookAction;
+    private InputAction _interactAction;
+
     public Vector3 movement;
     private bool _disable;
 
@@ -21,13 +24,22 @@ public class HandMovement : MonoBehaviour
 
     public float lookSensitivity = 0.4f;
 
-    [SerializeField] Transform _wrist;
+    [SerializeField] public Transform _wrist;
+    private BoxCollider _wristCollider;
     private float wristRotateX;
     private float wristRotateY;
+
+    private GameObject _currHandUsing;
+    private bool _canInteract;
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        _wristCollider = _wrist.GetComponent<BoxCollider>();
+        if (_wrist.GetComponent<Rigidbody>() != null)
+        {
+            _wrist.GetComponent<Rigidbody>().isKinematic = true;
+        }
     }
 
     private void Update()
@@ -71,6 +83,14 @@ public class HandMovement : MonoBehaviour
                 if (stopSource != null)
                     stopSource.Play();
             }
+            if (_interactAction.WasPressedThisFrame() && _currHandUsing != null && _canInteract)
+            {
+                if (_currHandUsing.TryGetComponent(out InteractableObject interactable))
+                {
+                    InteractWithObject(interactable);
+                }
+            }
+
         }
 
     }
@@ -95,6 +115,7 @@ public class HandMovement : MonoBehaviour
         _moveAction = input.actions.FindAction("Move");
         _dpadAction = input.actions.FindAction("DpadMove");
         _lookAction = input.actions.FindAction("Look");
+        _interactAction = input.actions.FindAction("Interact");
         _disable = true;
     }
 
@@ -102,6 +123,25 @@ public class HandMovement : MonoBehaviour
     {
         _disable = false;
     }
-    
+
+    public void SetCurrentInteractableObject(GameObject handUsing, bool canInteract)
+    {
+        _currHandUsing = handUsing;
+        _canInteract = canInteract;
+    }
+
+    private void InteractWithObject(InteractableObject interactableObject)
+    {
+        Debug.Log("Interacting with " + interactableObject);
+        interactableObject.transform.parent = _wrist;
+        interactableObject.transform.localPosition = new Vector3(0.0f, 4.05f, -1.0f);
+        interactableObject.transform.localRotation = Quaternion.Euler(-88f, 10f, 0f);
+        interactableObject.InteractWithHand();
+        // Example: Move the interactable object towards the wrist (hand)
+        //interactableObject.transform.position = Vector3.Lerp(interactableObject.transform.position, wrist.position, Time.deltaTime * speed);
+
+        // You could also trigger animations, sounds, or other actions here.
+    }
+
 }
 

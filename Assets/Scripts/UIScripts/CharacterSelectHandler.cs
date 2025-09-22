@@ -1,10 +1,13 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
 namespace UIScripts
 {
-public class CharacterSelectHandler : MonoBehaviour
+public class CharacterSelectHandler : MonoBehaviour, ICharacterSelectScreen
 {
+    private const string PlayerCharacterPreviewName = "CharacterPreview";
+    
     private VisualElement[] _playerBoxes;
     void Start()
     {
@@ -15,27 +18,43 @@ public class CharacterSelectHandler : MonoBehaviour
         _playerBoxes[1] = root.Query<VisualElement>("Player2Selector");
         _playerBoxes[2] = root.Query<VisualElement>("Player3Selector");
         _playerBoxes[3] = root.Query<VisualElement>("Player4Selector");
-        
+
         SetupBoxes();
-        ConfirmPlayer(0);
     }
 
-    // Setup the intial states of the player select boxes
+    // Setup the initial states of the player select boxes
     private void SetupBoxes()
     {
         foreach (var playerBox in _playerBoxes)
         {
-            var previewImg = playerBox.Query<VisualElement>(name: "CharacterPreview").First();
+            var previewImg = playerBox.Query<VisualElement>(name: PlayerCharacterPreviewName).First();
             previewImg.visible = false;
         }
     }
-
-    // Modifies the player select box for the player specified  by <playerIndex> to visualize they have confirmed their charaacter selection
-    public void ConfirmPlayer(int playerIndex)
+    
+    public void AddPlayer(int playerIndex)
     {
+        // show the character select preview img
         var playerBox =  _playerBoxes[playerIndex];
-        var previewImg = playerBox.Query<VisualElement>(name: "CharacterPreview").First();
+        var previewImg = playerBox.Query<VisualElement>(name: PlayerCharacterPreviewName).First();
         previewImg.visible = true;
+    }
+
+    public void RemovePlayer(int playerIndex)
+    {
+        // hide character select preview image
+        var playerBox =  _playerBoxes[playerIndex];
+        var previewImg = playerBox.Query<VisualElement>(name: PlayerCharacterPreviewName).First();
+        previewImg.visible = false;
+        // unhighlight the player box
+        playerBox.RemoveFromClassList("playerConfirmed");
+
+    }
+    
+    public void ReadyPlayer(int playerIndex)
+    {
+        // highlight the player box with an outline to indicate they have readied up
+        var playerBox =  _playerBoxes[playerIndex];
         playerBox.AddToClassList("playerConfirmed");
     }
 }

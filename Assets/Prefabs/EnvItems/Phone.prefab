@@ -61,10 +61,10 @@ PrefabInstance:
       addedObject: {fileID: 9198035410372659296}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 01b64a996a4f15647a12c2e63c788149, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8576002134430324515}
+      addedObject: {fileID: 176791885357414516}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 01b64a996a4f15647a12c2e63c788149, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 176791885357414516}
+      addedObject: {fileID: 1119035708307323975}
   m_SourcePrefab: {fileID: 100100000, guid: 01b64a996a4f15647a12c2e63c788149, type: 3}
 --- !u!1 &4228762459284225449 stripped
 GameObject:
@@ -92,20 +92,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.011091778, y: 0.012693191, z: 0.012455758}
   m_Center: {x: 0, y: -0.0013465954, z: 0.000028253067}
---- !u!114 &8576002134430324515
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4228762459284225449}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 857f1d38f1436ab42841bd630d9411a4, type: 3}
-  m_Name: 
-  input: {fileID: -944628639613478452, guid: 487b377fda672dd4694b543e63ae9f09, type: 3}
-  moveSpeed: 5
-  rotateSpeed: 50
 --- !u!114 &176791885357414516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,8 +103,24 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 927992f83ca21944182e52118d79749e, type: 3}
   m_Name: 
+  m_EditorClassIdentifier: 
   screenImage: {fileID: 0}
   faceIDSprite: {fileID: 0}
   homeSprite: {fileID: 0}
-  swipeSprite: {fileID: 0}
-  matchSprite: {fileID: 0}
+  swipeOneSprite: {fileID: 0}
+  matchOneSprite: {fileID: 0}
+  swipeTwoSprite: {fileID: 0}
+  matchTwoSprite: {fileID: 0}
+--- !u!114 &1119035708307323975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4228762459284225449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36ae96cea6d31f44db807f7e49205641, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PhoneScreen
+  playerCamera: {fileID: 0}

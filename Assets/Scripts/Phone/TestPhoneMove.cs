@@ -1,3 +1,9 @@
+// Kept in case of reference
+// Simple movement script for testing phone screen interaction
+// Uses Rigidbody for movement and rotation but not needed, was using just Transform before
+// Uses PhoneControls input map in TestControls.inputactions
+// now deleted but it was a simple action map with Move (Vector3) with WASDZX and Rotate (Vector2) with QERF
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -30,6 +36,7 @@ public class TestPhoneMove : MonoBehaviour
         _rotateInput = _rotateAction.ReadValue<Vector2>();
     }
     
+    // Apply movement and rotation in FixedUpdate for Rigidbody
     private void FixedUpdate()
     {
         // Move using Rigidbody.MovePosition
@@ -57,6 +64,7 @@ public class TestPhoneMove : MonoBehaviour
         }
     }
     
+    // Enable/Disable input actions must include to work
     private void OnEnable()
     {
         _moveAction.Enable();

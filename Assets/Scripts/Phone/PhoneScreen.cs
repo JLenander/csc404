@@ -1,3 +1,5 @@
+// Start phone with FaceID and success when faces player camera - to home screen
+
 using UnityEngine;
 
 public class PhoneScreen : MonoBehaviour
@@ -8,12 +10,14 @@ public class PhoneScreen : MonoBehaviour
     private bool _faceIDDone;
     private PhoneUIController _phoneUI;
 
+    // Start phone screen on FaceID
     private void Start()
     {
         _phoneUI = GetComponent<PhoneUIController>();
         _phoneUI.ShowFaceID();
     }
 
+    // Check screen angle each frame until FaceID done - front faces player camera within _maxAngle
     private void Update()
     {
         if (_faceIDDone) return;

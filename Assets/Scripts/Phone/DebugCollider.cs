@@ -1,3 +1,5 @@
+// To show red gizmo for collider in Editor (not in game)
+
 using UnityEngine;
 
 public class DebugCollider : MonoBehaviour

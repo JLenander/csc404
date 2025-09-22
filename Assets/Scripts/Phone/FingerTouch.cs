@@ -1,8 +1,10 @@
+// Handles finger touch input for phone screen interaction
+
 using UnityEngine;
 
 public class FingerTouch : MonoBehaviour
 {
-    public GameObject phone;              // Phone prefab
+    public GameObject phone;                // Phone prefab
     // public Transform finger;              // fingertip for position
     // refactored to use built-in "this" GameObject's "transform" for position instead of separate public finger
     private Transform _swipeArea;           // SwipeArea for position

@@ -51,6 +51,7 @@ public class HandMovement : MonoBehaviour
             Vector2 dpadMove = _dpadAction.ReadValue<Vector2>();
             Vector3 stickMovement = new Vector3(-1 * stickMove.x, stickMove.y, 0);
             Vector3 dpadMovement = new Vector3(0, 0, dpadMove.y) * -1;
+
             movement = (stickMovement + dpadMovement) * speed;
             // movement done in FixedUpdate
 
@@ -134,7 +135,7 @@ public class HandMovement : MonoBehaviour
     {
         Debug.Log("Interacting with " + interactableObject);
         interactableObject.transform.parent = _wrist;
-        interactableObject.transform.localPosition = new Vector3(0.0f, 4.05f, -1.0f);
+        interactableObject.transform.localPosition = new Vector3(0.0f, 5.2f, -1.0f);
         interactableObject.transform.localRotation = Quaternion.Euler(-88f, 10f, 0f);
         interactableObject.InteractWithHand();
         // Example: Move the interactable object towards the wrist (hand)

@@ -277,6 +277,7 @@ GameObject:
   - component: {fileID: 3598480470128459843}
   - component: {fileID: 7178948343284438038}
   - component: {fileID: 300520200049013587}
+  - component: {fileID: 878202692418598947}
   m_Layer: 0
   m_Name: jt_bot
   m_TagString: Untagged
@@ -352,6 +353,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 6, y: 8, z: 4}
   m_Center: {x: -0.5, y: 3.5, z: 0}
+--- !u!114 &878202692418598947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2499713626092082237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 848b3517a044c3444b03a1151c57a10e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  target: {fileID: 6899660115917678809}
 --- !u!1 &2563536777017789046
 GameObject:
   m_ObjectHideFlags: 0
@@ -1019,7 +1033,7 @@ MonoBehaviour:
   moveSource: {fileID: 9101476477953639738}
   stopSource: {fileID: 3441565667892176480}
   lookSensitivity: 0.4
-  wrist: {fileID: 0}
+  _wrist: {fileID: 0}
 --- !u!54 &3855450205215958619
 Rigidbody:
   m_ObjectHideFlags: 0

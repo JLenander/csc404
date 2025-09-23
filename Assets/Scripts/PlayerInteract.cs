@@ -10,7 +10,6 @@ public class PlayerInteract : MonoBehaviour
     public float reach = 1f;
     private Camera fpsCam;
     Interactable currentItem;
-    [SerializeField] private HUDController hUDController;
 
     private InputAction _interactAction;
 
@@ -24,18 +23,13 @@ public class PlayerInteract : MonoBehaviour
         var input = GetComponent<PlayerInput>();
         _interactAction = input.actions.FindAction("Interact");
         _returnAction = input.actions.FindAction("Return");
-        hUDController = FindFirstObjectByType<HUDController>();
         fpsCam = GetComponent<PlayerInput>().camera;
 
         interacting = null;
 
         PlayerInput playerInput = GetComponent<PlayerInput>();
         playerId = playerInput.playerIndex + 1;
-
-        if (playerId == 2)
-        {
-            hUDController.playText();
-        }
+        
     }
 
     // Update is called once per frame
@@ -74,6 +68,12 @@ public class PlayerInteract : MonoBehaviour
             {
                 Interactable newInteractable = hit.collider.GetComponent<Interactable>();
 
+                // Null interact
+                if (!newInteractable)
+                {
+                    return;
+                }
+
                 if (currentItem && newInteractable != currentItem)
                 {
                     currentItem.DisableOutline();
@@ -103,12 +103,10 @@ public class PlayerInteract : MonoBehaviour
     {
         currentItem = newInteractable;
         currentItem.EnableOutline();
-        hUDController.EnableInteractionText(playerId, currentItem.message);
     }
 
     void DisableCurrInteractable()
     {
-        hUDController.DisableInteractionText(playerId);
         if (currentItem)
         {
             currentItem.DisableOutline();

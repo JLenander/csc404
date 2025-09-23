@@ -1,0 +1,15 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/DefaultStyleSheet.uss?fileID=7433441132597879392&amp;guid=9107073a6abb0d64a85c8de9603265e8&amp;type=3#DefaultStyleSheet" />
+    <ui:VisualElement name="PlainColorBackground" style="flex-grow: 1; align-items: center; justify-content: center; background-color: rgb(242, 241, 232);">
+        <ui:VisualElement name="MainScreen" style="flex-grow: 0; align-self: center; width: 80%; height: 100%; translate: 0 0%; justify-content: space-between;">
+            <ui:VisualElement name="Title" style="flex-grow: 0; top: 10%;">
+                <ui:Label text="Fitting In" name="TempTitle" style="-unity-text-align: middle-center; font-size: 64px;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:GroupBox name="MainMenuButtons" style="font-size: 36px; bottom: 10%;">
+            <ui:Button text="Start" name="StartButton" triple-click-selects-line="false" />
+            <ui:Button text="Settings (WIP)" name="SettingsButton" />
+            <ui:Button text="Quit Game" name="QuitButton" />
+        </ui:GroupBox>
+    </ui:VisualElement>
+</ui:UXML>

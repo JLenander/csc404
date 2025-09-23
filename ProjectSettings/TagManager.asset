@@ -6,6 +6,8 @@ TagManager:
   tags:
   - interactable
   - Hand
+  - PhoneButton
+  - SwipeArea
   layers:
   - Default
   - TransparentFX

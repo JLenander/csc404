@@ -745,34 +745,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 176791885357414516, guid: fabd580c3de01dc40b885c2cb9fce109, type: 3}
-      propertyPath: homeSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 783e6ccd1e6243c4b8e719b5422bf3fe, type: 3}
-    - target: {fileID: 176791885357414516, guid: fabd580c3de01dc40b885c2cb9fce109, type: 3}
-      propertyPath: screenImage
-      value: 
-      objectReference: {fileID: 263528262}
-    - target: {fileID: 176791885357414516, guid: fabd580c3de01dc40b885c2cb9fce109, type: 3}
-      propertyPath: faceIDSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 22fd7c0f4fa34a549b17b31c6e2e5e15, type: 3}
-    - target: {fileID: 176791885357414516, guid: fabd580c3de01dc40b885c2cb9fce109, type: 3}
-      propertyPath: matchOneSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: d99dfe7d69854908b4523e2d88990142, type: 3}
-    - target: {fileID: 176791885357414516, guid: fabd580c3de01dc40b885c2cb9fce109, type: 3}
-      propertyPath: matchTwoSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: e9e2f253b11d4195a9c60a9326483067, type: 3}
-    - target: {fileID: 176791885357414516, guid: fabd580c3de01dc40b885c2cb9fce109, type: 3}
-      propertyPath: swipeOneSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: cfcea8eeefad49d898b5757073ee9321, type: 3}
-    - target: {fileID: 176791885357414516, guid: fabd580c3de01dc40b885c2cb9fce109, type: 3}
-      propertyPath: swipeTwoSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 19a33fed7d8a4f07b77f035017fc75df, type: 3}
     - target: {fileID: 5870327612358294059, guid: 790f9a21ef084040a4adef93f2fad67d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 52.3
@@ -817,6 +789,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: Phone
       objectReference: {fileID: 0}
+    - target: {fileID: 176791885357414516, guid: fabd580c3de01dc40b885c2cb9fce109, type: 3}
+      propertyPath: homeSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 783e6ccd1e6243c4b8e719b5422bf3fe, type: 3}
+    - target: {fileID: 176791885357414516, guid: fabd580c3de01dc40b885c2cb9fce109, type: 3}
+      propertyPath: screenImage
+      value: 
+      objectReference: {fileID: 263528262}
+    - target: {fileID: 176791885357414516, guid: fabd580c3de01dc40b885c2cb9fce109, type: 3}
+      propertyPath: faceIDSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 22fd7c0f4fa34a549b17b31c6e2e5e15, type: 3}
+    - target: {fileID: 176791885357414516, guid: fabd580c3de01dc40b885c2cb9fce109, type: 3}
+      propertyPath: matchOneSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d99dfe7d69854908b4523e2d88990142, type: 3}
+    - target: {fileID: 176791885357414516, guid: fabd580c3de01dc40b885c2cb9fce109, type: 3}
+      propertyPath: matchTwoSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e9e2f253b11d4195a9c60a9326483067, type: 3}
+    - target: {fileID: 176791885357414516, guid: fabd580c3de01dc40b885c2cb9fce109, type: 3}
+      propertyPath: swipeOneSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: cfcea8eeefad49d898b5757073ee9321, type: 3}
+    - target: {fileID: 176791885357414516, guid: fabd580c3de01dc40b885c2cb9fce109, type: 3}
+      propertyPath: swipeTwoSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 19a33fed7d8a4f07b77f035017fc75df, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -893,9 +893,13 @@ MonoBehaviour:
   faceIDSprite: {fileID: 21300000, guid: 22fd7c0f4fa34a549b17b31c6e2e5e15, type: 3}
   homeSprite: {fileID: 21300000, guid: 783e6ccd1e6243c4b8e719b5422bf3fe, type: 3}
   swipeOneSprite: {fileID: 21300000, guid: cfcea8eeefad49d898b5757073ee9321, type: 3}
+  anyOneSprite: {fileID: 21300000, guid: 30fabcabaf7a6454daebcfb363fc5b24, type: 3}
   matchOneSprite: {fileID: 21300000, guid: d99dfe7d69854908b4523e2d88990142, type: 3}
   swipeTwoSprite: {fileID: 21300000, guid: 19a33fed7d8a4f07b77f035017fc75df, type: 3}
+  anyTwoSprite: {fileID: 21300000, guid: 534ff860b8447e84e9bfc30c526190e0, type: 3}
   matchTwoSprite: {fileID: 21300000, guid: e9e2f253b11d4195a9c60a9326483067, type: 3}
+  anyThreeSprite: {fileID: 21300000, guid: 4afd24e84146c59469e697a1fe03234d, type: 3}
+  matchThreeSprite: {fileID: 21300000, guid: aa2c8506a0ab749419feaf0dd69eec93, type: 3}
 --- !u!114 &423389420
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,9 +1,24 @@
 fileFormatVersion: 2
-guid: 1bd880892b13aa84dacff1d090792ad5
+guid: f2a9de9cee120a546b3786db21f7e49c
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Plorp_Walk_Loop_ver004_Final_Plorp_OptimizedMesh_ver016_FINALRIG_Plorp_Black_MTL
+    second: {fileID: 2100000, guid: e64c7b8fbdb19d345bed94bf3ad39e6a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Plorp_Walk_Loop_ver004_Final_Plorp_OptimizedMesh_ver016_FINALRIG_Plorp_Green_MTL
+    second: {fileID: 2100000, guid: 79c847ce78d7b0d42848585064182da6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Plorp_Walk_Loop_ver004_Final_Plorp_OptimizedMesh_ver016_FINALRIG_Plorp_White_MTL
+    second: {fileID: 2100000, guid: bb5500a2944047848a55bab4cb8a3a8d, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -30,7 +45,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 0
+    isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 1

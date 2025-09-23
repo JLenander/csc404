@@ -35,10 +35,6 @@ public class HandMovement : MonoBehaviour
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
-        if (_wrist.GetComponent<Rigidbody>() != null)
-        {
-            _wrist.GetComponent<Rigidbody>().isKinematic = true;
-        }
     }
 
     private void Update()
@@ -60,8 +56,8 @@ public class HandMovement : MonoBehaviour
             wristRotateY += lookMove.y * lookSensitivity;
             wristRotateY = Mathf.Clamp(wristRotateY, -90f, 90f);
 
-            bool movingNow = movement.magnitude > 0.5f;
-
+            bool movingNow = (movement.magnitude > 0.5f) || (lookMove.magnitude > 0.3f);
+            
             // Movement started
             if (movingNow && !_isMoving)
             {
@@ -89,9 +85,12 @@ public class HandMovement : MonoBehaviour
             {
                 if (_toInteractObj.TryGetComponent(out InteractableObject interactable))
                 {
-                    InteractWithObject(interactable);
-                    _currObj = interactable;
-                    _canInteract = false;
+                    if (interactable.canPickup)
+                    {
+                        InteractWithObject(interactable);
+                        _currObj = interactable;
+                        _canInteract = false;
+                    }
                 }
             }
 
@@ -127,7 +126,7 @@ public class HandMovement : MonoBehaviour
         _moveAction = input.actions.FindAction("Move");
         _dpadAction = input.actions.FindAction("DpadMove");
         _lookAction = input.actions.FindAction("Look");
-        _interactAction = input.actions.FindAction("Interact");
+        _interactAction = input.actions.FindAction("ItemInteract");
         _disable = true;
     }
 

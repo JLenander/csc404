@@ -32,6 +32,8 @@ public class BlinkConsole : Interactable
                 timerIsRunning = false;
                 timeToNextBlink = totalTimeBlink;
                 Debug.Log("time to blink");
+                outline.OutlineColor = Color.red;
+                EnableOutline();
             }
         }
         else
@@ -60,6 +62,8 @@ public class BlinkConsole : Interactable
         timerIsRunning = true;
         timeToNextBlink = totalTimeBlink;
         pressCountdown = totalTimePress;
+        outline.OutlineColor = Color.white;
+        //EnableOutline();
         Debug.Log("timers reset");
     }
 }

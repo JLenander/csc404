@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7162682403095007688}
   - component: {fileID: 3650357320419599758}
-  - component: {fileID: 3369038687093477846}
+  - component: {fileID: 3334005138234291475}
   - component: {fileID: 3490989836266149975}
   - component: {fileID: 1821770532286030898}
   - component: {fileID: 4330509531362283149}
@@ -57,7 +57,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3369038687093477846
+--- !u!114 &3334005138234291475
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -66,11 +66,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6776784086265474187}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a89c483c25e577e458051d30d9f5ecc9, type: 3}
+  m_Script: {fileID: 11500000, guid: fae98d8f9f96e9942a4cba3fd16bf15c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PhoneTestHandMove
-  speed: 5
-  input: {fileID: -944628639613478452, guid: 487b377fda672dd4694b543e63ae9f09, type: 3}
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
+  speed: 20
   movement: {x: 0, y: 0, z: 0}
   moveSource: {fileID: 1821770532286030898}
   stopSource: {fileID: 4330509531362283149}

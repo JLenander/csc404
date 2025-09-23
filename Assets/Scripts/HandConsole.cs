@@ -1,55 +1,30 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class HeadConsole : Interactable
+public class HandConsole : Interactable
 {
-    [SerializeField] private Transform exteriorHead; //reference for robot head
-    [SerializeField] private Quaternion camAngle; // current robot head angle
-    private Quaternion originalPlayerRotation; // player rotation
-    private Vector3 originalCamPosition; // player camera position
-    private Quaternion originalCamLocalRotation; // player camera local rotation
-    private Transform camParent; // camera's parent (player object)
-
+    public GameObject handRigTarget;
     private bool _canInteract = true;
+
+    void Start()
+    {
+        DisableOutline();
+    }
 
     public override void Interact(GameObject player)
     {
-        if (!_canInteract) return;
-        PlayerInput playerInput = player.GetComponent<PlayerInput>();
-
-        // get camera from player input and save old rotation and position
-        Camera playerCam = playerInput.camera;
-        originalCamPosition = playerCam.transform.position;
-        originalPlayerRotation = player.transform.localRotation;
-        originalCamLocalRotation = playerCam.transform.localRotation;
-        camParent = playerCam.transform.parent; //save player camera's parent
-        playerCam.transform.parent = exteriorHead;// make the exterior head the new parent
-
-        // teleport camera to exterior head and align angle
-        playerCam.transform.position = exteriorHead.position;
-        playerCam.transform.rotation = camAngle;
-
+        if (!_canInteract) return;  // check if there is already a player on the console
         player.GetComponent<Player>().TurnOff();
-        player.GetComponent<Player>().switchToHead();
+        handRigTarget.GetComponent<HandMovement>().TurnOn(player);
         _canInteract = false;
     }
 
     public override void Return(GameObject player)
     {
-        PlayerInput playerInput = player.GetComponent<PlayerInput>();
-        Camera playerCam = playerInput.camera;
-
-        // reinput player's data
-        playerCam.transform.parent = camParent;
-        playerCam.transform.position = originalCamPosition;
-        player.transform.rotation = originalPlayerRotation;
-        playerCam.transform.localRotation = originalCamLocalRotation;
-
         player.GetComponent<Player>().TurnOn();
-        player.GetComponent<Player>().switchOffHead();
-
-        _canInteract = true;
+        handRigTarget.GetComponent<HandMovement>().TurnOff(player);
+        _canInteract= true; // current player leaves
     }
+
     public override bool CanInteract()
     {
         return _canInteract;

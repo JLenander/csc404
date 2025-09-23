@@ -274,6 +274,7 @@ GameObject:
   - component: {fileID: 8564385645298068870}
   - component: {fileID: 809383519405495412}
   - component: {fileID: 7582041087888120974}
+  - component: {fileID: 7544769422248311316}
   m_Layer: 0
   m_Name: Room
   m_TagString: Untagged
@@ -401,6 +402,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 4.921138, y: 0.35722092, z: 3.7120943}
   m_Center: {x: 0, y: 2.363066, z: 0.72276455}
+--- !u!65 &7544769422248311316
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4436574057718939949}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 6.05, y: 1, z: 0.43}
+  m_Center: {x: 0, y: 6.05, z: -0.6}
 --- !u!1 &6996305120073175723
 GameObject:
   m_ObjectHideFlags: 0
@@ -529,6 +551,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 71984428cc323d946b785101561d3dab, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.18
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 71984428cc323d946b785101561d3dab, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.18
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 71984428cc323d946b785101561d3dab, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.18
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 71984428cc323d946b785101561d3dab, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -568,10 +602,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 71984428cc323d946b785101561d3dab, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 71984428cc323d946b785101561d3dab, type: 3}
       propertyPath: m_Name
       value: Corridor
       objectReference: {fileID: 0}
+    - target: {fileID: 3620852893234782568, guid: 71984428cc323d946b785101561d3dab, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 165994214ccbbec418a3969b3a4001d5, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: -474726021971127464, guid: 71984428cc323d946b785101561d3dab, type: 3}
@@ -698,6 +740,18 @@ PrefabInstance:
       propertyPath: message
       value: Leave Arm Tunnel
       objectReference: {fileID: 0}
+    - target: {fileID: 1097990766212619697, guid: 5398ea82530591c489fc08f67aeb1e0e, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1097990766212619697, guid: 5398ea82530591c489fc08f67aeb1e0e, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 165994214ccbbec418a3969b3a4001d5, type: 2}
+    - target: {fileID: 1097990766212619697, guid: 5398ea82530591c489fc08f67aeb1e0e, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 165994214ccbbec418a3969b3a4001d5, type: 2}
     - target: {fileID: 1458080755886111844, guid: 5398ea82530591c489fc08f67aeb1e0e, type: 3}
       propertyPath: m_Name
       value: Tunnel Door

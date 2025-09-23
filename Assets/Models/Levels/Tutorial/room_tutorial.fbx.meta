@@ -1,19 +1,9 @@
 fileFormatVersion: 2
-guid: c26bd64bd52160749944e6a657171b97
+guid: 150bf56a67c39c945a575a06b4d932f7
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Plorp_Model_Rigged_ver002_Plorp_body1
-    second: {fileID: 2100000, guid: 1ec35517225d2ed46ab81314e995741f, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Plorp_Model_Rigged_ver002_Plorp_eyes
-    second: {fileID: 2100000, guid: 819024c756ea5044daac14d75610f713, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0

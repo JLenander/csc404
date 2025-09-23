@@ -62,7 +62,7 @@ public class GlobalPlayerManager : MonoBehaviour
                     // All players are ready and someone pressed the submit action so we start the game
                     // TODO handle in a level manager?
                     Debug.Log("All players ready - starting");
-                    // SceneManager.LoadScene("Setup");
+                    SceneManager.LoadScene("Setup");
                 }
                 else
                 {
@@ -131,19 +131,35 @@ public class GlobalPlayerManager : MonoBehaviour
             if (player.Valid)
             {
                 // Find player's spawn anchor for this scene
+                // TODO handle this in the level manager? At least make it more efficient.
+                var spawnAnchor = GameObject.Find("Player" + (player.Index + 1) + "Spawn");
                 
                 // Teleport player to their spawn anchor for this new scene
                 var charController = player.PlayerObject.GetComponent<CharacterController>();
                 charController.enabled = false;
                 Debug.Log("Attempting scene change player " + player.Index + " teleport to anchor for new scene " + newScene.name);
-                // player.PlayerObject.transform = 
+                player.PlayerObject.transform.position = spawnAnchor.transform.position; 
                 charController.enabled = true;
                 
                 // Switch action map to player action map if not character selection screen
+                if (IsCharacterSelectScene())
+                {
+                    player.Input.SwitchCurrentActionMap(InputActionMapper.CharacterSelectActionMapName);
+                }
+                else
+                {
+                    player.Input.SwitchCurrentActionMap(InputActionMapper.PlayerActionMapName);
+                }
                 
                 // re-enable player
                 player.PlayerObject.GetComponent<Player>().TurnOn();
             }
+        }
+        
+        // disable joining if not in the character select scene
+        if (!IsCharacterSelectScene())
+        {
+            PlayerInputManager.instance.DisableJoining();
         }
     }
     

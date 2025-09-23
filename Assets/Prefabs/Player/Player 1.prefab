@@ -191,7 +191,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
+  m_DefaultActionMap: 8b25a09a-8d14-4cb4-b21f-16ccb3e004cb
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 808902687716362197}
 --- !u!114 &3713163052067374772
@@ -207,7 +207,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteract
   reach: 5
-  hUDController: {fileID: 0}
 --- !u!114 &5478721749943547906
 MonoBehaviour:
   m_ObjectHideFlags: 0

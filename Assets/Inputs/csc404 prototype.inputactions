@@ -774,16 +774,7 @@
             "id": "8b25a09a-8d14-4cb4-b21f-16ccb3e004cb",
             "actions": [
                 {
-                    "name": "PlayerJoin",
-                    "type": "Button",
-                    "id": "52c43fe4-6b14-4eeb-8593-ecfa9c948d6f",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "PlayerLeave",
+                    "name": "Cancel",
                     "type": "Button",
                     "id": "06f979cb-9039-43b4-84c5-b382425cf459",
                     "expectedControlType": "",
@@ -792,9 +783,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ReadyUp",
+                    "name": "Submit",
                     "type": "Button",
                     "id": "83b51dc0-5b09-45e9-8160-f69167852a8b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "PlayerJoin",
+                    "type": "Button",
+                    "id": "a6474c70-c9ac-4bcb-95af-119fe5cbe5c8",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -804,34 +804,12 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "5be6392c-42d1-4e8f-887f-3e4106b294d3",
-                    "path": "<Keyboard>/anyKey",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "PlayerJoin",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "01bebfc0-b4fd-4873-8c26-96599d843dc7",
-                    "path": "<Gamepad>/{Submit}",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Gamepad",
-                    "action": "PlayerJoin",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "71822865-4efc-48af-bc9d-429c5fdfbeec",
                     "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "PlayerLeave",
+                    "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -842,7 +820,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
-                    "action": "PlayerLeave",
+                    "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -853,7 +831,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "ReadyUp",
+                    "action": "Submit",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -864,7 +842,29 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
-                    "action": "ReadyUp",
+                    "action": "Submit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6f968a9f-c9de-4285-9120-1cf395ab3a84",
+                    "path": "<Keyboard>/anyKey",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "PlayerJoin",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "54d00255-ba76-45df-b60e-d93e63e95b39",
+                    "path": "*/{Submit}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "PlayerJoin",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -8,7 +9,7 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class GlobalPlayerManager : MonoBehaviour
 {
-    [SerializeField] private int playerLimit;
+    private int _playerLimit;
     private PlayerData[] _players;
     // The UI handler for the character select screen
     [SerializeField] private GameObject characterSelectScreen;
@@ -21,8 +22,9 @@ public class GlobalPlayerManager : MonoBehaviour
         _characterSelectScreen = characterSelectScreen.GetComponent<ICharacterSelectScreen>();
         
         // initalize player data
-        _players = new PlayerData[playerLimit];
-        for (int i = 0; i < playerLimit; i++)
+        _playerLimit = PlayerInputManager.instance.maxPlayerCount;
+        _players = new PlayerData[_playerLimit];
+        for (int i = 0; i < _playerLimit; i++)
         {
             _players[i].Index = i;
         }
@@ -53,22 +55,43 @@ public class GlobalPlayerManager : MonoBehaviour
             _characterSelectScreen.AddPlayer(idx);
             
             // register callbacks for the character select screen actions.
-            _players[idx].ReadyPlayerDelegate = ctx =>
+            _players[idx].SubmitActionDelegate = ctx =>
             {
-                Debug.Log("Player " + idx+ " ready");
-                _characterSelectScreen.ReadyPlayer(playerInput.playerIndex);
+                if (AllPlayersReady())
+                {
+                    // All players are ready and someone pressed the submit action so we start the game
+                    // TODO handle in a level manager?
+                    Debug.Log("All players ready - starting");
+                    // SceneManager.LoadScene("Setup");
+                }
+                else
+                {
+                    Debug.Log("Player " + idx + " ready");
+                    _characterSelectScreen.ReadyPlayer(idx);
+                    _players[idx].Ready = true;
+                }
+                Debug.Log("submit action");
             };
-            _players[idx].PlayerLeaveDelegate = ctx =>
+            _players[idx].CancelActionDelegate = ctx =>
             {
-                Debug.Log("Player " +idx + " leaving");
-                _characterSelectScreen.RemovePlayer(playerInput.playerIndex);
-                Destroy(playerInput.gameObject);
+                // Unready a player or remove them if they're already unready.
+                if (_players[idx].Ready)
+                {
+                    Debug.Log("Player " + idx + " not ready");
+                    _characterSelectScreen.UnreadyPlayer(idx);
+                    _players[idx].Ready = false;
+                } else {
+                    Debug.Log("Player " + idx + " leaving");
+                    _characterSelectScreen.RemovePlayer(idx);
+                    Destroy(playerInput.gameObject);
+                }
             };
-            InputActionMapper.GetCharacterSelectReadyUpAction(playerInput).started += _players[idx].ReadyPlayerDelegate;
-            InputActionMapper.GetCharacterSelectPlayerLeaveAction(playerInput).started += _players[idx].PlayerLeaveDelegate;
+            InputActionMapper.GetCharacterSelectSubmitAction(playerInput).started += _players[idx].SubmitActionDelegate;
+            InputActionMapper.GetCharacterSelectCancelAction(playerInput).started += _players[idx].CancelActionDelegate;
             
             // Ensure player is on the character select screen action map
             playerInput.SwitchCurrentActionMap(InputActionMapper.CharacterSelectActionMapName);
+            playerInput.gameObject.GetComponent<Player>().TurnOff();
         }
         else
         {
@@ -87,8 +110,8 @@ public class GlobalPlayerManager : MonoBehaviour
             Debug.Log("Player " + playerInput.playerIndex + " Left - Character Select Scene");
             
             // Remove the registered callbacks
-            InputActionMapper.GetCharacterSelectReadyUpAction(playerInput).started -= _players[playerInput.playerIndex].ReadyPlayerDelegate;
-            InputActionMapper.GetCharacterSelectPlayerLeaveAction(playerInput).started -= _players[playerInput.playerIndex].PlayerLeaveDelegate;
+            InputActionMapper.GetCharacterSelectSubmitAction(playerInput).started -= _players[playerInput.playerIndex].SubmitActionDelegate;
+            InputActionMapper.GetCharacterSelectCancelAction(playerInput).started -= _players[playerInput.playerIndex].CancelActionDelegate;
         }
         else
         {
@@ -112,13 +135,24 @@ public class GlobalPlayerManager : MonoBehaviour
                 // Teleport player to their spawn anchor for this new scene
                 var charController = player.PlayerObject.GetComponent<CharacterController>();
                 charController.enabled = false;
-                Debug.Log("Attempting scene change player teleport to anchor for new scene " + newScene.name);
+                Debug.Log("Attempting scene change player " + player.Index + " teleport to anchor for new scene " + newScene.name);
                 // player.PlayerObject.transform = 
                 charController.enabled = true;
+                
+                // Switch action map to player action map if not character selection screen
+                
+                // re-enable player
+                player.PlayerObject.GetComponent<Player>().TurnOn();
             }
         }
     }
     
+    /// <returns>True iff all valid players are ready and at least one player is valid</returns>
+    private bool AllPlayersReady()
+    {
+        return _players.All(player => !player.Valid || player.Ready) && _players.Any(player => player.Valid);
+    }
+        
     /// <returns>True if this is the character select scene. False otherwise</returns>
     private static bool IsCharacterSelectScene()
     {
@@ -129,12 +163,15 @@ public class GlobalPlayerManager : MonoBehaviour
 
 public struct PlayerData
 {
+    // True if the player is a valid playerdata object with an active player input
     public bool Valid { get; set; }
+    // True if the player is ready to start the game (used in the character select screen)
+    public bool Ready { get; set; }
     public int Index { get; set; }
     public PlayerInput Input { get; set; }
     public GameObject PlayerObject { get; set; }
-    public Action<InputAction.CallbackContext> ReadyPlayerDelegate { get; set; }
-    public Action<InputAction.CallbackContext> PlayerLeaveDelegate { get; set; }
+    public Action<InputAction.CallbackContext> SubmitActionDelegate { get; set; }
+    public Action<InputAction.CallbackContext> CancelActionDelegate { get; set; }
 }
 
 public interface ICharacterSelectScreen
@@ -156,8 +193,10 @@ public interface ICharacterSelectScreen
     /// </summary>
     /// <param name="playerIndex">The index of the player who readied up</param>
     public void ReadyPlayer(int playerIndex);
+
+    /// <summary>
+    /// A player has unreadied and can interact with the character selection again.
+    /// </summary>
+    /// <param name="playerIndex"></param>
+    public void UnreadyPlayer(int playerIndex);
 }
-//
-// private Enum {
-//
-// }

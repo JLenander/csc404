@@ -8,13 +8,13 @@ using UnityEngine.InputSystem;
 /// </summary>
 public static class InputActionMapper
 {
-    public static InputAction GetCharacterSelectReadyUpAction(PlayerInput playerInput)
+    public static InputAction GetCharacterSelectSubmitAction(PlayerInput playerInput)
     {
-        return playerInput.actions.FindAction("ReadyUp", throwIfNotFound: true);
+        return playerInput.actions.FindAction("Submit", throwIfNotFound: true);
     }
-    public static InputAction GetCharacterSelectPlayerLeaveAction(PlayerInput playerInput)
+    public static InputAction GetCharacterSelectCancelAction(PlayerInput playerInput)
     {
-        return playerInput.actions.FindAction("PlayerLeave", throwIfNotFound: true);
+        return playerInput.actions.FindAction("Cancel", throwIfNotFound: true);
     }
     
     public const string CharacterSelectActionMapName = "CharacterSelect";

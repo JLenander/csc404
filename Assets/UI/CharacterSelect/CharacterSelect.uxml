@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/CharacterSelect/CharacterSelect.uss?fileID=7433441132597879392&amp;guid=dc71b3340487bd840ad68aa282f11ad4&amp;type=3#CharacterSelect" />
-    <ui:VisualElement name="PlainColorBackground" style="flex-grow: 1; background-color: rgb(242, 241, 232); justify-content: flex-start; align-content: center; align-items: center; flex-direction: column;">
-        <ui:VisualElement name="JoinBoxes" style="flex-grow: 0; flex-direction: row; align-items: center; justify-content: space-evenly; align-self: flex-start; width: 100%; top: 20%;">
+    <ui:VisualElement name="PlainColorBackground" style="flex-grow: 1; background-color: rgb(242, 241, 232); justify-content: space-evenly; align-content: center; align-items: center; flex-direction: column;">
+        <ui:VisualElement name="JoinBoxes" style="flex-grow: 0; flex-direction: row; align-items: center; justify-content: space-evenly; align-self: flex-start; width: 100%; top: auto;">
             <ui:VisualElement name="Player1Selector" class="characterPreview">
                 <ui:VisualElement name="CharacterPreview" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/UI/Images/Plorp-2D-Drawn.png?fileID=2800000&amp;guid=a1e3570009a22c14d9f0025596811366&amp;type=3#Plorp-2D-Drawn&quot;); background-color: rgba(0, 0, 0, 0); width: 70%; height: 70%;" />
             </ui:VisualElement>
@@ -15,6 +15,9 @@
                 <ui:VisualElement name="CharacterPreview" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/UI/Images/Plorp-2D-Drawn.png?fileID=2800000&amp;guid=a1e3570009a22c14d9f0025596811366&amp;type=3#Plorp-2D-Drawn&quot;); background-color: rgba(0, 0, 0, 0); width: 70%; height: 70%;" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:Label text="Any button to join&#10;B (xbox) or q (keyboard) to leave" name="Instructions" style="bottom: auto; top: 50%; font-size: 36px;" />
+        <ui:Label text="Any button to join&#10;B (xbox) or q (keyboard) to leave&#10;A (xbox) or space (keyboard) to accept" name="Instructions" style="bottom: auto; top: auto; font-size: 36px;" />
+        <ui:VisualElement name="StartGameBox" style="flex-grow: 0; top: 0%; visibility: visible;">
+            <ui:Label text="Press A (xbox) or space (keyboard) to start game" name="StartGameText" enabled="true" style="font-size: 36px; top: 50%; visibility: hidden;" />
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

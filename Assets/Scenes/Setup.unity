@@ -1395,13 +1395,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-<<<<<<< HEAD
-=======
     - target: {fileID: 2502230244002026891, guid: 37e70ed55e0884d499a847d8c4e626d0, type: 3}
       propertyPath: m_Name
       value: Blink Terminal
       objectReference: {fileID: 0}
->>>>>>> main
     - target: {fileID: 3022589947011567409, guid: 37e70ed55e0884d499a847d8c4e626d0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.33
@@ -1442,13 +1439,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-<<<<<<< HEAD
-    - target: {fileID: 2502230244002026891, guid: 37e70ed55e0884d499a847d8c4e626d0, type: 3}
-      propertyPath: m_Name
-      value: Blink Terminal
-      objectReference: {fileID: 0}
-=======
->>>>>>> main
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

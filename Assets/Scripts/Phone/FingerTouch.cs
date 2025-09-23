@@ -43,6 +43,7 @@ public class FingerTouch : MonoBehaviour
         else if (other.CompareTag("PhoneButton"))
         {
             Debug.Log("Tapped app button");
+            other.enabled = false;
             _phoneUI.ShowSwipe();
         }
     }
@@ -66,12 +67,12 @@ public class FingerTouch : MonoBehaviour
             if (deltaX < 0)
             {
                 Debug.Log("Swipe Right");
-                _phoneUI.ShowMatch();
+                _phoneUI.ShowSwipe();
             }
             else
             {
                 Debug.Log("Swipe Left");
-                _phoneUI.ShowSwipe();
+                _phoneUI.ShowMatch();
             }
             _inSwipeArea = false; // stop multiple swipes
         }

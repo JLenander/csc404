@@ -8,6 +8,7 @@ TagManager:
   - Hand
   - PhoneButton
   - SwipeArea
+  - PlayerSpawnAnchor
   layers:
   - Default
   - TransparentFX

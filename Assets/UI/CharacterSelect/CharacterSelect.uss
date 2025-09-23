@@ -1,0 +1,25 @@
+:root {
+}
+
+.characterPreview {
+    width: 150px;
+    height: 150px;
+    background-color: rgb(203, 203, 203);
+    justify-content: center;
+    align-items: center;
+    border-top-width: 4px;
+    border-right-width: 4px;
+    border-bottom-width: 4px;
+    border-left-width: 4px;
+}
+
+.playerConfirmed {
+    border-top-width: 4px;
+    border-right-width: 4px;
+    border-bottom-width: 4px;
+    border-left-width: 4px;
+    border-left-color: rgb(0, 255, 93);
+    border-right-color: rgb(0, 255, 93);
+    border-top-color: rgb(0, 255, 93);
+    border-bottom-color: rgb(0, 255, 93);
+}

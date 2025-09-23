@@ -7,6 +7,7 @@ public class InteractableObject : MonoBehaviour
 {
     public Outline outline;
     public bool canInteract = true;
+    public bool canPickup = true;
     private HandMovement hand;
 
     protected virtual void Start()

@@ -807,7 +807,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36ae96cea6d31f44db807f7e49205641, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PhoneScreen
-  playerCamera: {fileID: 0}
+  playerCamera: {fileID: 148488376}
 --- !u!1001 &606036836
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1734,6 +1734,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Right Arm
       objectReference: {fileID: 0}
+    - target: {fileID: 8103580792657395223, guid: 47a5c93a8804efd47b411fabc3c9f906, type: 3}
+      propertyPath: phone
+      value: 
+      objectReference: {fileID: 423389416}
     - target: {fileID: 8763252883378892167, guid: 47a5c93a8804efd47b411fabc3c9f906, type: 3}
       propertyPath: m_LocalScale.x
       value: -1
@@ -2286,6 +2290,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Left Arm
       objectReference: {fileID: 0}
+    - target: {fileID: 8103580792657395223, guid: 47a5c93a8804efd47b411fabc3c9f906, type: 3}
+      propertyPath: phone
+      value: 
+      objectReference: {fileID: 423389416}
     - target: {fileID: 8763252883378892167, guid: 47a5c93a8804efd47b411fabc3c9f906, type: 3}
       propertyPath: m_LocalPosition.x
       value: 61.83

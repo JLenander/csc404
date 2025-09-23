@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.Universal;
 using static UnityEngine.Timeline.AnimationPlayableAsset;
 
 public class HandMovement : MonoBehaviour
@@ -10,6 +11,8 @@ public class HandMovement : MonoBehaviour
     private InputAction _moveAction;
     private InputAction _dpadAction;
     private InputAction _lookAction;
+    private InputAction _interactAction;
+
     public Vector3 movement;
     private bool _disable;
 
@@ -21,13 +24,21 @@ public class HandMovement : MonoBehaviour
 
     public float lookSensitivity = 0.4f;
 
-    [SerializeField] Transform _wrist;
+    [SerializeField] public Transform _wrist;
     private float wristRotateX;
     private float wristRotateY;
+
+    private GameObject _toInteractObj;  // check which object is it colliding with
+    private InteractableObject _currObj;    // currently interacting with hand
+    private bool _canInteract;  // can interact status
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        if (_wrist.GetComponent<Rigidbody>() != null)
+        {
+            _wrist.GetComponent<Rigidbody>().isKinematic = true;
+        }
     }
 
     private void Update()
@@ -39,6 +50,7 @@ public class HandMovement : MonoBehaviour
             Vector2 dpadMove = _dpadAction.ReadValue<Vector2>();
             Vector3 stickMovement = new Vector3(-1 * stickMove.x, stickMove.y, 0);
             Vector3 dpadMovement = new Vector3(0, 0, dpadMove.y) * -1;
+
             movement = (stickMovement + dpadMovement) * speed;
             // movement done in FixedUpdate
 
@@ -71,6 +83,26 @@ public class HandMovement : MonoBehaviour
                 if (stopSource != null)
                     stopSource.Play();
             }
+
+            // check if hand is empty and is there an object to interact with
+            if (_interactAction.WasPressedThisFrame() && _toInteractObj != null && _canInteract)
+            {
+                if (_toInteractObj.TryGetComponent(out InteractableObject interactable))
+                {
+                    InteractWithObject(interactable);
+                    _currObj = interactable;
+                    _canInteract = false;
+                }
+            }
+
+            // check if hand is not empty
+            else if (_interactAction.WasPressedThisFrame() && _currObj != null)
+            {
+                Debug.Log("interaction " + _toInteractObj + _canInteract);
+                StopInteractingWithObject(_currObj);
+                _currObj = null;
+            }
+
         }
 
     }
@@ -95,6 +127,7 @@ public class HandMovement : MonoBehaviour
         _moveAction = input.actions.FindAction("Move");
         _dpadAction = input.actions.FindAction("DpadMove");
         _lookAction = input.actions.FindAction("Look");
+        _interactAction = input.actions.FindAction("Interact");
         _disable = true;
     }
 
@@ -102,6 +135,24 @@ public class HandMovement : MonoBehaviour
     {
         _disable = false;
     }
-    
+
+    public void SetCurrentInteractableObject(GameObject handUsing, bool canInteract)
+    {
+        _toInteractObj = handUsing;
+        _canInteract = canInteract;
+    }
+
+    private void InteractWithObject(InteractableObject interactableObject)
+    {
+        Debug.Log("Interacting with " + interactableObject);
+        interactableObject.InteractWithHand(_wrist);
+    }
+
+    private void StopInteractingWithObject(InteractableObject interactableObject)
+    {
+        Debug.Log("Stopping interaction with " + interactableObject);
+        interactableObject.StopInteractWithHand();
+    }
+
 }
 

@@ -74,6 +74,8 @@ MonoBehaviour:
   movement: {x: 0, y: 0, z: 0}
   moveSource: {fileID: 1821770532286030898}
   stopSource: {fileID: 4330509531362283149}
+  lookSensitivity: 0.4
+  wrist: {fileID: 0}
 --- !u!54 &3490989836266149975
 Rigidbody:
   m_ObjectHideFlags: 0

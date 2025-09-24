@@ -2,24 +2,33 @@ using UnityEngine;
 
 public class RoomRotation : MonoBehaviour
 {
-    [SerializeField] private Transform forearmBone;
-    [SerializeField] private Transform upperarmBone;
+    [SerializeField] private Transform forearmBone; // forearm being copied
+    [SerializeField] private Transform upperarmBone; // upperarm being copied
+    [SerializeField] private Transform wristBone; // upperarm being copied
 
-    [SerializeField] private Transform forearmCorridor;
-    [SerializeField] private Transform upperarmCorridor;
+    [SerializeField] private Transform forearmCopier; // copied forearm
+    [SerializeField] private Transform upperarmCopier; // copied upperarm
+    [SerializeField] private Transform wristCopier; // upperarm being copied
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void LateUpdate()
     {
         if (forearmBone != null)
         {
             // Copy world rotation
-            forearmCorridor.rotation = forearmBone.rotation;
+            forearmCopier.rotation = forearmBone.rotation;
         }
 
         if (upperarmBone != null)
         {
             // Copy world rotation
-            upperarmCorridor.rotation = upperarmBone.rotation;
+            upperarmCopier.rotation = upperarmBone.rotation;
+        }
+
+        if (wristBone != null)
+        {
+            // Copy world rotation
+            wristCopier.rotation = wristBone.rotation;
         }
     }
 }

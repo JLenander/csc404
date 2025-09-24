@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Microsoft.Unity.VisualStudio.Editor;
 using TMPro;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ public class HUDController : MonoBehaviour
     [SerializeField] private List<TMP_Text> interactionText;
     [SerializeField] private GameObject dialogueUI;
     [SerializeField] private List<DialogueSystem> starterDialogue;
+    [SerializeField] private Image cameraDim;
     private int index = 0;
 
     void Start()

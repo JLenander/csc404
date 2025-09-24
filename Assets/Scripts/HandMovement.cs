@@ -110,7 +110,7 @@ public class HandMovement : MonoBehaviour
     // Use FixedUpdate for physics-based movement
     private void FixedUpdate()
     {
-        _rb.MovePosition(_rb.position + movement * Time.fixedDeltaTime);
+        _rb.linearVelocity = movement;
     }
 
     private void LateUpdate()

@@ -1,19 +1,9 @@
 fileFormatVersion: 2
-guid: 392058ac33b5fd74eb181f0834cac0b7
+guid: 9d98f5a8ac1c5e04a817534b5f0a4682
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: T_Module_Control_01
-    second: {fileID: 2100000, guid: 165994214ccbbec418a3969b3a4001d5, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: T_Module_Panel_01
-    second: {fileID: 2100000, guid: 165994214ccbbec418a3969b3a4001d5, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -40,7 +30,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 1

@@ -6,14 +6,14 @@ public class Elevator : MonoBehaviour
     public float speed = 2f;                             // movement speed
     public float pauseTime = 2f;                         // seconds to pause
 
+    // offsets for elevator movement range
     public Vector3 upOffset = new Vector3(0, 5, 0);
     public Vector3 leftOffset = new Vector3(-5, 0, 0);
     public Vector3 downOffset = new Vector3(0, -5, 0);
     public Vector3 rightOffset = new Vector3(5, 0, 0);
-    public int startIndex = 0;
-
-    public float startDelay = 0f;
-    public Transform startPoint;
+    public int startIndex = 0; // not all elevator segments start at the same point
+    public float startDelay = 0f; // delay so that we can have them not overlap
+    public Transform startPoint; // used for initial tranform location for calculations
     private Vector3 startPosition;
 
     void Start()
@@ -24,6 +24,7 @@ public class Elevator : MonoBehaviour
 
     IEnumerator MoveElevator()
     {
+        // set up points of where to stop
         Vector3[] path = new Vector3[]
         {
             startPosition + upOffset,
@@ -32,12 +33,13 @@ public class Elevator : MonoBehaviour
             startPosition
         };
 
-        int index = startIndex;
+        int index = startIndex; // start at one of the points
 
         yield return new WaitForSeconds(startDelay);
 
         while (true)
         {
+            // get new target
             Vector3 target = path[index];
 
             // Move towards target

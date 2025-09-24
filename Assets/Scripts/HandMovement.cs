@@ -25,9 +25,10 @@ public class HandMovement : MonoBehaviour
     public float lookSensitivity = 0.4f;
 
     [SerializeField] public Transform _wrist;
+    [SerializeField] private Animator oppositeHandAnimator; // animator of opposite hand
+    [SerializeField] private Animator handAnimator;
     private float wristRotateX;
     private float wristRotateY;
-
     private GameObject _toInteractObj;  // check which object is it colliding with
     private InteractableObject _currObj;    // currently interacting with hand
     private bool _canInteract;  // can interact status
@@ -57,11 +58,11 @@ public class HandMovement : MonoBehaviour
             wristRotateY = Mathf.Clamp(wristRotateY, -90f, 90f);
 
             bool movingNow = (movement.magnitude > 0.5f) || (lookMove.magnitude > 0.3f);
-            
+
             // Movement started
             if (movingNow && !_isMoving)
             {
-                 _isMoving = true;
+                _isMoving = true;
 
                 // != expensive but confirmed the right approach
                 if (moveSource != null && !moveSource.isPlaying)
@@ -145,12 +146,16 @@ public class HandMovement : MonoBehaviour
     {
         Debug.Log("Interacting with " + interactableObject);
         interactableObject.InteractWithHand(_wrist);
+        oppositeHandAnimator.SetTrigger("Point"); // sets the opposite hand to point
+        handAnimator.SetTrigger("Hold"); // sets current hand to hold anim
     }
 
     private void StopInteractingWithObject(InteractableObject interactableObject)
     {
         Debug.Log("Stopping interaction with " + interactableObject);
         interactableObject.StopInteractWithHand();
+        oppositeHandAnimator.SetTrigger("Neutral"); // sets the opposite hand back to neutral
+        handAnimator.SetTrigger("Neutral"); // sets the current hand back to neutral
     }
 
 }

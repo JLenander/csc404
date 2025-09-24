@@ -17,13 +17,16 @@ public class InteractableObject : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        
+
         if (other != null)
         {
             EnableOutline();
             canInteract = true;
             hand = other.gameObject.GetComponent<Wrist>().target.GetComponent<HandMovement>();
-            hand.SetCurrentInteractableObject(gameObject, true);
+            if (hand != null)
+            {
+                hand.SetCurrentInteractableObject(gameObject, true);
+            }
         }
     }
 

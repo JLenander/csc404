@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class Phone : InteractableObject
 {
-
+    public Collider triggerCollider;
     private Vector3 ogPosition;
     private Quaternion ogRotation;
     private Transform parent;
-    private Rigidbody rigidbody;
+    private Rigidbody rg;
 
     protected override void Start()
     {
@@ -15,7 +15,7 @@ public class Phone : InteractableObject
         ogRotation = transform.localRotation;
         parent = transform.parent;
 
-        rigidbody = GetComponent<Rigidbody>();
+        rg = GetComponent<Rigidbody>();
     }
 
     public override void InteractWithHand(Transform obj)
@@ -29,7 +29,8 @@ public class Phone : InteractableObject
             transform.localRotation = Quaternion.Euler(-88f, 10f, 0f);
             canPickup = false;
 
-            rigidbody.isKinematic = true;
+            rg.isKinematic = true;
+            triggerCollider.enabled = false;
             Debug.Log("pickup success");
 
         }
@@ -43,6 +44,7 @@ public class Phone : InteractableObject
         // transform.localRotation = ogRotation;
         canPickup = true;
 
-        rigidbody.isKinematic = false;
+        rg.isKinematic = false;
+        triggerCollider.enabled = true;
     }
 }

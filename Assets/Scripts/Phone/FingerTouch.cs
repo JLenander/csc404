@@ -1,5 +1,6 @@
 // Handles finger touch input for phone screen interaction
 
+using System;
 using UnityEngine;
 
 public class FingerTouch : MonoBehaviour
@@ -59,16 +60,21 @@ public class FingerTouch : MonoBehaviour
         if (other.CompareTag("SwipeArea"))
         {
             _inSwipeArea = true;
+
             Debug.Log($"Entered swipe area");
             // Convert finger world pos to swipeArea local space
             // Recall this transform is of the attached finger touch object
             _startLocalPos = _swipeArea.InverseTransformPoint(transform.position);
         }
-        else if (other.CompareTag("PhoneButton"))
+
+        if (other.CompareTag("PhoneButton"))
         {
             Debug.Log("Tapped app button");
-            other.enabled = false;
-            _phoneUI.ShowSwipe();
+
+            if (_phoneUI.ClickApp())
+            {
+                other.enabled = false;
+            }
         }
     }
 
@@ -90,13 +96,13 @@ public class FingerTouch : MonoBehaviour
             // delta is relative to swipeArea local X axis, so <0 is right swipe, >0 is left swipe
             if (deltaX < 0)
             {
-                Debug.Log("Swipe Right");
-                _phoneUI.ShowSwipe();
+                Debug.Log("Swipe Left");
+                _phoneUI.SwipeNope();
             }
             else
             {
-                Debug.Log("Swipe Left");
-                _phoneUI.ShowMatch();
+                Debug.Log("Swipe Right");
+                _phoneUI.SwipeLike();
             }
             _inSwipeArea = false; // stop multiple swipes
         }

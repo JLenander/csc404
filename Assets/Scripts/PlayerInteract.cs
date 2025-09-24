@@ -44,8 +44,8 @@ public class PlayerInteract : MonoBehaviour
             if (currentItem.CanInteract())
             {
                 Debug.Log("Interacting with " + currentItem);
-                currentItem.Interact(gameObject);
                 interacting = currentItem;
+                currentItem.Interact(gameObject);
             }
         }
 
@@ -105,7 +105,7 @@ public class PlayerInteract : MonoBehaviour
         currentItem.EnableOutline();
 
         if (GlobalPlayerUIManager.Instance != null)
-            GlobalPlayerUIManager.Instance.EnableInteractionText(playerId, currentItem.message);
+            GlobalPlayerUIManager.Instance.EnableInteractionText(playerId, currentItem.message, currentItem.msgColour);
     }
 
     void DisableCurrInteractable()

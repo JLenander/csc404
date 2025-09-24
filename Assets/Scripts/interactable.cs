@@ -4,7 +4,10 @@ using UnityEngine.Events;
 public class Interactable : MonoBehaviour
 {
     public string message;
+    public Color msgColour = new Color(1f, 1f, 1f, 1f);
     public Outline outline;
+
+    public Color outlineColour = new Color(1f, 1f, 1f, 1f);
 
     public UnityEvent onInteraction;
     public UnityEvent onReturn;
@@ -35,6 +38,7 @@ public class Interactable : MonoBehaviour
 
     public void EnableOutline()
     {
+        outline.OutlineColor = outlineColour;
         outline.enabled = true;
     }
 

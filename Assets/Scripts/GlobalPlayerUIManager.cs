@@ -1,19 +1,21 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Unity.VisualStudio.Editor;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 // used to aggregate player UI, used to shake and dim their cameras
 public class GlobalPlayerUIManager : MonoBehaviour
 {
     public static GlobalPlayerUIManager Instance;
-    [SerializeField] private TMP_Text textPrefab;
-    [SerializeField] private List<TMP_Text> interactionText = new List<TMP_Text>();
-    [SerializeField] private GameObject dialogueUI;
-    [SerializeField] private List<DialogueSystem> starterDialogue = new List<DialogueSystem>();
-    [SerializeField] private RectTransform canvas;
-    [SerializeField] private Image cameraDim;
+    [SerializeField] private TMP_Text textPrefab; // prefab of prompt text
+    [SerializeField] private List<TMP_Text> interactionText = new List<TMP_Text>(); // player texts
+    [SerializeField] private GameObject dialogueUI; // dialogue visua
+    [SerializeField] private List<DialogueSystem> starterDialogue = new List<DialogueSystem>(); // dialogues
+    [SerializeField] private RectTransform canvas; // main canvas
+    [SerializeField] private Image cameraDim; // image used to dim camera
+    [SerializeField] private float dim = 0.796f; // dim amount, range 0 to 1
     private List<PlayerData> playerCam = new List<PlayerData>();
 
     private bool start = false;
@@ -22,12 +24,7 @@ public class GlobalPlayerUIManager : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
         Instance = this; // easier to reference
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        DisableDim();
     }
 
     // log players' cameras
@@ -96,16 +93,55 @@ public class GlobalPlayerUIManager : MonoBehaviour
         }
     }
 
-    public void EnableInteractionText(int player, string content)
+    public void EnableInteractionText(int player, string content, Color msgColour)
     {
         interactionText[player].text = content;
+        interactionText[player].color = msgColour;
         interactionText[player].gameObject.SetActive(true);
     }
-
 
     public void DisableInteractionText(int player)
     {
         if (!start) return;
         interactionText[player].gameObject.SetActive(false);
+    }
+
+    // fades image into view based on *time* seconds, used for blink terminal
+    public void FadeView(float time)
+    {
+        // StartCoroutine(FadeRoutine(time));
+        Debug.Log("Start telling the player");
+    }
+
+    IEnumerator FadeRoutine(float time)
+    {
+        if (cameraDim == null)
+            yield break; // missing image
+
+        Color colour = cameraDim.color;
+        float startAlpha = 0f;
+        float targetAlpha = dim;
+
+        float elapsed = 0f;
+
+        while (elapsed < time)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / time);
+
+            colour.a = Mathf.Lerp(startAlpha, targetAlpha, t);
+            Debug.Log(colour.a);
+            cameraDim.color = colour;
+
+            yield return null;
+        }
+    }
+
+    public void DisableDim()
+    {
+        // alpha to 0
+        Color colour = cameraDim.color;
+        colour.a = 0;
+        cameraDim.color = colour;
     }
 }

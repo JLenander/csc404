@@ -12,7 +12,7 @@ public class Goal : MonoBehaviour
     public float interval = 1f;
     private bool emergency;
     private Coroutine toggleCoroutine;
-    private HUDController hUDController;
+    // private HUDController hUDController;
 
     void Start()
     {
@@ -21,7 +21,7 @@ public class Goal : MonoBehaviour
         redLight.SetActive(false);
         flashLight.SetActive(false);
         alarm.SetActive(false);
-        hUDController = FindFirstObjectByType<HUDController>();
+        // hUDController = FindFirstObjectByType<HUDController>();
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void OnTriggerEnter(Collider other)
@@ -35,7 +35,7 @@ public class Goal : MonoBehaviour
 
     void EmergencyEvent()
     {
-        hUDController.playText();
+        // hUDController.playText();
         emergency = true;
         scary.enabled = true;
         normal.enabled = false;
@@ -66,7 +66,7 @@ public class Goal : MonoBehaviour
 
     public void StopEmergency()
     {
-        hUDController.playText();
+        // hUDController.playText();
         emergency = false;
         scary.enabled = false;
         normal.enabled = true;

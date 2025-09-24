@@ -221,6 +221,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &163093421 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 919863632519912354, guid: 643089b1a754ed94f975fdbfade0819f, type: 3}
+  m_PrefabInstance: {fileID: 5309614786737416614}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1 &293554826
 GameObject:
   m_ObjectHideFlags: 0
@@ -771,9 +782,13 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6060350970885083337, guid: 643089b1a754ed94f975fdbfade0819f, type: 3}
-      propertyPath: textPrefab
+      propertyPath: dim
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6060350970885083337, guid: 643089b1a754ed94f975fdbfade0819f, type: 3}
+      propertyPath: cameraDim
       value: 
-      objectReference: {fileID: 1740611875496238748, guid: baf8a5a3ae6314547b88bb85fa1a8faa, type: 3}
+      objectReference: {fileID: 163093421}
     - target: {fileID: 9119773886904447035, guid: 643089b1a754ed94f975fdbfade0819f, type: 3}
       propertyPath: m_Name
       value: GlobalPlayerUIManager

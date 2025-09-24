@@ -28,8 +28,8 @@ public class PlayerInteract : MonoBehaviour
         interacting = null;
 
         PlayerInput playerInput = GetComponent<PlayerInput>();
-        playerId = playerInput.playerIndex + 1;
-        
+        playerId = playerInput.playerIndex;
+
     }
 
     // Update is called once per frame
@@ -44,8 +44,8 @@ public class PlayerInteract : MonoBehaviour
             if (currentItem.CanInteract())
             {
                 Debug.Log("Interacting with " + currentItem);
-                currentItem.Interact(gameObject);
                 interacting = currentItem;
+                currentItem.Interact(gameObject);
             }
         }
 
@@ -103,10 +103,16 @@ public class PlayerInteract : MonoBehaviour
     {
         currentItem = newInteractable;
         currentItem.EnableOutline();
+
+        if (GlobalPlayerUIManager.Instance != null)
+            GlobalPlayerUIManager.Instance.EnableInteractionText(playerId, currentItem.message, currentItem.msgColour);
     }
 
     void DisableCurrInteractable()
     {
+        if (GlobalPlayerUIManager.Instance != null)
+            GlobalPlayerUIManager.Instance.DisableInteractionText(playerId);
+
         if (currentItem)
         {
             currentItem.DisableOutline();

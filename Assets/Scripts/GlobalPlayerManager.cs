@@ -13,6 +13,7 @@ public class GlobalPlayerManager : MonoBehaviour
     private PlayerData[] _players;
     // The UI handler for the character select screen
     [SerializeField] private GameObject characterSelectScreen;
+    private GlobalPlayerUIManager uiManager; // use to aggregate player UI
     private ICharacterSelectScreen _characterSelectScreen;
 
     void Start()
@@ -62,6 +63,10 @@ public class GlobalPlayerManager : MonoBehaviour
                     // All players are ready and someone pressed the submit action so we start the game
                     // TODO handle in a level manager?
                     Debug.Log("All players ready - starting");
+
+                    // pass these players to UI manager
+                    GlobalPlayerUIManager.Instance.PassPlayers(_players);
+
                     SceneManager.LoadScene("Tutorial");
                 }
                 else

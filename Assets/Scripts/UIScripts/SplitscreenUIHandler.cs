@@ -115,13 +115,13 @@ public class SplitscreenUIHandler : MonoBehaviour, ISplitscreenUIHandler
     // TODO transition animation
     public void ShowOutsideCamera()
     {
-        _outsideCamOverlay.visible = true;
+        _outsideCamOverlay.visible = false;
     }
     
     // TODO transition animation
     public void HideOutsideCamera()
     {
-        _outsideCamOverlay.visible = false;
+        _outsideCamOverlay.visible = true;
     }
 
 }

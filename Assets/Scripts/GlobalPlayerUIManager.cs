@@ -25,7 +25,7 @@ public class GlobalPlayerUIManager : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
         Instance = this; // easier to reference
-        _splitscreenUIHandler = GameObject.FindAnyObjectByType<SplitscreenUIHandler>();
+        _splitscreenUIHandler = FindAnyObjectByType<SplitscreenUIHandler>();
         DisableDim();
     }
 

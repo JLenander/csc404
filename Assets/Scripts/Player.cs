@@ -14,7 +14,8 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioClip[] footstepClips;
     [SerializeField] private float stepInterval = 0.5f;
     private CharacterController _characterController;
-    private Camera _camera;
+    private Camera _playerCamera;
+    private Camera _outsideCamera;
     private Transform _cameraTransform;
     private InputAction _moveAction;
     private InputAction _lookAction;
@@ -28,7 +29,7 @@ public class Player : MonoBehaviour
 
     private bool disableMovement = false;
     private bool disableRotate = false;
-    private bool outOfBody = false;
+    private bool controllingEyeCam = false;
     private Animator animator;
 
     private float stepTimer;
@@ -37,8 +38,8 @@ public class Player : MonoBehaviour
     {
         _characterController = GetComponent<CharacterController>();
         var input = GetComponent<PlayerInput>();
-        _camera = input.camera;
-        _cameraTransform = _camera.GetComponent<Transform>();
+        _playerCamera = input.camera;
+        _cameraTransform = _playerCamera.GetComponent<Transform>();
         _moveAction = input.actions.FindAction("Move");
         _lookAction = input.actions.FindAction("Look");
         animator = GetComponentInChildren<Animator>();
@@ -49,6 +50,18 @@ public class Player : MonoBehaviour
     }
 
     void FixedUpdate()
+    {
+        if (controllingEyeCam)
+        {
+            ControlEyeCam();
+        }
+        else
+        {
+            ControlPlayer();
+        }
+    }
+
+    private void ControlPlayer()
     {
         if (!disableMovement)
         {
@@ -90,28 +103,32 @@ public class Player : MonoBehaviour
                 }
             }
         }
-
-        if (disableRotate) return;
-
+        
+        if (!disableRotate)
+        {
+            // Look
+            Vector2 lookValue = _lookAction.ReadValue<Vector2>();
+            Vector3 lookRotate = new Vector3(0, lookValue.x * lookSensitivity * -1, 0);
+            xRotation -= lookValue.y * lookSensitivity;
+            yRotation -= lookValue.x * lookSensitivity * -1;
+            
+            transform.localRotation = Quaternion.Euler(0f, yRotation, 0f);
+            xRotation = Math.Clamp(xRotation, -90f, 90f);
+            _playerCamera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        }
+    }
+    
+    private void ControlEyeCam()
+    {
         // Look
         Vector2 lookValue = _lookAction.ReadValue<Vector2>();
         Vector3 lookRotate = new Vector3(0, lookValue.x * lookSensitivity * -1, 0);
         xRotation -= lookValue.y * lookSensitivity;
         yRotation -= lookValue.x * lookSensitivity * -1;
-
-        if (outOfBody)
-        {
-            yRotation = Math.Clamp(yRotation, -30f, 30f);
-            xRotation = Math.Clamp(xRotation, -70f, 70f);
-            _camera.transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
-        }
-        else
-        {
-            transform.localRotation = Quaternion.Euler(0f, yRotation, 0f);
-            xRotation = Math.Clamp(xRotation, -90f, 90f);
-            _camera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        }
-
+        
+        yRotation = Math.Clamp(yRotation, -30f, 30f);
+        xRotation = Math.Clamp(xRotation, -70f, 70f);
+        _outsideCamera.transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
     }
 
     public void PlayFootstep()
@@ -135,14 +152,18 @@ public class Player : MonoBehaviour
         disableRotate = false;
     }
 
-    public void switchToHead()
+    public void switchToHead(Camera outsideCamera)
     {
+        disableMovement = true;
         disableRotate = false;
-        outOfBody = true;
+        controllingEyeCam = true;
+        _outsideCamera = outsideCamera;
     }
 
     public void switchOffHead()
     {
-        outOfBody = false;
+        disableMovement = false;
+        disableRotate = false;
+        controllingEyeCam = false;
     }
 }

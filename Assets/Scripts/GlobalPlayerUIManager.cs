@@ -12,8 +12,7 @@ public class GlobalPlayerUIManager : MonoBehaviour
     private ISplitscreenUIHandler _splitscreenUIHandler;
     [SerializeField] private TMP_Text textPrefab; // prefab of prompt text
     [SerializeField] private List<TMP_Text> interactionText = new List<TMP_Text>(); // player texts
-    [SerializeField] private GameObject dialogueUI; // dialogue visua
-    [SerializeField] private List<DialogueSystem> starterDialogue = new List<DialogueSystem>(); // dialogues
+    [SerializeField] private DialogueSystem dialogueDisplay; // dialogues
     [SerializeField] private RectTransform canvas; // main canvas
     [SerializeField] private Image cameraDim; // image used to dim camera
     [SerializeField] private float dim = 0.796f; // dim amount, range 0 to 1
@@ -34,6 +33,7 @@ public class GlobalPlayerUIManager : MonoBehaviour
         _splitscreenUIHandler = FindAnyObjectByType<SplitscreenUIHandler>();
         DisableDim();
         DisablePixelate();
+        dialogueDisplay.gameObject.SetActive(false);
     }
 
     // log players' cameras
@@ -107,6 +107,12 @@ public class GlobalPlayerUIManager : MonoBehaviour
         outsideRenderTextureView.width = originalWidth;
         outsideRenderTextureView.height = originalHeight;
         outsideRenderTextureView.Create();
+    }
+
+    public void LoadText(DialogueScriptableObj content)
+    {
+        dialogueDisplay.gameObject.SetActive(true);
+        dialogueDisplay.StartDialogue(content);
     }
 
     IEnumerator FadeRoutine(float time)

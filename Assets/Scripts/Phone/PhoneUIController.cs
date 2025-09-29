@@ -23,16 +23,22 @@ public class PhoneUIController : MonoBehaviour
 
     public int countBeforeMatch = 6;
 
+    [SerializeField] private DialogueScriptableObj openingDialogue;
+    [SerializeField] private DialogueScriptableObj cheekyDialogue;
+
     private int index = 0;
     private int count = 0;
     private int swipeDirection = 0; // -1 = left, 1 = right
     private RectTransform rt;
     private bool swiping = false;
     private bool locked = false;
+    private bool remarked = false;
 
     private void Awake()
     {
         rt = screenImage.rectTransform;
+
+        GlobalPlayerUIManager.Instance.LoadText(openingDialogue);
     }
 
     // Toggle between two swipe screens, for now
@@ -77,6 +83,12 @@ public class PhoneUIController : MonoBehaviour
 
         // once hit min swipes no matter left or right
         // start count down before showing nova's profile
+        if (count > profiles.Count && !remarked)
+        {
+            remarked = true;
+            GlobalPlayerUIManager.Instance.LoadText(cheekyDialogue);
+        }
+
         if (count > countBeforeMatch)
         {
             StartCoroutine(MatchRoutine());

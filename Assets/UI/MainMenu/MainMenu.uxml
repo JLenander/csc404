@@ -1,12 +1,13 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/DefaultStyleSheet.uss?fileID=7433441132597879392&amp;guid=9107073a6abb0d64a85c8de9603265e8&amp;type=3#DefaultStyleSheet" />
-    <ui:VisualElement name="PlainColorBackground" style="flex-grow: 1; align-items: center; justify-content: center; background-color: rgb(242, 241, 232);">
-        <ui:VisualElement name="MainScreen" style="flex-grow: 0; align-self: center; width: 80%; height: 100%; translate: 0 0%; justify-content: space-between;">
+    <ui:VisualElement name="PlainColorBackground" style="flex-grow: 1; align-items: center; justify-content: center; background-color: rgb(242, 241, 232); width: 100%; height: 100%; position: absolute; top: 0; left: 0; opacity: 1; align-content: flex-start;">
+        <ui:VisualElement name="MenuIMG" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/UI/Images/homescreen_03.png?fileID=2800000&amp;guid=08ead613ac264274592902156d6630f1&amp;type=3#homescreen_03&quot;); width: 80%; height: 70%; -unity-background-scale-mode: scale-to-fit; -unity-slice-left: 0; -unity-slice-top: 0; -unity-slice-right: 0; -unity-slice-bottom: 0; position: relative; top: -10%; left: auto; align-self: center; display: flex;" />
+        <ui:VisualElement name="MainScreen" style="flex-grow: 0; align-self: center; width: 80%; height: 20%; translate: 0 0%; justify-content: space-between; top: 5%; position: absolute;">
             <ui:VisualElement name="Title" style="flex-grow: 0; top: 10%;">
-                <ui:Label text="Fitting In" name="TempTitle" style="-unity-text-align: middle-center; font-size: 64px;" />
+                <ui:Label text="Fitting In" name="TempTitle" style="-unity-text-align: middle-center; font-size: 128px;" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:GroupBox name="MainMenuButtons" style="font-size: 36px; bottom: 10%;">
+        <ui:GroupBox name="MainMenuButtons" style="font-size: 48px; bottom: 10%; position: absolute;">
             <ui:Button text="Start" name="StartButton" triple-click-selects-line="false" />
             <ui:Button text="Settings (WIP)" name="SettingsButton" />
             <ui:Button text="Quit Game" name="QuitButton" />

@@ -1,9 +1,11 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public class Interactable : MonoBehaviour
 {
-    public string message;
+    // The message that shows on the screen when a player hovers over this interactable
+    [FormerlySerializedAs("message")] public string hoverMessage;
     public Color msgColour = new Color(1f, 1f, 1f, 1f);
     public Outline outline;
 

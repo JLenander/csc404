@@ -14,3 +14,11 @@
     font-size: 40px;
     white-space: normal;
 }
+
+.splitscreen-border {
+    --border-half-width: 2px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+}

@@ -5,11 +5,8 @@ using UnityEngine.UI;
 
 public class DialogueSystem : MonoBehaviour
 {
-    public GameObject dialogueUI;
-    public TMP_Text dialogueText;     // assign in Inspector
-    public Image spriteImage;
+    public SplitscreenUIHandler dialogueUI;
     public float textDelay = 0.05f;   // typing speed
-
     public AudioSource audioSource;
     public AudioClip clip;
 
@@ -20,9 +17,11 @@ public class DialogueSystem : MonoBehaviour
 
     private int currentLine = 0;
     private bool showingImageA = true;
+    private string line;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void StartDialogue(DialogueScriptableObj content)
     {
+        dialogueUI.InitializeDialogue(); // shows dialogue box
         currentLine = 0;
         lines = content.lines;
         spriteA = content.spirteA;
@@ -35,15 +34,17 @@ public class DialogueSystem : MonoBehaviour
         while (currentLine < lines.Length)
         {
             // Type out the text
-            dialogueText.text = "";
+            line = "";
+            dialogueUI.WriteDialogueText(line);
             foreach (char c in lines[currentLine])
             {
-                dialogueText.text += c;
+                line += c;
+                dialogueUI.WriteDialogueText(line);
 
                 if (c != ' ')
                 {
                     showingImageA = !showingImageA;
-                    spriteImage.sprite = showingImageA ? spriteA : spriteB;
+                    dialogueUI.ChangeDialogueSprite(showingImageA ? spriteA : spriteB);
                     audioSource.PlayOneShot(clip);
                 }
 
@@ -51,12 +52,13 @@ public class DialogueSystem : MonoBehaviour
             }
 
             // Wait until player presses a key to continue
-            yield return new WaitForSeconds(dialogueText.text.Length * 0.05f);
+            yield return new WaitForSeconds(line.Length * 0.05f);
 
             currentLine++;
         }
 
-        dialogueText.text = "";
-        dialogueUI.SetActive(false);
+        line = "";
+        dialogueUI.WriteDialogueText(line);
+        dialogueUI.HideDialogue();
     }
 }

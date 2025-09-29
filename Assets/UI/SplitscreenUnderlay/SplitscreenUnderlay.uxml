@@ -27,9 +27,17 @@
         </ui:VisualElement>
         <ui:VisualElement name="Borders" style="flex-grow: 1; width: 100%; height: 100%;">
             <ui:VisualElement name="TopLeftBorder" class="splitscreen-border" style="flex-grow: 1; position: absolute; top: 0; left: 0; width: 50%; height: 50%; border-top-width: 0; border-right-width: 3px; border-bottom-width: 3px; border-left-width: 0;" />
-            <ui:VisualElement name="BottomRightBorder" style="flex-grow: 1; position: absolute; top: auto; left: auto; width: 50%; height: 50%; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 3px; border-right-width: 0; border-bottom-width: 0; border-left-width: 3px; right: 0; bottom: 0;" />
             <ui:VisualElement name="TopRightBorder" style="flex-grow: 1; position: absolute; top: 0; left: auto; width: 50%; height: 50%; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 0; border-right-width: 0; border-bottom-width: 3px; border-left-width: 3px; right: 0;" />
             <ui:VisualElement name="BottomLeftBorder" style="flex-grow: 1; position: absolute; top: auto; left: 0; width: 50%; height: 50%; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 3px; border-right-width: 3px; border-bottom-width: 0; border-left-width: 0; right: auto; bottom: 0;" />
+            <ui:VisualElement name="BottomRightBorder" style="flex-grow: 1; position: absolute; top: auto; left: auto; width: 50%; height: 50%; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 3px; border-right-width: 0; border-bottom-width: 0; border-left-width: 3px; right: 0; bottom: 0;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="DialogueContainer" style="flex-grow: 1; position: absolute; width: 100%; height: 100%;">
+        <ui:VisualElement name="MessageUI" style="flex-grow: 1;">
+            <ui:VisualElement name="DialogueIcon" style="flex-grow: initial; position: absolute; width: 163px; height: 163px; top: 559px; left: 1001px; background-image: url(&quot;project://database/Assets/Sprites/Dialogue%20Portrait/talk%201.png?fileID=2800000&amp;guid=7cf1f3e381de4504d8c4445353b39e1d&amp;type=3#talk 1&quot;); -unity-background-scale-mode: scale-to-fit;" />
+            <ui:VisualElement name="DialogueBox" style="flex-grow: initial; top: 573px; width: 660px; height: 139px; left: 1199px; position: absolute; background-color: rgba(0, 0, 0, 0.45);">
+                <ui:Label text="sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss" name="Dialogue" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/CCAstroCity%20Regular.ttf?fileID=12800000&amp;guid=d4d910571229e1e438dfa7061d91e182&amp;type=3#CCAstroCity Regular&quot;); font-size: 30px; white-space: normal; color: rgb(255, 255, 255);" />
+            </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

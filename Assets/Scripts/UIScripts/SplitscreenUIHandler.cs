@@ -27,7 +27,7 @@ public class SplitscreenUIHandler : MonoBehaviour, ISplitscreenUIHandler
         var root = uiDoc.rootVisualElement;
 
         _player2Overlay = root.Query<VisualElement>("Player2NotJoined").First();
-        _player3Overlay = root.Query<VisualElement>("Player2NotJoined").First();
+        _player3Overlay = root.Query<VisualElement>("Player3NotJoined").First();
 
         _playerInteractionTexts = new Label[NumPlayers];
         for (int i = 0; i < NumPlayers; i++)

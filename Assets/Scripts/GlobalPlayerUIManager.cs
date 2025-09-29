@@ -93,8 +93,8 @@ public class GlobalPlayerUIManager : MonoBehaviour
 
             // res = original *  (1 - lerpscale)
             outsideRenderTextureView.Release();
-            outsideRenderTextureView.width = (int)(originalWidth * (1 - Mathf.Lerp(outsideRenderTextureView.width / originalWidth, downScaleAmount, t)));
-            outsideRenderTextureView.height = (int)(originalHeight * (1 - Mathf.Lerp(outsideRenderTextureView.height / originalHeight, downScaleAmount, t)));
+            outsideRenderTextureView.width = (int)(originalWidth * Mathf.Lerp(1, downScaleAmount, t));
+            outsideRenderTextureView.height = (int)(originalHeight * Mathf.Lerp(1, downScaleAmount, t));
             outsideRenderTextureView.Create();
 
             yield return null;

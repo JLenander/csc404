@@ -1149,6 +1149,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1761630040}
     - target: {fileID: 6060350970885083337, guid: 643089b1a754ed94f975fdbfade0819f, type: 3}
+      propertyPath: downScaleAmount
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6060350970885083337, guid: 643089b1a754ed94f975fdbfade0819f, type: 3}
       propertyPath: outsideRenderTextureView
       value: 
       objectReference: {fileID: 8400000, guid: 193351b6688faea4cbe4929250e27aaa, type: 2}

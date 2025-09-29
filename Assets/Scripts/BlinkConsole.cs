@@ -45,7 +45,7 @@ public class BlinkConsole : Interactable
                     outlineColour = Color.red;
 
                     // start camera fade
-                    GlobalPlayerUIManager.Instance.FadeView(pressCountdown);
+                    GlobalPlayerUIManager.Instance.PixelateView(pressCountdown);
                 }
 
                 EnableOutline();
@@ -94,7 +94,7 @@ public class BlinkConsole : Interactable
         headConsole.enableInteract(); // reenable head
         danger = false; // remove flags
         warning = false; // remove flags
-        GlobalPlayerUIManager.Instance.DisableDim(); // undo dim
+        GlobalPlayerUIManager.Instance.DisablePixelate(); // undo pixelate
     }
 
     private IEnumerator BlinkRoutine()

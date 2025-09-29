@@ -3,6 +3,8 @@
     text-shadow: 2px 2px 4px rgb(0, 0, 0);
     color: rgb(222, 222, 222);
     -unity-font-style: normal;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgba(0, 0, 0, 0.5);
 }
 
 .interaction-text {

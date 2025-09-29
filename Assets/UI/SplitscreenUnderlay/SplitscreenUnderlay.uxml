@@ -1,0 +1,29 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/SplitscreenUnderlay/SplitscreenUI.uss?fileID=7433441132597879392&amp;guid=cc718fcb780cf4c42a437b8b34ef10cb&amp;type=3#SplitscreenUI" />
+    <ui:VisualElement name="UnderlayContainer" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); align-items: flex-start;">
+        <ui:VisualElement name="Player1" style="flex-grow: 0; width: 50%; height: 50%; position: absolute; top: 0; left: 0;">
+            <ui:Label text="Player 1" name="PlayerLabel" enable-rich-text="true" class="player-label" style="position: absolute; top: 0; left: 0;" />
+            <ui:Label name="Player1InteractionText" text="Interaction" class="interaction-text" style="bottom: 0; position: absolute;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Player2" style="flex-grow: 0; width: 50%; height: 50%; position: absolute; top: 0; left: auto; right: 0;">
+            <ui:Label text="Player 2" name="PlayerLabel" enable-rich-text="true" emoji-fallback-support="true" class="player-label" style="-unity-text-align: upper-right; position: absolute; top: 0; right: 0;" />
+            <ui:Label text="Interaction" name="Player2InteractionText" class="interaction-text" style="bottom: 0; position: absolute;" />
+            <ui:VisualElement name="Player2NotJoined" style="flex-grow: 1; background-color: rgb(193, 193, 193); justify-content: center;">
+                <ui:Label text="Player 2&#10;Not Joined" style="-unity-text-align: middle-center; font-size: 96px; justify-content: flex-start; align-self: center;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="Player3" style="flex-grow: 0; width: 50%; height: 50%; position: absolute; top: auto; left: 0; right: auto; bottom: 0;">
+            <ui:Label text="Player 3" name="PlayerLabel" enable-rich-text="true" emoji-fallback-support="true" class="player-label" style="-unity-text-align: upper-left; bottom: 0; position: absolute; flex-grow: 0; left: 0;" />
+            <ui:Label text="Interaction" name="Player3InteractionText" enable-rich-text="true" class="interaction-text" style="bottom: 0; position: absolute;" />
+            <ui:VisualElement name="Player3NotJoined" style="flex-grow: 1; background-color: rgb(193, 193, 193); justify-content: center;">
+                <ui:Label text="Player 3&#10;Not Joined" style="-unity-text-align: middle-center; font-size: 96px; justify-content: flex-start; align-self: center;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="OutsideCamera" style="flex-grow: 0; width: 50%; height: 50%; position: absolute; top: auto; left: auto; right: 0; bottom: 0;">
+            <ui:VisualElement name="OutsideCamOffOverlay" style="flex-grow: 1; background-color: rgb(193, 193, 193); justify-content: center; opacity: 1;">
+                <ui:VisualElement name="CamOffIndicator" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/UI/Images/eyes_closed_mock.png?fileID=2800000&amp;guid=49517d5a4862a4a46852b47cbb33185f&amp;type=3#eyes_closed_mock&quot;); -unity-background-scale-mode: scale-to-fit;" />
+            </ui:VisualElement>
+            <ui:Label text="Outside View" name="PlayerLabel" enable-rich-text="true" emoji-fallback-support="true" class="player-label" style="-unity-text-align: upper-right; bottom: 0; position: absolute; top: auto; right: 0;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

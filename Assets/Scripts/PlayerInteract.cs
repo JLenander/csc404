@@ -105,7 +105,7 @@ public class PlayerInteract : MonoBehaviour
         currentItem.EnableOutline();
 
         if (GlobalPlayerUIManager.Instance != null)
-            GlobalPlayerUIManager.Instance.EnableInteractionText(playerId, currentItem.message, currentItem.msgColour);
+            GlobalPlayerUIManager.Instance.EnableInteractionText(playerId, currentItem.hoverMessage, currentItem.msgColour);
     }
 
     void DisableCurrInteractable()

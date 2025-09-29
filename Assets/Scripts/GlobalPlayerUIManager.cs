@@ -5,10 +5,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-// used to aggregate player UI, used to shake and dim their cameras
+// used to control player UI in the splitscreen view, used to shake and dim their cameras
 public class GlobalPlayerUIManager : MonoBehaviour
 {
     public static GlobalPlayerUIManager Instance;
+    private ISplitscreenUIHandler _splitscreenUIHandler;
     [SerializeField] private TMP_Text textPrefab; // prefab of prompt text
     [SerializeField] private List<TMP_Text> interactionText = new List<TMP_Text>(); // player texts
     [SerializeField] private GameObject dialogueUI; // dialogue visua
@@ -24,6 +25,7 @@ public class GlobalPlayerUIManager : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
         Instance = this; // easier to reference
+        _splitscreenUIHandler = GameObject.FindAnyObjectByType<SplitscreenUIHandler>();
         DisableDim();
     }
 
@@ -33,77 +35,25 @@ public class GlobalPlayerUIManager : MonoBehaviour
         for (int i = 0; i < players.Length; i++)
         {
             if (players[i].Valid)
+            {
                 playerCam.Add(players[i]);
+                _splitscreenUIHandler.EnablePlayerOverlay(i);
+            }
         }
-
-        ArrangeText();
-
+        
         start = true;
     }
-
-    // depending on number of players we set up UI text
-    void ArrangeText()
-    {
-        // clear real quick in case left from last scene
-        foreach (var t in interactionText)
-            Destroy(t.gameObject);
-        interactionText.Clear();
-
-        int count = playerCam.Count;
-        Debug.Log("Players: " + count);
-
-        // depending on number of players we set up UI text
-        for (int i = 0; i < count; i++)
-        {
-            // initialize text from prefab
-            interactionText.Add(Instantiate(textPrefab, canvas));
-            RectTransform textTransform = interactionText[i].rectTransform;
-
-            if (count == 1)
-            {
-                // anchor set at centre of screen
-                textTransform.anchorMin = textTransform.anchorMax = new Vector2(0.5f, 0.5f);
-                textTransform.anchoredPosition = new Vector2(0, -139f); // lower a bit
-            }
-            else if (count == 2)
-            {
-                // left then right leaning anchor
-                if (i == 0)
-                    textTransform.anchorMin = textTransform.anchorMax = new Vector2(0.25f, 0.5f);
-                else
-                    textTransform.anchorMin = textTransform.anchorMax = new Vector2(0.75f, 0.5f);
-
-                textTransform.anchoredPosition = new Vector2(0, -139f); // lower a bit
-            }
-            else
-            {
-                // each corner
-                switch (i)
-                {
-                    case 0: textTransform.anchorMin = textTransform.anchorMax = new Vector2(0.25f, 0.75f); break; // top-left
-                    case 1: textTransform.anchorMin = textTransform.anchorMax = new Vector2(0.75f, 0.75f); break; // top-right
-                    case 2: textTransform.anchorMin = textTransform.anchorMax = new Vector2(0.25f, 0.25f); break; // bottom-left
-                    case 3: textTransform.anchorMin = textTransform.anchorMax = new Vector2(0.75f, 0.25f); break; // bottom-right
-                }
-
-                textTransform.anchoredPosition = new Vector2(0, -44f); // lower even less
-            }
-
-            interactionText[i].gameObject.SetActive(false); // hide text for now
-        }
-    }
-
+    
     public void EnableInteractionText(int player, string content, Color msgColour)
     {
-        interactionText[player].text = content;
-        interactionText[player].color = msgColour;
-        interactionText[player].gameObject.SetActive(true);
+        _splitscreenUIHandler.EnablePlayerInteractionText(player, content, msgColour);
     }
 
     public void DisableInteractionText(int player)
     {
         if (!start) return;
-        interactionText[player].gameObject.SetActive(false);
+        _splitscreenUIHandler.DisablePlayerInteractionText(player);
+
     }
 
     // fades image into view based on *time* seconds, used for blink terminal

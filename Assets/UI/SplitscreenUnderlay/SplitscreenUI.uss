@@ -1,0 +1,16 @@
+.player-label {
+    font-size: 36px;
+    text-shadow: 2px 2px 4px rgb(0, 0, 0);
+    color: rgb(222, 222, 222);
+    -unity-font-style: normal;
+}
+
+.interaction-text {
+    flex-wrap: wrap;
+    align-self: center;
+    max-width: 90%;
+    -unity-font-definition: url("project://database/Assets/Fonts/AreaKilometer50-gxmEq.otf?fileID=12800000&guid=ef001ebbe0814b84986d79c8d1de465a&type=3#AreaKilometer50-gxmEq");
+    -unity-text-align: upper-center;
+    font-size: 40px;
+    white-space: normal;
+}

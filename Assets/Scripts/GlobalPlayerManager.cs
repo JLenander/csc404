@@ -11,9 +11,9 @@ public class GlobalPlayerManager : MonoBehaviour
 {
     private int _playerLimit;
     private PlayerData[] _players;
+    private GlobalPlayerUIManager uiManager; // use to aggregate player UI
     // The UI handler for the character select screen
     [SerializeField] private GameObject characterSelectScreen;
-    private GlobalPlayerUIManager uiManager; // use to aggregate player UI
     private ICharacterSelectScreen _characterSelectScreen;
 
     void Start()

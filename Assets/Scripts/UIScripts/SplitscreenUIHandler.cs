@@ -5,35 +5,44 @@ using UnityEngine.UIElements;
 public class SplitscreenUIHandler : MonoBehaviour, ISplitscreenUIHandler
 {
     [SerializeField] private UIDocument uiDoc;
-    
+
     // Player not joined UI overlays
     // private VisualElement _player1Overlay;
     private VisualElement _player2Overlay;
     private VisualElement _player3Overlay;
     // Player Interaction texts
     private Label[] _playerInteractionTexts;
-    
+
     // Camera (outside view or eyes) off overlay
     private VisualElement _outsideCamOverlay;
+    private VisualElement _dialogueUI;
+    private Label _dialogueText;
+    private VisualElement _dialogueIcon;
 
     private const int NumPlayers = 3;
-    
+
     void Start()
     {
         DontDestroyOnLoad(this);
         var root = uiDoc.rootVisualElement;
 
         _player2Overlay = root.Query<VisualElement>("Player2NotJoined").First();
-        _player3Overlay = root.Query<VisualElement>("Player2NotJoined").First();
+        _player3Overlay = root.Query<VisualElement>("Player3NotJoined").First();
 
         _playerInteractionTexts = new Label[NumPlayers];
         for (int i = 0; i < NumPlayers; i++)
         {
             _playerInteractionTexts[i] = root.Query<Label>("Player" + (i + 1) + "InteractionText").First();
         }
-        
+
         _outsideCamOverlay = root.Query<VisualElement>("OutsideCamOffOverlay").First();
-        
+
+        // Dialogue Setup
+        _dialogueUI = root.Query<VisualElement>("MessageUI").First();
+        _dialogueText = root.Query<Label>("Dialogue").First();
+        _dialogueIcon = root.Query<VisualElement>("DialogueIcon").First();
+        _dialogueUI.visible = false;
+
         // Disable Root to start until scene is switched
         root.visible = false;
         SceneManager.activeSceneChanged += OnSceneChange;
@@ -95,7 +104,7 @@ public class SplitscreenUIHandler : MonoBehaviour, ISplitscreenUIHandler
             Debug.LogError("PlayerIndex out of range");
             return;
         }
-        
+
         _playerInteractionTexts[playerIndex].style.color = msgColour;
         _playerInteractionTexts[playerIndex].text = content;
         _playerInteractionTexts[playerIndex].visible = true;
@@ -108,7 +117,7 @@ public class SplitscreenUIHandler : MonoBehaviour, ISplitscreenUIHandler
             Debug.LogError("PlayerIndex out of range");
             return;
         }
-        
+
         _playerInteractionTexts[playerIndex].visible = false;
     }
 
@@ -117,11 +126,31 @@ public class SplitscreenUIHandler : MonoBehaviour, ISplitscreenUIHandler
     {
         _outsideCamOverlay.visible = false;
     }
-    
+
     // TODO transition animation
     public void HideOutsideCamera()
     {
         _outsideCamOverlay.visible = true;
+    }
+
+    public void InitializeDialogue()
+    {
+        _dialogueUI.visible = true;
+    }
+
+    public void WriteDialogueText(string content)
+    {
+        _dialogueText.text = content;
+    }
+
+    public void ChangeDialogueSprite(Sprite sprite)
+    {
+        _dialogueIcon.style.backgroundImage = new StyleBackground(sprite);
+    }
+
+    public void HideDialogue()
+    {
+        _dialogueUI.visible = false;
     }
 
 }

@@ -1,5 +1,6 @@
 // Controls phone UI, switch between Face ID, Home, Swipe (profiles to choose), and Match screens.
 
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,7 +13,7 @@ public class PhoneUIController : MonoBehaviour
     public Sprite faceIDSprite;
     public Sprite homeSprite;
     public List<Sprite> profiles;
-    public List<Sprite> matchProfiles;
+    public Sprite match;
 
     public float flySpeed = 1000f;  // pixels per second
     public float tiltAngle = 30f;   // degrees
@@ -20,15 +21,24 @@ public class PhoneUIController : MonoBehaviour
     public void ShowFaceID() => screenImage.sprite = faceIDSprite;
     public void ShowHome() => screenImage.sprite = homeSprite;
 
+    public int countBeforeMatch = 6;
+
+    [SerializeField] private DialogueScriptableObj openingDialogue;
+    [SerializeField] private DialogueScriptableObj cheekyDialogue;
+
     private int index = 0;
     private int count = 0;
     private int swipeDirection = 0; // -1 = left, 1 = right
     private RectTransform rt;
     private bool swiping = false;
+    private bool locked = false;
+    private bool remarked = false;
 
     private void Awake()
     {
         rt = screenImage.rectTransform;
+
+        GlobalPlayerUIManager.Instance.LoadText(openingDialogue);
     }
 
     // Toggle between two swipe screens, for now
@@ -50,21 +60,19 @@ public class PhoneUIController : MonoBehaviour
 
     public void SwipeNope()
     {
-        // flick sceen image left
-        StartSwipe(-1);
-        count++; // increase count
-    }
-
-    public void SwipeLike()
-    {
-        if (count < 4) // if count not surpassed, keep the swiping
+        if (!locked)
         {
+            // flick sceen image left
             StartSwipe(1);
             count++; // increase count
         }
-        else
+    }
+    public void SwipeLike()
+    {
+        if (!locked)
         {
-            screenImage.sprite = matchProfiles[index]; // match them
+            StartSwipe(-1);
+            count++; // increase count
         }
     }
 
@@ -72,6 +80,19 @@ public class PhoneUIController : MonoBehaviour
     {
         swipeDirection = direction;
         swiping = true;
+
+        // once hit min swipes no matter left or right
+        // start count down before showing nova's profile
+        if (count > profiles.Count && !remarked)
+        {
+            remarked = true;
+            GlobalPlayerUIManager.Instance.LoadText(cheekyDialogue);
+        }
+
+        if (count > countBeforeMatch)
+        {
+            StartCoroutine(MatchRoutine());
+        }
     }
 
     private void Update()
@@ -96,6 +117,14 @@ public class PhoneUIController : MonoBehaviour
             index = (index + 1) % profiles.Count; // loop around if past the list
             nextImage.sprite = profiles[index];
         }
+    }
+
+    IEnumerator MatchRoutine()
+    {
+        yield return new WaitForSeconds(2);
+
+        locked = true; // lock swiping
+        screenImage.sprite = match;
     }
 }
 

@@ -35,9 +35,31 @@ public interface ISplitscreenUIHandler
     /// Show the outside camera (or eye camera)
     /// </summary>
     public void ShowOutsideCamera();
-    
+
     /// <summary>
     /// Hide the outside camera (or eye camera)
     /// </summary>
     public void HideOutsideCamera();
+
+    /// <summary>
+    /// Show dialogue box
+    /// </summary>
+    public void InitializeDialogue();
+
+    /// <summary>
+    /// Writes text to screen
+    /// </summary>
+    /// <param name="content"></param>
+    public void WriteDialogueText(string content);
+
+    /// <summary>
+    /// Change talking dialogue sprite
+    /// </summary>
+    /// <param name="sprite"></param>
+    public void ChangeDialogueSprite(Sprite sprite);
+
+    /// <summary>
+    /// hides dialogue ui container
+    /// </summary>
+    public void HideDialogue();
 }

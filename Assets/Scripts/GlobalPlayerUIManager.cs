@@ -12,14 +12,19 @@ public class GlobalPlayerUIManager : MonoBehaviour
     private ISplitscreenUIHandler _splitscreenUIHandler;
     [SerializeField] private TMP_Text textPrefab; // prefab of prompt text
     [SerializeField] private List<TMP_Text> interactionText = new List<TMP_Text>(); // player texts
-    [SerializeField] private GameObject dialogueUI; // dialogue visua
-    [SerializeField] private List<DialogueSystem> starterDialogue = new List<DialogueSystem>(); // dialogues
+    [SerializeField] private DialogueSystem dialogueDisplay; // dialogues
     [SerializeField] private RectTransform canvas; // main canvas
     [SerializeField] private Image cameraDim; // image used to dim camera
     [SerializeField] private float dim = 0.796f; // dim amount, range 0 to 1
+    [SerializeField] private RenderTexture outsideRenderTextureView;
+    [SerializeField] private List<RenderTexture> playerRenderTextureView;
+    [SerializeField] private float downScaleAmount = 0.8f; // range 0 to 1, 0.999 for highest
+    [SerializeField] private int originalWidth;
+    [SerializeField] private int originalHeight;
     private List<PlayerData> playerCam = new List<PlayerData>();
 
     private bool start = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -27,6 +32,8 @@ public class GlobalPlayerUIManager : MonoBehaviour
         Instance = this; // easier to reference
         _splitscreenUIHandler = FindAnyObjectByType<SplitscreenUIHandler>();
         DisableDim();
+        DisablePixelate();
+        dialogueDisplay.gameObject.SetActive(false);
     }
 
     // log players' cameras
@@ -38,12 +45,15 @@ public class GlobalPlayerUIManager : MonoBehaviour
             {
                 playerCam.Add(players[i]);
                 _splitscreenUIHandler.EnablePlayerOverlay(i);
+
+                // assign render texture to camera
+                players[i].Input.camera.targetTexture = playerRenderTextureView[i];
             }
         }
-        
+
         start = true;
     }
-    
+
     public void EnableInteractionText(int player, string content, Color msgColour)
     {
         _splitscreenUIHandler.EnablePlayerInteractionText(player, content, msgColour);
@@ -57,10 +67,52 @@ public class GlobalPlayerUIManager : MonoBehaviour
     }
 
     // fades image into view based on *time* seconds, used for blink terminal
-    public void FadeView(float time)
+    public void PixelateView(float time)
     {
         // StartCoroutine(FadeRoutine(time));
+        StartCoroutine(PixelateRoutine(time));
         Debug.Log("Start telling the player");
+    }
+
+    // pixelates the render texture showing what the outside camera sees
+    IEnumerator PixelateRoutine(float time)
+    {
+        if (outsideRenderTextureView == null)
+            yield break; // missing image
+
+        originalWidth = outsideRenderTextureView.width;
+        originalHeight = outsideRenderTextureView.height;
+
+        float elapsed = 0f;
+
+        // scale down aspect ratio until its crunchy
+        while (elapsed < time)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / time);
+
+            // res = original *  (1 - lerpscale)
+            outsideRenderTextureView.Release();
+            outsideRenderTextureView.width = (int)(originalWidth * Mathf.Lerp(1, downScaleAmount, t));
+            outsideRenderTextureView.height = (int)(originalHeight * Mathf.Lerp(1, downScaleAmount, t));
+            outsideRenderTextureView.Create();
+
+            yield return null;
+        }
+    }
+
+    public void DisablePixelate()
+    {
+        outsideRenderTextureView.Release();
+        outsideRenderTextureView.width = originalWidth;
+        outsideRenderTextureView.height = originalHeight;
+        outsideRenderTextureView.Create();
+    }
+
+    public void LoadText(DialogueScriptableObj content)
+    {
+        dialogueDisplay.gameObject.SetActive(true);
+        dialogueDisplay.StartDialogue(content);
     }
 
     IEnumerator FadeRoutine(float time)

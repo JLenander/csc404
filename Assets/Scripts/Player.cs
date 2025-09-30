@@ -15,8 +15,8 @@ public class Player : MonoBehaviour
     [SerializeField] private float stepInterval = 0.5f;
     private CharacterController _characterController;
     private Camera _playerCamera;
+    private Transform _robotBody;
     private Camera _outsideCamera;
-    private Transform _cameraTransform;
     private InputAction _moveAction;
     private InputAction _lookAction;
     private float xRotation = 0f;
@@ -30,6 +30,7 @@ public class Player : MonoBehaviour
     private bool disableMovement = false;
     private bool disableRotate = false;
     private bool controllingEyeCam = false;
+    private bool controllingRobot = false;
     private Animator animator;
 
     private float stepTimer;
@@ -39,7 +40,6 @@ public class Player : MonoBehaviour
         _characterController = GetComponent<CharacterController>();
         var input = GetComponent<PlayerInput>();
         _playerCamera = input.camera;
-        _cameraTransform = _playerCamera.GetComponent<Transform>();
         _moveAction = input.actions.FindAction("Move");
         _lookAction = input.actions.FindAction("Look");
         animator = GetComponentInChildren<Animator>();
@@ -54,6 +54,9 @@ public class Player : MonoBehaviour
         if (controllingEyeCam)
         {
             ControlEyeCam();
+        }
+        else if (controllingRobot) {
+            ControlRobotMovement();
         }
         else
         {
@@ -131,6 +134,22 @@ public class Player : MonoBehaviour
         _outsideCamera.transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
     }
 
+    private void ControlRobotMovement()
+    {
+        float leftInput = _moveAction.ReadValue<Vector2>().y;
+        float rightInput = _lookAction.ReadValue<Vector2>().y;
+
+        if (Mathf.Abs(leftInput) < 0.1f) leftInput = 0;
+        if (Mathf.Abs(rightInput) < 0.1f) rightInput = 0;
+
+        float moveInput = (leftInput + rightInput) / 2f;
+        Vector3 move = _robotBody.forward * moveInput;
+        _robotBody.position += move;
+
+        float rotateInput = (leftInput - rightInput);
+        _robotBody.Rotate(Vector3.up, rotateInput);
+    }
+
     public void PlayFootstep()
     {
         if (footstepClips.Length > 0)
@@ -165,5 +184,20 @@ public class Player : MonoBehaviour
         disableMovement = false;
         disableRotate = false;
         controllingEyeCam = false;
+    }
+
+    public void switchToLegs(Transform robotBody)
+    {
+        disableMovement = true;
+        disableRotate = false;
+        controllingRobot = true;
+        _robotBody = robotBody;
+    }
+
+    public void switchOffLegs()
+    {
+        disableMovement = false;
+        disableRotate = false;
+        controllingRobot = false;
     }
 }

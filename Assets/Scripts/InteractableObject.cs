@@ -17,7 +17,6 @@ public class InteractableObject : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-
         if (other != null && other.CompareTag("Hand"))
         {
             EnableOutline();
@@ -34,7 +33,8 @@ public class InteractableObject : MonoBehaviour
     {
         DisableOutline();
         canInteract = false;
-        hand.SetCurrentInteractableObject(null, false);
+        if (hand != null)
+            hand.SetCurrentInteractableObject(null, false);
     }
 
     public void DisableOutline()
@@ -47,11 +47,11 @@ public class InteractableObject : MonoBehaviour
         outline.enabled = true;
     }
 
-    public virtual void InteractWithHand(Transform obj)
+    public virtual void InteractWithHand(Transform wrist, HandMovement target)
     {
     }
 
-    public virtual void StopInteractWithHand()
+    public virtual void StopInteractWithHand(HandMovement target)
     {
     }
 }

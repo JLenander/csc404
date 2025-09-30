@@ -3,21 +3,20 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Windows;
 
-public class InteractableObject : MonoBehaviour
+public abstract class InteractableObject : MonoBehaviour
 {
     public Outline outline;
     public bool canInteract = true;
     public bool canPickup = true;
     private HandMovement hand;
 
-    protected virtual void Start()
+    public virtual void Start()
     {
         DisableOutline();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-
         if (other != null && other.CompareTag("Hand"))
         {
             EnableOutline();
@@ -34,7 +33,8 @@ public class InteractableObject : MonoBehaviour
     {
         DisableOutline();
         canInteract = false;
-        hand.SetCurrentInteractableObject(null, false);
+        if (hand != null)
+            hand.SetCurrentInteractableObject(null, false);
     }
 
     public void DisableOutline()
@@ -47,11 +47,11 @@ public class InteractableObject : MonoBehaviour
         outline.enabled = true;
     }
 
-    public virtual void InteractWithHand(Transform obj)
+    public virtual void InteractWithHand(Transform wrist, HandMovement target)
     {
     }
 
-    public virtual void StopInteractWithHand()
+    public virtual void StopInteractWithHand(HandMovement target)
     {
     }
 }

@@ -8,7 +8,7 @@ public class Phone : InteractableObject
     private Transform parent;
     private Rigidbody rg;
 
-    protected override void Start()
+    public override void Start()
     {
         base.Start();
         ogPosition = transform.localPosition;
@@ -18,7 +18,7 @@ public class Phone : InteractableObject
         rg = GetComponent<Rigidbody>();
     }
 
-    public override void InteractWithHand(Transform obj)
+    public override void InteractWithHand(Transform obj, HandMovement target)
     {
         if (canInteract && canPickup)
         {
@@ -33,10 +33,12 @@ public class Phone : InteractableObject
             triggerCollider.enabled = false;
             Debug.Log("pickup success");
 
+            target.oppositeHandAnimator.SetTrigger("Point"); // sets the opposite hand to point
+            target.handAnimator.SetTrigger("Hold"); // sets current hand to hold anim
         }
     }
 
-    public override void StopInteractWithHand()
+    public override void StopInteractWithHand(HandMovement target)
     {
         // return to original position
         transform.parent = parent;
@@ -46,5 +48,7 @@ public class Phone : InteractableObject
 
         rg.isKinematic = false;
         triggerCollider.enabled = true;
+        target.oppositeHandAnimator.SetTrigger("Neutral"); // sets the opposite hand back to neutral
+        target.handAnimator.SetTrigger("Neutral"); // sets the current hand back to neutral
     }
 }

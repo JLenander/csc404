@@ -62,4 +62,10 @@ public interface ISplitscreenUIHandler
     /// hides dialogue ui container
     /// </summary>
     public void HideDialogue();
+
+    /// <summary>
+    /// changes on screen score text
+    /// </summary>
+    /// <param name="score"></param>
+    public void ChangeScoreText(int score);
 }

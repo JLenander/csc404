@@ -1355,10 +1355,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8169684475074956323, guid: 357f3bdd917235d46bb100bd46164b74, type: 3}
-      propertyPath: m_MaxPlayerCount
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8169684475074956323, guid: 357f3bdd917235d46bb100bd46164b74, type: 3}
       propertyPath: m_FixedNumberOfSplitScreens
       value: 4
       objectReference: {fileID: 0}

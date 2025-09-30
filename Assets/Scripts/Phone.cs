@@ -8,7 +8,7 @@ public class Phone : InteractableObject
     private Transform parent;
     private Rigidbody rg;
 
-    protected override void Start()
+    public override void Start()
     {
         base.Start();
         ogPosition = transform.localPosition;

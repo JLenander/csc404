@@ -14,12 +14,16 @@ using UnityEngine;
 public class ScoreKeeper : MonoBehaviour
 {
     public static ScoreKeeper Instance;
+
+    private ISplitscreenUIHandler _splitscreenUIHandler;
     private int overallScore;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         Instance = this; // easier to reference
         overallScore = 0;
+        _splitscreenUIHandler = FindAnyObjectByType<SplitscreenUIHandler>();
+        _splitscreenUIHandler.ChangeScoreText(0);
     }
 
     /// <summary>
@@ -29,5 +33,6 @@ public class ScoreKeeper : MonoBehaviour
     public void ModifyScore(int score)
     {
         overallScore += score;
+        _splitscreenUIHandler.ChangeScoreText(overallScore);
     }
 }

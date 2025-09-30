@@ -10,7 +10,7 @@ public class InteractableObject : MonoBehaviour
     public bool canPickup = true;
     private HandMovement hand;
 
-    protected virtual void Start()
+    public virtual void Start()
     {
         DisableOutline();
     }

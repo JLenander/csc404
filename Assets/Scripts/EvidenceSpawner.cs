@@ -6,15 +6,16 @@ using UnityEngine;
 /// </summary>
 public class EvidenceSpawner : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     public int maxEvidence = 5;
     public float spawnInterval = 5f;
     public Transform[] spawnAnchors;
     public float launchForce = 10f;
+    public Transform robotHead;
     private float spawnTimer;
     private int evidenceCount; // keep track of num evidences in scene
     private ObjectPooler objectPooler;
     private string[] evidenceTypes = { "Notepad", "Map", "Polaroid" }; // types of evidence
+
     void Start()
     {
         objectPooler = ObjectPooler.Instance;

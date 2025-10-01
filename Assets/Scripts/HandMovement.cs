@@ -12,6 +12,7 @@ public class HandMovement : MonoBehaviour
     private InputAction _dpadAction;
     private InputAction _lookAction;
     private InputAction _interactAction;
+    private InputAction _triggerAction;
 
     public Vector3 movement;
     private bool _disable;
@@ -32,6 +33,8 @@ public class HandMovement : MonoBehaviour
     private GameObject _toInteractObj;  // check which object is it colliding with
     private InteractableObject _currObj;    // currently interacting with hand
     private bool _canInteract;  // can interact status
+    
+    [SerializeField] private GameObject grappleArmSpline;
 
     private void Start()
     {
@@ -102,6 +105,15 @@ public class HandMovement : MonoBehaviour
                 StopInteractingWithObject(_currObj);
             }
 
+            // TODO move to head console and make better
+            if (_triggerAction.ReadValue<float>() > 0.1f)
+            {
+                grappleArmSpline.GetComponent<SplineController>().SetExtending();
+            }
+            else
+            {
+                grappleArmSpline.GetComponent<SplineController>().SetRetracting();
+            }
         }
 
     }
@@ -127,6 +139,7 @@ public class HandMovement : MonoBehaviour
         _dpadAction = input.actions.FindAction("DpadMove");
         _lookAction = input.actions.FindAction("Look");
         _interactAction = input.actions.FindAction("ItemInteract");
+        _triggerAction = input.actions.FindAction("Trigger");
         _disable = true;
     }
 

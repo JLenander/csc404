@@ -23,6 +23,11 @@ public class FingerTouch : MonoBehaviour
 
     private void Start()
     {
+        if (phone == null)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
         // can do FindObjectOfType but deprecated, so find through phone Object
         _phoneUI = phone.GetComponent<PhoneUIController>();
         // Using swipeArea axis so movement in swipeArea's perspective

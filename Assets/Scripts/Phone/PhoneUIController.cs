@@ -26,6 +26,8 @@ public class PhoneUIController : MonoBehaviour
     [SerializeField] private DialogueScriptableObj openingDialogue;
     [SerializeField] private DialogueScriptableObj cheekyDialogue;
 
+    [SerializeField] private DialogueScriptableObj matchDialogue;
+
     private int index = 0;
     private int count = 0;
     private int swipeDirection = 0; // -1 = left, 1 = right
@@ -125,6 +127,8 @@ public class PhoneUIController : MonoBehaviour
 
         locked = true; // lock swiping
         screenImage.sprite = match;
+
+        GlobalPlayerUIManager.Instance.LoadText(matchDialogue);
     }
 }
 

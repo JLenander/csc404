@@ -20,6 +20,8 @@ public class EmergencyEvent : MonoBehaviour
 
     public int safeUses = 5; // number of uses that are basically safe
 
+    [SerializeField] private DialogueScriptableObj brokenDialogue;
+
     private int leftArmShotCount;
     private int rightArmShotCount;
     private bool leftShutdown; // bool used to show left arm is shutdown
@@ -45,6 +47,7 @@ public class EmergencyEvent : MonoBehaviour
 
     void StartEvent()
     {
+        GlobalPlayerUIManager.Instance.LoadText(brokenDialogue);
         emergency = true;
         scary.enabled = true;
         normal.enabled = false;

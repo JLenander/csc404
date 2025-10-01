@@ -152,7 +152,7 @@ public class HandMovement : MonoBehaviour
 
     private void LateUpdate()
     {
-        _wrist.localRotation *= Quaternion.Euler(wristRotateY, wristRotateX, 0);
+        _wrist.localRotation = Quaternion.Euler(wristRotateY, wristRotateX, 0);
     }
 
 

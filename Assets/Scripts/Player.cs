@@ -33,12 +33,7 @@ public class Player : MonoBehaviour
 
     private float stepTimer;
 
-    private CharacterController _robotCharacterController;
-    private Transform _robotBody;
-    private Vector3 _robotVelocity;
-    private bool _robotIsGrounded;
-    public float robotMoveSpeed;
-    public float robotLookSensitivity;
+    private RobotMovement _robotMovement;
 
     void Start()
     {
@@ -53,7 +48,7 @@ public class Player : MonoBehaviour
         _characterController.enabled = true;
         Cursor.lockState = CursorLockMode.Locked;
 
-        _robotCharacterController = _robotBody.GetComponentInChildren<CharacterController>();
+        //_robotCharacterController = _robotBody.GetComponentInChildren<CharacterController>();
     }
 
     void FixedUpdate()
@@ -63,7 +58,7 @@ public class Player : MonoBehaviour
             ControlEyeCam();
         }
         else if (controllingRobot) {
-            ControlRobotMovement();
+            _robotMovement.ControlRobotMovement();
         }
         else
         {
@@ -141,33 +136,29 @@ public class Player : MonoBehaviour
         _outsideCamera.transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
     }
 
-    private void ControlRobotMovement()
-    {
-        _robotIsGrounded = Physics.CheckSphere(_robotBody.position, groundCheckDistance, groundMask);
-        // Movement
-        Debug.Log(_robotIsGrounded);
-        Debug.Log(_robotBody);
-        Debug.Log(_robotCharacterController);
+    //private void ControlRobotMovement()
+    //{
+    //    _robotIsGrounded = Physics.CheckSphere(_robotBody.position, groundCheckDistance, groundMask);
+    //    // Movement
+    //    if (_robotIsGrounded && _robotVelocity.y < 0)
+    //    {
+    //        _robotVelocity.y = -2f; // small downward force to keep grounded
+    //    }
+    //    _robotVelocity.y += gravity;
 
-        if (_robotIsGrounded && _robotVelocity.y < 0)
-        {
-            _robotVelocity.y = -2f; // small downward force to keep grounded
-        }
-        _robotVelocity.y += gravity;
+    //    float leftInput = _moveAction.ReadValue<Vector2>().y;
+    //    float rightInput = _lookAction.ReadValue<Vector2>().y;
 
-        float leftInput = _moveAction.ReadValue<Vector2>().y;
-        float rightInput = _lookAction.ReadValue<Vector2>().y;
+    //    if (Mathf.Abs(leftInput) < 0.1f) leftInput = 0;
+    //    if (Mathf.Abs(rightInput) < 0.1f) rightInput = 0;
 
-        if (Mathf.Abs(leftInput) < 0.1f) leftInput = 0;
-        if (Mathf.Abs(rightInput) < 0.1f) rightInput = 0;
+    //    float moveInput = (leftInput + rightInput) / 2f;
+    //    Vector3 moveDir = _robotBody.forward * moveInput + _robotVelocity;
+    //    _robotCharacterController.Move(moveDir * robotMoveSpeed * Time.deltaTime);
 
-        float moveInput = (leftInput + rightInput) / 2f;
-        Vector3 moveDir = _robotBody.forward * moveInput + _robotVelocity;
-        _robotCharacterController.Move(moveDir * robotMoveSpeed * Time.deltaTime);
-
-        float rotateInput = (leftInput - rightInput);
-        _robotBody.Rotate(Vector3.up, rotateInput * robotLookSensitivity * Time.deltaTime);
-    }
+    //    float rotateInput = (leftInput - rightInput);
+    //    _robotBody.Rotate(Vector3.up, rotateInput * robotLookSensitivity * Time.deltaTime);
+    //}
 
     public void PlayFootstep()
     {
@@ -210,9 +201,9 @@ public class Player : MonoBehaviour
         disableMovement = true;
         disableRotate = false;
         controllingRobot = true;
-        _robotBody = robotBody;
-        _robotCharacterController = robotBody.GetComponent<CharacterController>();
-
+        _robotMovement = robotBody.GetComponent<RobotMovement>();
+        _robotMovement.SetMoveAction(_moveAction);
+        _robotMovement.SetLookAction(_lookAction);
     }
 
     public void switchOffLegs()
@@ -220,5 +211,6 @@ public class Player : MonoBehaviour
         disableMovement = false;
         disableRotate = false;
         controllingRobot = false;
+        _robotMovement = null;
     }
 }

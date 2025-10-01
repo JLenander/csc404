@@ -67,7 +67,7 @@ public class GlobalPlayerManager : MonoBehaviour
                     // pass these players to UI manager
                     GlobalPlayerUIManager.Instance.PassPlayers(_players);
 
-                    SceneManager.LoadScene("TutorialCopy");
+                    SceneManager.LoadScene("TutorialTestGrappleArms");
                 }
                 else
                 {

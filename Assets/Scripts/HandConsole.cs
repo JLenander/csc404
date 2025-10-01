@@ -22,11 +22,27 @@ public class HandConsole : Interactable
     {
         player.GetComponent<Player>().TurnOn();
         handRigTarget.GetComponent<HandMovement>().TurnOff(player);
-        _canInteract= true; // current player leaves
+        _canInteract = true; // current player leaves
     }
 
     public override bool CanInteract()
     {
         return _canInteract;
+    }
+
+    public void DisableInteract()
+    {
+        _canInteract = false;
+        hoverMessage = "[DISABLED] Enter Arm to repair";
+        msgColour = new Color(1, 0, 0, 1);
+        outlineColour = new Color(1, 0, 0, 1);
+    }
+
+    public void EnableInteract()
+    {
+        _canInteract = true;
+        hoverMessage = "Control Arm";
+        msgColour = new Color(1, 1, 1, 1);
+        outlineColour = new Color(1, 1, 1, 1);
     }
 }

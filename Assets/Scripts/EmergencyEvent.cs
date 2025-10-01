@@ -88,6 +88,20 @@ public class EmergencyEvent : MonoBehaviour
         }
     }
 
+    public void TempIncrement(bool left)
+    {
+        if (left)
+        {
+            leftArmShotCount += safeUses * 10;
+        }
+        else
+        {
+            rightArmShotCount += safeUses * 10;
+        }
+        
+        TestBreak(left);
+    }
+
     /// <summary>
     /// Used to increment arm shot count
     /// </summary>
@@ -150,6 +164,7 @@ public class EmergencyEvent : MonoBehaviour
         leftShutdown = false;
         // turn hand console back on
         leftArmTerminal.EnableInteract();
+        leftArmShotCount = 0;
         StopEvent();
     }
 
@@ -162,6 +177,7 @@ public class EmergencyEvent : MonoBehaviour
         rightShutdown = false;
         // turn hand console back on
         rightArmTerminal.EnableInteract();
+        rightArmShotCount = 0;
         StopEvent();
     }
 }

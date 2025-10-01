@@ -12,7 +12,8 @@ public class HandMovement : MonoBehaviour
     private InputAction _dpadAction;
     private InputAction _lookAction;
     private InputAction _interactAction;
-    private InputAction _triggerAction;
+    private InputAction _rightTriggerAction;
+    private InputAction _leftTriggerAction;
 
     public Vector3 movement;
     private bool _disable;
@@ -113,12 +114,13 @@ public class HandMovement : MonoBehaviour
             }
 
             // TODO move to head console and make better
-            if (_triggerAction.ReadValue<float>() > 0.1f && !jammed)
+            if (_rightTriggerAction.ReadValue<float>() > 0.1f && !jammed)
             {
                 if (!shot)
                 {
                     shot = true;
-                    EmergencyEvent.Instance.IncrementCount(left);
+                    // TODO revert
+                    // EmergencyEvent.Instance.IncrementCount(left);
 
                     if (hookSource != null)
                         hookSource.Play();
@@ -134,6 +136,13 @@ public class HandMovement : MonoBehaviour
                 }
 
                 grappleArmSpline.GetComponent<SplineController>().SetRetracting();
+            }
+
+            if (_leftTriggerAction.ReadValue<float>() > 0.1f)
+            {
+                // TODO remove
+                // Temporary immediate trigger of breaking of arm
+                EmergencyEvent.Instance.TempIncrement(left);
             }
         }
         else
@@ -165,7 +174,8 @@ public class HandMovement : MonoBehaviour
         _dpadAction = input.actions.FindAction("DpadMove");
         _lookAction = input.actions.FindAction("Look");
         _interactAction = input.actions.FindAction("ItemInteract");
-        _triggerAction = input.actions.FindAction("Trigger");
+        _rightTriggerAction = input.actions.FindAction("Trigger");
+        _leftTriggerAction = input.actions.FindAction("LeftTrigger");
         _disable = true;
     }
 

@@ -8,7 +8,8 @@ public abstract class InteractableObject : MonoBehaviour
     public Outline outline;
     public bool canInteract = true;
     public bool canPickup = true;
-    private HandMovement hand;
+    private HandMovement handMovement;
+    private Hand hand;
 
     public virtual void Start()
     {
@@ -21,10 +22,11 @@ public abstract class InteractableObject : MonoBehaviour
         {
             EnableOutline();
             canInteract = true;
-            hand = other.GetComponent<HandMovement>();
+            hand = other.GetComponent<Hand>();
             if (hand != null)
             {
-                hand.SetCurrentInteractableObject(gameObject, true);
+                handMovement = hand.GetHandMovement();
+                handMovement.SetCurrentInteractableObject(gameObject, true);
             }
         }
     }
@@ -33,8 +35,8 @@ public abstract class InteractableObject : MonoBehaviour
     {
         DisableOutline();
         canInteract = false;
-        if (hand != null)
-            hand.SetCurrentInteractableObject(null, false);
+        if (handMovement != null)
+            handMovement.SetCurrentInteractableObject(null, false);
     }
 
     public void DisableOutline()

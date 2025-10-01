@@ -625,7 +625,7 @@ MonoBehaviour:
   endObject: {fileID: 4607181767309699373}
   endPositionOffset: {x: 0, y: 0, z: 0}
   targetObject: {fileID: 8679756972578375100}
-  extendSpeed: 1
+  extendSpeed: 5
   interpolateFactor: 1
   restLocalPosition: {x: 2, y: 0, z: 0}
   restPositionSnapThreshold: 0.1
@@ -1765,11 +1765,13 @@ MonoBehaviour:
   movement: {x: 0, y: 0, z: 0}
   moveSource: {fileID: 8682444517587383604}
   stopSource: {fileID: 9115779696011899960}
+  hookSource: {fileID: 0}
   lookSensitivity: 0.4
   _wrist: {fileID: 4542383967168270950}
   oppositeHandAnimator: {fileID: 0}
   handAnimator: {fileID: 6001430838395959926}
   grappleArmSpline: {fileID: 1951719360051209165}
+  left: 0
 --- !u!82 &8682444517587383604
 AudioSource:
   m_ObjectHideFlags: 0

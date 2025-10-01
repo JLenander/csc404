@@ -251,7 +251,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
   moveSpeed: 8
-  moveSensitivity: 0.3
   lookSensitivity: 2.5
   footstepSource: {fileID: 6477602773953544208}
   footstepClips:
@@ -265,6 +264,8 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 8
+  robotMoveSpeed: 40
+  robotLookSensitivity: 50
 --- !u!114 &2468870759577335785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -694,6 +695,22 @@ PrefabInstance:
       propertyPath: m_RootBone
       value: 
       objectReference: {fileID: 4370989857272192652}
+    - target: {fileID: -4692088930963971089, guid: f2a9de9cee120a546b3786db21f7e49c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99887824
+      objectReference: {fileID: 0}
+    - target: {fileID: -4692088930963971089, guid: f2a9de9cee120a546b3786db21f7e49c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.0006140583
+      objectReference: {fileID: 0}
+    - target: {fileID: -4692088930963971089, guid: f2a9de9cee120a546b3786db21f7e49c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.04713099
+      objectReference: {fileID: 0}
+    - target: {fileID: -4692088930963971089, guid: f2a9de9cee120a546b3786db21f7e49c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.004537543
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: f2a9de9cee120a546b3786db21f7e49c, type: 3}
       propertyPath: m_Name
       value: Plorp_Idle_Loop

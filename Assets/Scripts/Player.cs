@@ -7,7 +7,6 @@ public class Player : MonoBehaviour
     // ID of player
     // public int playerID;
     public float moveSpeed;
-    public float moveSensitivity;
     public float lookSensitivity;
 
     [SerializeField] private AudioSource footstepSource;
@@ -15,7 +14,6 @@ public class Player : MonoBehaviour
     [SerializeField] private float stepInterval = 0.5f;
     private CharacterController _characterController;
     private Camera _playerCamera;
-    private Transform _robotBody;
     private Camera _outsideCamera;
     private InputAction _moveAction;
     private InputAction _lookAction;
@@ -35,6 +33,13 @@ public class Player : MonoBehaviour
 
     private float stepTimer;
 
+    private CharacterController _robotCharacterController;
+    private Transform _robotBody;
+    private Vector3 _robotVelocity;
+    private bool _robotIsGrounded;
+    public float robotMoveSpeed;
+    public float robotLookSensitivity;
+
     void Start()
     {
         _characterController = GetComponent<CharacterController>();
@@ -47,6 +52,8 @@ public class Player : MonoBehaviour
         this.transform.position = new Vector3(-1.0f, 5.0f, -3.0f);
         _characterController.enabled = true;
         Cursor.lockState = CursorLockMode.Locked;
+
+        _robotCharacterController = _robotBody.GetComponentInChildren<CharacterController>();
     }
 
     void FixedUpdate()
@@ -136,6 +143,18 @@ public class Player : MonoBehaviour
 
     private void ControlRobotMovement()
     {
+        _robotIsGrounded = Physics.CheckSphere(_robotBody.position, groundCheckDistance, groundMask);
+        // Movement
+        Debug.Log(_robotIsGrounded);
+        Debug.Log(_robotBody);
+        Debug.Log(_robotCharacterController);
+
+        if (_robotIsGrounded && _robotVelocity.y < 0)
+        {
+            _robotVelocity.y = -2f; // small downward force to keep grounded
+        }
+        _robotVelocity.y += gravity;
+
         float leftInput = _moveAction.ReadValue<Vector2>().y;
         float rightInput = _lookAction.ReadValue<Vector2>().y;
 
@@ -143,11 +162,11 @@ public class Player : MonoBehaviour
         if (Mathf.Abs(rightInput) < 0.1f) rightInput = 0;
 
         float moveInput = (leftInput + rightInput) / 2f;
-        Vector3 move = _robotBody.forward * moveInput;
-        _robotBody.position += move;
+        Vector3 moveDir = _robotBody.forward * moveInput + _robotVelocity;
+        _robotCharacterController.Move(moveDir * robotMoveSpeed * Time.deltaTime);
 
         float rotateInput = (leftInput - rightInput);
-        _robotBody.Rotate(Vector3.up, rotateInput);
+        _robotBody.Rotate(Vector3.up, rotateInput * robotLookSensitivity * Time.deltaTime);
     }
 
     public void PlayFootstep()
@@ -192,6 +211,8 @@ public class Player : MonoBehaviour
         disableRotate = false;
         controllingRobot = true;
         _robotBody = robotBody;
+        _robotCharacterController = robotBody.GetComponent<CharacterController>();
+
     }
 
     public void switchOffLegs()

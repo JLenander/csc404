@@ -1267,11 +1267,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6060350970885083337, guid: 643089b1a754ed94f975fdbfade0819f, type: 3}
       propertyPath: originalWidth
-      value: 320
+      value: 1920
       objectReference: {fileID: 0}
     - target: {fileID: 6060350970885083337, guid: 643089b1a754ed94f975fdbfade0819f, type: 3}
       propertyPath: originalHeight
-      value: 180
+      value: 1080
       objectReference: {fileID: 0}
     - target: {fileID: 6060350970885083337, guid: 643089b1a754ed94f975fdbfade0819f, type: 3}
       propertyPath: dialogueDisplay
@@ -1279,7 +1279,7 @@ PrefabInstance:
       objectReference: {fileID: 1761630040}
     - target: {fileID: 6060350970885083337, guid: 643089b1a754ed94f975fdbfade0819f, type: 3}
       propertyPath: downScaleAmount
-      value: 0.2
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 6060350970885083337, guid: 643089b1a754ed94f975fdbfade0819f, type: 3}
       propertyPath: outsideRenderTextureView

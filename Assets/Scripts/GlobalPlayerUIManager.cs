@@ -21,6 +21,12 @@ public class GlobalPlayerUIManager : MonoBehaviour
     [SerializeField] private float downScaleAmount = 0.8f; // range 0 to 1, 0.999 for highest
     [SerializeField] private int originalWidth;
     [SerializeField] private int originalHeight;
+
+    private Coroutine _walkingShakeCoroutine;
+    [SerializeField] private float walkShakeIntensity = 0.01f; // small offset
+    [SerializeField] private float walkShakeDuration = 0.05f;   // how long each shake lasts
+    [SerializeField] private float walkShakeInterval = 0.1f;     // time between shakes
+
     private List<PlayerData> playerCam = new List<PlayerData>();
 
     private bool start = false;
@@ -146,4 +152,59 @@ public class GlobalPlayerUIManager : MonoBehaviour
         colour.a = 0;
         cameraDim.color = colour;
     }
+    public void StartWalkingShake()
+    {
+        if (_walkingShakeCoroutine == null)
+            _walkingShakeCoroutine = StartCoroutine(WalkingShakeRoutine());
+    }
+
+    public void StopWalkingShake()
+    {
+        if (_walkingShakeCoroutine != null)
+        {
+            StopCoroutine(_walkingShakeCoroutine);
+            _walkingShakeCoroutine = null;
+
+            // reset all cameras to original position
+            foreach (var playerData in playerCam)
+            {
+                if (playerData.Valid && playerData.Input?.camera != null)
+                    playerData.Input.camera.transform.localPosition = Vector3.zero;
+            }
+        }
+    }
+
+    private IEnumerator WalkingShakeRoutine()
+    {
+        while (true)
+        {
+            foreach (var playerData in playerCam)
+            {
+                if (playerData.Valid && playerData.Input?.camera != null)
+                {
+                    StartCoroutine(WalkShakeOnce(playerData.Input.camera));
+                }
+            }
+            yield return new WaitForSeconds(walkShakeInterval);
+        }
+    }
+
+    private IEnumerator WalkShakeOnce(Camera cam)
+    {
+        Transform camTransform = cam.transform;
+        Vector3 originalPos = camTransform.localPosition;
+
+        float elapsed = 0f;
+        while (elapsed < walkShakeDuration)
+        {
+            elapsed += Time.deltaTime;
+            float offsetX = UnityEngine.Random.Range(-1f, 1f) * walkShakeIntensity;
+            float offsetY = UnityEngine.Random.Range(-1f, 1f) * walkShakeIntensity;
+            camTransform.localPosition = originalPos + new Vector3(offsetX, offsetY, 0);
+            yield return null;
+        }
+
+        camTransform.localPosition = originalPos; // reset
+    }
+
 }

@@ -26,12 +26,6 @@ public class RobotMovement : MonoBehaviour
         if (_robotCharacterController == null)
             Debug.LogError("No CharacterController found");
     }
-    
-    public void SetMoveAction(InputAction moveAction)
-        { _moveAction = moveAction; }
-
-    public void SetLookAction(InputAction lookAction)
-        { _lookAction = lookAction; }
 
     public void ControlRobotMovement()
     {
@@ -56,6 +50,21 @@ public class RobotMovement : MonoBehaviour
 
         float rotateInput = (leftInput - rightInput);
         transform.Rotate(Vector3.up, rotateInput * robotLookSensitivity * Time.deltaTime);
+
+        if (Mathf.Abs(moveInput) > 0 || Mathf.Abs(rotateInput) > 0)
+        {
+            GlobalPlayerUIManager.Instance.StartWalkingShake();
+        }
+        else
+        {
+            GlobalPlayerUIManager.Instance.StopWalkingShake();
+        }
     }
+
+    public void SetMoveAction(InputAction moveAction)
+    { _moveAction = moveAction; }
+
+    public void SetLookAction(InputAction lookAction)
+    { _lookAction = lookAction; }
 
 }

@@ -20,6 +20,7 @@ public class HandMovement : MonoBehaviour
     private bool _isMoving;
     public AudioSource moveSource;
     public AudioSource stopSource;
+    public AudioSource hookSource;
 
     private GameObject _currPlayer;
 
@@ -33,12 +34,18 @@ public class HandMovement : MonoBehaviour
     private GameObject _toInteractObj;  // check which object is it colliding with
     private InteractableObject _currObj;    // currently interacting with hand
     private bool _canInteract;  // can interact status
-    
+
     [SerializeField] private GameObject grappleArmSpline;
+    public bool left;
+    private bool shot;
+
+    private bool jammed;
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        shot = false;
+        jammed = false;
     }
 
     private void Update()
@@ -106,14 +113,33 @@ public class HandMovement : MonoBehaviour
             }
 
             // TODO move to head console and make better
-            if (_triggerAction.ReadValue<float>() > 0.1f)
+            if (_triggerAction.ReadValue<float>() > 0.1f && !jammed)
             {
+                if (!shot)
+                {
+                    shot = true;
+                    EmergencyEvent.Instance.IncrementCount(left);
+
+                    if (hookSource != null)
+                        hookSource.Play();
+                }
+
                 grappleArmSpline.GetComponent<SplineController>().SetExtending();
             }
             else
             {
+                if (shot)
+                {
+                    shot = false;
+                }
+
                 grappleArmSpline.GetComponent<SplineController>().SetRetracting();
             }
+        }
+        else
+        {
+            grappleArmSpline.GetComponent<SplineController>().SetRetracting();
+            // keep arm retracting without player input
         }
 
     }
@@ -165,6 +191,11 @@ public class HandMovement : MonoBehaviour
         Debug.Log("Stopping interaction with " + interactableObject);
         interactableObject.StopInteractWithHand(this);
         _currObj = null;
+    }
+
+    public void JamArm(bool state)
+    {
+        jammed = state;
     }
 
 }

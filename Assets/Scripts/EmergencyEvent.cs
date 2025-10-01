@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class EmergencyEvent : MonoBehaviour
 {
+    public static EmergencyEvent Instance;
     public AudioSource normal; // normal music
     public AudioSource scary; // emergency music
 
@@ -14,8 +15,8 @@ public class EmergencyEvent : MonoBehaviour
     public float interval = 1f; // light intervals
 
 
-    [SerializeField] private HandConsole leftHandConsole; // reference arm console to disable
-    [SerializeField] private HandConsole rightHandConsole; // reference arm console to disable
+    [SerializeField] private HandConsole leftArmTerminal; // reference arm console to disable
+    [SerializeField] private HandConsole rightArmTerminal; // reference arm console to disable
 
     public int safeUses = 5; // number of uses that are basically safe
 
@@ -38,6 +39,8 @@ public class EmergencyEvent : MonoBehaviour
 
         leftArmShotCount = 0;
         rightArmShotCount = 0;
+
+        Instance = this;
     }
 
     void StartEvent()
@@ -111,13 +114,13 @@ public class EmergencyEvent : MonoBehaviour
         if (left)
         {
             useCount = leftArmShotCount;
-            handConsole = leftHandConsole;
+            handConsole = leftArmTerminal;
             leftShutdown = true;
         }
         else
         {
             useCount = rightArmShotCount;
-            handConsole = rightHandConsole;
+            handConsole = rightArmTerminal;
             rightShutdown = true;
         }
 
@@ -143,7 +146,7 @@ public class EmergencyEvent : MonoBehaviour
 
         leftShutdown = false;
         // turn hand console back on
-        leftHandConsole.EnableInteract();
+        leftArmTerminal.EnableInteract();
         StopEvent();
     }
 
@@ -155,7 +158,7 @@ public class EmergencyEvent : MonoBehaviour
 
         rightShutdown = false;
         // turn hand console back on
-        rightHandConsole.EnableInteract();
+        rightArmTerminal.EnableInteract();
         StopEvent();
     }
 }

@@ -301,7 +301,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -430,7 +430,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -567,8 +567,8 @@ MonoBehaviour:
   flashLight: {fileID: 8926503776465663307}
   defaultLight: {fileID: 3329251026055516755}
   interval: 1
-  leftHandConsole: {fileID: 0}
-  rightHandConsole: {fileID: 0}
+  leftArmTerminal: {fileID: 0}
+  rightArmTerminal: {fileID: 0}
   safeUses: 5
 --- !u!1 &8926503776465663307
 GameObject:

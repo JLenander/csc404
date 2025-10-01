@@ -136,30 +136,6 @@ public class Player : MonoBehaviour
         _outsideCamera.transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
     }
 
-    //private void ControlRobotMovement()
-    //{
-    //    _robotIsGrounded = Physics.CheckSphere(_robotBody.position, groundCheckDistance, groundMask);
-    //    // Movement
-    //    if (_robotIsGrounded && _robotVelocity.y < 0)
-    //    {
-    //        _robotVelocity.y = -2f; // small downward force to keep grounded
-    //    }
-    //    _robotVelocity.y += gravity;
-
-    //    float leftInput = _moveAction.ReadValue<Vector2>().y;
-    //    float rightInput = _lookAction.ReadValue<Vector2>().y;
-
-    //    if (Mathf.Abs(leftInput) < 0.1f) leftInput = 0;
-    //    if (Mathf.Abs(rightInput) < 0.1f) rightInput = 0;
-
-    //    float moveInput = (leftInput + rightInput) / 2f;
-    //    Vector3 moveDir = _robotBody.forward * moveInput + _robotVelocity;
-    //    _robotCharacterController.Move(moveDir * robotMoveSpeed * Time.deltaTime);
-
-    //    float rotateInput = (leftInput - rightInput);
-    //    _robotBody.Rotate(Vector3.up, rotateInput * robotLookSensitivity * Time.deltaTime);
-    //}
-
     public void PlayFootstep()
     {
         if (footstepClips.Length > 0)

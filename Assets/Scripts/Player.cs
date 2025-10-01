@@ -7,7 +7,6 @@ public class Player : MonoBehaviour
     // ID of player
     // public int playerID;
     public float moveSpeed;
-    public float moveSensitivity;
     public float lookSensitivity;
 
     [SerializeField] private AudioSource footstepSource;
@@ -16,7 +15,6 @@ public class Player : MonoBehaviour
     private CharacterController _characterController;
     private Camera _playerCamera;
     private Camera _outsideCamera;
-    private Transform _cameraTransform;
     private InputAction _moveAction;
     private InputAction _lookAction;
     private float xRotation = 0f;
@@ -30,16 +28,18 @@ public class Player : MonoBehaviour
     private bool disableMovement = false;
     private bool disableRotate = false;
     private bool controllingEyeCam = false;
+    private bool controllingRobot = false;
     private Animator animator;
 
     private float stepTimer;
+
+    private RobotMovement _robotMovement;
 
     void Start()
     {
         _characterController = GetComponent<CharacterController>();
         var input = GetComponent<PlayerInput>();
         _playerCamera = input.camera;
-        _cameraTransform = _playerCamera.GetComponent<Transform>();
         _moveAction = input.actions.FindAction("Move");
         _lookAction = input.actions.FindAction("Look");
         animator = GetComponentInChildren<Animator>();
@@ -47,6 +47,8 @@ public class Player : MonoBehaviour
         this.transform.position = new Vector3(-1.0f, 5.0f, -3.0f);
         _characterController.enabled = true;
         Cursor.lockState = CursorLockMode.Locked;
+
+        //_robotCharacterController = _robotBody.GetComponentInChildren<CharacterController>();
     }
 
     void FixedUpdate()
@@ -54,6 +56,9 @@ public class Player : MonoBehaviour
         if (controllingEyeCam)
         {
             ControlEyeCam();
+        }
+        else if (controllingRobot) {
+            _robotMovement.ControlRobotMovement();
         }
         else
         {
@@ -165,5 +170,23 @@ public class Player : MonoBehaviour
         disableMovement = false;
         disableRotate = false;
         controllingEyeCam = false;
+    }
+
+    public void switchToLegs(Transform robotBody)
+    {
+        disableMovement = true;
+        disableRotate = false;
+        controllingRobot = true;
+        _robotMovement = robotBody.GetComponent<RobotMovement>();
+        _robotMovement.SetMoveAction(_moveAction);
+        _robotMovement.SetLookAction(_lookAction);
+    }
+
+    public void switchOffLegs()
+    {
+        disableMovement = false;
+        disableRotate = false;
+        controllingRobot = false;
+        _robotMovement = null;
     }
 }

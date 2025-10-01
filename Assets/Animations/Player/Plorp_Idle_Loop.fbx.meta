@@ -8,17 +8,17 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Plorp_Walk_Loop_ver004_Final_Plorp_OptimizedMesh_ver016_FINALRIG_Plorp_Black_MTL
-    second: {fileID: 2100000, guid: e64c7b8fbdb19d345bed94bf3ad39e6a, type: 2}
+    second: {fileID: 2100000, guid: 0d540b639aaeed140b7e8d4aedc176a5, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Plorp_Walk_Loop_ver004_Final_Plorp_OptimizedMesh_ver016_FINALRIG_Plorp_Green_MTL
-    second: {fileID: 2100000, guid: 79c847ce78d7b0d42848585064182da6, type: 2}
+    second: {fileID: 2100000, guid: 5f8bc91dd50c48d4b9bd6e78612159e3, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Plorp_Walk_Loop_ver004_Final_Plorp_OptimizedMesh_ver016_FINALRIG_Plorp_White_MTL
-    second: {fileID: 2100000, guid: bb5500a2944047848a55bab4cb8a3a8d, type: 2}
+    second: {fileID: 2100000, guid: b183e815bd89b0247944ca36979ae734, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

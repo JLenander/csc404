@@ -3,7 +3,112 @@ guid: d786dae7031c39a4fb214ba7e176f336
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: AlienEaring_Nova
+    second: {fileID: 2100000, guid: 165994214ccbbec418a3969b3a4001d5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: AlienKeychain_Nova
+    second: {fileID: 2100000, guid: 165994214ccbbec418a3969b3a4001d5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BagStrap_Nova
+    second: {fileID: 2100000, guid: 165994214ccbbec418a3969b3a4001d5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bag_Nova
+    second: {fileID: 2100000, guid: 165994214ccbbec418a3969b3a4001d5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ChainRings_Nova
+    second: {fileID: 2100000, guid: 165994214ccbbec418a3969b3a4001d5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Chain_Nova
+    second: {fileID: 2100000, guid: 165994214ccbbec418a3969b3a4001d5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EaringStuds_Nova
+    second: {fileID: 2100000, guid: 165994214ccbbec418a3969b3a4001d5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Eyebrows_Nova
+    second: {fileID: 2100000, guid: eada3b057e59e56478dc283758880177, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Eyes_Nova
+    second: {fileID: 2100000, guid: eada3b057e59e56478dc283758880177, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Hair_Nova
+    second: {fileID: 2100000, guid: 165994214ccbbec418a3969b3a4001d5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Hairclip_Nova
+    second: {fileID: 2100000, guid: 165994214ccbbec418a3969b3a4001d5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: InnerShirt_Nova
+    second: {fileID: 2100000, guid: 165994214ccbbec418a3969b3a4001d5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: JacketHood_Nova
+    second: {fileID: 2100000, guid: 165994214ccbbec418a3969b3a4001d5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: JacketSleeves_Nova
+    second: {fileID: 2100000, guid: 165994214ccbbec418a3969b3a4001d5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mouth_Nova
+    second: {fileID: 2100000, guid: eada3b057e59e56478dc283758880177, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Pants_Nova
+    second: {fileID: 2100000, guid: 165994214ccbbec418a3969b3a4001d5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PlanetKeychain_Nova
+    second: {fileID: 2100000, guid: 165994214ccbbec418a3969b3a4001d5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shades_Nova
+    second: {fileID: 2100000, guid: eada3b057e59e56478dc283758880177, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shoes_Nova
+    second: {fileID: 2100000, guid: 165994214ccbbec418a3969b3a4001d5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Skin_Nova
+    second: {fileID: 2100000, guid: 165994214ccbbec418a3969b3a4001d5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: StarEaring_Nova
+    second: {fileID: 2100000, guid: 165994214ccbbec418a3969b3a4001d5, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

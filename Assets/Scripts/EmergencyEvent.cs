@@ -88,20 +88,6 @@ public class EmergencyEvent : MonoBehaviour
         }
     }
 
-    public void TempIncrement(bool left)
-    {
-        if (left)
-        {
-            leftArmShotCount += safeUses * 10;
-        }
-        else
-        {
-            rightArmShotCount += safeUses * 10;
-        }
-        
-        TestBreak(left);
-    }
-
     /// <summary>
     /// Used to increment arm shot count
     /// </summary>

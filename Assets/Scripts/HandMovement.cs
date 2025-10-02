@@ -113,14 +113,13 @@ public class HandMovement : MonoBehaviour
                 StopInteractingWithObject(_currObj);
             }
 
-            // TODO move to head console and make better
+            // TODO move to head console
             if (_rightTriggerAction.ReadValue<float>() > 0.1f && !jammed)
             {
                 if (!shot)
                 {
                     shot = true;
-                    // TODO revert
-                    // EmergencyEvent.Instance.IncrementCount(left);
+                    EmergencyEvent.Instance.IncrementCount(left);
 
                     if (hookSource != null)
                         hookSource.Play();
@@ -136,13 +135,6 @@ public class HandMovement : MonoBehaviour
                 }
 
                 grappleArmSpline.GetComponent<SplineController>().SetRetracting();
-            }
-
-            if (_leftTriggerAction.ReadValue<float>() > 0.1f)
-            {
-                // TODO remove
-                // Temporary immediate trigger of breaking of arm
-                EmergencyEvent.Instance.TempIncrement(left);
             }
         }
         else

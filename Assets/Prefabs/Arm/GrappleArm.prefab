@@ -261,7 +261,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1695341088322505098}
-  - {fileID: 2727928652920761312}
   m_Father: {fileID: 1131170976285256432}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5293849401505799242
@@ -673,7 +672,7 @@ GameObject:
   m_Component:
   - component: {fileID: 119430455514101004}
   m_Layer: 0
-  m_Name: jt_wrist
+  m_Name: jt_wrist_dup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -725,6 +724,7 @@ Transform:
   m_LocalScale: {x: 1, y: 0.99999994, z: 0.99999994}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2727928652920761312}
   - {fileID: 1114012171602433623}
   - {fileID: 6178641934386213010}
   - {fileID: 6589231993906839702}
@@ -1565,12 +1565,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5545135037996702311}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.6073297, y: -0.023809092, z: 0.0030833734, w: 0.7940871}
-  m_LocalPosition: {x: -0.605, y: 0.126, z: -2.662}
+  m_LocalRotation: {x: 0.000000059604638, y: -0.041558232, z: -0.024023, w: 0.9988473}
+  m_LocalPosition: {x: -0.5178821, y: 2.6155932, z: -0.5988563}
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5304193950161547392}
+  m_Father: {fileID: 1695341088322505098}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8601503552687804358
 MonoBehaviour:
@@ -2018,6 +2018,7 @@ MonoBehaviour:
   hookSource: {fileID: 4893792040582815798}
   lookSensitivity: 0.4
   _wrist: {fileID: 1695341088322505098}
+  _wristAim: {fileID: 7258395926828420493}
   oppositeHandAnimator: {fileID: 0}
   handAnimator: {fileID: 5030860086350588141}
   grappleArmSpline: {fileID: 1951719360051209165}
@@ -2709,7 +2710,7 @@ Animator:
   m_GameObject: {fileID: 8835040066116882428}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: cc069f35c855631418982b133e6748ff, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

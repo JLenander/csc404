@@ -28,6 +28,8 @@ public class HandMovement : MonoBehaviour
     public float lookSensitivity = 0.4f;
 
     [SerializeField] public Transform _wrist;
+    [SerializeField] public Transform _wristAim;
+
     public Animator oppositeHandAnimator; // animator of opposite hand
     public Animator handAnimator;
     private float wristRotateX;
@@ -153,7 +155,18 @@ public class HandMovement : MonoBehaviour
 
     private void LateUpdate()
     {
-        _wrist.localRotation = Quaternion.Euler(wristRotateY, wristRotateX, 0);
+        if (left)
+        {
+            // left arm rotation
+            _wrist.localRotation = Quaternion.Euler(wristRotateY, wristRotateX, 0);
+            _wristAim.localRotation = Quaternion.Euler(wristRotateY, wristRotateX * -1.0f, 0);
+        }
+        else
+        {
+            // right arm rotation
+            _wrist.localRotation = Quaternion.Euler(wristRotateY, wristRotateX * -1.0f, 0);
+            _wristAim.localRotation = Quaternion.Euler(wristRotateY, wristRotateX, 0);
+        }
     }
 
 

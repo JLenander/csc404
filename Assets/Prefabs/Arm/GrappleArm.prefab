@@ -672,7 +672,7 @@ GameObject:
   m_Component:
   - component: {fileID: 119430455514101004}
   m_Layer: 0
-  m_Name: jt_wrist
+  m_Name: jt_wrist_dup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2018,6 +2018,7 @@ MonoBehaviour:
   hookSource: {fileID: 4893792040582815798}
   lookSensitivity: 0.4
   _wrist: {fileID: 1695341088322505098}
+  _wristAim: {fileID: 7258395926828420493}
   oppositeHandAnimator: {fileID: 0}
   handAnimator: {fileID: 5030860086350588141}
   grappleArmSpline: {fileID: 1951719360051209165}
@@ -2709,7 +2710,7 @@ Animator:
   m_GameObject: {fileID: 8835040066116882428}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: cc069f35c855631418982b133e6748ff, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

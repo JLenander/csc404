@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
     private bool controllingEyeCam = false;
     private bool controllingRobot = false;
     private Animator animator;
-
+    
     private float stepTimer;
 
     private RobotMovement _robotMovement;

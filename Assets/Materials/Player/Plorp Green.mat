@@ -98,12 +98,12 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
-    - _FalloffAmount: 0.05
+    - _FalloffAmount: 0
     - _FresnelSize: 0.1
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _LightingCutoff: 0
+    - _LightingCutoff: -0.09
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005

@@ -12,6 +12,8 @@ public class HandMovement : MonoBehaviour
     private InputAction _dpadAction;
     private InputAction _lookAction;
     private InputAction _interactAction;
+    private InputAction _rightTriggerAction;
+    private InputAction _leftTriggerAction;
 
     public Vector3 movement;
     private bool _disable;
@@ -19,6 +21,7 @@ public class HandMovement : MonoBehaviour
     private bool _isMoving;
     public AudioSource moveSource;
     public AudioSource stopSource;
+    public AudioSource hookSource;
 
     private GameObject _currPlayer;
 
@@ -33,9 +36,17 @@ public class HandMovement : MonoBehaviour
     private InteractableObject _currObj;    // currently interacting with hand
     private bool _canInteract;  // can interact status
 
+    [SerializeField] private GameObject grappleArmSpline;
+    public bool left;
+    private bool shot;
+
+    private bool jammed;
+
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        shot = false;
+        jammed = false;
     }
 
     private void Update()
@@ -102,6 +113,34 @@ public class HandMovement : MonoBehaviour
                 StopInteractingWithObject(_currObj);
             }
 
+            // TODO move to head console
+            if (_rightTriggerAction.ReadValue<float>() > 0.1f && !jammed)
+            {
+                if (!shot)
+                {
+                    shot = true;
+                    EmergencyEvent.Instance.IncrementCount(left);
+
+                    if (hookSource != null)
+                        hookSource.Play();
+                }
+
+                grappleArmSpline.GetComponent<SplineController>().SetExtending();
+            }
+            else
+            {
+                if (shot)
+                {
+                    shot = false;
+                }
+
+                grappleArmSpline.GetComponent<SplineController>().SetRetracting();
+            }
+        }
+        else
+        {
+            grappleArmSpline.GetComponent<SplineController>().SetRetracting();
+            // keep arm retracting without player input
         }
 
     }
@@ -114,7 +153,7 @@ public class HandMovement : MonoBehaviour
 
     private void LateUpdate()
     {
-        _wrist.localRotation *= Quaternion.Euler(wristRotateY, wristRotateX, 0);
+        _wrist.localRotation = Quaternion.Euler(wristRotateY, wristRotateX, 0);
     }
 
 
@@ -127,6 +166,8 @@ public class HandMovement : MonoBehaviour
         _dpadAction = input.actions.FindAction("DpadMove");
         _lookAction = input.actions.FindAction("Look");
         _interactAction = input.actions.FindAction("ItemInteract");
+        _rightTriggerAction = input.actions.FindAction("Trigger");
+        _leftTriggerAction = input.actions.FindAction("LeftTrigger");
         _disable = true;
     }
 
@@ -152,6 +193,11 @@ public class HandMovement : MonoBehaviour
         Debug.Log("Stopping interaction with " + interactableObject);
         interactableObject.StopInteractWithHand(this);
         _currObj = null;
+    }
+
+    public void JamArm(bool state)
+    {
+        jammed = state;
     }
 
 }

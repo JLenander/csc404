@@ -11,15 +11,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CharacterSelect.unity
     guid: df2a8b17422a6f24aa292a118586e371
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Tutorial.unity
     guid: e29aab8fd134bbc4892ffb59a30372e9
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Evidence.unity
     guid: c36ba1ad5c77264458a9d603ad60b132
   - enabled: 1
-    path: Assets/Scenes/Walking.unity
-    guid: 62de2b6507abf0a428f4e03c9303d0ec
+    path: Assets/Scenes/TutorialTestGrappleArms.unity
+    guid: 400df5c447ab84a439d96cd10a8e3e42
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 2ceba5d9a4cce245fb02155d49fa29c2, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 5a9f47bf536d8da4d81d60910febc352, type: 3}

@@ -26,12 +26,14 @@ public class PhoneUIController : MonoBehaviour
     [SerializeField] private DialogueScriptableObj openingDialogue;
     [SerializeField] private DialogueScriptableObj cheekyDialogue;
 
+    [SerializeField] private DialogueScriptableObj matchDialogue;
+
     private int index = 0;
     private int count = 0;
     private int swipeDirection = 0; // -1 = left, 1 = right
     private RectTransform rt;
     private bool swiping = false;
-    private bool locked = false;
+    private bool locked = true;
     private bool remarked = false;
 
     private void Awake()
@@ -50,6 +52,8 @@ public class PhoneUIController : MonoBehaviour
             screenImage.sprite = profiles[index];
             index = (index + 1) % profiles.Count;
             nextImage.sprite = profiles[index];
+
+            locked = false;
             return true;
         }
         else
@@ -125,6 +129,13 @@ public class PhoneUIController : MonoBehaviour
 
         locked = true; // lock swiping
         screenImage.sprite = match;
+
+        GlobalPlayerUIManager.Instance.LoadText(matchDialogue);
+    }
+
+    public void Unlock()
+    {
+        locked = false;
     }
 }
 

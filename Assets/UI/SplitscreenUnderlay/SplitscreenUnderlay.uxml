@@ -43,7 +43,7 @@
     <ui:VisualElement name="ScoreContainer" style="flex-grow: 1; position: absolute; width: 100%; height: 100%;">
         <ui:VisualElement name="ScoreUI" style="flex-grow: 1;">
             <ui:VisualElement name="ScoreBox" style="flex-grow: initial; top: 933px; width: 127px; height: 139px; left: 966px; position: absolute; background-color: rgba(0, 0, 0, 0);">
-                <ui:Label text="10" name="Score" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/CCAstroCity%20Regular.ttf?fileID=12800000&amp;guid=d4d910571229e1e438dfa7061d91e182&amp;type=3#CCAstroCity Regular&quot;); font-size: 85px; white-space: normal; color: rgb(0, 0, 0);" />
+                <ui:Label text="0" name="Score" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/CCAstroCity%20Regular.ttf?fileID=12800000&amp;guid=d4d910571229e1e438dfa7061d91e182&amp;type=3#CCAstroCity Regular&quot;); font-size: 85px; white-space: normal; color: rgb(0, 0, 0);" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

@@ -49,11 +49,6 @@ public class RoomRotation : MonoBehaviour
 
         if (wristBone != null)
         {
-            //Quaternion relativeRotation = Quaternion.Euler(robotHandMovement.wristRotateY, robotHandMovement.wristRotateX, 0); ;
-            //if (!robotHandMovement.left)
-            //{
-            //    //relativeRotation.y *= -1.0f;
-            //}
             wristCopier.localRotation = wristBone.localRotation;
         }
     }

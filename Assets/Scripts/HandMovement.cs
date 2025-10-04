@@ -12,7 +12,6 @@ public class HandMovement : MonoBehaviour
     private InputAction _lookAction;
     private InputAction _interactAction;
     private InputAction _rightTriggerAction;
-    private InputAction _leftTriggerAction;
 
     public Vector3 movement = Vector3.zero;
     private Vector3 ogPosition;
@@ -40,14 +39,14 @@ public class HandMovement : MonoBehaviour
 
     [SerializeField] private GameObject grappleArmSpline;
     public bool left;
-    private bool shot;
+    private bool _shot;
 
-    private bool jammed;
+    private bool _jammed;
 
     private void Start()
     {
-        shot = false;
-        jammed = false;
+        _shot = false;
+        _jammed = false;
         ogPosition = transform.localPosition;
     }
 
@@ -115,30 +114,6 @@ public class HandMovement : MonoBehaviour
                 Debug.Log("interaction " + _toInteractObj + _canInteract);
                 StopInteractingWithObject(_currObj);
             }
-
-            // TODO move to head console
-            if (_rightTriggerAction.ReadValue<float>() > 0.1f && !jammed)
-            {
-                if (!shot)
-                {
-                    shot = true;
-                    EmergencyEvent.Instance.IncrementCount(left);
-
-                    if (hookSource != null)
-                        hookSource.Play();
-                }
-
-                grappleArmSpline.GetComponent<SplineController>().SetExtending();
-            }
-            else
-            {
-                if (shot)
-                {
-                    shot = false;
-                }
-
-                grappleArmSpline.GetComponent<SplineController>().SetRetracting();
-            }
         }
         else
         {
@@ -189,8 +164,6 @@ public class HandMovement : MonoBehaviour
         _dpadAction = input.actions.FindAction("DpadMove");
         _lookAction = input.actions.FindAction("Look");
         _interactAction = input.actions.FindAction("ItemInteract");
-        _rightTriggerAction = input.actions.FindAction("Trigger");
-        _leftTriggerAction = input.actions.FindAction("LeftTrigger");
         _disable = true;
     }
 
@@ -216,11 +189,6 @@ public class HandMovement : MonoBehaviour
         Debug.Log("Stopping interaction with " + interactableObject);
         interactableObject.StopInteractWithHand(this);
         _currObj = null;
-    }
-
-    public void JamArm(bool state)
-    {
-        jammed = state;
     }
 
 }

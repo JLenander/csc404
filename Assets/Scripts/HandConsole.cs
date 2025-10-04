@@ -3,9 +3,11 @@ using UnityEngine;
 public class HandConsole : Interactable
 {
     public GameObject handRigTarget;
+    public HeadConsole headConsole; // for grapple arm jamming
     private bool _canInteract = true;
+    public bool left;
 
-    private GameObject currPlayer;
+    private GameObject _currPlayer;
 
     void Start()
     {
@@ -18,7 +20,7 @@ public class HandConsole : Interactable
         player.GetComponent<Player>().TurnOff();
         handRigTarget.GetComponent<HandMovement>().TurnOn(player);
         _canInteract = false;
-        currPlayer = player;
+        _currPlayer = player;
     }
 
     public override void Return(GameObject player)
@@ -26,7 +28,7 @@ public class HandConsole : Interactable
         player.GetComponent<Player>().TurnOn();
         handRigTarget.GetComponent<HandMovement>().TurnOff(player);
         _canInteract = true; // current player leaves
-        currPlayer = null;
+        _currPlayer = null;
     }
 
     public override bool CanInteract()
@@ -39,8 +41,9 @@ public class HandConsole : Interactable
         hoverMessage = "[GRAPPL DISABLED] Enter Arm to repair";
         msgColour = new Color(1, 0, 0, 1);
         outlineColour = new Color(1, 0, 0, 1);
-        handRigTarget.GetComponent<HandMovement>().JamArm(true);
-        currPlayer = null;
+        // handRigTarget.GetComponent<HandMovement>().JamArm(true);
+        headConsole.JamArm(left, true);
+        _currPlayer = null;
     }
 
     public void EnableInteract()
@@ -49,6 +52,7 @@ public class HandConsole : Interactable
         hoverMessage = "Control Arm";
         msgColour = new Color(1, 1, 1, 1);
         outlineColour = new Color(1, 1, 1, 1);
-        handRigTarget.GetComponent<HandMovement>().JamArm(false);
+        // handRigTarget.GetComponent<HandMovement>().JamArm(false);
+        headConsole.JamArm(left, false);
     }
 }

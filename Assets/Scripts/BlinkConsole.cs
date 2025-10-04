@@ -64,7 +64,7 @@ public class BlinkConsole : Interactable
                     danger = true;
                     Debug.Log("out of time you are sus");
                     // disable head console
-                    headConsole.disableInteract();
+                    headConsole.DisableInteract();
                 }
             }
         }
@@ -91,7 +91,7 @@ public class BlinkConsole : Interactable
         //EnableOutline();
         Debug.Log("timers reset");
 
-        headConsole.enableInteract(); // reenable head
+        headConsole.EnableInteract(); // reenable head
         danger = false; // remove flags
         warning = false; // remove flags
         GlobalPlayerUIManager.Instance.DisablePixelate(); // undo pixelate

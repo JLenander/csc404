@@ -14,13 +14,12 @@ public class HandMovement : MonoBehaviour
     private InputAction _rightTriggerAction;
 
     public Vector3 movement = Vector3.zero;
-    private Vector3 ogPosition;
+    private Vector3 _ogPosition;
     private bool _disable;
 
     private bool _isMoving;
     public AudioSource moveSource;
     public AudioSource stopSource;
-    public AudioSource hookSource;
 
     private GameObject _currPlayer;
 
@@ -39,15 +38,10 @@ public class HandMovement : MonoBehaviour
 
     [SerializeField] private GameObject grappleArmSpline;
     public bool left;
-    private bool _shot;
-
-    private bool _jammed;
-
+    
     private void Start()
     {
-        _shot = false;
-        _jammed = false;
-        ogPosition = transform.localPosition;
+        _ogPosition = transform.localPosition;
     }
 
     private void Update()
@@ -128,13 +122,13 @@ public class HandMovement : MonoBehaviour
     {
         if (left)
         {
-            transform.localPosition = movement * speed + ogPosition;
+            transform.localPosition = movement * speed + _ogPosition;
         }
         else
         {
             Vector3 tmpMvt = movement;
             tmpMvt.x *= -1.0f;
-            transform.localPosition = tmpMvt * speed + ogPosition;
+            transform.localPosition = tmpMvt * speed + _ogPosition;
         }
     }
 

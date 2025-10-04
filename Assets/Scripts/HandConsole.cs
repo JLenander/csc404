@@ -38,7 +38,7 @@ public class HandConsole : Interactable
 
     public void DisableInteract()
     {
-        hoverMessage = "[GRAPPL DISABLED] Enter Arm to repair";
+        hoverMessage = "[GRAPPLE DISABLED] Enter Arm to repair";
         msgColour = new Color(1, 0, 0, 1);
         outlineColour = new Color(1, 0, 0, 1);
         // handRigTarget.GetComponent<HandMovement>().JamArm(true);

@@ -10,15 +10,15 @@ public class HeadConsole : Interactable
 
     private bool _canInteract = true;
     
-    // for grapple arm
     [SerializeField] private GameObject leftGrappleArmSpline;
     [SerializeField] private GameObject rightGrappleArmSpline;
 
     private bool _leftJammed, _rightJammed;
     private bool _leftShot, _rightShot;
-
     private InputAction _leftTriggerAction, _rightTriggerAction;
     private GameObject _currPlayer;
+    
+    public AudioSource hookSource;
 
     void Start()
     {
@@ -28,18 +28,21 @@ public class HeadConsole : Interactable
         _leftShot = _rightShot = false;
     }
     
-    // for grapple arm
+    // for grapple arm, check trigger input to shoot or retract
     void Update()
     {
         if (_currPlayer != null)
         {
+            // Left arm
             if (_leftTriggerAction != null && _leftTriggerAction.ReadValue<float>() > 0.1f && !_leftJammed)
             {
                 if (!_leftShot)
                 {
                     _leftShot = true;
                     EmergencyEvent.Instance.IncrementCount(true); // or pass correct value
-                    // Optionally play hook sound here if needed
+                    
+                    if (hookSource != null)
+                        hookSource.Play();
                 }
                 leftGrappleArmSpline.GetComponent<SplineController>().SetExtending();
             }
@@ -59,6 +62,9 @@ public class HeadConsole : Interactable
                 {
                     _rightShot = true;
                     EmergencyEvent.Instance.IncrementCount(false);
+                    
+                    if (hookSource != null)
+                        hookSource.Play();
                 }
                 rightGrappleArmSpline.GetComponent<SplineController>().SetExtending();
             }
@@ -95,6 +101,7 @@ public class HeadConsole : Interactable
         player.GetComponent<Player>().switchOffHead();
 
         _canInteract = true;
+        
         // for grapple arm
         _currPlayer = null;
         _leftTriggerAction = null;
@@ -121,7 +128,7 @@ public class HeadConsole : Interactable
         outlineColour = new Color(1, 1, 1, 1);
     }
     
-    // for grapple arm
+    // for grapple arm - to be called by HandConsole when arm is broken or fixed
     public void JamArm(bool left, bool state)
     {
         if (left)

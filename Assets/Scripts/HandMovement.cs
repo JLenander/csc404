@@ -6,7 +6,6 @@ using static UnityEngine.Timeline.AnimationPlayableAsset;
 public class HandMovement : MonoBehaviour
 {
     public float speed = 5f;
-    private Rigidbody _rb;
 
     private InputAction _moveAction;
     private InputAction _dpadAction;
@@ -15,7 +14,8 @@ public class HandMovement : MonoBehaviour
     private InputAction _rightTriggerAction;
     private InputAction _leftTriggerAction;
 
-    public Vector3 movement;
+    public Vector3 movement = Vector3.zero;
+    private Vector3 ogPosition;
     private bool _disable;
 
     private bool _isMoving;
@@ -32,8 +32,8 @@ public class HandMovement : MonoBehaviour
 
     public Animator oppositeHandAnimator; // animator of opposite hand
     public Animator handAnimator;
-    private float wristRotateX;
-    private float wristRotateY;
+    public float wristRotateX;
+    public float wristRotateY;
     private GameObject _toInteractObj;  // check which object is it colliding with
     private InteractableObject _currObj;    // currently interacting with hand
     private bool _canInteract;  // can interact status
@@ -46,9 +46,9 @@ public class HandMovement : MonoBehaviour
 
     private void Start()
     {
-        _rb = GetComponent<Rigidbody>();
         shot = false;
         jammed = false;
+        ogPosition = transform.localPosition;
     }
 
     private void Update()
@@ -58,10 +58,10 @@ public class HandMovement : MonoBehaviour
             // hand rigid body movement
             Vector2 stickMove = _moveAction.ReadValue<Vector2>();
             Vector2 dpadMove = _dpadAction.ReadValue<Vector2>();
-            Vector3 stickMovement = new Vector3(-1 * stickMove.x, stickMove.y, 0);
+            Vector3 stickMovement = new Vector3(stickMove.x, stickMove.y, 0);
             Vector3 dpadMovement = new Vector3(0, 0, dpadMove.y) * -1;
 
-            movement = (stickMovement + dpadMovement) * speed;
+            movement += (stickMovement + dpadMovement) * Time.deltaTime;
             // movement done in FixedUpdate
 
             // rotation movement (done in LateUpdate)
@@ -95,7 +95,7 @@ public class HandMovement : MonoBehaviour
             }
 
             // check if hand is empty and is there an object to interact with
-            if (_interactAction.WasPressedThisFrame() && _toInteractObj != null && _canInteract)
+            if (_interactAction.WasPressedThisFrame() && _toInteractObj != null && _canInteract && _currObj == null)
             {
                 if (_toInteractObj.TryGetComponent(out InteractableObject interactable))
                 {
@@ -150,7 +150,16 @@ public class HandMovement : MonoBehaviour
     // Use FixedUpdate for physics-based movement
     private void FixedUpdate()
     {
-        _rb.linearVelocity = movement;
+        if (left)
+        {
+            transform.localPosition = movement * speed + ogPosition;
+        }
+        else
+        {
+            Vector3 tmpMvt = movement;
+            tmpMvt.x *= -1.0f;
+            transform.localPosition = tmpMvt * speed + ogPosition;
+        }
     }
 
     private void LateUpdate()

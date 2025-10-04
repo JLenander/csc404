@@ -10,9 +10,16 @@ public class RoomRotation : MonoBehaviour
     [SerializeField] private Transform upperarmCopier; // copied upperarm
     [SerializeField] private Transform wristCopier; // upperarm being copied
 
+    [SerializeField] private Transform robotTarget;
+    [SerializeField] private float speed;
+    private HandMovement robotHandMovement;
+    private Vector3 ogPosition;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void LateUpdate()
+    private void Start()
     {
+        robotHandMovement = robotTarget.GetComponent<HandMovement>();
+
         if (forearmBone != null)
         {
             // Copy world rotation
@@ -29,6 +36,25 @@ public class RoomRotation : MonoBehaviour
         {
             // Copy world rotation
             wristCopier.rotation = wristBone.rotation;
+        }
+
+        ogPosition = transform.localPosition;
+    }
+
+    private void LateUpdate()
+    {
+        Vector3 movement = robotHandMovement.movement;
+        movement.x *= -1.0f;
+        transform.localPosition = movement * speed + ogPosition;
+
+        if (wristBone != null)
+        {
+            //Quaternion relativeRotation = Quaternion.Euler(robotHandMovement.wristRotateY, robotHandMovement.wristRotateX, 0); ;
+            //if (!robotHandMovement.left)
+            //{
+            //    //relativeRotation.y *= -1.0f;
+            //}
+            wristCopier.localRotation = wristBone.localRotation;
         }
     }
 }

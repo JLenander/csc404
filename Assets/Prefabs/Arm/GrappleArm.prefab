@@ -2019,6 +2019,7 @@ MonoBehaviour:
   lookSensitivity: 0.4
   _wrist: {fileID: 1695341088322505098}
   _wristAim: {fileID: 7258395926828420493}
+  robot: {fileID: 0}
   oppositeHandAnimator: {fileID: 0}
   handAnimator: {fileID: 5030860086350588141}
   grappleArmSpline: {fileID: 1951719360051209165}
@@ -2387,7 +2388,7 @@ Transform:
   m_GameObject: {fileID: 7649079376658417554}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 128.65, y: 7.21, z: 9.31}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

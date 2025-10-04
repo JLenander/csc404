@@ -70,7 +70,8 @@ public class HandMovement : MonoBehaviour
             wristRotateY += lookMove.y * lookSensitivity;
             wristRotateY = Mathf.Clamp(wristRotateY, -90f, 90f);
 
-            bool movingNow = (movement.magnitude > 0.5f) || (lookMove.magnitude > 0.3f);
+            // changed from movement.magnitude to this addition because movement is now += instead of =
+            bool movingNow = ((stickMovement + dpadMovement).magnitude > 0.5f) || (lookMove.magnitude > 0.3f);
 
             // Movement started
             if (movingNow && !_isMoving)

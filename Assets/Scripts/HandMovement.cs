@@ -34,8 +34,8 @@ public class HandMovement : MonoBehaviour
     public Animator handAnimator;
     public float wristRotateX;
     public float wristRotateY;
+    public InteractableObject currObj;    // currently interacting with hand
     private GameObject _toInteractObj;  // check which object is it colliding with
-    private InteractableObject _currObj;    // currently interacting with hand
     private bool _canInteract;  // can interact status
 
     [SerializeField] private GameObject grappleArmSpline;
@@ -96,24 +96,23 @@ public class HandMovement : MonoBehaviour
             }
 
             // check if hand is empty and is there an object to interact with
-            if (_interactAction.WasPressedThisFrame() && _toInteractObj != null && _canInteract && _currObj == null)
+            if (_interactAction.WasPressedThisFrame() && _toInteractObj != null && _canInteract && currObj == null)
             {
                 if (_toInteractObj.TryGetComponent(out InteractableObject interactable))
                 {
                     if (interactable.canPickup)
                     {
                         InteractWithObject(interactable);
-                        _currObj = interactable;
                         _canInteract = false;
                     }
                 }
             }
 
             // check if hand is not empty
-            else if (_interactAction.WasPressedThisFrame() && _currObj != null)
+            else if (_interactAction.WasPressedThisFrame() && currObj != null)
             {
                 Debug.Log("interaction " + _toInteractObj + _canInteract);
-                StopInteractingWithObject(_currObj);
+                StopInteractingWithObject(currObj);
             }
 
             // TODO move to head console
@@ -205,22 +204,28 @@ public class HandMovement : MonoBehaviour
         _canInteract = canInteract;
     }
 
-    private void InteractWithObject(InteractableObject interactableObject)
+    public void InteractWithObject(InteractableObject interactableObject)
     {
         Debug.Log("Interacting with " + interactableObject);
         interactableObject.InteractWithHand(_wrist, this);
+        Debug.Log("current obj " + currObj);
     }
 
     public void StopInteractingWithObject(InteractableObject interactableObject)
     {
         Debug.Log("Stopping interaction with " + interactableObject);
         interactableObject.StopInteractWithHand(this);
-        _currObj = null;
+        currObj = null;
     }
 
     public void JamArm(bool state)
     {
         jammed = state;
+    }
+
+    public void SetTargetCurrentObject(InteractableObject obj)
+    {
+        currObj = obj;
     }
 
 }

@@ -27,6 +27,10 @@ public class Player : MonoBehaviour
 
     private bool disableMovement = false;
     private bool disableRotate = false;
+
+    private delegate void ControlFunc();
+    private ControlFunc _controlFunc;
+
     private bool controllingEyeCam = false;
     private bool controllingRobot = false;
     private Animator animator;
@@ -48,22 +52,23 @@ public class Player : MonoBehaviour
         _characterController.enabled = true;
         Cursor.lockState = CursorLockMode.Locked;
 
-        //_robotCharacterController = _robotBody.GetComponentInChildren<CharacterController>();
+        _controlFunc = ControlPlayer;
     }
 
     void FixedUpdate()
     {
-        if (controllingEyeCam)
-        {
-            ControlEyeCam();
-        }
-        else if (controllingRobot) {
-            _robotMovement.ControlRobotMovement();
-        }
-        else
-        {
-            ControlPlayer();
-        }
+        _controlFunc();
+        //if (controllingEyeCam)
+        //{
+        //    ControlEyeCam();
+        //}
+        //else if (controllingRobot) {
+        //    _robotMovement.ControlRobotMovement();
+        //}
+        //else
+        //{
+        //    ControlPlayer();
+        //}
     }
 
     private void ControlPlayer()
@@ -163,6 +168,7 @@ public class Player : MonoBehaviour
         disableRotate = false;
         controllingEyeCam = true;
         _outsideCamera = outsideCamera;
+        _controlFunc = ControlEyeCam;
     }
 
     public void switchOffHead()
@@ -170,6 +176,7 @@ public class Player : MonoBehaviour
         disableMovement = false;
         disableRotate = false;
         controllingEyeCam = false;
+        _controlFunc = ControlPlayer;
     }
 
     public void switchToLegs(Transform robotBody)
@@ -180,6 +187,7 @@ public class Player : MonoBehaviour
         _robotMovement = robotBody.GetComponent<RobotMovement>();
         _robotMovement.SetMoveAction(_moveAction);
         _robotMovement.SetLookAction(_lookAction);
+        _controlFunc = _robotMovement.ControlRobotMovement;
     }
 
     public void switchOffLegs()
@@ -188,5 +196,7 @@ public class Player : MonoBehaviour
         disableRotate = false;
         controllingRobot = false;
         _robotMovement = null;
+
+        _controlFunc = ControlPlayer;
     }
 }

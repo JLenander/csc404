@@ -1,17 +1,15 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering.Universal;
-using static UnityEngine.Timeline.AnimationPlayableAsset;
 
 public class HandMovement : MonoBehaviour
 {
     public float speed = 5f;
 
     private InputAction _moveAction;
-    private InputAction _dpadAction;
+        private InputAction _leftTriggerAction;
+    private InputAction _rightTriggerAction;        
     private InputAction _lookAction;
     private InputAction _interactAction;
-    private InputAction _rightTriggerAction;
 
     public Vector3 movement = Vector3.zero;
     private Vector3 _ogPosition;
@@ -50,11 +48,13 @@ public class HandMovement : MonoBehaviour
         {
             // hand rigid body movement
             Vector2 stickMove = _moveAction.ReadValue<Vector2>();
-            Vector2 dpadMove = _dpadAction.ReadValue<Vector2>();
             Vector3 stickMovement = new Vector3(stickMove.x, stickMove.y, 0);
-            Vector3 dpadMovement = new Vector3(0, 0, dpadMove.y) * -1;
-
-            movement += (stickMovement + dpadMovement) * Time.deltaTime;
+            
+            float leftTrigger = _leftTriggerAction.ReadValue<float>();
+            float rightTrigger = _rightTriggerAction.ReadValue<float>();
+            Vector3 triggerMovement = new Vector3(0, 0, leftTrigger - rightTrigger);
+            
+            movement += (stickMovement + triggerMovement) * Time.deltaTime;
             // movement done in FixedUpdate
 
             // rotation movement (done in LateUpdate)
@@ -64,7 +64,7 @@ public class HandMovement : MonoBehaviour
             wristRotateY = Mathf.Clamp(wristRotateY, -90f, 90f);
 
             // changed from movement.magnitude to this addition because movement is now += instead of =
-            bool movingNow = ((stickMovement + dpadMovement).magnitude > 0.5f) || (lookMove.magnitude > 0.3f);
+            bool movingNow = ((stickMovement + triggerMovement).magnitude > 0.5f) || (lookMove.magnitude > 0.3f);
 
             // Movement started
             if (movingNow && !_isMoving)
@@ -155,8 +155,8 @@ public class HandMovement : MonoBehaviour
         _currPlayer = playerUsing;
         var input = _currPlayer.GetComponent<PlayerInput>();
         _moveAction = input.actions.FindAction("Move");
-        _dpadAction = input.actions.FindAction("DpadMove");
-        _lookAction = input.actions.FindAction("Look");
+        _leftTriggerAction = input.actions.FindAction("LeftTrigger");
+        _rightTriggerAction = input.actions.FindAction("RightTrigger");        _lookAction = input.actions.FindAction("Look");
         _interactAction = input.actions.FindAction("ItemInteract");
         _disable = true;
     }

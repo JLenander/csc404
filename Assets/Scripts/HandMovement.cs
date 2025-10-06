@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -137,13 +138,13 @@ public class HandMovement : MonoBehaviour
         if (left)
         {
             // left arm rotation
-            _wrist.localRotation = Quaternion.Euler(wristRotateY, wristRotateX, 0);
+            _wrist.localRotation = Quaternion.Euler(wristRotateY, wristRotateX * -1.0f, 0);
             _wristAim.localRotation = Quaternion.Euler(wristRotateY, wristRotateX * -1.0f, 0);
         }
         else
         {
             // right arm rotation
-            _wrist.localRotation = Quaternion.Euler(wristRotateY, wristRotateX * -1.0f, 0);
+            _wrist.localRotation = Quaternion.Euler(wristRotateY, wristRotateX, 0);
             _wristAim.localRotation = Quaternion.Euler(wristRotateY, wristRotateX, 0);
         }
     }

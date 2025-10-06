@@ -7,8 +7,10 @@ public class HandMovement : MonoBehaviour
     public float speed = 5f;
 
     private InputAction _moveAction;
-        private InputAction _leftTriggerAction;
-    private InputAction _rightTriggerAction;        
+    private InputAction _leftTriggerAction;
+    private InputAction _rightTriggerAction;
+    private InputAction _leftBumperAction;
+    private InputAction _rightBumperAction;
     private InputAction _lookAction;
     private InputAction _interactAction;
 
@@ -24,13 +26,14 @@ public class HandMovement : MonoBehaviour
 
     public float lookSensitivity = 0.4f;
 
+    [SerializeField] private float wristRotationSpeed = 1.0f;
+
     [SerializeField] public Transform _wrist;
     [SerializeField] public Transform _wristAim;
+    private Vector3 _wristRotation;
 
     public Animator oppositeHandAnimator; // animator of opposite hand
     public Animator handAnimator;
-    public float wristRotateX;
-    public float wristRotateY;
     private GameObject _toInteractObj;  // check which object is it colliding with
     private InteractableObject _currObj;    // currently interacting with hand
     private bool _canInteract;  // can interact status
@@ -41,6 +44,7 @@ public class HandMovement : MonoBehaviour
     private void Start()
     {
         _ogPosition = transform.localPosition;
+        _wristRotation = Vector3.zero;
     }
 
     private void Update()
@@ -58,11 +62,15 @@ public class HandMovement : MonoBehaviour
             movement += (stickMovement + triggerMovement) * Time.deltaTime;
             // movement done in FixedUpdate
 
-            // rotation movement (done in LateUpdate)
+            // wrist rotation (done in LateUpdate)
             Vector2 lookMove = _lookAction.ReadValue<Vector2>();
-            wristRotateX += lookMove.x * lookSensitivity * -1.0f;
-            wristRotateY += lookMove.y * lookSensitivity;
-            wristRotateY = Mathf.Clamp(wristRotateY, -90f, 90f);
+            // yaw
+            _wristRotation.x += lookMove.x * lookSensitivity * -1.0f;
+            // pitch
+            _wristRotation.y += lookMove.y * lookSensitivity;
+            _wristRotation.y = Mathf.Clamp(_wristRotation.y, -90f, 90f);
+            // roll
+            _wristRotation.z += (_leftBumperAction.ReadValue<float>() * -1 + _rightBumperAction.ReadValue<float>()) * wristRotationSpeed;
 
             // changed from movement.magnitude to this addition because movement is now += instead of =
             bool movingNow = ((stickMovement + triggerMovement).magnitude > 0.5f) || (lookMove.magnitude > 0.3f);
@@ -137,15 +145,15 @@ public class HandMovement : MonoBehaviour
     {
         if (left)
         {
-            // left arm rotation
-            _wrist.localRotation = Quaternion.Euler(wristRotateY, wristRotateX * -1.0f, 0);
-            _wristAim.localRotation = Quaternion.Euler(wristRotateY, wristRotateX * -1.0f, 0);
+            // left arm roll
+            _wrist.localRotation = Quaternion.Euler(_wristRotation.y, _wristRotation.z, _wristRotation.x);
+            _wristAim.localRotation = Quaternion.Euler(_wristRotation.y, _wristRotation.z, _wristRotation.x);
         }
         else
         {
-            // right arm rotation
-            _wrist.localRotation = Quaternion.Euler(wristRotateY, wristRotateX, 0);
-            _wristAim.localRotation = Quaternion.Euler(wristRotateY, wristRotateX, 0);
+            // right arm roll
+            _wrist.localRotation = Quaternion.Euler(_wristRotation.y, _wristRotation.z * -1.0f, _wristRotation.x * -1.0f);
+            _wristAim.localRotation = Quaternion.Euler(_wristRotation.y, _wristRotation.z * -1.0f, _wristRotation.x * -1.0f);
         }
     }
 
@@ -157,7 +165,10 @@ public class HandMovement : MonoBehaviour
         var input = _currPlayer.GetComponent<PlayerInput>();
         _moveAction = input.actions.FindAction("Move");
         _leftTriggerAction = input.actions.FindAction("LeftTrigger");
-        _rightTriggerAction = input.actions.FindAction("RightTrigger");        _lookAction = input.actions.FindAction("Look");
+        _rightTriggerAction = input.actions.FindAction("RightTrigger");
+        _leftBumperAction = input.actions.FindAction("LeftBumper");
+        _rightBumperAction = input.actions.FindAction("RightBumper");
+        _lookAction = input.actions.FindAction("Look");
         _interactAction = input.actions.FindAction("ItemInteract");
         _disable = true;
     }

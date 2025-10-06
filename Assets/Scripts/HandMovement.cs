@@ -1,27 +1,23 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering.Universal;
-using static UnityEngine.Timeline.AnimationPlayableAsset;
 
 public class HandMovement : MonoBehaviour
 {
     public float speed = 5f;
 
     private InputAction _moveAction;
-    private InputAction _dpadAction;
+        private InputAction _leftTriggerAction;
+    private InputAction _rightTriggerAction;        
     private InputAction _lookAction;
     private InputAction _interactAction;
-    private InputAction _rightTriggerAction;
-    private InputAction _leftTriggerAction;
 
     public Vector3 movement = Vector3.zero;
-    private Vector3 ogPosition;
+    private Vector3 _ogPosition;
     private bool _disable;
 
     private bool _isMoving;
     public AudioSource moveSource;
     public AudioSource stopSource;
-    public AudioSource hookSource;
 
     private GameObject _currPlayer;
 
@@ -40,15 +36,10 @@ public class HandMovement : MonoBehaviour
 
     [SerializeField] private GameObject grappleArmSpline;
     public bool left;
-    private bool shot;
-
-    private bool jammed;
-
+    
     private void Start()
     {
-        shot = false;
-        jammed = false;
-        ogPosition = transform.localPosition;
+        _ogPosition = transform.localPosition;
     }
 
     private void Update()
@@ -57,11 +48,13 @@ public class HandMovement : MonoBehaviour
         {
             // hand rigid body movement
             Vector2 stickMove = _moveAction.ReadValue<Vector2>();
-            Vector2 dpadMove = _dpadAction.ReadValue<Vector2>();
             Vector3 stickMovement = new Vector3(stickMove.x, stickMove.y, 0);
-            Vector3 dpadMovement = new Vector3(0, 0, dpadMove.y) * -1;
-
-            movement += (stickMovement + dpadMovement) * Time.deltaTime;
+            
+            float leftTrigger = _leftTriggerAction.ReadValue<float>();
+            float rightTrigger = _rightTriggerAction.ReadValue<float>();
+            Vector3 triggerMovement = new Vector3(0, 0, leftTrigger - rightTrigger);
+            
+            movement += (stickMovement + triggerMovement) * Time.deltaTime;
             // movement done in FixedUpdate
 
             // rotation movement (done in LateUpdate)
@@ -71,7 +64,7 @@ public class HandMovement : MonoBehaviour
             wristRotateY = Mathf.Clamp(wristRotateY, -90f, 90f);
 
             // changed from movement.magnitude to this addition because movement is now += instead of =
-            bool movingNow = ((stickMovement + dpadMovement).magnitude > 0.5f) || (lookMove.magnitude > 0.3f);
+            bool movingNow = ((stickMovement + triggerMovement).magnitude > 0.5f) || (lookMove.magnitude > 0.3f);
 
             // Movement started
             if (movingNow && !_isMoving)
@@ -115,30 +108,6 @@ public class HandMovement : MonoBehaviour
                 Debug.Log("interaction " + _toInteractObj + _canInteract);
                 StopInteractingWithObject(_currObj);
             }
-
-            // TODO move to head console
-            if (_rightTriggerAction.ReadValue<float>() > 0.1f && !jammed)
-            {
-                if (!shot)
-                {
-                    shot = true;
-                    EmergencyEvent.Instance.IncrementCount(left);
-
-                    if (hookSource != null)
-                        hookSource.Play();
-                }
-
-                grappleArmSpline.GetComponent<SplineController>().SetExtending();
-            }
-            else
-            {
-                if (shot)
-                {
-                    shot = false;
-                }
-
-                grappleArmSpline.GetComponent<SplineController>().SetRetracting();
-            }
         }
         else
         {
@@ -153,13 +122,13 @@ public class HandMovement : MonoBehaviour
     {
         if (left)
         {
-            transform.localPosition = movement * speed + ogPosition;
+            transform.localPosition = movement * speed + _ogPosition;
         }
         else
         {
             Vector3 tmpMvt = movement;
             tmpMvt.x *= -1.0f;
-            transform.localPosition = tmpMvt * speed + ogPosition;
+            transform.localPosition = tmpMvt * speed + _ogPosition;
         }
     }
 
@@ -186,11 +155,9 @@ public class HandMovement : MonoBehaviour
         _currPlayer = playerUsing;
         var input = _currPlayer.GetComponent<PlayerInput>();
         _moveAction = input.actions.FindAction("Move");
-        _dpadAction = input.actions.FindAction("DpadMove");
-        _lookAction = input.actions.FindAction("Look");
-        _interactAction = input.actions.FindAction("ItemInteract");
-        _rightTriggerAction = input.actions.FindAction("Trigger");
         _leftTriggerAction = input.actions.FindAction("LeftTrigger");
+        _rightTriggerAction = input.actions.FindAction("RightTrigger");        _lookAction = input.actions.FindAction("Look");
+        _interactAction = input.actions.FindAction("ItemInteract");
         _disable = true;
     }
 
@@ -216,11 +183,6 @@ public class HandMovement : MonoBehaviour
         Debug.Log("Stopping interaction with " + interactableObject);
         interactableObject.StopInteractWithHand(this);
         _currObj = null;
-    }
-
-    public void JamArm(bool state)
-    {
-        jammed = state;
     }
 
 }

@@ -16,15 +16,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "DpadMove",
-                    "type": "Value",
-                    "id": "1be31428-775d-447b-8ce5-4ab23e7e9d98",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
                     "name": "Look",
                     "type": "Value",
                     "id": "10700267-f78a-4476-bb19-d01753aecf75",
@@ -61,18 +52,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Trigger",
+                    "name": "LeftTrigger",
                     "type": "Value",
-                    "id": "4f96c57a-1262-4104-bc94-cbaccc848438",
+                    "id": "d26a64a9-2a54-479b-85ee-fec619382207",
                     "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
                 },
                 {
-                    "name": "LeftTrigger",
+                    "name": "RightTrigger",
                     "type": "Value",
-                    "id": "d26a64a9-2a54-479b-85ee-fec619382207",
+                    "id": "21acfc87-c7b8-432a-af48-006c31d616c5",
                     "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
@@ -143,72 +134,6 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "30d81a7b-aeb1-476c-a8f8-71c2516b34bc",
-                    "path": "<Gamepad>/dpad",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Gamepad",
-                    "action": "DpadMove",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "Keyboard Arrows",
-                    "id": "01da53b6-d880-450f-b47c-9981f46f36e3",
-                    "path": "2DVector",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "DpadMove",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "up",
-                    "id": "2fd96aaf-5e90-4037-8c00-f35cd8016bd8",
-                    "path": "<Keyboard>/upArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "DpadMove",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "a509548b-c44b-4559-a71d-422ded32c44d",
-                    "path": "<Keyboard>/downArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "DpadMove",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "left",
-                    "id": "c411c6d6-7559-4bd6-ae88-b8b80b423d84",
-                    "path": "<Keyboard>/leftArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "DpadMove",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "1adddfe7-23bb-47a7-9b1b-72de96f65dbd",
-                    "path": "<Keyboard>/rightArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "DpadMove",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -302,28 +227,6 @@
                 },
                 {
                     "name": "",
-                    "id": "25807be5-4830-4d94-852c-d0be08e30e2b",
-                    "path": "<Gamepad>/rightTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Gamepad",
-                    "action": "Trigger",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "69c14966-f101-429c-904d-8bb2b1314ef5",
-                    "path": "<Keyboard>/l",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Trigger",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "b60d3320-4539-4e30-b501-3bd4ed4d48e0",
                     "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
@@ -341,6 +244,28 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "LeftTrigger",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "653bc734-0cc2-43d3-99f3-569bbc2a5818",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RightTrigger",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c3cd3c71-c899-4882-b334-00a0f32eb3f3",
+                    "path": "<Keyboard>/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RightTrigger",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

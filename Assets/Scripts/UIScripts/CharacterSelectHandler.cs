@@ -16,6 +16,13 @@ namespace UIScripts
         
         private int _readyPlayers = 0;
         private int _playerCount = 0;
+        
+        private readonly Color[] _playerColors = {
+            Color.red,      // Player 1
+            Color.blue,     // Player 2
+            Color.yellow,   // Player 3
+        };
+        
         void Start()
         {
             _playerBoxes = new VisualElement[4];
@@ -47,6 +54,9 @@ namespace UIScripts
             var playerBox =  _playerBoxes[playerIndex];
             var previewImg = playerBox.Query<VisualElement>(name: PlayerCharacterPreviewName).First();
             previewImg.visible = true;
+            
+            // Set player select box background color to player color
+            previewImg.style.backgroundColor = _playerColors[playerIndex];
             
             _playerCount++;
         }

@@ -50,6 +50,7 @@ public class HandMovement : MonoBehaviour
     {
         _ogPosition = transform.localPosition;
         _wristRotation = Vector3.zero;
+        _disable = true;
     }
 
     private void Update()

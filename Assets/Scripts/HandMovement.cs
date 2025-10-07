@@ -241,11 +241,8 @@ public class HandMovement : MonoBehaviour
         currObj = null;
     }
 
-
     public void SetTargetCurrentObject(InteractableObject obj)
     {
         currObj = obj;
     }
-
 }
-

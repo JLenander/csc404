@@ -10,10 +10,12 @@ public class MinimapController : MonoBehaviour
     private List<VisualElement> _playerDots = new();
     private List<Transform> _playerTransforms = new();
 
+    // TODO: change after ship cahnge (test with last log)
     private Vector2 worldMin = new Vector2(-9, -3);
     private Vector2 worldMax = new Vector2(15, 16);
     // x: -8.2, 12.9 (actual data by playtest)
     // y: -1.7, 13.3
+    
     private GlobalPlayerManager _playerManager;
     private PlayerData[] players;
     
@@ -69,12 +71,12 @@ public class MinimapController : MonoBehaviour
                     style =
                     {
                         position = Position.Absolute,
-                        width = 20,
-                        height = 20,
-                        borderBottomLeftRadius = 10,
-                        borderBottomRightRadius = 10,
-                        borderTopLeftRadius = 10,
-                        borderTopRightRadius = 10,
+                        width = 14,
+                        height = 14,
+                        borderBottomLeftRadius = 7, // half of width/height
+                        borderBottomRightRadius = 7,
+                        borderTopLeftRadius = 7,
+                        borderTopRightRadius = 7,
                         backgroundColor = _playerColors[i]
                     }
                 };
@@ -111,6 +113,8 @@ public class MinimapController : MonoBehaviour
             // Update position of dot to reflect in UI
             _playerDots[i].style.left = x;
             _playerDots[i].style.top = y;
+            
+            // Debug.Log($"Player {i + 1} World Pos: {worldPos}");
         }
     }
     

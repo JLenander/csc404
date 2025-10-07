@@ -51,7 +51,7 @@ public class RoomRotation : MonoBehaviour
             var pitchYawRotation = wristPitchYawSource.localRotation;
             pitchYawRotation.y = -1 * pitchYawRotation.y;
             pitchYawRotation.z = -1 * pitchYawRotation.z;
-            wristCopier.localRotation = rollRotation * pitchYawRotation;
+            wristCopier.localRotation = pitchYawRotation * rollRotation;
         }
     }
 }

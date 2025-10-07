@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -19,23 +21,25 @@ public class ScoreKeeper : MonoBehaviour
     private ISplitscreenUIHandler _splitscreenUIHandler;
     private int overallScore;
     public int maxScore;
+    // the rest of the special events will be aggregated in a list
+    public List<Scoring> events;
     private int evidenceCount;
-    private int leftShotCount;
-    private int rightShotCount;
-    private int leftGrabSuccess;
-    private int rightGrabSucess;
+    private int leftGrabCount; // number of times left hand used grab
+    private int rightGrabCount; // number of times right hand used grab
+    private int hurtDateCount;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         Instance = this; // easier to reference
         overallScore = 0;
         evidenceCount = 0;
-        leftShotCount = 0;
-        rightShotCount = 0;
-        leftGrabSuccess = 0;
-        rightGrabSucess = 0;
+        leftGrabCount = 0;
+        rightGrabCount = 0;
+        hurtDateCount = 0;
+        events = new List<Scoring>();
         _splitscreenUIHandler = FindAnyObjectByType<SplitscreenUIHandler>();
-        _splitscreenUIHandler.ChangeScoreText(0);
+        _splitscreenUIHandler.ChangeScoreText(0); // for debugging for now
     }
 
     /// <summary>
@@ -48,34 +52,142 @@ public class ScoreKeeper : MonoBehaviour
         _splitscreenUIHandler.ChangeScoreText(overallScore);
     }
 
+    /// <summary>
+    /// To record arm grab counts
+    /// </summary>
+    /// <param name="left"></param>
     public void IncreaseArmCount(bool left)
     {
         if (left)
         {
-            leftShotCount++;
+            leftGrabCount++;
         }
         else
         {
-            rightShotCount++;
+            rightGrabCount++;
         }
     }
 
-    public void IncreaseGrabCount(bool left)
+    // for special events to tell scorekeeper about them
+    public void AddScoring(string title, int score, bool percent, bool oneTime, int maxCount)
     {
-        if (left)
-        {
-            leftGrabSuccess++;
-        }
-        else
-        {
-            rightGrabSucess++;
-        }
+        Scoring newEvent = new Scoring(title, score, percent, oneTime, maxCount);
+
+        events.Add(newEvent);
     }
 
-    public void LetterScore()
+    /// <summary>
+    /// To add to specific scoring (Shouldn't be used too often)
+    /// </summary>
+    /// <param name="title"></param>
+    public void IncrementScoring(string title)
+    {
+        for (int i = 0; i < events.Count; i++)
+        {
+            // if title match add count
+            if (events[i].title == title)
+            {
+                Scoring updated = events[i];
+                updated.status++;
+                events[i] = updated;
+                return;
+            }
+        }
+
+        // couldnt find event, print
+        Debug.Log("Event not found");
+    }
+
+    int OverallEventScore()
+    {
+        int sum = 0;
+        for (int i = 0; i < events.Count; i++)
+        {
+            Scoring singleEvent = events[i];
+            if (singleEvent.oneTime) // a one time event
+            {
+                sum += singleEvent.score;
+            }
+            else if (singleEvent.percent) // a percentage complete event
+            {
+                sum += singleEvent.score * (singleEvent.status / singleEvent.maxCount);
+            }
+            else // a countable event
+            {
+                sum += singleEvent.score * singleEvent.status;
+            }
+
+        }
+
+        return sum;
+    }
+
+    string LetterScore(int currScore)
     {
         // give the player a letter grade based on what they got compared
+        if (maxScore <= 0) return "F";
+
+        float ratio = currScore / maxScore;
+
+        if (ratio >= 0.90f) return "S";
+        if (ratio >= 0.80f) return "A";
+        if (ratio >= 0.65f) return "B";
+        if (ratio >= 0.50f) return "C";
+        if (ratio >= 0.35f) return "D";
+        return "F";
     }
 
+    // called by scoreboard to get all data (done once at the end)
+    public ScoreboardData GetScores()
+    {
+        ScoreboardData scoreboardData = new ScoreboardData();
 
+        scoreboardData.evidenceCount = evidenceCount; // give evidence collected
+
+        // calculate dominant hand
+        scoreboardData.dominanteLeft = leftGrabCount > rightGrabCount;
+        scoreboardData.hurtDateCount = hurtDateCount;
+
+        scoreboardData.letter = LetterScore(overallScore + OverallEventScore());
+
+        scoreboardData.events = events;
+
+        return scoreboardData;
+    }
+
+    // number incrementer
+    // IEnumerator NumberRoutine()
+    // {
+
+    // }
+
+}
+
+public struct ScoreboardData
+{
+    public int evidenceCount;
+    public bool dominanteLeft;
+    public int hurtDateCount;
+    public string letter;
+    public List<Scoring> events;
+}
+
+public struct Scoring
+{
+    public string title; // name of the thing
+    public int score; // how much each would score
+    public int status; // how many times they succeeded
+    public int maxCount; // how many times they need to succeed for 100%
+    public bool percent; // if this is a percentage task (percent: status/maxCount)
+    public bool oneTime; // if this is a one time task (status > 0 = success)
+
+    public Scoring(string title, int score, bool percent, bool oneTime, int maxCount, int status = 0)
+    {
+        this.title = title;
+        this.score = score;
+        this.status = status;
+        this.percent = percent;
+        this.oneTime = oneTime;
+        this.maxCount = maxCount;
+    }
 }

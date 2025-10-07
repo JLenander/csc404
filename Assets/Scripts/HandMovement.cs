@@ -195,13 +195,13 @@ public class HandMovement : MonoBehaviour
     {
         _currPlayer = playerUsing;
         var input = _currPlayer.GetComponent<PlayerInput>();
-        _moveAction = input.actions.FindAction("Move");
-        _leftTriggerAction = input.actions.FindAction("LeftTrigger");
-        _rightTriggerAction = input.actions.FindAction("RightTrigger");
-        _leftBumperAction = input.actions.FindAction("LeftBumper");
-        _rightBumperAction = input.actions.FindAction("RightBumper");
-        _lookAction = input.actions.FindAction("Look");
-        _interactAction = input.actions.FindAction("ItemInteract");
+        _moveAction = InputActionMapper.GetPlayerMoveAction(input);
+        _lookAction = InputActionMapper.GetPlayerLookAction(input);
+        _leftTriggerAction = InputActionMapper.GetPlayerLeftTriggerAction(input);
+        _rightTriggerAction = InputActionMapper.GetPlayerRightTriggerAction(input);
+        _leftBumperAction = InputActionMapper.GetPlayerLeftBumperAction(input);
+        _rightBumperAction = InputActionMapper.GetPlayerRightBumperAction(input);
+        _interactAction = InputActionMapper.GetPlayerItemInteractAction(input);
         _disable = false;
     }
 

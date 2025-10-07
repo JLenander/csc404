@@ -53,7 +53,7 @@ public class HandMovement : MonoBehaviour
 
     private void Update()
     {
-        if (_disable)
+        if (!_disable)
         {
             // hand rigid body movement
             Vector2 stickMove = _moveAction.ReadValue<Vector2>();
@@ -70,12 +70,11 @@ public class HandMovement : MonoBehaviour
             Vector2 lookMove = _lookAction.ReadValue<Vector2>() * Time.deltaTime;
             // yaw
             _wristRotation.x += lookMove.x * handPitchYawSensitivity;
-            _wristRotation.x = Mathf.Clamp(_wristRotation.x, -90f, 90f);
             // pitch
             _wristRotation.y += lookMove.y * handPitchYawSensitivity;
-            _wristRotation.y = Mathf.Clamp(_wristRotation.y, -90f, 90f);
             // roll
             _wristRotation.z += (_leftBumperAction.ReadValue<float>() * -1 + _rightBumperAction.ReadValue<float>()) * wristRotationSpeed * Time.deltaTime;
+            ClampWristRotate();
             
             // changed from movement.magnitude to this addition because movement is now += instead of =
             bool movingNow = ((stickMovement + triggerMovement).magnitude > 0.5f) || (lookMove.magnitude > 0.3f);
@@ -166,6 +165,26 @@ public class HandMovement : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Clamp the wrist rotate to the appropriate values to prevent excessive wrist rotation
+    /// </summary>
+    private void ClampWristRotate()
+    {
+        _wristRotation.x = Mathf.Clamp(_wristRotation.x, -90f, 90f);
+        _wristRotation.y = Mathf.Clamp(_wristRotation.y, -90f, 90f);
+    }
+
+    public Vector3 GetWristRotation()
+    {
+        return _wristRotation;
+    }
+
+    public void SetWristRotation(Vector3 wristRotation)
+    {
+        _wristRotation = wristRotation;
+        ClampWristRotate();
+    }
+
     // using TurnOn to initialize when player starts using the hand, not in Start() when object instantiate
     public void TurnOn(GameObject playerUsing)
     {
@@ -178,12 +197,12 @@ public class HandMovement : MonoBehaviour
         _rightBumperAction = input.actions.FindAction("RightBumper");
         _lookAction = input.actions.FindAction("Look");
         _interactAction = input.actions.FindAction("ItemInteract");
-        _disable = true;
+        _disable = false;
     }
 
     public void TurnOff(GameObject playerUsing)
     {
-        _disable = false;
+        _disable = true;
     }
 
     public void SetCurrentInteractableObject(GameObject handUsing, bool canInteract)

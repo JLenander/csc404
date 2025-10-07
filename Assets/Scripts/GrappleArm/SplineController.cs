@@ -99,14 +99,6 @@ public class SplineController : MonoBehaviour
         UpdateKnot(KnotIndex.End, _endKnot);
         
         // Update the Midpoint knot
-        // var midpointPos = GetKnotLocalPosition(_midKnot);
-        // var startpointPos = GetKnotLocalPosition(_startKnot);
-        // // Spherically interpolate from the start and endpoint to get a midpoint that adds a little curve
-        // var center = (endpointPos + startpointPos) * 0.5f;
-        // var endpointRelativeMidpointPos = Vector3.Slerp(startpointPos - center, endpointPos - center, 0.5f); 
-        // var midpointDirectionVector = endpointRelativeMidpointPos - midpointPos;
-        // _currMidPointForce = Vector3.LerpUnclamped(_currMidPointForce, midpointDirectionVector, 0.4f) * (extendSpeed * Time.deltaTime);
-        
         var midpointPos = GetKnotLocalPosition(_midKnot);
         var endpointRelativeMidpointPos = new Vector3(endpointPos.x / 2, endpointPos.y / 2, endpointPos.z / 2);
         var midpointDirectionVector = endpointRelativeMidpointPos - midpointPos;
@@ -124,9 +116,6 @@ public class SplineController : MonoBehaviour
         if (endObject != null)
         {
             endObject.position = GetKnotWorldPosition(_endKnot) + endPositionOffset;
-            // var endpointUpdated = _splineContainer.Spline.Knots.ToArray()[2];
-            // var endpointRotation = new Quaternion(endpointUpdated.Rotation.value.x, endpointUpdated.Rotation.value.y, endpointUpdated.Rotation.value.z, endpointUpdated.Rotation.value.w);
-            // endObject.rotation = endpointRotation;
         }
         
     }

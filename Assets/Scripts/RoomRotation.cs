@@ -49,7 +49,7 @@ public class RoomRotation : MonoBehaviour
 
         if (wristBone != null)
         {
-            wristCopier.localRotation = wristBone.localRotation;
+            wristCopier.rotation = wristBone.rotation;
         }
     }
 }

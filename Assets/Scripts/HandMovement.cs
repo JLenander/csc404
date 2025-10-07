@@ -133,6 +133,11 @@ public class HandMovement : MonoBehaviour
     // Use FixedUpdate for physics-based movement
     private void FixedUpdate()
     {
+        if (_disable)
+        {
+            return;
+        }
+        
         // Movement
         if (left)
         {
@@ -203,6 +208,17 @@ public class HandMovement : MonoBehaviour
     public void TurnOff(GameObject playerUsing)
     {
         _disable = true;
+        
+        // Stop movement sound and play stop sound if we were moving
+        if (moveSource != null && moveSource.isPlaying)
+            moveSource.Stop();
+        if (_isMoving)
+        {
+            _isMoving = false;
+            
+            if (stopSource != null)
+                stopSource.Play();
+        }
     }
 
     public void SetCurrentInteractableObject(GameObject handUsing, bool canInteract)

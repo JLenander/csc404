@@ -12,9 +12,45 @@ public static class InputActionMapper
     {
         return playerInput.actions.FindAction("Submit", throwIfNotFound: true);
     }
+    
     public static InputAction GetCharacterSelectCancelAction(PlayerInput playerInput)
     {
         return playerInput.actions.FindAction("Cancel", throwIfNotFound: true);
+    }
+
+    public static InputAction GetPlayerMoveAction(PlayerInput playerInput)
+    {
+        return playerInput.actions.FindAction("Move", throwIfNotFound: true);
+    }
+
+    public static InputAction GetPlayerLookAction(PlayerInput playerInput)
+    {
+        return playerInput.actions.FindAction("Look", throwIfNotFound: true);
+    }
+
+    public static InputAction GetPlayerItemInteractAction(PlayerInput playerInput)
+    {
+        return playerInput.actions.FindAction("ItemInteract", throwIfNotFound: true);
+    }
+
+    public static InputAction GetPlayerLeftTriggerAction(PlayerInput playerInput)
+    {
+        return playerInput.actions.FindAction("LeftTrigger", throwIfNotFound: true);
+    }
+
+    public static InputAction GetPlayerRightTriggerAction(PlayerInput playerInput)
+    {
+        return playerInput.actions.FindAction("RightTrigger", throwIfNotFound: true);
+    }
+
+    public static InputAction GetPlayerLeftBumperAction(PlayerInput playerInput)
+    {
+        return playerInput.actions.FindAction("LeftBumper", throwIfNotFound: true);
+    }
+
+    public static InputAction GetPlayerRightBumperAction(PlayerInput playerInput)
+    {
+        return playerInput.actions.FindAction("RightBumper", throwIfNotFound: true);
     }
     
     public const string CharacterSelectActionMapName = "CharacterSelect";

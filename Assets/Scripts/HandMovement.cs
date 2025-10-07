@@ -1,13 +1,17 @@
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class HandMovement : MonoBehaviour
 {
     public float speed = 5f;
 
     private InputAction _moveAction;
-        private InputAction _leftTriggerAction;
-    private InputAction _rightTriggerAction;        
+    private InputAction _leftTriggerAction;
+    private InputAction _rightTriggerAction;
+    private InputAction _leftBumperAction;
+    private InputAction _rightBumperAction;
     private InputAction _lookAction;
     private InputAction _interactAction;
 
@@ -21,15 +25,20 @@ public class HandMovement : MonoBehaviour
 
     private GameObject _currPlayer;
 
-    public float lookSensitivity = 0.4f;
+    [FormerlySerializedAs("lookSensitivity")] public float handPitchYawSensitivity = 0.4f;
 
-    [SerializeField] public Transform _wrist;
-    [SerializeField] public Transform _wristAim;
+    [SerializeField] private float wristRotationSpeed = 1.0f;
+
+    // The transforms to control the hand/wrist roll/pitch/yaw (airplane degrees of freedom system).
+    // Pitch and Yaw are separate from Roll as we want them to be independent of the hand/wrist roll orientation.
+    [SerializeField] private Transform wristRoll;
+    [SerializeField] private Transform wristPitchYaw;
+    [SerializeField] private Transform wristAim;
+    [SerializeField] private Transform wristBone;
+    private Vector3 _wristRotation;
 
     public Animator oppositeHandAnimator; // animator of opposite hand
     public Animator handAnimator;
-    public float wristRotateX;
-    public float wristRotateY;
     private GameObject _toInteractObj;  // check which object is it colliding with
     private InteractableObject _currObj;    // currently interacting with hand
     private bool _canInteract;  // can interact status
@@ -40,11 +49,12 @@ public class HandMovement : MonoBehaviour
     private void Start()
     {
         _ogPosition = transform.localPosition;
+        _wristRotation = Vector3.zero;
     }
 
     private void Update()
     {
-        if (_disable)
+        if (!_disable)
         {
             // hand rigid body movement
             Vector2 stickMove = _moveAction.ReadValue<Vector2>();
@@ -57,12 +67,16 @@ public class HandMovement : MonoBehaviour
             movement += (stickMovement + triggerMovement) * Time.deltaTime;
             // movement done in FixedUpdate
 
-            // rotation movement (done in LateUpdate)
-            Vector2 lookMove = _lookAction.ReadValue<Vector2>();
-            wristRotateX += lookMove.x * lookSensitivity * -1.0f;
-            wristRotateY += lookMove.y * lookSensitivity;
-            wristRotateY = Mathf.Clamp(wristRotateY, -90f, 90f);
-
+            // wrist rotation (done in FixedUpdate)
+            Vector2 lookMove = _lookAction.ReadValue<Vector2>() * Time.deltaTime;
+            // yaw
+            _wristRotation.x += lookMove.x * handPitchYawSensitivity;
+            // pitch
+            _wristRotation.y += lookMove.y * handPitchYawSensitivity;
+            // roll
+            _wristRotation.z += (_leftBumperAction.ReadValue<float>() * -1 + _rightBumperAction.ReadValue<float>()) * wristRotationSpeed * Time.deltaTime;
+            ClampWristRotate();
+            
             // changed from movement.magnitude to this addition because movement is now += instead of =
             bool movingNow = ((stickMovement + triggerMovement).magnitude > 0.5f) || (lookMove.magnitude > 0.3f);
 
@@ -120,6 +134,12 @@ public class HandMovement : MonoBehaviour
     // Use FixedUpdate for physics-based movement
     private void FixedUpdate()
     {
+        if (_disable)
+        {
+            return;
+        }
+        
+        // Movement
         if (left)
         {
             transform.localPosition = movement * speed + _ogPosition;
@@ -130,40 +150,76 @@ public class HandMovement : MonoBehaviour
             tmpMvt.x *= -1.0f;
             transform.localPosition = tmpMvt * speed + _ogPosition;
         }
-    }
-
-    private void LateUpdate()
-    {
+        
+        // Rotation
+        // pitch and yaw on parent object so the direction is independent of the wrist roll orientation.
         if (left)
         {
-            // left arm rotation
-            _wrist.localRotation = Quaternion.Euler(wristRotateY, wristRotateX, 0);
-            _wristAim.localRotation = Quaternion.Euler(wristRotateY, wristRotateX * -1.0f, 0);
+            // left hand pitch and yaw
+            wristPitchYaw.localRotation = Quaternion.Euler(_wristRotation.y, 0, _wristRotation.x * -1.0f);
+            wristAim.localRotation = Quaternion.Euler(_wristRotation.y, 0, _wristRotation.x * -1.0f);
+            // left hand roll
+            wristRoll.localRotation = Quaternion.Euler(0, _wristRotation.z, 0);
         }
         else
         {
-            // right arm rotation
-            _wrist.localRotation = Quaternion.Euler(wristRotateY, wristRotateX * -1.0f, 0);
-            _wristAim.localRotation = Quaternion.Euler(wristRotateY, wristRotateX, 0);
+            // right hand pitch and yaw
+            wristPitchYaw.localRotation = Quaternion.Euler(_wristRotation.y, 0, _wristRotation.x);
+            wristAim.localRotation = Quaternion.Euler(_wristRotation.y, 0, _wristRotation.x);
+            // right hand roll
+            wristRoll.localRotation = Quaternion.Euler(0, _wristRotation.z * -1.0f, 0);
         }
     }
 
+    /// <summary>
+    /// Clamp the wrist rotate to the appropriate values to prevent excessive wrist rotation
+    /// </summary>
+    private void ClampWristRotate()
+    {
+        _wristRotation.x = Mathf.Clamp(_wristRotation.x, -100f, 100f);
+        _wristRotation.y = Mathf.Clamp(_wristRotation.y, -100f, 100f);
+    }
+
+    public Vector3 GetWristRotation()
+    {
+        return _wristRotation;
+    }
+
+    public void SetWristRotation(Vector3 wristRotation)
+    {
+        _wristRotation = wristRotation;
+        ClampWristRotate();
+    }
 
     // using TurnOn to initialize when player starts using the hand, not in Start() when object instantiate
     public void TurnOn(GameObject playerUsing)
     {
         _currPlayer = playerUsing;
         var input = _currPlayer.GetComponent<PlayerInput>();
-        _moveAction = input.actions.FindAction("Move");
-        _leftTriggerAction = input.actions.FindAction("LeftTrigger");
-        _rightTriggerAction = input.actions.FindAction("RightTrigger");        _lookAction = input.actions.FindAction("Look");
-        _interactAction = input.actions.FindAction("ItemInteract");
-        _disable = true;
+        _moveAction = InputActionMapper.GetPlayerMoveAction(input);
+        _lookAction = InputActionMapper.GetPlayerLookAction(input);
+        _leftTriggerAction = InputActionMapper.GetPlayerLeftTriggerAction(input);
+        _rightTriggerAction = InputActionMapper.GetPlayerRightTriggerAction(input);
+        _leftBumperAction = InputActionMapper.GetPlayerLeftBumperAction(input);
+        _rightBumperAction = InputActionMapper.GetPlayerRightBumperAction(input);
+        _interactAction = InputActionMapper.GetPlayerItemInteractAction(input);
+        _disable = false;
     }
 
     public void TurnOff(GameObject playerUsing)
     {
-        _disable = false;
+        _disable = true;
+        
+        // Stop movement sound and play stop sound if we were moving
+        if (moveSource != null && moveSource.isPlaying)
+            moveSource.Stop();
+        if (_isMoving)
+        {
+            _isMoving = false;
+            
+            if (stopSource != null)
+                stopSource.Play();
+        }
     }
 
     public void SetCurrentInteractableObject(GameObject handUsing, bool canInteract)
@@ -175,7 +231,7 @@ public class HandMovement : MonoBehaviour
     private void InteractWithObject(InteractableObject interactableObject)
     {
         Debug.Log("Interacting with " + interactableObject);
-        interactableObject.InteractWithHand(_wrist, this);
+        interactableObject.InteractWithHand(wristBone, this);
     }
 
     public void StopInteractingWithObject(InteractableObject interactableObject)

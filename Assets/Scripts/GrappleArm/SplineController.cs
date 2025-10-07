@@ -16,6 +16,8 @@ using UnityEngine.Splines;
 /// </summary>
 public class SplineController : MonoBehaviour
 {
+    // If true, the spline is extending regardless of the state of <extending>.
+    public bool OverrideExtend;
     // True if the spline segment is extending, false if it is retracting
     [SerializeField] private bool extending;
     // The anchor for the starting position of the spline segment
@@ -42,7 +44,8 @@ public class SplineController : MonoBehaviour
     private BezierKnot _endKnot;
     
     // Private vars for smooth motion.
-    private Vector3 _currForce;
+    private Vector3 _currEndPointForce;
+    private Vector3 _currMidPointForce;
     
     private void Start()
     {
@@ -52,12 +55,8 @@ public class SplineController : MonoBehaviour
         _midKnot = knots[1];
         _endKnot = knots[2];
         
-        _currForce = Vector3.zero;
-
-        // if (endObject != null)
-        // {
-        //     // endObject.LookAt(targetObject.position);
-        // }
+        _currEndPointForce = Vector3.zero;
+        _currMidPointForce = Vector3.zero;
     }
 
     private void FixedUpdate()
@@ -79,14 +78,14 @@ public class SplineController : MonoBehaviour
     private void UpdateSplineSegment()
     {
         // The target's position in local space relative to the Spline where (0,0,0) is the position of the first knot).
-        var localTargetPos = extending ? _splineContainer.transform.InverseTransformPoint(targetObject.position) : restLocalPosition;
+        var localTargetPos = OverrideExtend || extending ? _splineContainer.transform.InverseTransformPoint(targetObject.position) : restLocalPosition;
         var endpointPos = GetKnotLocalPosition(_endKnot);
         
         // Update the End Knot
         // Direction Vector in local space from the current spline segment endpoint to the target's postion in local space
         var directionVector = localTargetPos - endpointPos;
         // If close to the rest position then just snap to rest position.
-        if (!extending && directionVector.magnitude <= restPositionSnapThreshold)
+        if (!OverrideExtend && !extending && directionVector.magnitude <= restPositionSnapThreshold)
         {
             _endKnot.Rotation = quaternion.EulerXYZ(0,0,0);
             _endKnot.Position = restLocalPosition;
@@ -94,22 +93,18 @@ public class SplineController : MonoBehaviour
         else
         {
             // Add a portion of this direction vector to the current forces
-            _currForce = Vector3.LerpUnclamped(_currForce, directionVector, interpolateFactor) * (extendSpeed * Time.deltaTime);
-            _endKnot += _currForce;
+            _currEndPointForce = Vector3.LerpUnclamped(_currEndPointForce, directionVector, 1f) * (extendSpeed * Time.deltaTime);
+            _endKnot += _currEndPointForce;
         }
         UpdateKnot(KnotIndex.End, _endKnot);
         
-        // Update the Mid Knot
-        // TODO figure out a good curve.
-        // var endpointRelativeMidpointPos = Vector3.Slerp(restLocalPosition, endpointPos, interpolateFactor);
+        // Update the Midpoint knot
+        var midpointPos = GetKnotLocalPosition(_midKnot);
         var endpointRelativeMidpointPos = new Vector3(endpointPos.x / 2, endpointPos.y / 2, endpointPos.z / 2);
-        // var startPosition = GetKnotLocalPosition(_startKnot);
-        // var endpointRelativeMidpointPos = new Vector3(
-        //         Mathf.Lerp(startPosition.x, endpointPos.x, 0.65f),
-        //         Mathf.Lerp(startPosition.y, endpointPos.y, 0.5f),
-        //         Mathf.Lerp(startPosition.z, endpointPos.z, 0.65f)
-        //     );
-        _midKnot.Position = endpointRelativeMidpointPos;
+        var midpointDirectionVector = endpointRelativeMidpointPos - midpointPos;
+        _currMidPointForce = Vector3.LerpUnclamped(_currMidPointForce, midpointDirectionVector, 0.7f) * (extendSpeed * Time.deltaTime);
+        // If we're extending lag the middle knot for a bendy look
+        _midKnot += _currMidPointForce;
         UpdateKnot(KnotIndex.Mid, _midKnot);
     }
 
@@ -121,9 +116,6 @@ public class SplineController : MonoBehaviour
         if (endObject != null)
         {
             endObject.position = GetKnotWorldPosition(_endKnot) + endPositionOffset;
-            // var endpointUpdated = _splineContainer.Spline.Knots.ToArray()[2];
-            // var endpointRotation = new Quaternion(endpointUpdated.Rotation.value.x, endpointUpdated.Rotation.value.y, endpointUpdated.Rotation.value.z, endpointUpdated.Rotation.value.w);
-            // endObject.rotation = endpointRotation;
         }
         
     }

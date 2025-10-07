@@ -697,8 +697,9 @@ MonoBehaviour:
   typeDelay: 0.05
   pauseAfterTitle: 0.5
   scoreCountDuration: 1
+  betweenTitles: 0.3
   evidenceCountText: Number of evidence collected
-  dominanteLeftText: 'Hand that was used the most '
+  dominanteLeftText: Dominant hand
   hurtDateCountText: Number of times you've hit your date
   scoreboardDoc: {fileID: 92857610}
 --- !u!1 &1509070343

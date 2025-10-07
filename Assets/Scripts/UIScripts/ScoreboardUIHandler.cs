@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -36,6 +37,8 @@ public class ScoreboardUIHandler : MonoBehaviour
         letterGrade.visible = false;
         scoreboardContent.visible = false;
         scoreboardContainer.visible = false;
+
+        // ShowScoreboard(); // for testing
     }
 
     // given a event and its count, dispaly on UI and also increment count
@@ -46,13 +49,26 @@ public class ScoreboardUIHandler : MonoBehaviour
         // get scores from scorekeeper
         ScoreboardData data = ScoreKeeper.Instance.GetScores();
 
-        // // test
+        // test
         // ScoreboardData data = new ScoreboardData();
 
         // data.evidenceCount = 100;
         // data.dominanteLeft = false;
         // data.hurtDateCount = 2;
         // data.letter = "G";
+
+        // Scoring test1 = new Scoring("One time", 1, false, true, 0, 1);
+        // Scoring test12 = new Scoring("One time failed :(", 1, false, true, 0, 0);
+        // Scoring test2 = new Scoring("Percent", 2, true, false, 2000, 65);
+        // Scoring test3 = new Scoring("Normal", 2, false, false, 2000, 32);
+
+        // data.events = new List<Scoring>
+        // {
+        //     test1,
+        //     test12,
+        //     test2,
+        //     test3
+        // };
 
         // clear content
         scoreboardContent.text = "";
@@ -64,7 +80,7 @@ public class ScoreboardUIHandler : MonoBehaviour
     {
         int dashCount = Mathf.Max(0, textWidth - title.Length);
         string dashes = new string('-', dashCount);
-        return title + " " + dashes + " x";
+        return title + " " + dashes;
     }
 
     IEnumerator AnimateScoreboardRoutine(ScoreboardData data)
@@ -87,11 +103,11 @@ public class ScoreboardUIHandler : MonoBehaviour
             elapsed += Time.deltaTime;
             float t = Mathf.Clamp01(elapsed / scoreCountDuration);
             int current = Mathf.RoundToInt(Mathf.Lerp(startScore, targetScore, t));
-            scoreboardContent.text = content + current.ToString();
+            scoreboardContent.text = content + " x" + current.ToString();
             yield return null;
         }
 
-        content = content + targetScore + "\n";
+        content = content + " x" + targetScore + "\n";
         scoreboardContent.text = content;
 
         yield return new WaitForSeconds(betweenTitles); // small pause
@@ -112,28 +128,95 @@ public class ScoreboardUIHandler : MonoBehaviour
             elapsed += Time.deltaTime;
             float t = Mathf.Clamp01(elapsed / scoreCountDuration);
             int current = Mathf.RoundToInt(Mathf.Lerp(startScore, targetScore, t));
-            scoreboardContent.text = content + current.ToString();
+            scoreboardContent.text = content + " x" + current.ToString();
             yield return null;
         }
 
-        content = content + targetScore + "\n";
+        content = content + " x" + targetScore + "\n";
         scoreboardContent.text = content;
 
         // pause a bit
         yield return new WaitForSeconds(pauseAfterTitle);
 
         // event stuff
+        foreach (var e in data.events)
+        {
+            if (e.oneTime)
+            {
+                string condition;
+                if (e.status > 0)
+                {
+                    // success
+                    condition = "SUCCESS";
+                }
+                else
+                {
+                    //fail
+                    condition = "FAIL";
+                }
+
+                content = content + AddDashes(e.title);
+                scoreboardContent.text = content;
+
+                // pause a bit
+                yield return new WaitForSeconds(pauseAfterTitle);
+
+                content = content + " " + condition + "\n";
+            }
+            else
+            {
+                content = content + AddDashes(e.title);
+                scoreboardContent.text = content;
+
+                // pause a bit
+                yield return new WaitForSeconds(pauseAfterTitle);
+
+                // increment number
+                elapsed = 0f;
+                startScore = 0;
+                targetScore = e.status;
+                if (e.percent)
+                {
+                    while (elapsed < scoreCountDuration)
+                    {
+                        elapsed += Time.deltaTime;
+                        float t = Mathf.Clamp01(elapsed / scoreCountDuration);
+                        int current = Mathf.RoundToInt(Mathf.Lerp(startScore, targetScore, t));
+                        scoreboardContent.text = content + " " + current.ToString() + "%";
+                        yield return null;
+                    }
+
+                    content = content + " " + targetScore + "%\n";
+                }
+                else
+                {
+                    while (elapsed < scoreCountDuration)
+                    {
+                        elapsed += Time.deltaTime;
+                        float t = Mathf.Clamp01(elapsed / scoreCountDuration);
+                        int current = Mathf.RoundToInt(Mathf.Lerp(startScore, targetScore, t));
+                        scoreboardContent.text = content + " x" + current.ToString();
+                        yield return null;
+                    }
+
+                    content = content + " x" + targetScore + "\n";
+                }
+            }
+
+            scoreboardContent.text = content;
+        }
 
         // Dominant hand
         content = content + dominanteLeftText;
+        int dashCount = Mathf.Max(0, textWidth - dominanteLeftText.Length - 6);
         if (data.dominanteLeft)
         {
-            string dashes = new string('-', textWidth - dominanteLeftText.Length - 4);
+            string dashes = new string('-', dashCount);
             content = content + dashes + " Left\n";
         }
         else
         {
-            string dashes = new string('-', textWidth - dominanteLeftText.Length - 6);
+            string dashes = new string('-', dashCount);
             content = content + dashes + " Right\n";
         }
         scoreboardContent.text = content;

@@ -1,14 +1,16 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class RoomRotation : MonoBehaviour
 {
-    [SerializeField] private Transform forearmBone; // forearm being copied
-    [SerializeField] private Transform upperarmBone; // upperarm being copied
-    [SerializeField] private Transform wristBone; // upperarm being copied
-
-    [SerializeField] private Transform forearmCopier; // copied forearm
-    [SerializeField] private Transform upperarmCopier; // copied upperarm
-    [SerializeField] private Transform wristCopier; // upperarm being copied
+    [SerializeField] private Transform forearmBone; // forearm being copied from
+    [SerializeField] private Transform upperarmBone; // upperarm being copied from
+    [FormerlySerializedAs("wristBone")] [SerializeField] private Transform wristRollSource; // wrist roll rotation being copied from
+    [SerializeField] private Transform wristPitchYawSource; // wrist pitch / yaw rotation being copied from
+    
+    [SerializeField] private Transform forearmCopier; // copied to forearm
+    [SerializeField] private Transform upperarmCopier; // copied to upperarm
+    [SerializeField] private Transform wristCopier; // copied to wrist
 
     [SerializeField] private Transform robotTarget;
     [SerializeField] private float speed;
@@ -31,13 +33,7 @@ public class RoomRotation : MonoBehaviour
             // Copy world rotation
             upperarmCopier.rotation = upperarmBone.rotation;
         }
-
-        if (wristBone != null)
-        {
-            // Copy world rotation
-            wristCopier.rotation = wristBone.rotation;
-        }
-
+        
         ogPosition = transform.localPosition;
     }
 
@@ -47,9 +43,15 @@ public class RoomRotation : MonoBehaviour
         movement.x *= -1.0f;
         transform.localPosition = movement * speed + ogPosition;
 
-        if (wristBone != null)
+        if (wristRollSource != null &&  wristPitchYawSource != null)
         {
-            wristCopier.rotation = wristBone.rotation;
+            // Combine the rotations of the wrist roll rotation source and the wrist pitch/yaw rotation source with some quaternion math
+            // Need to flip the yaw and roll rotations.
+            var rollRotation = Quaternion.Inverse(wristRollSource.localRotation);
+            var pitchYawRotation = wristPitchYawSource.localRotation;
+            pitchYawRotation.y = -1 * pitchYawRotation.y;
+            pitchYawRotation.z = -1 * pitchYawRotation.z;
+            wristCopier.localRotation = rollRotation * pitchYawRotation;
         }
     }
 }

@@ -66,6 +66,8 @@ public class GlobalPlayerManager : MonoBehaviour
 
                     // pass these players to UI manager
                     GlobalPlayerUIManager.Instance.PassPlayers(_players);
+                    
+                    MinimapController.Instance.InitializePlayerDots();
 
                     SceneManager.LoadScene("WalkingCopy");
                 }
@@ -182,6 +184,8 @@ public class GlobalPlayerManager : MonoBehaviour
         return SceneManager.GetActiveScene().name == "CharacterSelect";
     }
 
+    // delcare here so MinimapController can readonly it
+    public PlayerData[] Players => _players;
 }
 
 public struct PlayerData
@@ -195,6 +199,7 @@ public struct PlayerData
     public GameObject PlayerObject { get; set; }
     public Action<InputAction.CallbackContext> SubmitActionDelegate { get; set; }
     public Action<InputAction.CallbackContext> CancelActionDelegate { get; set; }
+    public Transform PlayerTransform;
 }
 
 public interface ICharacterSelectScreen

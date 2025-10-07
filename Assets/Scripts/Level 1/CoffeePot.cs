@@ -94,8 +94,7 @@ public class CoffeePot : InteractableObject
             Debug.Log(transform.rotation);
             canPickup = false;
 
-            target.wristRotateX = 0f;
-            target.wristRotateY = 7f;
+            target.SetWristRotation(new Vector3(0, 0, 0));
 
             rb.isKinematic = true;
             triggerCollider.enabled = false;

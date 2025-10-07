@@ -176,8 +176,8 @@ public class HandMovement : MonoBehaviour
     /// </summary>
     private void ClampWristRotate()
     {
-        _wristRotation.x = Mathf.Clamp(_wristRotation.x, -90f, 90f);
-        _wristRotation.y = Mathf.Clamp(_wristRotation.y, -90f, 90f);
+        _wristRotation.x = Mathf.Clamp(_wristRotation.x, -100f, 100f);
+        _wristRotation.y = Mathf.Clamp(_wristRotation.y, -100f, 100f);
     }
 
     public Vector3 GetWristRotation()

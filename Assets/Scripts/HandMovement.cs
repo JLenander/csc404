@@ -1,6 +1,7 @@
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class HandMovement : MonoBehaviour
 {
@@ -24,12 +25,15 @@ public class HandMovement : MonoBehaviour
 
     private GameObject _currPlayer;
 
-    public float lookSensitivity = 0.4f;
+    [FormerlySerializedAs("lookSensitivity")] public float handPitchYawSensitivity = 0.4f;
 
     [SerializeField] private float wristRotationSpeed = 1.0f;
 
-    [SerializeField] public Transform _wrist;
-    [SerializeField] public Transform _wristAim;
+    // The transforms to control the hand/wrist roll/pitch/yaw (airplane degrees of freedom system).
+    // Pitch and Yaw are separate from Roll as we want them to be independent of the hand/wrist roll orientation.
+    [FormerlySerializedAs("_wrist")] [SerializeField] private Transform _wristRoll;
+    [SerializeField] private Transform _wristPitchYaw;
+    [SerializeField] private Transform _wristAim;
     private Vector3 _wristRotation;
 
     public Animator oppositeHandAnimator; // animator of opposite hand
@@ -62,16 +66,17 @@ public class HandMovement : MonoBehaviour
             movement += (stickMovement + triggerMovement) * Time.deltaTime;
             // movement done in FixedUpdate
 
-            // wrist rotation (done in LateUpdate)
-            Vector2 lookMove = _lookAction.ReadValue<Vector2>();
+            // wrist rotation (done in FixedUpdate)
+            Vector2 lookMove = _lookAction.ReadValue<Vector2>() * Time.deltaTime;
             // yaw
-            _wristRotation.x += lookMove.x * lookSensitivity * -1.0f;
+            _wristRotation.x += lookMove.x * handPitchYawSensitivity;
+            _wristRotation.x = Mathf.Clamp(_wristRotation.x, -90f, 90f);
             // pitch
-            _wristRotation.y += lookMove.y * lookSensitivity;
+            _wristRotation.y += lookMove.y * handPitchYawSensitivity;
             _wristRotation.y = Mathf.Clamp(_wristRotation.y, -90f, 90f);
             // roll
-            _wristRotation.z += (_leftBumperAction.ReadValue<float>() * -1 + _rightBumperAction.ReadValue<float>()) * wristRotationSpeed;
-
+            _wristRotation.z += (_leftBumperAction.ReadValue<float>() * -1 + _rightBumperAction.ReadValue<float>()) * wristRotationSpeed * Time.deltaTime;
+            
             // changed from movement.magnitude to this addition because movement is now += instead of =
             bool movingNow = ((stickMovement + triggerMovement).magnitude > 0.5f) || (lookMove.magnitude > 0.3f);
 
@@ -129,6 +134,7 @@ public class HandMovement : MonoBehaviour
     // Use FixedUpdate for physics-based movement
     private void FixedUpdate()
     {
+        // Movement
         if (left)
         {
             transform.localPosition = movement * speed + _ogPosition;
@@ -139,24 +145,26 @@ public class HandMovement : MonoBehaviour
             tmpMvt.x *= -1.0f;
             transform.localPosition = tmpMvt * speed + _ogPosition;
         }
-    }
-
-    private void LateUpdate()
-    {
+        
+        // Rotation
+        // pitch and yaw on parent object so the direction is independent of the wrist roll orientation.
         if (left)
         {
-            // left arm roll
-            _wrist.localRotation = Quaternion.Euler(_wristRotation.y, _wristRotation.z, _wristRotation.x);
-            _wristAim.localRotation = Quaternion.Euler(_wristRotation.y, _wristRotation.z, _wristRotation.x);
+            // left hand pitch and yaw
+            _wristPitchYaw.localRotation = Quaternion.Euler(_wristRotation.y, 0, _wristRotation.x * -1.0f);
+            _wristAim.localRotation = Quaternion.Euler(_wristRotation.y, 0, _wristRotation.x * -1.0f);
+            // left hand roll
+            _wristRoll.localRotation = Quaternion.Euler(0, _wristRotation.z, 0);
         }
         else
         {
-            // right arm roll
-            _wrist.localRotation = Quaternion.Euler(_wristRotation.y, _wristRotation.z * -1.0f, _wristRotation.x * -1.0f);
-            _wristAim.localRotation = Quaternion.Euler(_wristRotation.y, _wristRotation.z * -1.0f, _wristRotation.x * -1.0f);
+            // right hand pitch and yaw
+            _wristPitchYaw.localRotation = Quaternion.Euler(_wristRotation.y, 0, _wristRotation.x);
+            _wristAim.localRotation = Quaternion.Euler(_wristRotation.y, 0, _wristRotation.x);
+            // right hand roll
+            _wristRoll.localRotation = Quaternion.Euler(0, _wristRotation.z * -1.0f, 0);
         }
     }
-
 
     // using TurnOn to initialize when player starts using the hand, not in Start() when object instantiate
     public void TurnOn(GameObject playerUsing)
@@ -187,7 +195,7 @@ public class HandMovement : MonoBehaviour
     private void InteractWithObject(InteractableObject interactableObject)
     {
         Debug.Log("Interacting with " + interactableObject);
-        interactableObject.InteractWithHand(_wrist, this);
+        interactableObject.InteractWithHand(_wristRoll, this);
     }
 
     public void StopInteractingWithObject(InteractableObject interactableObject)

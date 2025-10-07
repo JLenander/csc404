@@ -954,6 +954,38 @@ SkinnedMeshRenderer:
     m_Center: {x: -1.1955378, y: 4.0964055, z: -0.6889107}
     m_Extent: {x: 4.607876, y: 4.668692, z: 3.40637}
   m_DirtyAABB: 0
+--- !u!1 &3467704724430919032
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2167919564173934219}
+  m_Layer: 0
+  m_Name: HandPitchYawContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2167919564173934219
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3467704724430919032}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7203524997457381922}
+  m_Father: {fileID: 4607181767309699373}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3658938969619514817
 GameObject:
   m_ObjectHideFlags: 0
@@ -1120,7 +1152,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7258395926828420493}
-  - component: {fileID: 4766359269420232235}
   m_Layer: 0
   m_Name: SimulatedWristForTargetAnchor
   m_TagString: Untagged
@@ -1136,7 +1167,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4282386708170707015}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.57132703, y: -0.050762866, z: -0.072496645, w: 0.81593674}
+  m_LocalRotation: {x: 0.17310469, y: 0.01164148, z: -0.104848675, w: 0.9792375}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: -1.6244556, y: 1.6244556, z: 1.6244557}
   m_ConstrainProportionsScale: 0
@@ -1144,26 +1175,6 @@ Transform:
   - {fileID: 5644754071235285436}
   m_Father: {fileID: 119430455514101004}
   m_LocalEulerAnglesHint: {x: -70, y: 0, z: 0}
---- !u!1818360609 &4766359269420232235
-RotationConstraint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4282386708170707015}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Weight: 1
-  m_RotationAtRest: {x: -70.00018, y: 0, z: -10.154876}
-  m_RotationOffset: {x: -10.588233, y: 0.7483246, z: -9.080026}
-  m_AffectRotationX: 1
-  m_AffectRotationY: 1
-  m_AffectRotationZ: 1
-  m_Active: 1
-  m_IsLocked: 1
-  m_Sources:
-  - sourceTransform: {fileID: 1695341088322505098}
-    weight: 1
 --- !u!1 &4298905976001649521
 GameObject:
   m_ObjectHideFlags: 0
@@ -1383,7 +1394,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7203524997457381922}
+  - {fileID: 2167919564173934219}
   m_Father: {fileID: 5710807735223163965}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5159885983520701242
@@ -2016,13 +2027,13 @@ MonoBehaviour:
   movement: {x: 0, y: 0, z: 0}
   moveSource: {fileID: 8682444517587383604}
   stopSource: {fileID: 9115779696011899960}
-  lookSensitivity: 0.4
-  _wrist: {fileID: 7203524997457381922}
+  handPitchYawSensitivity: 100
+  wristRotationSpeed: 110
+  _wristRoll: {fileID: 7203524997457381922}
+  _wristPitchYaw: {fileID: 2167919564173934219}
   _wristAim: {fileID: 7258395926828420493}
   oppositeHandAnimator: {fileID: 0}
   handAnimator: {fileID: 5030860086350588141}
-  wristRotateX: 0
-  wristRotateY: 0
   grappleArmSpline: {fileID: 1951719360051209165}
   left: 0
 --- !u!82 &8682444517587383604
@@ -2538,7 +2549,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7203524997457381922}
   m_Layer: 0
-  m_Name: HandOffset
+  m_Name: HandRollContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2552,13 +2563,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8183992540313870968}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1131170976285256432}
-  m_Father: {fileID: 4607181767309699373}
+  m_Father: {fileID: 2167919564173934219}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8406407203513812808
 GameObject:

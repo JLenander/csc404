@@ -12,8 +12,8 @@ public class MinimapController : MonoBehaviour
 
     private Vector2 worldMin = new Vector2(-9, -3);
     private Vector2 worldMax = new Vector2(15, 16);
-    // y: 13.3, -1.7
-    // x: -8.2, 12.9
+    // x: -8.2, 12.9 (actual data by playtest)
+    // y: -1.7, 13.3
     private GlobalPlayerManager _playerManager;
     private PlayerData[] players;
     
@@ -23,8 +23,9 @@ public class MinimapController : MonoBehaviour
         Color.yellow,   // Player 3
     };
     
-    private bool _initialized = false;
+    private bool _initialized;
     
+    // instance to be used in GlobalPlayerManager to call intialize player dots after players added
     public static MinimapController Instance;
     void Awake() { Instance = this; }
 
@@ -42,6 +43,8 @@ public class MinimapController : MonoBehaviour
 
     void Update()
     {
+        // only do actual updating after initialized
+        // (Update is being called moment game starts)
         if (!_initialized) return;
 
         UpdatePlayerDots();
@@ -49,12 +52,15 @@ public class MinimapController : MonoBehaviour
 
     internal void InitializePlayerDots()
     {
-        Debug.Log("INIT!");
+        // get list of PlayerData from GlobalPlayerManager, now that players are added
         players = _playerManager.Players;
+        
         for (int i = 0; i < players.Length; i++)
         {
-            if (players[i].Valid)
+            if (players[i].Valid) // note players not joined are still in list just not valid
             {
+                // Get player Transform from player object
+                // added not recorded so this data will be updated next time checked
                 _playerTransforms.Add(players[i].PlayerObject.transform);
 
                 // Create a new dot for this player
@@ -72,21 +78,22 @@ public class MinimapController : MonoBehaviour
                         backgroundColor = _playerColors[i]
                     }
                 };
-                _minimapRoot.Add(dot);
-                _playerDots.Add(dot);
-                
+                _minimapRoot.Add(dot); // add element to UI
+                _playerDots.Add(dot); // add to update
             }
         }
-        _initialized = true;
+        _initialized = true; // now can update
     }
 
     private void UpdatePlayerDots()
     {
+        // Get minimap dimensions (on UI document)
         float mapWidth = _minimapRoot.resolvedStyle.width;
         float mapHeight = _minimapRoot.resolvedStyle.height;
 
         for (int i = 0; i < players.Length; i++)
         {
+            // Note this is current position because player object's Transform is referenced
             Vector3 worldPos = _playerTransforms[i].position;
 
             // Map world coordinates to minimap normalized coordinates (0..1)
@@ -97,14 +104,13 @@ public class MinimapController : MonoBehaviour
             xNorm = Mathf.Clamp01(xNorm);
             yNorm = Mathf.Clamp01(yNorm);
 
+            // Convert normalized coordinates to minimap pixel coordinates
             float x = xNorm * mapWidth;
             float y = (1 - yNorm) * mapHeight;
 
+            // Update position of dot to reflect in UI
             _playerDots[i].style.left = x;
             _playerDots[i].style.top = y;
-            
-            Debug.Log($"Player {i} world={worldPos} -> map=({x:F1}, {y:F1}) norm=({xNorm:F2},{yNorm:F2})");
-
         }
     }
     

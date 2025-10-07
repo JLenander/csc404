@@ -67,6 +67,7 @@ public class GlobalPlayerManager : MonoBehaviour
                     // pass these players to UI manager
                     GlobalPlayerUIManager.Instance.PassPlayers(_players);
                     
+                    // initialize player dots, call here so it happens after players are passed to UI manager
                     MinimapController.Instance.InitializePlayerDots();
 
                     SceneManager.LoadScene("WalkingCopy");
@@ -199,7 +200,6 @@ public struct PlayerData
     public GameObject PlayerObject { get; set; }
     public Action<InputAction.CallbackContext> SubmitActionDelegate { get; set; }
     public Action<InputAction.CallbackContext> CancelActionDelegate { get; set; }
-    public Transform PlayerTransform;
 }
 
 public interface ICharacterSelectScreen

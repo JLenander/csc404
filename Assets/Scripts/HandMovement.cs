@@ -31,9 +31,10 @@ public class HandMovement : MonoBehaviour
 
     // The transforms to control the hand/wrist roll/pitch/yaw (airplane degrees of freedom system).
     // Pitch and Yaw are separate from Roll as we want them to be independent of the hand/wrist roll orientation.
-    [FormerlySerializedAs("_wrist")] [SerializeField] private Transform _wristRoll;
-    [SerializeField] private Transform _wristPitchYaw;
-    [SerializeField] private Transform _wristAim;
+    [SerializeField] private Transform wristRoll;
+    [SerializeField] private Transform wristPitchYaw;
+    [SerializeField] private Transform wristAim;
+    [SerializeField] private Transform wristBone;
     private Vector3 _wristRotation;
 
     public Animator oppositeHandAnimator; // animator of opposite hand
@@ -155,18 +156,18 @@ public class HandMovement : MonoBehaviour
         if (left)
         {
             // left hand pitch and yaw
-            _wristPitchYaw.localRotation = Quaternion.Euler(_wristRotation.y, 0, _wristRotation.x * -1.0f);
-            _wristAim.localRotation = Quaternion.Euler(_wristRotation.y, 0, _wristRotation.x * -1.0f);
+            wristPitchYaw.localRotation = Quaternion.Euler(_wristRotation.y, 0, _wristRotation.x * -1.0f);
+            wristAim.localRotation = Quaternion.Euler(_wristRotation.y, 0, _wristRotation.x * -1.0f);
             // left hand roll
-            _wristRoll.localRotation = Quaternion.Euler(0, _wristRotation.z, 0);
+            wristRoll.localRotation = Quaternion.Euler(0, _wristRotation.z, 0);
         }
         else
         {
             // right hand pitch and yaw
-            _wristPitchYaw.localRotation = Quaternion.Euler(_wristRotation.y, 0, _wristRotation.x);
-            _wristAim.localRotation = Quaternion.Euler(_wristRotation.y, 0, _wristRotation.x);
+            wristPitchYaw.localRotation = Quaternion.Euler(_wristRotation.y, 0, _wristRotation.x);
+            wristAim.localRotation = Quaternion.Euler(_wristRotation.y, 0, _wristRotation.x);
             // right hand roll
-            _wristRoll.localRotation = Quaternion.Euler(0, _wristRotation.z * -1.0f, 0);
+            wristRoll.localRotation = Quaternion.Euler(0, _wristRotation.z * -1.0f, 0);
         }
     }
 
@@ -230,7 +231,7 @@ public class HandMovement : MonoBehaviour
     private void InteractWithObject(InteractableObject interactableObject)
     {
         Debug.Log("Interacting with " + interactableObject);
-        interactableObject.InteractWithHand(_wristRoll, this);
+        interactableObject.InteractWithHand(wristBone, this);
     }
 
     public void StopInteractingWithObject(InteractableObject interactableObject)

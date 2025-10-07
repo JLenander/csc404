@@ -2029,9 +2029,10 @@ MonoBehaviour:
   stopSource: {fileID: 9115779696011899960}
   handPitchYawSensitivity: 120
   wristRotationSpeed: 130
-  _wristRoll: {fileID: 7203524997457381922}
-  _wristPitchYaw: {fileID: 2167919564173934219}
-  _wristAim: {fileID: 7258395926828420493}
+  wristRoll: {fileID: 7203524997457381922}
+  wristPitchYaw: {fileID: 2167919564173934219}
+  wristAim: {fileID: 7258395926828420493}
+  wristBone: {fileID: 1695341088322505098}
   oppositeHandAnimator: {fileID: 0}
   handAnimator: {fileID: 5030860086350588141}
   grappleArmSpline: {fileID: 1951719360051209165}

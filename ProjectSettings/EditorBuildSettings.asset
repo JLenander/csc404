@@ -26,6 +26,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level 1 Eating.unity
     guid: 03b2285e26e01f142811a0ba059ddc4b
+  - enabled: 1
+    path: Assets/Scenes/Cafe.unity
+    guid: f36212fc409e10f419db3b66cb5ef87a
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 2ceba5d9a4cce245fb02155d49fa29c2, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 5a9f47bf536d8da4d81d60910febc352, type: 3}

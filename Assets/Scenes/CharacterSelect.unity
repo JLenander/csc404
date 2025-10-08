@@ -608,11 +608,17 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 5569860638936263973, guid: 6c951279af45d354090e2a145ecf5a12, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 2074024826}
+    - targetCorrespondingSourceObject: {fileID: 5569860638936263973, guid: 6c951279af45d354090e2a145ecf5a12, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 1761630039}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2833034805337091610, guid: 6c951279af45d354090e2a145ecf5a12, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1413962067}
+    - targetCorrespondingSourceObject: {fileID: 2833034805337091610, guid: 6c951279af45d354090e2a145ecf5a12, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1413962068}
   m_SourcePrefab: {fileID: 100100000, guid: 6c951279af45d354090e2a145ecf5a12, type: 3}
 --- !u!1 &1129552808 stripped
 GameObject:
@@ -648,8 +654,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MinimapController
   uiDocument: {fileID: 921738853}
-  worldMin: {x: -8, y: -2}
-  worldMax: {x: 13, y: 14}
+--- !u!114 &1413962068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1129552808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f79fe0eecd71e640ba16a3cb008c654, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ScoreboardUIHandler
+  pauseAfterTitle: 0.5
+  scoreCountDuration: 1
+  betweenTitles: 0.3
+  evidenceCountText: Number of evidence collected
+  dominanteLeftText: 'Hand that was used the most '
+  hurtDateCountText: Number of times you've hit your date
+  scoreboardDoc: {fileID: 2074024825}
 --- !u!1 &1509070343
 GameObject:
   m_ObjectHideFlags: 0
@@ -1110,6 +1133,79 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1971928838}
   m_CullTransparentMesh: 1
+--- !u!1001 &2074024824
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 655477691}
+    m_Modifications:
+    - target: {fileID: 7008167923991610495, guid: bbad4d6d418846e48a9a7a5e2b4d7810, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -651.65796
+      objectReference: {fileID: 0}
+    - target: {fileID: 7008167923991610495, guid: bbad4d6d418846e48a9a7a5e2b4d7810, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -540
+      objectReference: {fileID: 0}
+    - target: {fileID: 7008167923991610495, guid: bbad4d6d418846e48a9a7a5e2b4d7810, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -116.09994
+      objectReference: {fileID: 0}
+    - target: {fileID: 7008167923991610495, guid: bbad4d6d418846e48a9a7a5e2b4d7810, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7008167923991610495, guid: bbad4d6d418846e48a9a7a5e2b4d7810, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7008167923991610495, guid: bbad4d6d418846e48a9a7a5e2b4d7810, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7008167923991610495, guid: bbad4d6d418846e48a9a7a5e2b4d7810, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7008167923991610495, guid: bbad4d6d418846e48a9a7a5e2b4d7810, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7008167923991610495, guid: bbad4d6d418846e48a9a7a5e2b4d7810, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7008167923991610495, guid: bbad4d6d418846e48a9a7a5e2b4d7810, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9042339539417512683, guid: bbad4d6d418846e48a9a7a5e2b4d7810, type: 3}
+      propertyPath: m_Name
+      value: ScoreboardUIDocument
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bbad4d6d418846e48a9a7a5e2b4d7810, type: 3}
+--- !u!114 &2074024825 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 618886570395729301, guid: bbad4d6d418846e48a9a7a5e2b4d7810, type: 3}
+  m_PrefabInstance: {fileID: 2074024824}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
+--- !u!4 &2074024826 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7008167923991610495, guid: bbad4d6d418846e48a9a7a5e2b4d7810, type: 3}
+  m_PrefabInstance: {fileID: 2074024824}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2100801840
 GameObject:
   m_ObjectHideFlags: 0
@@ -1140,7 +1236,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 07e78c08fdd1bde45b25301354ae2fa3, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.176
   m_Pitch: 1
   Loop: 0
   Mute: 0

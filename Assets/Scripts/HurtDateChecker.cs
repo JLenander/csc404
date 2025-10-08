@@ -7,6 +7,10 @@ public class HurtDateChecker : MonoBehaviour
     [SerializeField] private float bendCoolDown = 0.5f;
     [SerializeField] private float bendDistance = 0.2f;
     [SerializeField] private float returnSpeed = 0.5f;
+
+    [SerializeField] private DialogueScriptableObj hurtDialogue;
+
+    public AudioSource audioSource;
     private Vector3 original;
     private Coroutine bendRoutine;
     private ScoreKeeper scoreKeeper;
@@ -21,21 +25,26 @@ public class HurtDateChecker : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Hand")) return;
+        if (other != null && other.CompareTag("Hand"))
+        {         // Find direction from the character to the hit
+            Vector3 hitDir = (other.transform.position - spineTarget.position).normalized;
 
-        // Find direction from the character to the hit
-        Vector3 hitDir = (other.transform.position - spineTarget.position).normalized;
+            // Bend target opposite the hit direction
+            Vector3 bendOffset = -hitDir * bendDistance;
+            bendOffset.y = 0; // optional: ignore vertical bend
 
-        // Bend target opposite the hit direction
-        Vector3 bendOffset = -hitDir * bendDistance;
-        bendOffset.y = 0; // optional: ignore vertical bend
+            if (bendRoutine != null) StopCoroutine(bendRoutine);
+            bendRoutine = StartCoroutine(BendOpposite(bendOffset));
 
-        if (bendRoutine != null) StopCoroutine(bendRoutine);
-        bendRoutine = StartCoroutine(BendOpposite(bendOffset));
+            if (audioSource != null)
+                audioSource.Play();
 
-        // deduct points from player
-        scoreKeeper.IncrementHurtDate();
-        scoreKeeper.ModifyScore(-1);
+            // deduct points from player
+            scoreKeeper.IncrementHurtDate();
+            scoreKeeper.ModifyScore(-1);
+
+            GlobalPlayerUIManager.Instance.LoadText(hurtDialogue);
+        }
     }
 
     IEnumerator BendOpposite(Vector3 bendOffset)

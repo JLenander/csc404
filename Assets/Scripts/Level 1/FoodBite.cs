@@ -12,7 +12,9 @@ public class FoodBite : InteractableObject, IPooledObject
     [SerializeField] private Transform popUp;
     [SerializeField] private Transform graphic;
     public float floatSpeed = 1f;
-    public int score = 3;
+    public int score = 2;
+
+    public AudioSource audioSource;
 
     public override void Start()
     {
@@ -69,6 +71,9 @@ public class FoodBite : InteractableObject, IPooledObject
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (audioSource != null)
+            audioSource.Play();
+
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             Debug.Log("Hit ground!");
@@ -78,10 +83,13 @@ public class FoodBite : InteractableObject, IPooledObject
 
             transform.position = collision.contacts[0].point + Vector3.up * 0.01f;
         }
-        else if (collision.gameObject.CompareTag("Bag")) {
+        else if (collision.gameObject.CompareTag("Bag"))
+        {
             Debug.Log("Eating point");
             ScoreKeeper.Instance.ModifyScore(score);
-            StartCoroutine(DisappearRoutine());
+            ScoreKeeper.Instance.IncrementScoring("Spaghetti completion");
+            NovaLevel1Manager.Instance.ate = true;
+            // StartCoroutine(DisappearRoutine());
         }
     }
 

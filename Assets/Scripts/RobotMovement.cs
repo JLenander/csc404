@@ -13,6 +13,7 @@ public class RobotMovement : MonoBehaviour
     private bool _robotIsGrounded;
     public float robotMoveSpeed = 30f;
     public float robotLookSensitivity = 50f;
+    public bool disable = false;
 
     [SerializeField] private float gravity = -9.81f;
     [SerializeField] private float groundCheckDistance = 0.2f;
@@ -29,6 +30,7 @@ public class RobotMovement : MonoBehaviour
 
     public void ControlRobotMovement()
     {
+        if (disable) return;
         _robotIsGrounded = Physics.CheckSphere(transform.position, groundCheckDistance, groundMask);
         // Movement
 

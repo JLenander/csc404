@@ -10,6 +10,7 @@ public class BlinkConsole : Interactable
     public float pressCountdown;
     public HeadConsole headConsole;
     public GameObject blinkOverlay; // a black overlap for camera
+    public AudioSource audioSource;
 
     private bool timerIsRunning;
     private bool warning = false;
@@ -76,6 +77,9 @@ public class BlinkConsole : Interactable
         PlayerInteract playerInteract = player.GetComponent<PlayerInteract>();
         ResetTimers();
         playerInteract.NullInteracting();
+
+        if (audioSource != null)
+            audioSource.Play();
 
         if (blinkOverlay != null)
             StartCoroutine(BlinkRoutine());

@@ -18,7 +18,7 @@ public class ScoreKeeper : MonoBehaviour
 {
     public static ScoreKeeper Instance;
 
-    private ISplitscreenUIHandler _splitscreenUIHandler; // remove later
+    // private ISplitscreenUIHandler _splitscreenUIHandler; // remove later
     private int overallScore; // player score
     public int maxScore; // what we think is the max score for the level
     // the rest of the special events will be aggregated in a list
@@ -38,8 +38,8 @@ public class ScoreKeeper : MonoBehaviour
         rightGrabCount = 0;
         hurtDateCount = 0;
         events = new List<Scoring>();
-        _splitscreenUIHandler = FindAnyObjectByType<SplitscreenUIHandler>();
-        _splitscreenUIHandler.ChangeScoreText(0); // for debugging for now
+        // _splitscreenUIHandler = FindAnyObjectByType<SplitscreenUIHandler>();
+        // _splitscreenUIHandler.ChangeScoreText(0); // for debugging for now
     }
 
     /// <summary>
@@ -49,7 +49,7 @@ public class ScoreKeeper : MonoBehaviour
     public void ModifyScore(int score)
     {
         overallScore += score;
-        _splitscreenUIHandler.ChangeScoreText(overallScore);
+        // _splitscreenUIHandler.ChangeScoreText(overallScore);
     }
 
     /// <summary>

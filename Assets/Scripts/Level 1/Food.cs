@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -12,6 +13,8 @@ public class Food : InteractableObject
     private ObjectPooler objectPooler;
     public Transform robotHead;
 
+    [SerializeField] private ParticleSystem particle;
+
     [SerializeField] private GameObject[] foodStates;
     [SerializeField] private int[] foodStateChange;
     private int currIndex;
@@ -23,6 +26,10 @@ public class Food : InteractableObject
         foodBiteCount = 0;
         currIndex = 0;
         foodStates[currIndex].SetActive(true);
+
+        ScoreKeeper.Instance.AddScoring("Spaghetti completion", 2, true, false, 5);
+
+        particle.Stop();
     }
 
     public override void InteractWithHand(Transform wrist, HandMovement target)
@@ -31,6 +38,8 @@ public class Food : InteractableObject
         {
             // spawn a food bite from the object pooler
             GameObject foodBiteObj = objectPooler.SpawnFromPool("FoodBite", transform.position, transform.rotation);
+
+            PlayForOneSecond();
 
             FoodBite foodBite = foodBiteObj.GetComponent<FoodBite>();
             if (foodBite != null)
@@ -61,5 +70,17 @@ public class Food : InteractableObject
             currIndex++;
             foodStates[currIndex].SetActive(true);
         }
+    }
+
+    public void PlayForOneSecond()
+    {
+        StartCoroutine(PlayParticlesRoutine());
+    }
+
+    private IEnumerator PlayParticlesRoutine()
+    {
+        particle.Play();
+        yield return new WaitForSeconds(1f);
+        particle.Stop();
     }
 }

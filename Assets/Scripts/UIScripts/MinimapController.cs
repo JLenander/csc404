@@ -15,18 +15,18 @@ public class MinimapController : MonoBehaviour
     private Vector2 worldMax = new Vector2(15, 16);
     // x: -8.2, 12.9 (actual data by playtest)
     // y: -1.7, 13.3
-    
+
     private GlobalPlayerManager _playerManager;
     private PlayerData[] players;
-    
+
     private readonly Color[] _playerColors = {
         Color.red,      // Player 1
         Color.blue,     // Player 2
         Color.yellow,   // Player 3
     };
-    
+
     private bool _initialized;
-    
+
     // instance to be used in GlobalPlayerManager to call intialize player dots after players added
     public static MinimapController Instance;
     void Awake() { Instance = this; }
@@ -34,7 +34,7 @@ public class MinimapController : MonoBehaviour
     void Start()
     {
         _minimapRoot = uiDocument.rootVisualElement.Q<VisualElement>("PlayerDotContainer");
-        
+
         _playerManager = FindAnyObjectByType<GlobalPlayerManager>();
         if (_playerManager == null)
         {
@@ -56,7 +56,7 @@ public class MinimapController : MonoBehaviour
     {
         // get list of PlayerData from GlobalPlayerManager, now that players are added
         players = _playerManager.Players;
-        
+
         for (int i = 0; i < players.Length; i++)
         {
             if (players[i].Valid) // note players not joined are still in list just not valid
@@ -93,7 +93,7 @@ public class MinimapController : MonoBehaviour
         float mapWidth = _minimapRoot.resolvedStyle.width;
         float mapHeight = _minimapRoot.resolvedStyle.height;
 
-        for (int i = 0; i < players.Length; i++)
+        for (int i = 0; i < _playerTransforms.Count; i++)
         {
             // Note this is current position because player object's Transform is referenced
             Vector3 worldPos = _playerTransforms[i].position;
@@ -113,9 +113,9 @@ public class MinimapController : MonoBehaviour
             // Update position of dot to reflect in UI
             _playerDots[i].style.left = x;
             _playerDots[i].style.top = y;
-            
+
             // Debug.Log($"Player {i + 1} World Pos: {worldPos}");
         }
     }
-    
+
 }

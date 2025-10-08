@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 
 public class ScoreboardUIHandler : MonoBehaviour
 {
-    public float typeDelay = 0.05f; // delay per character
+    public static ScoreboardUIHandler Instance;
     public float pauseAfterTitle = 0.5f;
     public float scoreCountDuration = 1f; // how fast number goes up, perhaps scale with amount ltr
     public float betweenTitles = 0.3f;
@@ -25,6 +25,7 @@ public class ScoreboardUIHandler : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        Instance = this;
         var root = scoreboardDoc.rootVisualElement;
         // find all needed UI elements
         scoreboardContent = root.Query<Label>("ScoreboardContent").First();
@@ -42,7 +43,7 @@ public class ScoreboardUIHandler : MonoBehaviour
     }
 
     // given a event and its count, dispaly on UI and also increment count
-    void ShowScoreboard()
+    public void ShowScoreboard()
     {
         scoreboardContent.visible = true;
         scoreboardContainer.visible = true;

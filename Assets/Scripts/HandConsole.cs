@@ -7,6 +7,8 @@ public class HandConsole : Interactable
     private bool _canInteract = true;
     public bool left;
 
+    public AudioSource audioSource;
+
     private GameObject _currPlayer;
 
     void Start()
@@ -21,6 +23,9 @@ public class HandConsole : Interactable
         handRigTarget.GetComponent<HandMovement>().TurnOn(player);
         _canInteract = false;
         _currPlayer = player;
+
+        if (audioSource != null)
+            audioSource.Play();
     }
 
     public override void Return(GameObject player)

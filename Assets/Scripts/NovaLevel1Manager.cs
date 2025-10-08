@@ -92,7 +92,7 @@ public class NovaLevel1Manager : MonoBehaviour
         GlobalPlayerUIManager.Instance.LoadText(dialogues[index]);
         index++;
 
-        yield return new WaitForSeconds(60f);
+        yield return new WaitForSeconds(30f);
 
         // after a while she eats another slice
         yield return StartCoroutine(EatCake());
@@ -110,7 +110,7 @@ public class NovaLevel1Manager : MonoBehaviour
         // index++;
 
         // eat last slice
-        yield return new WaitForSeconds(60f);
+        yield return new WaitForSeconds(30f);
 
         yield return StartCoroutine(EatCake());
 

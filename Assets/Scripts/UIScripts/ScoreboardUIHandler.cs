@@ -185,7 +185,7 @@ public class ScoreboardUIHandler : MonoBehaviour
                 // increment number
                 elapsed = 0f;
                 float startPercent = 0;
-                float targetPercent = (float)e.status / (float)e.maxCount;
+                float targetPercent = (float)e.status / (float)e.maxCount * 100f;
                 if (e.percent)
                 {
                     while (elapsed < scoreCountDuration)

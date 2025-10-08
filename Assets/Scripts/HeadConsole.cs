@@ -56,7 +56,7 @@ public class HeadConsole : Interactable
             }
             
             // Right arm
-            if (_leftTriggerAction != null && _rightTriggerAction.ReadValue<float>() > 0.1f && !_rightJammed)
+            if (_rightTriggerAction != null && _rightTriggerAction.ReadValue<float>() > 0.1f && !_rightJammed)
             {
                 if (!_rightShot)
                 {

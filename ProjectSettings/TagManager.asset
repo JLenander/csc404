@@ -10,6 +10,7 @@ TagManager:
   - SwipeArea
   - PlayerSpawnAnchor
   - Bag
+  - Cup
   layers:
   - Default
   - TransparentFX

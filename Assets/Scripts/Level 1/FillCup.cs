@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngineInternal;
 
 public class FillCup : MonoBehaviour
 {
@@ -35,6 +36,7 @@ public class FillCup : MonoBehaviour
 
         if (counter > fullCounter)
         {
+            Debug.Log("Coffee filled!");
             full = true;
             ScoreKeeper.Instance.IncrementScoring("Filled Nova's coffee");
         }

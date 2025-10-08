@@ -20,17 +20,12 @@ public class FillCup : MonoBehaviour
 
     public void AddCoffee()
     {
-        // Increment and clamp progress
         counter = Mathf.Min(counter + 1, fullCounter);
 
-        // Compute how full the cup is (0 to 1)
         float fillProgress = (float)counter / fullCounter;
-
-        // Compute new Y scale and position in one go
         float newYScale = Mathf.Lerp(initialHeight, maxFillHeight, fillProgress);
         float yOffset = (newYScale - initialHeight) / 1.5f;
 
-        // Apply scale and position — this makes the liquid rise upward only
         liquid.localScale = new Vector3(baseScale.x, newYScale, baseScale.z);
         liquid.localPosition = new Vector3(0f, yOffset, 0f);
     }

@@ -184,20 +184,20 @@ public class ScoreboardUIHandler : MonoBehaviour
 
                 // increment number
                 elapsed = 0f;
-                startScore = 0;
-                targetScore = e.status;
+                float startPercent = 0;
+                float targetPercent = (float)e.status / (float)e.maxCount;
                 if (e.percent)
                 {
                     while (elapsed < scoreCountDuration)
                     {
                         elapsed += Time.deltaTime;
                         float t = Mathf.Clamp01(elapsed / scoreCountDuration);
-                        int current = Mathf.RoundToInt(Mathf.Lerp(startScore, targetScore, t));
+                        int current = Mathf.RoundToInt(Mathf.Lerp(startPercent, targetPercent, t));
                         scoreboardContent.text = content + " " + current.ToString() + "%";
                         yield return null;
                     }
 
-                    content = content + " " + targetScore + "%\n";
+                    content = content + " " + targetPercent + "%\n";
                 }
                 else
                 {

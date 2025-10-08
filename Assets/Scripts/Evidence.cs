@@ -37,8 +37,10 @@ public class Evidence : InteractableObject, IPooledObject
 
             // give a score
             ScoreKeeper.Instance.ModifyScore(score);
+            ScoreKeeper.Instance.IncrementEvidence();
 
-            // cancel interaction so it doesnt think we're holding it (maybe set timer later)
+            // cancel interaction so it doesnt think we're holding it 
+            // (maybe set timer later when we have a disappear anim)
             target.StopInteractingWithObject(this);
 
             // tell spawner it was dealt

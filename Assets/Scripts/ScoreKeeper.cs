@@ -18,15 +18,15 @@ public class ScoreKeeper : MonoBehaviour
 {
     public static ScoreKeeper Instance;
 
-    private ISplitscreenUIHandler _splitscreenUIHandler;
-    private int overallScore;
-    public int maxScore;
+    private ISplitscreenUIHandler _splitscreenUIHandler; // remove later
+    private int overallScore; // player score
+    public int maxScore; // what we think is the max score for the level
     // the rest of the special events will be aggregated in a list
     public List<Scoring> events;
-    private int evidenceCount;
+    private int evidenceCount; // num of evidence gathered
     private int leftGrabCount; // number of times left hand used grab
     private int rightGrabCount; // number of times right hand used grab
-    private int hurtDateCount;
+    private int hurtDateCount; // num of times accidentally hit date
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -66,6 +66,22 @@ public class ScoreKeeper : MonoBehaviour
         {
             rightGrabCount++;
         }
+    }
+
+    /// <summary>
+    /// log evidence success
+    /// </summary>
+    public void IncrementEvidence()
+    {
+        evidenceCount++;
+    }
+
+    /// <summary>
+    /// Log hurting the date by accident
+    /// </summary>
+    public void IncrementHurtDate()
+    {
+        hurtDateCount++;
     }
 
     // for special events to tell scorekeeper about them
@@ -110,7 +126,7 @@ public class ScoreKeeper : MonoBehaviour
             }
             else if (singleEvent.percent) // a percentage complete event
             {
-                sum += singleEvent.score * (singleEvent.status / singleEvent.maxCount);
+                sum += (int)(singleEvent.score * (float)(singleEvent.status / singleEvent.maxCount));
             }
             else // a countable event
             {

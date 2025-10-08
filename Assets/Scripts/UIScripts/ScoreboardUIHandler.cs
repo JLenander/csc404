@@ -76,6 +76,11 @@ public class ScoreboardUIHandler : MonoBehaviour
         StartCoroutine(AnimateScoreboardRoutine(data));
     }
 
+    /// <summary>
+    /// adds dashes to space title from result
+    /// </summary>
+    /// <param name="title"></param>
+    /// <returns></returns>
     string AddDashes(string title)
     {
         int dashCount = Mathf.Max(0, textWidth - title.Length);
@@ -83,6 +88,11 @@ public class ScoreboardUIHandler : MonoBehaviour
         return title + " " + dashes;
     }
 
+    /// <summary>
+    /// in charge of printing all the data
+    /// </summary>
+    /// <param name="data"></param>
+    /// <returns></returns>
     IEnumerator AnimateScoreboardRoutine(ScoreboardData data)
     {
         scoreboardContent.visible = true;
@@ -233,13 +243,11 @@ public class ScoreboardUIHandler : MonoBehaviour
         letterGrade.visible = true;
     }
 
-    // for reference
-    // public struct ScoreboardData
-    // {
-    //     public int evidenceCount;
-    //     public bool dominanteLeft;
-    //     public int hurtDateCount;
-    //     public string letter;
-    //     public List<Scoring> events;
-    // }
+    void CloseScoreboard()
+    {
+        letterGradeTitle.visible = false;
+        letterGrade.visible = false;
+        scoreboardContent.visible = false;
+        scoreboardContainer.visible = false;
+    }
 }

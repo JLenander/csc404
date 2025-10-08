@@ -6,8 +6,8 @@ public class HandMovement : MonoBehaviour
     public float speed = 5f;
 
     private InputAction _moveAction;
-        private InputAction _leftTriggerAction;
-    private InputAction _rightTriggerAction;        
+    private InputAction _leftTriggerAction;
+    private InputAction _rightTriggerAction;
     private InputAction _lookAction;
     private InputAction _interactAction;
 
@@ -36,7 +36,7 @@ public class HandMovement : MonoBehaviour
 
     [SerializeField] private GameObject grappleArmSpline;
     public bool left;
-    
+
     private void Start()
     {
         _ogPosition = transform.localPosition;
@@ -49,11 +49,11 @@ public class HandMovement : MonoBehaviour
             // hand rigid body movement
             Vector2 stickMove = _moveAction.ReadValue<Vector2>();
             Vector3 stickMovement = new Vector3(stickMove.x, stickMove.y, 0);
-            
+
             float leftTrigger = _leftTriggerAction.ReadValue<float>();
             float rightTrigger = _rightTriggerAction.ReadValue<float>();
             Vector3 triggerMovement = new Vector3(0, 0, leftTrigger - rightTrigger);
-            
+
             movement += (stickMovement + triggerMovement) * Time.deltaTime;
             // movement done in FixedUpdate
 
@@ -95,6 +95,8 @@ public class HandMovement : MonoBehaviour
                 {
                     if (interactable.canPickup)
                     {
+                        // log grab success
+                        ScoreKeeper.Instance.IncreaseArmCount(left);
                         InteractWithObject(interactable);
                         _currObj = interactable;
                         _canInteract = false;
@@ -156,7 +158,7 @@ public class HandMovement : MonoBehaviour
         var input = _currPlayer.GetComponent<PlayerInput>();
         _moveAction = input.actions.FindAction("Move");
         _leftTriggerAction = input.actions.FindAction("LeftTrigger");
-        _rightTriggerAction = input.actions.FindAction("RightTrigger");        _lookAction = input.actions.FindAction("Look");
+        _rightTriggerAction = input.actions.FindAction("RightTrigger"); _lookAction = input.actions.FindAction("Look");
         _interactAction = input.actions.FindAction("ItemInteract");
         _disable = true;
     }

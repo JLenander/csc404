@@ -1,5 +1,7 @@
-using System.Runtime.InteropServices.WindowsRuntime;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Subsystems;
 
 public class Food : InteractableObject
 {
@@ -10,11 +12,17 @@ public class Food : InteractableObject
     private ObjectPooler objectPooler;
     public Transform robotHead;
 
+    [SerializeField] private GameObject[] foodStates;
+    [SerializeField] private int[] foodStateChange;
+    private int currIndex;
+
     public override void Start()
     {
         base.Start();
         objectPooler = ObjectPooler.Instance;
         foodBiteCount = 0;
+        currIndex = 0;
+        foodStates[currIndex].SetActive(true);
     }
 
     public override void InteractWithHand(Transform wrist, HandMovement target)
@@ -33,14 +41,25 @@ public class Food : InteractableObject
             target.InteractWithObject(foodBite);
 
             foodBiteCount++;
-            Debug.Log(foodBiteCount);
-            // TODO: reduce size or change animation state based on numbites
+
+            // change animation state based on numbites
+            ChangeFoodState(foodBiteCount);
         }
         else
         {
             Debug.Log("No more food bites!");
             target.StopInteractingWithObject(this);
             canInteract = false;
+        }
+    }
+
+    private void ChangeFoodState(int foodBiteCount)
+    {
+        if (foodStateChange.Contains(foodBiteCount))
+        {
+            foodStates[currIndex].SetActive(false);
+            currIndex++;
+            foodStates[currIndex].SetActive(true);
         }
     }
 }

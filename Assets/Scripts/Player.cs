@@ -31,8 +31,6 @@ public class Player : MonoBehaviour
     private delegate void ControlFunc();
     private ControlFunc _controlFunc;
 
-    private bool controllingEyeCam = false;
-    private bool controllingRobot = false;
     private Animator animator;
     
     private float stepTimer;
@@ -71,17 +69,6 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         _controlFunc();
-        //if (controllingEyeCam)
-        //{
-        //    ControlEyeCam();
-        //}
-        //else if (controllingRobot) {
-        //    _robotMovement.ControlRobotMovement();
-        //}
-        //else
-        //{
-        //    ControlPlayer();
-        //}
     }
 
     private void ControlPlayer()
@@ -154,6 +141,19 @@ public class Player : MonoBehaviour
         _outsideCamera.transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
     }
 
+    private void SwitchOnConsole()
+    {
+        disableMovement = true;
+        disableRotate = false;
+    }
+
+    private void SwitchOffConsole()
+    {
+        disableMovement = false;
+        disableRotate = false;
+    }
+
+
     public void PlayFootstep()
     {
         if (footstepClips.Length > 0)
@@ -177,26 +177,20 @@ public class Player : MonoBehaviour
 
     public void switchToHead(Camera outsideCamera)
     {
-        disableMovement = true;
-        disableRotate = false;
-        controllingEyeCam = true;
+        SwitchOnConsole();
         _outsideCamera = outsideCamera;
         _controlFunc = ControlEyeCam;
     }
 
     public void switchOffHead()
     {
-        disableMovement = false;
-        disableRotate = false;
-        controllingEyeCam = false;
+        SwitchOffConsole();
         _controlFunc = ControlPlayer;
     }
 
     public void switchToLegs(Transform robotBody)
     {
-        disableMovement = true;
-        disableRotate = false;
-        controllingRobot = true;
+        SwitchOnConsole();
         _robotMovement = robotBody.GetComponent<RobotMovement>();
         _robotMovement.SetMoveAction(_moveAction);
         _robotMovement.SetLookAction(_lookAction);
@@ -205,9 +199,7 @@ public class Player : MonoBehaviour
 
     public void switchOffLegs()
     {
-        disableMovement = false;
-        disableRotate = false;
-        controllingRobot = false;
+        SwitchOffConsole();
         _robotMovement = null;
 
         _controlFunc = ControlPlayer;

@@ -10,11 +10,14 @@ public class CoffeePot : InteractableObject
     public float rayLength = 50f;
     public float pourThresholdAngle = 30f; // degrees below horizontal
 
+    public AudioSource audioSource;
     private bool isPouring = false;
 
     [SerializeField] private Transform spoutTip;          // assign in Inspector
     [SerializeField] private Transform coffeePour;
     private ParticleSystem coffeePourEffect;
+
+    private float volume; // TODO: limit the pot
 
 
     public override void Start()
@@ -24,10 +27,10 @@ public class CoffeePot : InteractableObject
         ogRotation = transform.localRotation;
 
         rb = GetComponent<Rigidbody>();
-        
+
         coffeePourEffect = coffeePour.GetComponent<ParticleSystem>();
         Debug.Log(coffeePourEffect);
-        coffeePourEffect.Stop(); // don’t play immediately
+        coffeePourEffect.Stop(); // donï¿½t play immediately
     }
     private void Update()
     {
@@ -73,12 +76,17 @@ public class CoffeePot : InteractableObject
     {
         Debug.Log("Started pouring!");
         coffeePourEffect.Play();
+        if (audioSource != null)
+            audioSource.Play();
     }
 
     private void OnStopPour()
     {
         Debug.Log("Stopped pouring!");
         coffeePourEffect.Stop();
+
+        if (audioSource != null)
+            audioSource.Stop();
     }
 
     public override void InteractWithHand(Transform obj, HandMovement target)

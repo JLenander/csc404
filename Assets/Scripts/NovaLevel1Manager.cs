@@ -14,6 +14,8 @@ public class NovaLevel1Manager : MonoBehaviour
     public EvidenceSpawner evidenceSpawner;
     public GameObject novaRightHandCake;
 
+    public AudioSource eatSource;
+
     public bool grabbed = false;
     private float switchInterval = 10f;
     private float timer = 0f;
@@ -35,6 +37,7 @@ public class NovaLevel1Manager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         novaRightHandCake.SetActive(true);
         yield return new WaitForSeconds(1.5f);
+        eatSource.Play();
         novaRightHandCake.SetActive(false);
         yield return new WaitForSeconds(1f);
         talking = true;

@@ -12,6 +12,7 @@ public class NovaLevel1Manager : MonoBehaviour
     public List<GameObject> cakeSlices = new List<GameObject>();
 
     public EvidenceSpawner evidenceSpawner;
+    public GameObject novaRightHandCake;
 
     public bool grabbed = false;
     private float switchInterval = 10f;
@@ -31,7 +32,11 @@ public class NovaLevel1Manager : MonoBehaviour
         novaAnimator.SetTrigger("Eat");
         cakeSlices[cakeIndex].SetActive(false);
         cakeIndex++;
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(1f);
+        novaRightHandCake.SetActive(true);
+        yield return new WaitForSeconds(1.5f);
+        novaRightHandCake.SetActive(false);
+        yield return new WaitForSeconds(1f);
         talking = true;
     }
 

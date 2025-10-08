@@ -89,7 +89,7 @@ public class FoodBite : InteractableObject, IPooledObject
             ScoreKeeper.Instance.ModifyScore(score);
             ScoreKeeper.Instance.IncrementScoring("Spaghetti completion");
             NovaLevel1Manager.Instance.ate = true;
-            // StartCoroutine(DisappearRoutine());
+            StartCoroutine(DisappearRoutine());
         }
     }
 

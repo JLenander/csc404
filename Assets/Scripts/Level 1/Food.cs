@@ -27,9 +27,15 @@ public class Food : InteractableObject
         currIndex = 0;
         foodStates[currIndex].SetActive(true);
 
-        ScoreKeeper.Instance.AddScoring("Spaghetti completion", 2, true, false, 5);
+        StartCoroutine(WaitForScoreKeeper());
 
         particle.Stop();
+    }
+
+    IEnumerator WaitForScoreKeeper()
+    {
+        yield return new WaitUntil(() => ScoreKeeper.Instance != null);
+        ScoreKeeper.Instance.AddScoring("Spaghetti completion", 2, true, false, 5);
     }
 
     public override void InteractWithHand(Transform wrist, HandMovement target)

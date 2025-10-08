@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngineInternal;
 
@@ -19,13 +20,24 @@ public class FillCup : MonoBehaviour
         liquid.localScale = baseScale;
         liquid.localPosition = Vector3.zero;
         counter = 0;
+        StartCoroutine(WaitForScoreKeeper());
+    }
+
+    IEnumerator WaitForScoreKeeper()
+    {
+        yield return new WaitUntil(() => ScoreKeeper.Instance != null);
         ScoreKeeper.Instance.AddScoring("Filled Nova's coffee", 5, false, true, 0);
     }
 
     public void AddCoffee()
     {
         if (full) return;
-        counter = Mathf.Min(counter + 1, fullCounter);
+        counter++;
+        if (counter > fullCounter)
+        {
+            full = true;
+            ScoreKeeper.Instance.IncrementScoring("Filled Nova's coffee");
+        }
 
         float fillProgress = (float)counter / fullCounter;
         float newYScale = Mathf.Lerp(initialHeight, maxFillHeight, fillProgress);
@@ -34,11 +46,5 @@ public class FillCup : MonoBehaviour
         liquid.localScale = new Vector3(baseScale.x, newYScale, baseScale.z);
         liquid.localPosition = new Vector3(0f, yOffset, 0f);
 
-        if (counter > fullCounter)
-        {
-            Debug.Log("Coffee filled!");
-            full = true;
-            ScoreKeeper.Instance.IncrementScoring("Filled Nova's coffee");
-        }
     }
 }

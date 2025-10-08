@@ -28,10 +28,14 @@ public class ScoreKeeper : MonoBehaviour
     private int rightGrabCount; // number of times right hand used grab
     private int hurtDateCount; // num of times accidentally hit date
 
+    void Awake()
+    {
+        Instance = this; // easier to reference
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Instance = this; // easier to reference
         overallScore = 0;
         evidenceCount = 0;
         leftGrabCount = 0;
@@ -103,6 +107,7 @@ public class ScoreKeeper : MonoBehaviour
             // if title match add count
             if (events[i].title == title)
             {
+                Debug.Log("Increased score for" + title);
                 Scoring updated = events[i];
                 updated.status++;
                 events[i] = updated;

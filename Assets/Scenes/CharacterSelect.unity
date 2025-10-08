@@ -119,61 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &92857608
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 92857609}
-  - component: {fileID: 92857610}
-  m_Layer: 5
-  m_Name: ScoreboardUIDocument
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &92857609
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 92857608}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 655477691}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &92857610
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 92857608}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
-  m_PanelSettings: {fileID: 11400000, guid: 9b0dd6976fb162d4ea6505a9d374ec46, type: 2}
-  m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: 8deaaa8349687be4fa69117343cc4e7d, type: 3}
-  m_SortingOrder: 2
-  m_Position: 0
-  m_WorldSpaceSizeMode: 1
-  m_WorldSpaceWidth: 1920
-  m_WorldSpaceHeight: 1080
-  m_PivotReferenceSize: 0
-  m_Pivot: 0
-  m_WorldSpaceCollider: {fileID: 0}
 --- !u!1 &94915790
 GameObject:
   m_ObjectHideFlags: 0
@@ -583,6 +528,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 912823605}
   m_CullTransparentMesh: 1
+--- !u!114 &921738853 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8308932886316452829, guid: 6c951279af45d354090e2a145ecf5a12, type: 3}
+  m_PrefabInstance: {fileID: 1070582681}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
 --- !u!1001 &1070582681
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -652,16 +608,13 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 5569860638936263973, guid: 6c951279af45d354090e2a145ecf5a12, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 92857609}
-    - targetCorrespondingSourceObject: {fileID: 5569860638936263973, guid: 6c951279af45d354090e2a145ecf5a12, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1761630039}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2833034805337091610, guid: 6c951279af45d354090e2a145ecf5a12, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1413962065}
+      addedObject: {fileID: 1413962067}
   m_SourcePrefab: {fileID: 100100000, guid: 6c951279af45d354090e2a145ecf5a12, type: 3}
---- !u!1 &1070582682 stripped
+--- !u!1 &1129552808 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2833034805337091610, guid: 6c951279af45d354090e2a145ecf5a12, type: 3}
   m_PrefabInstance: {fileID: 1070582681}
@@ -676,32 +629,27 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4985141520767577601, guid: 6c951279af45d354090e2a145ecf5a12, type: 3}
   m_PrefabInstance: {fileID: 1070582681}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1070582682}
+  m_GameObject: {fileID: 1129552808}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cfe93a77b6630934db4806b073b7a0f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SplitscreenUIHandler
---- !u!114 &1413962065
+--- !u!114 &1413962067
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1070582682}
+  m_GameObject: {fileID: 1129552808}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f79fe0eecd71e640ba16a3cb008c654, type: 3}
+  m_Script: {fileID: 11500000, guid: cae933af0040c4f40bf650368fa6e11d, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: '::'
-  typeDelay: 0.05
-  pauseAfterTitle: 0.5
-  scoreCountDuration: 1
-  betweenTitles: 0.3
-  evidenceCountText: Number of evidence collected
-  dominanteLeftText: Dominant hand
-  hurtDateCountText: Number of times you've hit your date
-  scoreboardDoc: {fileID: 92857610}
+  m_EditorClassIdentifier: Assembly-CSharp::MinimapController
+  uiDocument: {fileID: 921738853}
+  worldMin: {x: -8, y: -2}
+  worldMax: {x: 13, y: 14}
 --- !u!1 &1509070343
 GameObject:
   m_ObjectHideFlags: 0

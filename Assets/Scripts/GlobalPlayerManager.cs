@@ -66,6 +66,9 @@ public class GlobalPlayerManager : MonoBehaviour
 
                     // pass these players to UI manager
                     GlobalPlayerUIManager.Instance.PassPlayers(_players);
+                    
+                    // initialize player dots, call here so it happens after players are passed to UI manager
+                    MinimapController.Instance.InitializePlayerDots();
 
                     SceneManager.LoadScene("Cafe");
                 }
@@ -182,6 +185,8 @@ public class GlobalPlayerManager : MonoBehaviour
         return SceneManager.GetActiveScene().name == "CharacterSelect";
     }
 
+    // delcare here so MinimapController can readonly it
+    public PlayerData[] Players => _players;
 }
 
 public struct PlayerData

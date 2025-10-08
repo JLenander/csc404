@@ -12,7 +12,7 @@ public class Task
     public int targetProgress = 1;
 
     public bool canStart;
-    public bool started;
+    public bool isActive;
 
     public bool isCompleted => currentProgress >= targetProgress;
 
@@ -36,7 +36,7 @@ public class Task
         }
 
         currentProgress = 0;
-        started = true;
+        isActive = true;
         Debug.Log($"Task '{id}' started!");
         OnStarted?.Invoke(this);
     }
@@ -63,6 +63,7 @@ public class Task
         {
             Debug.Log($"Task '{id}' completed!");
             OnCompleted?.Invoke(this);
+            ResetTask();
         }
     }
 
@@ -70,5 +71,6 @@ public class Task
     {
         currentProgress = 0;
         canStart = false;
+        isActive = false;
     }
 }

@@ -6,9 +6,8 @@ using UnityEngine.InputSystem;
 public class BrainConsole : Interactable
 {
     private bool _canInteract = true;
-    public GameObject playerTaskPanel;
-    public TMPro.TextMeshPro tasksList;
-    public GameObject shipControlPanel;
+    public GameObject playerTaskPanel; 
+    public TMPro.TextMeshPro tasksList; 
 
     public override void Interact(GameObject player)
     {
@@ -16,6 +15,7 @@ public class BrainConsole : Interactable
         _canInteract = false;
 
         playerTaskPanel.SetActive(true);
+        UpdateTaskList();
     }
     public override void Return(GameObject player)
     {
@@ -29,8 +29,23 @@ public class BrainConsole : Interactable
         return _canInteract;
     }
 
-    public void TurnOnBrain()   // because i need a reminder to do this
+    private void UpdateTaskList()
     {
+        // Get all active tasks for the player
+        var activeTasks = TaskManager.Instance.GetAllActiveTasks();
 
+        if (activeTasks.Count == 0)
+        {
+            tasksList.text = "No active tasks";
+            return;
+        }
+
+        string taskText = "";
+        foreach (var task in activeTasks)
+        {
+            taskText += $"{task.title}: {task.currentProgress}/{task.targetProgress}\n";
+        }
+
+        tasksList.text = taskText;
     }
 }

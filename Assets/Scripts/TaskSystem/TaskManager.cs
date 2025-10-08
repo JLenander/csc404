@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class TaskManager : MonoBehaviour
@@ -31,7 +32,7 @@ public class TaskManager : MonoBehaviour
     {
         if (_tasks.TryGetValue(id, out var task))
         {
-            if (!task.started)
+            if (!task.isActive)
                 StartTask(id);
             task.AddProgress(amount);
         }
@@ -51,5 +52,10 @@ public class TaskManager : MonoBehaviour
     public List<Task> GetAllTasks()
     {
         return new List<Task>(_tasks.Values);
+    }
+
+    public List<Task> GetAllActiveTasks()
+    {
+        return _tasks.Values.Where(t => t.isActive).ToList();
     }
 }

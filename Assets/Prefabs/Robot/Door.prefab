@@ -96,41 +96,19 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1282332f2cec8bd47a31681a12406da1, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6745730617389235809}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1282332f2cec8bd47a31681a12406da1, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 3802487809722907726}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1282332f2cec8bd47a31681a12406da1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 672859921950005493}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1282332f2cec8bd47a31681a12406da1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3386076644419836149}
   m_SourcePrefab: {fileID: 100100000, guid: 1282332f2cec8bd47a31681a12406da1, type: 3}
 --- !u!1 &1458080755886111844 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 1282332f2cec8bd47a31681a12406da1, type: 3}
   m_PrefabInstance: {fileID: 1800680539391361333}
   m_PrefabAsset: {fileID: 0}
---- !u!64 &6745730617389235809
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1458080755886111844}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -1783796639540315338, guid: 1282332f2cec8bd47a31681a12406da1, type: 3}
 --- !u!114 &3802487809722907726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,8 +139,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af83d4ee9a18df54790968f987df91b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Door
-  message: Go to Arm Tunnel
+  hoverMessage: Go to Arm Tunnel
+  msgColour: {r: 1, g: 1, b: 1, a: 1}
   outline: {fileID: 3802487809722907726}
+  outlineColour: {r: 1, g: 1, b: 1, a: 1}
   onInteraction:
     m_PersistentCalls:
       m_Calls: []
@@ -170,6 +150,27 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   Destination: {fileID: 0}
+--- !u!65 &3386076644419836149
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1458080755886111844}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.3482851, y: 2.2332315, z: 0.56478894}
+  m_Center: {x: 0.0005219282, y: 0.13948265, z: 0.0039868215}
 --- !u!4 &2267549306269263582 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1282332f2cec8bd47a31681a12406da1, type: 3}

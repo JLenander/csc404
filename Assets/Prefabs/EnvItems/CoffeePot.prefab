@@ -42,7 +42,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7071939707644096687}
   - component: {fileID: 7334841506576856424}
-  - component: {fileID: 4482926735417727494}
   - component: {fileID: 411164773002391776}
   - component: {fileID: 3763328431830505262}
   - component: {fileID: 6920639400826279088}
@@ -91,24 +90,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 3.5
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &4482926735417727494
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5978132825412212643}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Outline
-  outlineMode: 0
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 10
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!114 &411164773002391776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,12 +102,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec019abe9ea2cc04588548bd3dd79e2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  outline: {fileID: 4482926735417727494}
+  outline: {fileID: 0}
   canInteract: 1
   canPickup: 1
   triggerCollider: {fileID: 7334841506576856424}
-  rayLength: 5
-  pourThresholdAngle: 45
+  rayLength: 3
+  pourThresholdAngle: 50
+  audioSource: {fileID: 0}
   spoutTip: {fileID: 838067025856432034}
   coffeePour: {fileID: 6910735435490514365}
 --- !u!54 &3763328431830505262

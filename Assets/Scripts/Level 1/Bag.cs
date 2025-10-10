@@ -2,15 +2,20 @@ using UnityEngine;
 
 public class Bag : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public Outline outline;
+
+    private void Start()
     {
-        
+        DisableOutline();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void DisableOutline()
     {
-        
+        outline.enabled = false;
+    }
+
+    public void EnableOutline()
+    {
+        outline.enabled = true;
     }
 }

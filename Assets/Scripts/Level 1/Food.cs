@@ -17,6 +17,7 @@ public class Food : InteractableObject
 
     [SerializeField] private GameObject[] foodStates;
     [SerializeField] private int[] foodStateChange;
+    [SerializeField] private GameObject bag;
     private int currIndex;
 
     public override void Start()
@@ -50,6 +51,7 @@ public class Food : InteractableObject
             FoodBite foodBite = foodBiteObj.GetComponent<FoodBite>();
             if (foodBite != null)
             {
+                foodBite.SetBag(bag);
                 foodBite.SetFoodBiteSpawner(this);
             }
             target.StopInteractingWithObject(this);

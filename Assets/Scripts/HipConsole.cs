@@ -5,6 +5,7 @@ public class HipConsole : Interactable
 {
     private bool _canInteract = true;
     [SerializeField] Transform robotBody;
+    public AudioSource audioSource;
 
     public override void Interact(GameObject player)
     {
@@ -12,6 +13,8 @@ public class HipConsole : Interactable
         player.GetComponent<Player>().switchToLegs(robotBody);
 
         _canInteract = false;
+        if (audioSource != null)
+            audioSource.Play();
     }
 
     public override void Return(GameObject player)

@@ -17,8 +17,8 @@ public class CoffeePot : InteractableObject
     [SerializeField] private Transform coffeePour;
     private ParticleSystem coffeePourEffect;
 
-    private float volume; // TODO: limit the pot
-
+    [SerializeField] private float volume; // TODO: limit the pot
+    private FillCup cup;
 
     public override void Start()
     {
@@ -32,6 +32,8 @@ public class CoffeePot : InteractableObject
         Debug.Log(coffeePourEffect);
         coffeePourEffect.Stop(); // don�t play immediately
     }
+
+    [System.Obsolete]
     private void Update()
     {
         Vector3 origin = spoutTip.position;
@@ -44,14 +46,16 @@ public class CoffeePot : InteractableObject
         float downwardDot = Vector3.Dot(transform.forward, Vector3.down);
         bool pouringNow = downwardDot > Mathf.Cos(pourThresholdAngle * Mathf.Deg2Rad);
 
+
         // detect transition from not-pouring to pouring
-        if (pouringNow && !isPouring)
+        if (pouringNow && !isPouring && volume > 0)
         {
             isPouring = true;
+            volume--;
             OnStartPour();
         }
         // detect transition from pouring to not-pouring
-        else if (!pouringNow && isPouring)
+        else if ((!pouringNow && isPouring) || volume <= 0)
         {
             isPouring = false;
             OnStopPour();
@@ -65,10 +69,15 @@ public class CoffeePot : InteractableObject
                 Debug.DrawLine(origin, hit.point, Color.cyan);
                 if (hit.collider.CompareTag("Cup"))
                 {
-                    FillCup cup = hit.collider.GetComponent<FillCup>();
+                    cup = hit.collider.GetComponent<FillCup>();
                     cup.AddCoffee();
                 }
+                else
+                {
+                    if (cup != null) cup.DisableOutline();
+                }
             }
+            volume--;
         }
     }
 
@@ -96,8 +105,8 @@ public class CoffeePot : InteractableObject
             // move to hand
             DisableOutline();
             transform.parent = obj;
-            transform.localPosition = new Vector3(-1.19f, 3.25f, -8.17f);
-            transform.localRotation = Quaternion.Euler(2.624f, 188.045f, -86.932f);
+            transform.localPosition = new Vector3(0.39f, 2.27f, -7.49f);
+            transform.localRotation = Quaternion.Euler(20.629f, 176.069f, -87.425f);
 
             Debug.Log(transform.rotation);
             canPickup = false;
@@ -116,11 +125,11 @@ public class CoffeePot : InteractableObject
     public override void StopInteractWithHand(HandMovement target)
     {
         // return to original position
+        Quaternion currRotation = transform.rotation;
         transform.parent = ogParent;
         Vector3 currPos = transform.localPosition;
         transform.localPosition = new Vector3(currPos.x, 5.14f, currPos.z);
 
-        Quaternion currRotation = transform.localRotation;
         transform.localRotation = Quaternion.Euler(0f, currRotation.y, 0f);
 
         canPickup = true;

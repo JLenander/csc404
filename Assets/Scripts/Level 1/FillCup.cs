@@ -14,13 +14,16 @@ public class FillCup : MonoBehaviour
     private int counter;
     private Vector3 baseScale;
 
+    public Outline outline;
+
     void Start()
     {
-        baseScale = new Vector3(4f, initialHeight, 4f);
+        baseScale = new Vector3(3.5f, initialHeight, 3.5f);
         liquid.localScale = baseScale;
         liquid.localPosition = Vector3.zero;
         counter = 0;
         StartCoroutine(WaitForScoreKeeper());
+        DisableOutline();
     }
 
     IEnumerator WaitForScoreKeeper()
@@ -30,7 +33,8 @@ public class FillCup : MonoBehaviour
     }
 
     public void AddCoffee()
-    {
+    {   
+        EnableOutline();
         if (full) return;
         counter++;
         if (counter > fullCounter)
@@ -45,6 +49,15 @@ public class FillCup : MonoBehaviour
 
         liquid.localScale = new Vector3(baseScale.x, newYScale, baseScale.z);
         liquid.localPosition = new Vector3(0f, yOffset, 0f);
+    }
 
+    public void DisableOutline()
+    {
+        outline.enabled = false;
+    }
+
+    public void EnableOutline()
+    {
+        outline.enabled = true;
     }
 }

@@ -77,9 +77,9 @@ public class FoodBite : InteractableObject, IPooledObject
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             Debug.Log("Hit ground!");
-            rb.isKinematic = true;
             rb.linearVelocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
+            rb.isKinematic = true;
 
             transform.position = collision.contacts[0].point + Vector3.up * 0.01f;
         }

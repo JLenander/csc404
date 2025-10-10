@@ -11,7 +11,7 @@ public class RobotMovement : MonoBehaviour
     private CharacterController _robotCharacterController;
     private Vector3 _robotVelocity;
     private bool _robotIsGrounded;
-    public float robotMoveSpeed = 30f;
+    public float robotMoveSpeed = 50f;
     public float robotLookSensitivity = 50f;
     public bool disable = false;
 

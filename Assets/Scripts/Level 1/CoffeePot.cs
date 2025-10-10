@@ -96,20 +96,20 @@ public class CoffeePot : InteractableObject
             // move to hand
             DisableOutline();
             transform.parent = obj;
-            transform.localPosition = new Vector3(-4.5f, 6.0f, -2.0f);
-            transform.localRotation = Quaternion.Euler(-8f, -100f, -45f);
+            transform.localPosition = new Vector3(-1.19f, 3.25f, -8.17f);
+            transform.localRotation = Quaternion.Euler(2.624f, 188.045f, -86.932f);
 
             Debug.Log(transform.rotation);
             canPickup = false;
 
-            target.SetWristRotation(new Vector3(0, 0, 0));
+            target.SetWristRotation(new Vector3(0, -10f, -10f));
 
             rb.isKinematic = true;
             triggerCollider.enabled = false;
             Debug.Log("pickup success");
 
             target.SetTargetCurrentObject(this);
-            target.handAnimator.SetTrigger("Hold"); // sets current hand to hold anim
+            target.handAnimator.SetTrigger("Pot"); // sets current hand to pot anim
         }
     }
 
@@ -125,6 +125,6 @@ public class CoffeePot : InteractableObject
 
         canPickup = true;
         triggerCollider.enabled = true;
-        target.oppositeHandAnimator.SetTrigger("Neutral"); // sets the opposite hand back to neutral
+        target.handAnimator.SetTrigger("Neutral"); // sets the opposite hand back to neutral
     }
 }

@@ -17,7 +17,7 @@ public class CoffeePot : InteractableObject
     [SerializeField] private Transform coffeePour;
     private ParticleSystem coffeePourEffect;
 
-    [SerializeField] private float volume; // TODO: limit the pot
+    //[SerializeField] private float volume; // TODO: limit the pot
     private FillCup cup;
 
     public override void Start()
@@ -33,7 +33,6 @@ public class CoffeePot : InteractableObject
         coffeePourEffect.Stop(); // don�t play immediately
     }
 
-    [System.Obsolete]
     private void Update()
     {
         Vector3 origin = spoutTip.position;
@@ -48,14 +47,15 @@ public class CoffeePot : InteractableObject
 
 
         // detect transition from not-pouring to pouring
-        if (pouringNow && !isPouring && volume > 0)
+        //if (pouringNow && !isPouring && volume > 0)
+        if (pouringNow && !isPouring)
         {
             isPouring = true;
-            volume--;
             OnStartPour();
         }
         // detect transition from pouring to not-pouring
-        else if ((!pouringNow && isPouring) || volume <= 0)
+        //else if ((!pouringNow && isPouring) || volume <= 0)
+        else if (!pouringNow && isPouring)
         {
             isPouring = false;
             OnStopPour();
@@ -77,7 +77,7 @@ public class CoffeePot : InteractableObject
                     if (cup != null) cup.DisableOutline();
                 }
             }
-            volume--;
+            //volume--;
         }
     }
 

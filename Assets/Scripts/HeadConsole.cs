@@ -9,7 +9,7 @@ public class HeadConsole : Interactable
     [SerializeField] private Quaternion camAngle; // current robot head angle
 
     private bool _canInteract = true;
-    
+
     [SerializeField] private GameObject leftGrappleArmSpline;
     [SerializeField] private GameObject rightGrappleArmSpline;
 
@@ -17,34 +17,46 @@ public class HeadConsole : Interactable
     private bool _leftShot, _rightShot;
     private InputAction _leftTriggerAction, _rightTriggerAction;
     private GameObject _currPlayer;
-    
+
     public AudioSource hookSource;
+    public AudioSource interactSource;
+    public AudioSource denySource;
 
     void Start()
     {
+        DisableOutline();
         _splitscreenUIHandler = FindAnyObjectByType<SplitscreenUIHandler>();
         // for grapple arm
         _leftJammed = _rightJammed = false;
         _leftShot = _rightShot = false;
     }
-    
+
     // for grapple arm, check trigger input to shoot or retract
     void Update()
     {
         if (_currPlayer != null)
         {
             // Left arm
-            if (_leftTriggerAction != null && _leftTriggerAction.ReadValue<float>() > 0.1f && !_leftJammed)
+            if (_leftTriggerAction != null && _leftTriggerAction.ReadValue<float>() > 0.1f)
             {
-                if (!_leftShot)
+                if (!_leftJammed)
                 {
-                    _leftShot = true;
-                    EmergencyEvent.Instance.IncrementCount(true); // or pass correct value
-                    
-                    if (hookSource != null)
-                        hookSource.Play();
+                    if (!_leftShot)
+                    {
+                        _leftShot = true;
+                        EmergencyEvent.Instance.IncrementCount(true); // or pass correct value
+
+                        if (hookSource != null)
+                            hookSource.Play();
+                    }
+                    leftGrappleArmSpline.GetComponent<SplineController>().SetExtending();
                 }
-                leftGrappleArmSpline.GetComponent<SplineController>().SetExtending();
+                else
+                {
+                    if (denySource != null)
+                        denySource.Play();
+                }
+
             }
             else
             {
@@ -54,19 +66,28 @@ public class HeadConsole : Interactable
                 }
                 leftGrappleArmSpline.GetComponent<SplineController>().SetRetracting();
             }
-            
+
             // Right arm
             if (_rightTriggerAction != null && _rightTriggerAction.ReadValue<float>() > 0.1f && !_rightJammed)
             {
-                if (!_rightShot)
+                if (!_rightJammed)
                 {
-                    _rightShot = true;
-                    EmergencyEvent.Instance.IncrementCount(false);
-                    
-                    if (hookSource != null)
-                        hookSource.Play();
+                    if (!_rightShot)
+                    {
+                        _rightShot = true;
+                        EmergencyEvent.Instance.IncrementCount(false);
+
+                        if (hookSource != null)
+                            hookSource.Play();
+                    }
+                    rightGrappleArmSpline.GetComponent<SplineController>().SetExtending();
                 }
-                rightGrappleArmSpline.GetComponent<SplineController>().SetExtending();
+                else
+                {
+                    if (denySource != null)
+                        denySource.Play();
+                }
+
             }
             else
             {
@@ -76,16 +97,24 @@ public class HeadConsole : Interactable
             }
         }
     }
-    
+
     public override void Interact(GameObject player)
     {
-        if (!_canInteract) return;
+        if (!_canInteract)
+        {
+            if (denySource != null)
+                denySource.Play();
+            return;
+        }
         _splitscreenUIHandler.ShowOutsideCamera();
 
         player.GetComponent<Player>().TurnOff();
         player.GetComponent<Player>().switchToHead(exteriorCamera);
         _canInteract = false;
-        
+
+        if (interactSource != null)
+            interactSource.Play();
+
         // for grapple arm
         _currPlayer = player;
         var input = _currPlayer.GetComponent<PlayerInput>();
@@ -101,7 +130,7 @@ public class HeadConsole : Interactable
         player.GetComponent<Player>().switchOffHead();
 
         _canInteract = true;
-        
+
         // for grapple arm
         _currPlayer = null;
         _leftTriggerAction = null;
@@ -127,7 +156,7 @@ public class HeadConsole : Interactable
         msgColour = new Color(1, 1, 1, 1);
         outlineColour = new Color(1, 1, 1, 1);
     }
-    
+
     // for grapple arm - to be called by HandConsole when arm is broken or fixed
     public void JamArm(bool left, bool state)
     {

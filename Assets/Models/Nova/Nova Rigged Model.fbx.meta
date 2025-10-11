@@ -1,0 +1,165 @@
+fileFormatVersion: 2
+guid: 9ce2ef8c3d9e6aa4b8e3e636d583030e
+ModelImporter:
+  serializedVersion: 24200
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Nova_Rig_ver058_FINAL_Nova_Anim_Eating_ver001_Accessories_Nova
+    second: {fileID: 2100000, guid: b298fbb8b757f344aa5b8ee8e10ec113, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Nova_Rig_ver058_FINAL_Nova_Anim_Eating_ver001_Bag_Nova
+    second: {fileID: 2100000, guid: 73c9720b674755941a9e95cf78db0eb5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Nova_Rig_ver058_FINAL_Nova_Anim_Eating_ver001_Earing_Nova
+    second: {fileID: 2100000, guid: a0496dca7ef4ddd4cb549705e39aed00, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Nova_Rig_ver058_FINAL_Nova_Anim_Eating_ver001_Eyes_Nova
+    second: {fileID: 2100000, guid: 846ff774cdcf25447bdb36cc07f9fb3a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Nova_Rig_ver058_FINAL_Nova_Anim_Eating_ver001_Hair_Nova
+    second: {fileID: 2100000, guid: dc12701e84fc2d44d8fac7d25f3fd58c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Nova_Rig_ver058_FINAL_Nova_Anim_Eating_ver001_InnerShirt_Nova
+    second: {fileID: 2100000, guid: da6cc67034d15074db89dcab5fd16f53, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Nova_Rig_ver058_FINAL_Nova_Anim_Eating_ver001_Jacket_Nova
+    second: {fileID: 2100000, guid: c82f1c37411c45542a3f7c13e2cfc174, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Nova_Rig_ver058_FINAL_Nova_Anim_Eating_ver001_Mouth_Nova
+    second: {fileID: 2100000, guid: 674f0e44bf2860c44afae2945f420ea0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Nova_Rig_ver058_FINAL_Nova_Anim_Eating_ver001_Pants_Nova
+    second: {fileID: 2100000, guid: 1b7ffd61611e4eb48a0528eb5f774ed5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Nova_Rig_ver058_FINAL_Nova_Anim_Eating_ver001_Shoes_Nova
+    second: {fileID: 2100000, guid: 2e0b6adc5096bd04491895a3886407dc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Nova_Rig_ver058_FINAL_Nova_Anim_Eating_ver001_Skin_Nova
+    second: {fileID: 2100000, guid: 5261f92b582e5654aa7c60c695137a52, type: 2}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    generateMeshLods: 0
+    meshLodGenerationFlags: 0
+    maximumMeshLod: -1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

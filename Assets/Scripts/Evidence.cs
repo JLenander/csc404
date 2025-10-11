@@ -8,6 +8,7 @@ public class Evidence : InteractableObject, IPooledObject
     [SerializeField] private Transform popUp;
     [SerializeField] private Transform graphic;
     public float floatSpeed = 1f;
+    public AudioSource claimSource;
     private EvidenceSpawner _evidenceSpawner;
     private bool grabbed;
     private Rigidbody rb;
@@ -35,10 +36,25 @@ public class Evidence : InteractableObject, IPooledObject
             grabbed = true;
             // disintegrate it (play animation)
 
+            NovaLevel1Manager novaLevel1Manager = NovaLevel1Manager.Instance;
+
+            if (novaLevel1Manager != null)
+            {
+                if (novaLevel1Manager.grabbed == false)
+                {
+                    novaLevel1Manager.grabbed = true;
+                }
+            }
+
             // give a score
             ScoreKeeper.Instance.ModifyScore(score);
+            ScoreKeeper.Instance.IncrementEvidence();
 
-            // cancel interaction so it doesnt think we're holding it (maybe set timer later)
+            if (claimSource != null)
+                claimSource.Play();
+
+            // cancel interaction so it doesnt think we're holding it 
+            // (maybe set timer later when we have a disappear anim)
             target.StopInteractingWithObject(this);
 
             // tell spawner it was dealt

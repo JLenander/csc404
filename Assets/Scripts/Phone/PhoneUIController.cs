@@ -131,6 +131,11 @@ public class PhoneUIController : MonoBehaviour
         screenImage.sprite = match;
 
         GlobalPlayerUIManager.Instance.LoadText(matchDialogue);
+
+
+        // exit this scene (fade cam to black)
+
+        // show scoreboard?
     }
 
     public void Unlock()

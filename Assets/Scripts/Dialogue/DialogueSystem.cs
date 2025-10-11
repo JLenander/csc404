@@ -18,9 +18,16 @@ public class DialogueSystem : MonoBehaviour
     private int currentLine = 0;
     private bool showingImageA = true;
     private string line;
+    private Coroutine dialogueRoutine;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void StartDialogue(DialogueScriptableObj content)
     {
+        if (dialogueRoutine != null)
+        {
+            StopCoroutine(dialogueRoutine);
+            dialogueRoutine = null;
+        }
+
         dialogueUI.InitializeDialogue(); // shows dialogue box
         currentLine = 0;
         lines = content.lines;

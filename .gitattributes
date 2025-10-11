@@ -3,3 +3,5 @@
 *.prefab linguist-generated=true
 *.asset linguist-generated=true
 *.renderTexture linguist-generated=true
+*.controller linguist-generated=true
+*.mat linguist-generated=true

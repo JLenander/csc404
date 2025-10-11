@@ -70,7 +70,7 @@ public class GlobalPlayerManager : MonoBehaviour
                     // initialize player dots, call here so it happens after players are passed to UI manager
                     MinimapController.Instance.InitializePlayerDots();
 
-                    SceneManager.LoadScene("WalkingCopy");
+                    SceneManager.LoadScene("Cafe");
                 }
                 else
                 {

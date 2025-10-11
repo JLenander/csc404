@@ -8,11 +8,14 @@ public class FoodBite : InteractableObject, IPooledObject
     private Food _foodBiteSpawner;
     private Transform ogParent;
     private Rigidbody rb;
+    private Bag bag;
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private Transform popUp;
     [SerializeField] private Transform graphic;
     public float floatSpeed = 1f;
-    public int score = 3;
+    public int score = 2;
+
+    public AudioSource audioSource;
 
     public override void Start()
     {
@@ -47,6 +50,8 @@ public class FoodBite : InteractableObject, IPooledObject
 
             target.handAnimator.SetTrigger("Hold"); // sets current hand to hold anim
             target.SetTargetCurrentObject(this);
+
+            if (bag != null) bag.EnableOutline();
         }
     }
 
@@ -57,30 +62,39 @@ public class FoodBite : InteractableObject, IPooledObject
         canPickup = true;
         rb.isKinematic = false;
         target.handAnimator.SetTrigger("Neutral"); // sets the current hand back to neutral
+        if (bag != null) bag.DisableOutline();
     }
-
-    // TODO: write a function to check if it hit a bag area
-    // if it drops into the bag then score points and destroy, also set foodBiteSpawner.biteInScene to false
 
     public void SetFoodBiteSpawner(Food foodBiteSpawner)
     {
         _foodBiteSpawner = foodBiteSpawner;
     }
 
+    public void SetBag(GameObject bagObj)
+    {
+        bag = bagObj.GetComponent<Bag>();
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
+        if (audioSource != null)
+            audioSource.Play();
+
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             Debug.Log("Hit ground!");
-            rb.isKinematic = true;
             rb.linearVelocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
+            rb.isKinematic = true;
 
             transform.position = collision.contacts[0].point + Vector3.up * 0.01f;
         }
-        else if (collision.gameObject.CompareTag("Bag")) {
+        else if (collision.gameObject.CompareTag("Bag"))
+        {
             Debug.Log("Eating point");
             ScoreKeeper.Instance.ModifyScore(score);
+            ScoreKeeper.Instance.IncrementScoring("Spaghetti completion");
+            NovaLevel1Manager.Instance.ate = true;
             StartCoroutine(DisappearRoutine());
         }
     }

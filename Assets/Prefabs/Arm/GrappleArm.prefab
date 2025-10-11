@@ -900,7 +900,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: 8c85f9bb8cbbffe458105bdd701655ae, type: 3}
+  - {fileID: 2100000, guid: 8b8ce00882aea6546ac2ff2a35fe9bda, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1296,7 +1296,8 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: be63b1834469a324c95e32745d5f7459, type: 3}
+  - {fileID: 2100000, guid: f7e8e78dfd3656b4ea9b12bfff3530cc, type: 2}
+  - {fileID: 2100000, guid: 8b8ce00882aea6546ac2ff2a35fe9bda, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1322,7 +1323,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: -8368383953273864687, guid: be63b1834469a324c95e32745d5f7459, type: 3}
+  m_Mesh: {fileID: 4300000, guid: f308e2cdccdb34343844b2a7eb3fa5a2, type: 2}
   m_Bones:
   - {fileID: 4399861450477730627}
   - {fileID: 9158118932537520870}
@@ -1562,6 +1563,7 @@ GameObject:
   - component: {fileID: 8601503552687804358}
   - component: {fileID: 7633864857889600977}
   - component: {fileID: 8028550823150538747}
+  - component: {fileID: 9037328958355653286}
   m_Layer: 0
   m_Name: InteractableObjectCollider
   m_TagString: Hand
@@ -1632,6 +1634,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Hand
   handMovement: {fileID: 3925338915680463869}
+--- !u!54 &9037328958355653286
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5545135037996702311}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &5786656321522035958
 GameObject:
   m_ObjectHideFlags: 0
@@ -2035,6 +2064,7 @@ MonoBehaviour:
   wristBone: {fileID: 1695341088322505098}
   oppositeHandAnimator: {fileID: 0}
   handAnimator: {fileID: 5030860086350588141}
+  currObj: {fileID: 0}
   grappleArmSpline: {fileID: 1951719360051209165}
   left: 0
 --- !u!82 &8682444517587383604
@@ -2050,7 +2080,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 8513287c89ecb814ab1f27a7d63921c9, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.137
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -2147,7 +2177,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 85f93af027c3e0445958d78341cdc1c2, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.193
   m_Pitch: 1
   Loop: 0
   Mute: 0

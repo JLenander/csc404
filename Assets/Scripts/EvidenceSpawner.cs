@@ -11,23 +11,29 @@ public class EvidenceSpawner : MonoBehaviour
     public Transform[] spawnAnchors;
     public float launchForce = 10f;
     public Transform robotHead;
+    public AudioSource audioSource;
+
+    public GameObject uniqueEvidence;
+    public Transform uniqueAnchor;
     private float spawnTimer;
     private int evidenceCount; // keep track of num evidences in scene
     private ObjectPooler objectPooler;
     private string[] evidenceTypes = { "Notepad", "Map", "Polaroid" }; // types of evidence
+    private bool disabled = true;
 
     void Start()
     {
         objectPooler = ObjectPooler.Instance;
         evidenceCount = 0;
         spawnTimer = spawnInterval; // start the timer
+        uniqueEvidence.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
         // only spawn 5 evidences max
-        if (evidenceCount < maxEvidence) // make sure it is less than the max
+        if (evidenceCount < maxEvidence && !disabled) // make sure it is less than the max
         {
             spawnTimer -= Time.deltaTime;
 
@@ -40,8 +46,28 @@ public class EvidenceSpawner : MonoBehaviour
         }
     }
 
+    public void SpawnTempSpecial()
+    {
+        if (audioSource != null)
+            audioSource.Play();
+
+        uniqueEvidence.SetActive(true);
+        uniqueEvidence.transform.position = uniqueAnchor.position;
+        Evidence evidence = uniqueEvidence.GetComponent<Evidence>();
+        evidence.SetEvidenceSpawner(this);
+        Rigidbody rb = uniqueEvidence.GetComponent<Rigidbody>();
+
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector3.zero; // reset before applying force
+            rb.AddForce(uniqueAnchor.forward * launchForce, ForceMode.Impulse);
+        }
+    }
+
     void SpawnEvidence()
     {
+        if (audioSource != null)
+            audioSource.Play();
         // pick a random evidence
         string randomType = evidenceTypes[Random.Range(0, evidenceTypes.Length)];
 
@@ -74,5 +100,9 @@ public class EvidenceSpawner : MonoBehaviour
     public void ReduceCount()
     {
         evidenceCount--;
+        if (disabled)
+        {
+            disabled = false;
+        }
     }
 }

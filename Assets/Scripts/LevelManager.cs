@@ -1,7 +1,8 @@
 using System;
+using System.Linq;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 public class LevelManager : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class LevelManager : MonoBehaviour
     public void Start()
     {
         _levelSelectUIHandler = levelSelectUI.GetComponent<ILevelSelectUIHandler>();
+            
+        SanityCheckSceneNames();
         InitializeLevelSelectScreen();
     }
     
@@ -39,6 +42,25 @@ public class LevelManager : MonoBehaviour
     private void InitializeLevelSelectScreen()
     {
         _levelSelectUIHandler.SetupLevelSelectScreen(_levels, StartLevel);
+    }
+
+    private void SanityCheckSceneNames()
+    {
+        string[] sceneNames = new string[SceneManager.sceneCountInBuildSettings];
+        for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
+        {
+            var regex = new Regex(@"(?<=/)\w+(?=\.unity)");
+            sceneNames[i] = regex.Match(SceneUtility.GetScenePathByBuildIndex(i)).ToString();
+        }
+
+        for (int i = 0; i < _levels.Length; i++)
+        {
+            if (!sceneNames.Contains(_levels[i].sceneName))
+            {
+                Debug.LogError("Level at index " + i + "(Display Name: \" " + _levels[i].displayName + "\") has scene name \"" + _levels[i].sceneName + "\" but it's not in the scene list.");
+                Debug.Log("Scene List: " + string.Join(", ", sceneNames));
+            }
+        }
     }
     
     public struct Level

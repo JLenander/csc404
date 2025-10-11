@@ -54,5 +54,6 @@ public static class InputActionMapper
     }
     
     public const string CharacterSelectActionMapName = "CharacterSelect";
+    public const string LevelSelectActionMapName = "LevelSelect";
     public const string PlayerActionMapName = "Player";
 }

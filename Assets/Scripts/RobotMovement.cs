@@ -15,6 +15,11 @@ public class RobotMovement : MonoBehaviour
     public float robotLookSensitivity = 50f;
     public bool disable = false;
 
+    [SerializeField] private AudioSource footstepSource;
+    [SerializeField] private AudioClip[] footstepClips;
+    [SerializeField] private float stepInterval = 0.5f;
+    private float stepTimer;
+
     [SerializeField] private float gravity = -9.81f;
     [SerializeField] private float groundCheckDistance = 0.2f;
     [SerializeField] private LayerMask groundMask;
@@ -50,6 +55,17 @@ public class RobotMovement : MonoBehaviour
         Vector3 moveDir = transform.forward * moveInput + _robotVelocity;
         _robotCharacterController.Move(moveDir * robotMoveSpeed * Time.deltaTime);
 
+        float speed = moveDir.magnitude;
+        if (speed != 0)
+        {
+            stepTimer -= Time.fixedDeltaTime;
+            if (stepTimer <= 0f)
+            {
+                PlayFootstep();
+                stepTimer = stepInterval;
+            }
+        }
+
         float rotateInput = (leftInput - rightInput);
         transform.Rotate(Vector3.up, rotateInput * robotLookSensitivity * Time.deltaTime);
 
@@ -60,6 +76,15 @@ public class RobotMovement : MonoBehaviour
         else
         {
             GlobalPlayerUIManager.Instance.StopWalkingShake();
+        }
+    }
+
+    public void PlayFootstep()
+    {
+        if (footstepClips.Length > 0)
+        {
+            int index = UnityEngine.Random.Range(0, footstepClips.Length);
+            footstepSource.PlayOneShot(footstepClips[index]);
         }
     }
 

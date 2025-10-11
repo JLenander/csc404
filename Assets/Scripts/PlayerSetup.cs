@@ -8,6 +8,7 @@ public class PlayerSetup : MonoBehaviour
 
     void Awake()
     {
+        // Force load the player
         DontDestroyOnLoad(gameObject);
         playerInput = GetComponent<PlayerInput>();
         playerId = playerInput.playerIndex + 1;

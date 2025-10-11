@@ -13,7 +13,7 @@ public class LevelSelectUIHandler : MonoBehaviour, ILevelSelectUIHandler
         _root = GetComponent<UIDocument>().rootVisualElement;
     }
     
-    public void SetupLevelSelectScreen(LevelManager.Level[] levels, Action<int> levelStartHandler)
+    public void SetupLevelSelectScreen(GlobalLevelManager.Level[] levels, Action<int> levelStartHandler)
     {
         var levelsRoot = _root.Query<VisualElement>("Levels").First();
 
@@ -22,9 +22,11 @@ public class LevelSelectUIHandler : MonoBehaviour, ILevelSelectUIHandler
             // Create template element
             VisualElement level = levelTemplate.CloneTree();
 
+            // Register click handler (mouse) and nav submit handler (gamepad)
             // Copy the int to pass to the event handler
             var levelIndex = i;
             level.AddManipulator(new Clickable(evt => levelStartHandler(levelIndex)));
+            level.RegisterCallback<NavigationSubmitEvent>(evt => levelStartHandler(levelIndex));
             
             // Populate fields
             VisualElement levelArtImg = level.Query<VisualElement>("LevelImage").First();
@@ -67,7 +69,7 @@ public interface ILevelSelectUIHandler
     /// </summary>
     /// <param name="levels">The array of level information from the level manager to set up</param>
     /// <param name="levelStartHandler">The handler for starting a level, passed the index of the level based on the levels array</param>
-    public void SetupLevelSelectScreen(LevelManager.Level[] levels, Action<int> levelStartHandler);
+    public void SetupLevelSelectScreen(GlobalLevelManager.Level[] levels, Action<int> levelStartHandler);
 }
 
 

@@ -25,8 +25,7 @@ public class MainMenuHandler : MonoBehaviour
 
     private static void StartButtonPressed()
     {
-        // TODO have a level manager load this so we don't have these strings everywhere
-        SceneManager.LoadScene("CharacterSelect");
+        SceneManager.LoadScene(SceneConstants.MainMenuScene);
     }
     
     private static void QuitButtonPressed()

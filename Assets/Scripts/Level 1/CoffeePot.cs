@@ -36,7 +36,7 @@ public class CoffeePot : InteractableObject
     private void Update()
     {
         Vector3 origin = spoutTip.position;
-        Vector3 direction = transform.forward.normalized;
+        Vector3 direction = isPouring ? Vector3.down : transform.forward.normalized;
 
         // visualize the spout ray
         Debug.DrawRay(spoutTip.position, direction * rayLength, isPouring ? Color.green : Color.red);

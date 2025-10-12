@@ -25,7 +25,7 @@ public class MainMenuHandler : MonoBehaviour
 
     private static void StartButtonPressed()
     {
-        SceneManager.LoadScene(SceneConstants.MainMenuScene);
+        SceneManager.LoadScene(SceneConstants.CharacterSelectScene);
     }
     
     private static void QuitButtonPressed()

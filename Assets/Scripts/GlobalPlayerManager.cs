@@ -15,6 +15,14 @@ public class GlobalPlayerManager : MonoBehaviour
     // The UI handler for the character select screen
     [SerializeField] private GameObject characterSelectScreen;
     private ICharacterSelectScreen _characterSelectScreen;
+    
+    // To replace by colors player pick when ready
+    public Color[] playerColorSelector =
+    {
+        Color.clear,      // Player 1
+        Color.clear,     // Player 2
+        Color.clear,   // Player 3
+    };
 
     void Start()
     {
@@ -63,6 +71,22 @@ public class GlobalPlayerManager : MonoBehaviour
                     // All players are ready and someone pressed the submit action so we start the game
                     // TODO handle in a level manager?
                     Debug.Log("All players ready - starting");
+                    
+                    // Assign player colors from selector to player data
+                    for (int i = 0; i < _playerLimit; i++)
+                    {
+                        if (_players[i].Valid)
+                        {
+                            _players[i].PlayerColor = playerColorSelector[i];
+                            // outline here instead of Player.cs Start(),
+                            // so that that script no need reference _players
+                            var outline = _players[i].PlayerObject.GetComponent<Outline>();
+                            if (outline != null)
+                            {
+                                outline.OutlineColor = _players[i].PlayerColor;
+                            }
+                        }
+                    }
 
                     // pass these players to UI manager
                     GlobalPlayerUIManager.Instance.PassPlayers(_players);
@@ -74,9 +98,22 @@ public class GlobalPlayerManager : MonoBehaviour
                 }
                 else
                 {
+                    // If current color taken, do not allow ready
+                    // else assign color and ready up
+                    var currentColor = playerColorSelector[idx];
+                    for (int i = 0; i < _playerLimit; i++)
+                    {
+                        if (i != idx && _players[i].Valid && _players[i].Ready && _players[i].PlayerColor == currentColor)
+                        {
+                            Debug.Log("Player " + idx + " attempted to ready with color taken by Player " + i);
+                            return;
+                        }
+                    }
                     Debug.Log("Player " + idx + " ready");
                     _characterSelectScreen.ReadyPlayer(idx);
                     _players[idx].Ready = true;
+                    _players[idx].PlayerColor = currentColor;
+                    
                 }
                 Debug.Log("submit action");
             };
@@ -88,6 +125,7 @@ public class GlobalPlayerManager : MonoBehaviour
                     Debug.Log("Player " + idx + " not ready");
                     _characterSelectScreen.UnreadyPlayer(idx);
                     _players[idx].Ready = false;
+                    _players[idx].PlayerColor = Color.clear;
                 }
                 else
                 {
@@ -200,6 +238,7 @@ public struct PlayerData
     public GameObject PlayerObject { get; set; }
     public Action<InputAction.CallbackContext> SubmitActionDelegate { get; set; }
     public Action<InputAction.CallbackContext> CancelActionDelegate { get; set; }
+    public Color PlayerColor { get; set; }
 }
 
 public interface ICharacterSelectScreen

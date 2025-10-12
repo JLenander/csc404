@@ -57,11 +57,12 @@ public class Player : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         
         var index = input.playerIndex;
-        var outline = GetComponent<Outline>();
-        if (outline != null)
-        {
-            outline.OutlineColor = _playerColors[index];
-        }
+        // outline assign at GlobalPlayerManager, so that this script no need reference _players
+        // var outline = GetComponent<Outline>();
+        // if (outline != null)
+        // {
+        //     outline.OutlineColor = _playerColors[index];
+        // }
 
         _controlFunc = ControlPlayer;
     }

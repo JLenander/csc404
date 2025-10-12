@@ -13,7 +13,7 @@ public class LevelSelectUIHandler : MonoBehaviour, ILevelSelectUIHandler
         _root = GetComponent<UIDocument>().rootVisualElement;
     }
     
-    public void SetupLevelSelectScreen(GlobalLevelManager.Level[] levels, Action<int> levelStartHandler)
+    public void SetupLevelSelectScreen(Level[] levels, Action<int> levelStartHandler)
     {
         var levelsRoot = _root.Query<VisualElement>("Levels").First();
 
@@ -47,9 +47,11 @@ public class LevelSelectUIHandler : MonoBehaviour, ILevelSelectUIHandler
                     break;
                 case LevelStatus.Started:
                     // TODO indicate started
+                    lockedOverlay.visible = false;
                     break;
                 case LevelStatus.Completed:
                     // TODO indicate Completed
+                    lockedOverlay.visible = false;
                     break;
                 default:
                     Debug.LogWarning("Unknown level status for level " + levels[i].sceneName);
@@ -69,7 +71,7 @@ public interface ILevelSelectUIHandler
     /// </summary>
     /// <param name="levels">The array of level information from the level manager to set up</param>
     /// <param name="levelStartHandler">The handler for starting a level, passed the index of the level based on the levels array</param>
-    public void SetupLevelSelectScreen(GlobalLevelManager.Level[] levels, Action<int> levelStartHandler);
+    public void SetupLevelSelectScreen(Level[] levels, Action<int> levelStartHandler);
 }
 
 

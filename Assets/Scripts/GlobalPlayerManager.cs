@@ -69,6 +69,7 @@ public class GlobalPlayerManager : MonoBehaviour
                     // initialize player dots, call here so it happens after players are passed to UI manager
                     MinimapController.Instance.InitializePlayerDots();
 
+                    // Load level select screen
                     GlobalLevelManager.Instance.LoadLevelSelectScreen();
                 }
                 else

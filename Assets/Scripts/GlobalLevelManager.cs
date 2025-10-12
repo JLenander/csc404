@@ -15,12 +15,6 @@ using UnityEngine.SceneManagement;
 public class GlobalLevelManager : MonoBehaviour
 {
     public static GlobalLevelManager Instance { get; private set; }
-    
-    // For some reason when I serialize this it curses my unity
-    private readonly Level[] _levels = {
-        new("Level 1 - Cafe", "Cafe", LevelStatus.Unlocked, new string[] {"WalkingCopy"}),
-        new("Level 2", "WalkingCopy", LevelStatus.Locked),
-    };
 
     private Dictionary<string, int> _sceneNameToLevelIndexMap;
 
@@ -41,9 +35,9 @@ public class GlobalLevelManager : MonoBehaviour
     public void Start()
     {
         _sceneNameToLevelIndexMap = new Dictionary<string, int>();
-        for (var i = 0; i < _levels.Length; i++)
+        for (var i = 0; i < GameConfig.Levels.Length; i++)
         {
-            _sceneNameToLevelIndexMap[_levels[i].sceneName] = i;
+            _sceneNameToLevelIndexMap[GameConfig.Levels[i].sceneName] = i;
         }
             
         SanityCheckSceneNames();
@@ -51,7 +45,7 @@ public class GlobalLevelManager : MonoBehaviour
 
     public Level[] GetLevels()
     {
-        return _levels;
+        return GameConfig.Levels;
     }
 
     /// <summary>
@@ -67,14 +61,14 @@ public class GlobalLevelManager : MonoBehaviour
         }
 
         // Complete this level
-        _levels[index].status = LevelStatus.Completed;
+        GameConfig.Levels[index].status = LevelStatus.Completed;
         // Unlock next levels if such a relationship exists
-        foreach (var unlockedScene in _levels[index].unlocksScenes)
+        foreach (var unlockedScene in GameConfig.Levels[index].unlocksScenes)
         {
             if (_sceneNameToLevelIndexMap.TryGetValue(unlockedScene, out var unlockedIndex))
             {
-                _levels[unlockedIndex].status = LevelStatus.Unlocked;
-                Debug.Log("Level " + _levels[index].sceneName + " completion unlocks " + _levels[unlockedIndex].sceneName);
+                GameConfig.Levels[unlockedIndex].status = LevelStatus.Unlocked;
+                Debug.Log("Level " + GameConfig.Levels[index].sceneName + " completion unlocks " + GameConfig.Levels[unlockedIndex].sceneName);
             }
         }
     }
@@ -86,14 +80,14 @@ public class GlobalLevelManager : MonoBehaviour
     
     public void StartLevel(int levelIndex)
     {
-        Debug.Log("Starting Level at index " + levelIndex + " (" + _levels[levelIndex].sceneName + ")");
-        if (levelIndex >= _levels.Length)
+        Debug.Log("Starting Level at index " + levelIndex + " (" + GameConfig.Levels[levelIndex].sceneName + ")");
+        if (levelIndex >= GameConfig.Levels.Length)
         {
             Debug.LogError("Level index out of range");
             return;
         }
         
-        var level = _levels[levelIndex];
+        var level = GameConfig.Levels[levelIndex];
         
         if (level.status != LevelStatus.Locked)
         {
@@ -114,53 +108,52 @@ public class GlobalLevelManager : MonoBehaviour
             sceneNames[i] = regex.Match(SceneUtility.GetScenePathByBuildIndex(i)).ToString();
         }
 
-        for (int i = 0; i < _levels.Length; i++)
+        for (int i = 0; i < GameConfig.Levels.Length; i++)
         {
-            if (!sceneNames.Contains(_levels[i].sceneName))
+            if (!sceneNames.Contains(GameConfig.Levels[i].sceneName))
             {
-                Debug.LogError("Level at index " + i + " (Display Name: \"" + _levels[i].displayName + "\") has scene name \"" + _levels[i].sceneName + "\" but it's not in the scene list.");
+                Debug.LogError("Level at index " + i + " (Display Name: \"" + GameConfig.Levels[i].displayName + "\") has scene name \"" + GameConfig.Levels[i].sceneName + "\" but it's not in the scene list.");
                 Debug.Log("Scene List: " + string.Join(", ", sceneNames));
             }
         }
     }
-    
-    public struct Level
-    {
-        public string displayName;
-        public string sceneName;
-        public LevelStatus status;
-        public string levelArtSpriteName;
-        // The name of the scene corresponding to the level to unlock after this level is completed.
-        public string[] unlocksScenes;
-
-        public Level(string displayName, string sceneName, LevelStatus status, string[] unlocksScenes = null, string levelArtSpriteName = "default_level")
-        {
-            if (levelArtSpriteName == "")
-            {
-                levelArtSpriteName = "default_level";
-            }
-            
-            this.displayName = displayName;
-            this.sceneName = sceneName;
-            this.status = status;
-            if (unlocksScenes == null)
-            {
-                unlocksScenes = Array.Empty<string>();
-            }
-            this.unlocksScenes = unlocksScenes;
-            this.levelArtSpriteName = "LevelSelect/" + levelArtSpriteName;
-        }
-
-        public Sprite GetLevelArtSprite()
-        {
-            // For some reason Resources.Load<Sprite> doesn't work
-            var texture = Resources.Load<Texture2D>(levelArtSpriteName);
-            var resource = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
-            return resource;
-        }
-    }
 }
 
+public struct Level
+{
+    public string displayName;
+    public string sceneName;
+    public LevelStatus status;
+    public string levelArtSpriteName;
+    // The name of the scene corresponding to the level to unlock after this level is completed.
+    public string[] unlocksScenes;
+
+    public Level(string displayName, string sceneName, LevelStatus status, string[] unlocksScenes = null, string levelArtSpriteName = "default_level")
+    {
+        if (levelArtSpriteName == "")
+        {
+            levelArtSpriteName = "default_level";
+        }
+            
+        this.displayName = displayName;
+        this.sceneName = sceneName;
+        this.status = status;
+        if (unlocksScenes == null)
+        {
+            unlocksScenes = Array.Empty<string>();
+        }
+        this.unlocksScenes = unlocksScenes;
+        this.levelArtSpriteName = "LevelSelect/" + levelArtSpriteName;
+    }
+
+    public Sprite GetLevelArtSprite()
+    {
+        // For some reason Resources.Load<Sprite> doesn't work
+        var texture = Resources.Load<Texture2D>(levelArtSpriteName);
+        var resource = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
+        return resource;
+    }
+}
 
 public enum LevelStatus
 {

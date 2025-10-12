@@ -86,6 +86,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "TestReturnToLevelSelect",
+                    "type": "Button",
+                    "id": "9ddfc971-28f5-475b-8e6b-c01c0fd4ada4",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -328,6 +337,28 @@
                     "processors": "",
                     "groups": ";Gamepad",
                     "action": "RightBumper",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "552e28b2-9a06-4af5-9e0c-f41e39e93f3a",
+                    "path": "<Keyboard>/#(`)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "TestReturnToLevelSelect",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "37dcf75c-34db-4400-8cf2-d1f9ce0c3147",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "TestReturnToLevelSelect",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

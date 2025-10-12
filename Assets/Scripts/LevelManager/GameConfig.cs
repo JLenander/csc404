@@ -11,8 +11,6 @@ public class GameConfig
     // they are simply real scene names so my sanity checking script doesn't log error if their scene name is not found in the build list.
     // Currently demonstrated behavior is Level 1 completion unlocks the two placeholders.
     public static readonly Level[] Levels = {
-        new("Level 1 - Cafe", "Cafe", LevelStatus.Unlocked, new string[] {"Menu", "CharacterSelect"}, levelArtSpriteName: "LevelCafe"),
-        new("Level 2 Placeholder", "Menu", LevelStatus.Locked),
-        new("Tutorial Level Placeholder", "CharacterSelect", LevelStatus.Locked),
+        new("Level 1 - Cafe", "Cafe", LevelStatus.Unlocked, levelArtSpriteName: "LevelCafe"),
     };
 }

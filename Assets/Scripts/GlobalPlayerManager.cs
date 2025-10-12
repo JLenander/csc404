@@ -96,12 +96,6 @@ public class GlobalPlayerManager : MonoBehaviour
                     Destroy(playerInput.gameObject);
                 }
             };
-            playerInput.actions.FindAction("TestReturnToLevelSelect", throwIfNotFound: true).started += ctx =>
-            {
-                Debug.Log("test return to level select and marking first level as complete");
-                GlobalLevelManager.Instance.CompleteLevel("Cafe");
-                GlobalLevelManager.Instance.LoadLevelSelectScreen();
-            };
             InputActionMapper.GetCharacterSelectSubmitAction(playerInput).started += _players[idx].SubmitActionDelegate;
             InputActionMapper.GetCharacterSelectCancelAction(playerInput).started += _players[idx].CancelActionDelegate;
 

@@ -25,6 +25,7 @@ namespace UIScripts
         
         void Start()
         {
+            // TODO: no need after new design, just cue scene + spawn anchors
             _playerBoxes = new VisualElement[4];
             
             var root = gameObject.GetComponent<UIDocument>().rootVisualElement;
@@ -39,6 +40,7 @@ namespace UIScripts
         }
 
         // Setup the initial states of the player select boxes
+        // TODO: no need after new design
         private void SetupBoxes()
         {
             foreach (var playerBox in _playerBoxes)
@@ -48,6 +50,7 @@ namespace UIScripts
             }
         }
         
+        // TODO: spawn players at anchors instead
         public void AddPlayer(int playerIndex)
         {
             // show the character select preview img
@@ -61,6 +64,7 @@ namespace UIScripts
             _playerCount++;
         }
 
+        // TODO: despawn players instead
         public void RemovePlayer(int playerIndex)
         {
             // hide character select preview image
@@ -72,6 +76,8 @@ namespace UIScripts
             _playerCount--;
         }
         
+        // TODO: change order of call -- color check logic in GlobalPlayerManager first, then call here for visual effect
+        // TODO: play ready animation instead
         public void ReadyPlayer(int playerIndex)
         {
             // highlight the player box with an outline to indicate they have readied up
@@ -87,8 +93,11 @@ namespace UIScripts
             {
                 _readyText.visible = false;
             }
+            
+            
         }       
         
+        // TODO: play unready animation instead
         public void UnreadyPlayer(int playerIndex)
         {
             // unhighlight the player box

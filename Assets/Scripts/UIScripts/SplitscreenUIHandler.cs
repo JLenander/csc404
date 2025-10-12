@@ -56,8 +56,7 @@ public class SplitscreenUIHandler : MonoBehaviour, ISplitscreenUIHandler
     // Handler method to enable or disable Splitscreen UI components based on scene
     private void OnSceneChange(Scene oldScene, Scene newScene)
     {
-        // Currently behavior is activate whenever the scene changes away from the character select screen but this can be changed
-        // in the future to have a whitelist or blacklist
+        // Activate the UI when we enter a scene that is not the Main Menu, Level Select, or Character Select scenes.
         uiDoc.rootVisualElement.visible = true;
         _scoreText.visible = true;
     }

@@ -44,7 +44,7 @@ public class GlobalPlayerManager : MonoBehaviour
     /// <param name="playerInput"></param>
     private void OnPlayerJoined(PlayerInput playerInput)
     {
-        if (IsCharacterSelectScene())
+        if (SceneConstants.IsCharacterSelectScene())
         {
             var idx = playerInput.playerIndex;
             Debug.Log("Player " + idx + " Joined - Character Select Scene");
@@ -60,8 +60,7 @@ public class GlobalPlayerManager : MonoBehaviour
             {
                 if (AllPlayersReady())
                 {
-                    // All players are ready and someone pressed the submit action so we start the game
-                    // TODO handle in a level manager?
+                    // All players are ready and someone pressed the submit action so we load level select
                     Debug.Log("All players ready - starting");
 
                     // pass these players to UI manager
@@ -70,7 +69,8 @@ public class GlobalPlayerManager : MonoBehaviour
                     // initialize player dots, call here so it happens after players are passed to UI manager
                     MinimapController.Instance.InitializePlayerDots();
 
-                    SceneManager.LoadScene("Cafe");
+                    // Load level select screen
+                    GlobalLevelManager.Instance.LoadLevelSelectScreen();
                 }
                 else
                 {
@@ -99,7 +99,7 @@ public class GlobalPlayerManager : MonoBehaviour
             InputActionMapper.GetCharacterSelectSubmitAction(playerInput).started += _players[idx].SubmitActionDelegate;
             InputActionMapper.GetCharacterSelectCancelAction(playerInput).started += _players[idx].CancelActionDelegate;
 
-            // Ensure player is on the character select screen action map
+            // Ensure player is on the character select screen action map and disable by default
             playerInput.SwitchCurrentActionMap(InputActionMapper.CharacterSelectActionMapName);
             playerInput.gameObject.GetComponent<Player>().TurnOff();
         }
@@ -115,7 +115,7 @@ public class GlobalPlayerManager : MonoBehaviour
     /// <param name="playerInput"></param>
     private void OnPlayerLeft(PlayerInput playerInput)
     {
-        if (IsCharacterSelectScene())
+        if (SceneConstants.IsCharacterSelectScene())
         {
             Debug.Log("Player " + playerInput.playerIndex + " Left - Character Select Scene");
 
@@ -146,28 +146,40 @@ public class GlobalPlayerManager : MonoBehaviour
 
                 // Teleport player to their spawn anchor for this new scene
                 var charController = player.PlayerObject.GetComponent<CharacterController>();
+                var prevState = charController.enabled;
                 charController.enabled = false;
                 Debug.Log("Attempting scene change player " + player.Index + " teleport to anchor for new scene " + newScene.name);
                 player.PlayerObject.transform.position = spawnAnchor.transform.position;
-                charController.enabled = true;
+                charController.enabled = prevState;
 
                 // Switch action map to player action map if not character selection screen
-                if (IsCharacterSelectScene())
+                if (SceneConstants.IsCharacterSelectScene())
                 {
                     player.Input.SwitchCurrentActionMap(InputActionMapper.CharacterSelectActionMapName);
+                    // Disable the player control
+                    player.PlayerObject.GetComponent<Player>().TurnOff();
+                    Cursor.lockState = CursorLockMode.None;
+                }
+                else if (SceneConstants.IsLevelSelectScene())
+                {
+                    player.Input.SwitchCurrentActionMap(InputActionMapper.LevelSelectActionMapName);
+                    // Disable the player control
+                    player.PlayerObject.GetComponent<Player>().TurnOff();
+                    Cursor.lockState = CursorLockMode.None;
                 }
                 else
                 {
                     player.Input.SwitchCurrentActionMap(InputActionMapper.PlayerActionMapName);
+                    // enable player if not the character select scene or the level select scene
+                    player.PlayerObject.GetComponent<Player>().TurnOn();
+                    Cursor.lockState = CursorLockMode.Locked;
                 }
 
-                // re-enable player
-                player.PlayerObject.GetComponent<Player>().TurnOn();
             }
         }
 
         // disable joining if not in the character select scene
-        if (!IsCharacterSelectScene())
+        if (!SceneConstants.IsCharacterSelectScene())
         {
             PlayerInputManager.instance.DisableJoining();
         }
@@ -177,12 +189,6 @@ public class GlobalPlayerManager : MonoBehaviour
     private bool AllPlayersReady()
     {
         return _players.All(player => !player.Valid || player.Ready) && _players.Any(player => player.Valid);
-    }
-
-    /// <returns>True if this is the character select scene. False otherwise</returns>
-    private static bool IsCharacterSelectScene()
-    {
-        return SceneManager.GetActiveScene().name == "CharacterSelect";
     }
 
     // delcare here so MinimapController can readonly it

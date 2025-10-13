@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Windows;
@@ -16,6 +17,8 @@ public class BrainConsole : Interactable
     private Door leftDoor, rightDoor, leftEscapeDoor, rightEscapeDoor;
     private InputAction _leftTriggerAction, _rightTriggerAction;
 
+    private BrainUIHandler uIHandler;
+
     //public GameObject playerTaskPanel; 
     //public TMPro.TextMeshPro tasksList; 
 
@@ -26,6 +29,14 @@ public class BrainConsole : Interactable
         rightDoor = rightDoorObj.GetComponent<Door>();
         leftEscapeDoor = leftEscapeDoorObj.GetComponent<Door>();
         rightEscapeDoor = rightEscapeDoorObj.GetComponent<Door>();
+
+        StartCoroutine(WaitForBrainUIHandler());
+    }
+
+    IEnumerator WaitForBrainUIHandler()
+    {
+        yield return new WaitUntil(() => BrainUIHandler.Instance != null);
+        uIHandler = BrainUIHandler.Instance;
     }
 
     public override void Interact(GameObject player)
@@ -37,6 +48,8 @@ public class BrainConsole : Interactable
         _leftTriggerAction = input.actions.FindAction("LeftTrigger");
         _rightTriggerAction = input.actions.FindAction("RightTrigger");
 
+        uIHandler.ShowContainer(player);
+
         //playerTaskPanel.SetActive(true);
         //UpdateTaskList();
     }
@@ -45,6 +58,8 @@ public class BrainConsole : Interactable
         player.GetComponent<Player>().TurnOn();
         //playerTaskPanel.SetActive(false);
         _canInteract = true;
+
+        uIHandler.HideContainer(player);
     }
 
     private void Update()
@@ -60,7 +75,7 @@ public class BrainConsole : Interactable
                 leftEscapeDoor.UnlockDoor();
             }
         }
-        else 
+        else
         {
             if (leftDoor != null && leftEscapeDoor != null)
             {

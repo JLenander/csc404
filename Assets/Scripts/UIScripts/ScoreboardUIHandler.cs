@@ -114,11 +114,11 @@ public class ScoreboardUIHandler : MonoBehaviour
             elapsed += Time.deltaTime;
             float t = Mathf.Clamp01(elapsed / scoreCountDuration);
             int current = Mathf.RoundToInt(Mathf.Lerp(startScore, targetScore, t));
-            scoreboardContent.text = content + " x" + current.ToString();
+            scoreboardContent.text = content + " " + current.ToString() + "x";
             yield return null;
         }
 
-        content = content + " x" + targetScore + "\n";
+        content = content + " " + targetScore + "x\n";
         scoreboardContent.text = content;
 
         yield return new WaitForSeconds(betweenTitles); // small pause
@@ -139,11 +139,11 @@ public class ScoreboardUIHandler : MonoBehaviour
             elapsed += Time.deltaTime;
             float t = Mathf.Clamp01(elapsed / scoreCountDuration);
             int current = Mathf.RoundToInt(Mathf.Lerp(startScore, targetScore, t));
-            scoreboardContent.text = content + " x" + current.ToString();
+            scoreboardContent.text = content + " " + current.ToString() + "x";
             yield return null;
         }
 
-        content = content + " x" + targetScore + "\n";
+        content = content + " " + targetScore + "x\n";
         scoreboardContent.text = content;
 
         // pause a bit
@@ -206,11 +206,11 @@ public class ScoreboardUIHandler : MonoBehaviour
                         elapsed += Time.deltaTime;
                         float t = Mathf.Clamp01(elapsed / scoreCountDuration);
                         int current = Mathf.RoundToInt(Mathf.Lerp(startScore, targetScore, t));
-                        scoreboardContent.text = content + " x" + current.ToString();
+                        scoreboardContent.text = content + " " + current.ToString() + "x";
                         yield return null;
                     }
 
-                    content = content + " x" + targetScore + "\n";
+                    content = content + " " + targetScore + "x\n";
                 }
             }
 

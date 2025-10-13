@@ -40,13 +40,6 @@
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="ScoreContainer" style="flex-grow: 1; position: absolute; width: 100%; height: 100%;">
-        <ui:VisualElement name="ScoreUI" style="flex-grow: 1;">
-            <ui:VisualElement name="ScoreBox" style="flex-grow: initial; top: 933px; width: 127px; height: 139px; left: 966px; position: absolute; background-color: rgba(0, 0, 0, 0);">
-                <ui:Label text="0" name="Score" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/CCAstroCity%20Regular.ttf?fileID=12800000&amp;guid=d4d910571229e1e438dfa7061d91e182&amp;type=3#CCAstroCity Regular&quot;); font-size: 85px; white-space: normal; color: rgb(0, 0, 0);" />
-            </ui:VisualElement>
-        </ui:VisualElement>
-    </ui:VisualElement>
     <ui:VisualElement name="MinimapContainer" style="flex-grow: 1; position: absolute; width: 100%; height: 100%;">
         <ui:VisualElement name="MinimapUI" style="flex-grow: 1;">
             <ui:VisualElement name="MinimapBackground" style="flex-grow: initial; position: absolute; width: 200px; height: 200px; top: 35%; left: auto; background-image: url(&quot;project://database/Assets/Sprites/Minimap_Layout.png?fileID=2800000&amp;guid=c7fe9ce983abf1843ba4042099adae6e&amp;type=3#Minimap_Layout&quot;); -unity-background-scale-mode: scale-to-fit; justify-content: center; align-items: center; align-self: center; align-content: flex-end;" />

@@ -82,6 +82,17 @@ public class GlobalPlayerUIManager : MonoBehaviour
 
     }
 
+    public void EnableScreenGreyscale(int player)
+    {
+        _splitscreenUIHandler.EnablePlayerScreenGreyscale(player);
+    }
+
+    public void DisableScreenGreyscale(int player)
+    {
+        if (!start) return;
+        _splitscreenUIHandler.DisablePlayerScreenGreyscale(player);
+    }
+
     // fades image into view based on *time* seconds, used for blink terminal
     public void PixelateView(float time)
     {

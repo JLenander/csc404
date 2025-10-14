@@ -46,9 +46,13 @@ public class PlayerInteract : MonoBehaviour
                 DisableCurrInteractable();
 
                 if (GlobalPlayerUIManager.Instance != null)
+<<<<<<< HEAD
                 {
                     GlobalPlayerUIManager.Instance.EnableScreenGreyscale(playerId);
                 }
+=======
+                    GlobalPlayerUIManager.Instance.EnableScreenGreyscale(playerId);
+>>>>>>> d6fe016 (init greyscale)
             }
         }
 

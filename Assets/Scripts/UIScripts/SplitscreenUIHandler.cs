@@ -44,6 +44,7 @@ public class SplitscreenUIHandler : MonoBehaviour, ISplitscreenUIHandler
                 _playerGreyscaleOverlays[i].visible = false;
                 _playerGreyscaleOverlays[i].SendToBack();
             }
+
             else
             {
                 Debug.Log(_playerGreyscaleOverlays[i] + "no greyscale overlay found");

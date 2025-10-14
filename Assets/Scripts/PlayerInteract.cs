@@ -43,12 +43,6 @@ public class PlayerInteract : MonoBehaviour
                 Debug.Log("Interacting with " + currentItem);
                 interacting = currentItem;
                 currentItem.Interact(gameObject);
-                DisableCurrInteractable();
-
-                if (GlobalPlayerUIManager.Instance != null)
-                {
-                    GlobalPlayerUIManager.Instance.EnableScreenGreyscale(playerId);
-                }
             }
         }
 

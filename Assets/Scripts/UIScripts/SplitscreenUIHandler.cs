@@ -12,6 +12,7 @@ public class SplitscreenUIHandler : MonoBehaviour, ISplitscreenUIHandler
     private VisualElement _player3Overlay;
     // Player Interaction texts
     private Label[] _playerInteractionTexts;
+    private VisualElement[] _playerGreyscaleOverlays;
 
     // Camera (outside view or eyes) off overlay
     private VisualElement _outsideCamOverlay;
@@ -30,9 +31,17 @@ public class SplitscreenUIHandler : MonoBehaviour, ISplitscreenUIHandler
         _player3Overlay = root.Query<VisualElement>("Player3NotJoined").First();
 
         _playerInteractionTexts = new Label[NumPlayers];
+        _playerGreyscaleOverlays = new VisualElement[NumPlayers];
         for (int i = 0; i < NumPlayers; i++)
         {
             _playerInteractionTexts[i] = root.Query<Label>("Player" + (i + 1) + "InteractionText").First();
+            _playerGreyscaleOverlays[i] = root.Query<VisualElement>("Player" + (i + 1) + "GreyscaleOverlay").First();
+            if (_playerGreyscaleOverlays[i] != null)
+                _playerGreyscaleOverlays[i].visible = false;
+            else
+            {
+                Debug.Log(_playerGreyscaleOverlays[i] + "no greyscale overlay found");
+            }
         }
 
         _outsideCamOverlay = root.Query<VisualElement>("OutsideCamOffOverlay").First();
@@ -118,6 +127,40 @@ public class SplitscreenUIHandler : MonoBehaviour, ISplitscreenUIHandler
         }
 
         _playerInteractionTexts[playerIndex].visible = false;
+    }
+
+    public void EnablePlayerScreenGreyscale(int playerIndex)
+    {
+        if (playerIndex < 0 || playerIndex >= NumPlayers)
+        {
+            Debug.LogError("Player index out of range");
+            return;
+        }
+
+        var overlay = _playerGreyscaleOverlays[playerIndex];
+        if (overlay != null)
+        {
+            overlay.visible = true;
+        }
+        else
+        {
+            Debug.LogWarning($"Greyscale overlay for Player {playerIndex + 1} not found.");
+        }
+    }
+
+    public void DisablePlayerScreenGreyscale(int playerIndex)
+    {
+        if (playerIndex < 0 || playerIndex >= NumPlayers)
+        {
+            Debug.LogError("Player index out of range");
+            return;
+        }
+
+        var overlay = _playerGreyscaleOverlays[playerIndex];
+        if (overlay != null)
+        {
+            overlay.visible = false;
+        }
     }
 
     // TODO transition animation

@@ -28,7 +28,7 @@ public class OverlayUIHandler : MonoBehaviour
     {
         // hide container
         if (container != null)
-            container.visible = false;
+            container.style.display = DisplayStyle.None;
         // unlock player
         if (player != null)
             player.GetComponent<Player>().TurnOn();
@@ -39,7 +39,7 @@ public class OverlayUIHandler : MonoBehaviour
     {
         // show container
         if (container != null)
-            container.visible = true;
+            container.style.display = DisplayStyle.Flex;
         // disable player movement
         player.GetComponent<Player>().TurnOff();
         _currPlayer = player;

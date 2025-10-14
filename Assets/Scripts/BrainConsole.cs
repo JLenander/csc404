@@ -7,6 +7,7 @@ using UnityEngine.Windows;
 
 public class BrainConsole : Interactable
 {
+    public int unlockDuration = 3;
     private bool _canInteract = true;
     [SerializeField] GameObject leftDoorObj;
     [SerializeField] GameObject rightDoorObj;
@@ -15,9 +16,15 @@ public class BrainConsole : Interactable
     [SerializeField] GameObject rightEscapeDoorObj;
 
     private Door leftDoor, rightDoor, leftEscapeDoor, rightEscapeDoor;
-    private InputAction _leftTriggerAction, _rightTriggerAction;
+    private InputAction _leftTriggerAction, _rightTriggerAction, _leftBumperAction, _rightBumperAction;
 
     private BrainUIHandler uIHandler;
+
+    private bool task;
+
+    private bool leftLock, rightLock;
+
+    private bool wasBumperPressed = false;
 
     //public GameObject playerTaskPanel; 
     //public TMPro.TextMeshPro tasksList; 
@@ -31,6 +38,10 @@ public class BrainConsole : Interactable
         rightEscapeDoor = rightEscapeDoorObj.GetComponent<Door>();
 
         StartCoroutine(WaitForBrainUIHandler());
+
+        task = true;
+        leftLock = true;
+        rightLock = true;
     }
 
     IEnumerator WaitForBrainUIHandler()
@@ -47,6 +58,9 @@ public class BrainConsole : Interactable
         var input = player.GetComponent<PlayerInput>();
         _leftTriggerAction = input.actions.FindAction("LeftTrigger");
         _rightTriggerAction = input.actions.FindAction("RightTrigger");
+
+        _leftBumperAction = input.actions.FindAction("LeftBumper");
+        _rightBumperAction = input.actions.FindAction("RightBumper");
 
         uIHandler.ShowContainer(player);
 
@@ -66,31 +80,65 @@ public class BrainConsole : Interactable
     {
         if (_canInteract) return;   // no one is on the console
 
-        // unlock left door 
-        if (_leftTriggerAction != null && _leftTriggerAction.ReadValue<float>() > 0.1f)
+        bool bumperPress =
+                (_leftBumperAction != null && _leftBumperAction.ReadValue<float>() > 0.1f) ||
+                (_rightBumperAction != null && _rightBumperAction.ReadValue<float>() > 0.1f);
+
+        if (bumperPress && !wasBumperPressed)
         {
-            if (leftDoor != null && leftEscapeDoor != null)
+            task = !task;
+            uIHandler.SwitchScreen();
+        }
+
+        wasBumperPressed = bumperPress;
+
+        if (!task)
+        {
+            // unlock left door 
+            if (_leftTriggerAction != null && _leftTriggerAction.ReadValue<float>() > 0.1f && leftLock)
             {
-                leftDoor.UnlockDoor();
-                leftEscapeDoor.UnlockDoor();
+                if (leftDoor != null && leftEscapeDoor != null)
+                {
+                    leftDoor.UnlockDoor();
+                    leftEscapeDoor.UnlockDoor();
+
+                    leftLock = false;
+
+                    StartCoroutine(LockDoorRoutine(true));
+                }
+            }
+
+            // unlock right door 
+            if (_rightTriggerAction != null && _rightTriggerAction.ReadValue<float>() > 0.1f && rightLock)
+            {
+                if (rightDoor != null && rightEscapeDoor != null)
+                {
+                    rightDoor.UnlockDoor();
+                    rightEscapeDoor.UnlockDoor();
+
+                    rightLock = false;
+
+                    StartCoroutine(LockDoorRoutine(false));
+                }
             }
         }
-        else
+    }
+
+    IEnumerator LockDoorRoutine(bool left)
+    {
+        Debug.Log("Left door coroutine");
+        uIHandler.LockDoor(left, unlockDuration);
+
+        yield return new WaitForSeconds(unlockDuration);
+
+        if (left)
         {
             if (leftDoor != null && leftEscapeDoor != null)
             {
                 leftDoor.LockDoor();
                 leftEscapeDoor.LockDoor();
-            }
-        }
 
-        // unlock right door 
-        if (_rightTriggerAction != null && _rightTriggerAction.ReadValue<float>() > 0.1f)
-        {
-            if (rightDoor != null && rightEscapeDoor != null)
-            {
-                rightDoor.UnlockDoor();
-                rightEscapeDoor.UnlockDoor();
+                leftLock = true;
             }
         }
         else
@@ -99,6 +147,8 @@ public class BrainConsole : Interactable
             {
                 rightDoor.LockDoor();
                 rightEscapeDoor.LockDoor();
+
+                rightLock = true;
             }
         }
     }

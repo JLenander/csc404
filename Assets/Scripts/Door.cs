@@ -8,7 +8,7 @@ public class Door : Interactable
     private void Start()
     {
         DisableOutline();
-        locked = true;
+        LockDoor();
     }
 
     public override void Interact(GameObject player)
@@ -28,9 +28,15 @@ public class Door : Interactable
     public void UnlockDoor()
     {
         locked = false;
+        hoverMessage = "Control Arm";
+        msgColour = new Color(1, 1, 1, 1);
+        outlineColour = new Color(1, 1, 1, 1);
     }
     public void LockDoor()
     {
         locked = true;
+        hoverMessage = "[DOOR LOCKED] Unlock at Brain";
+        msgColour = new Color(1, 0, 0, 1);
+        outlineColour = new Color(1, 0, 0, 1);
     }
 }

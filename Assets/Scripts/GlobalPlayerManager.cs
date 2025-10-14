@@ -110,7 +110,7 @@ public class GlobalPlayerManager : MonoBehaviour
                         if (i != idx && _players[i].Valid && _players[i].Ready && _players[i].PlayerColor == currentColor)
                         {
                             Debug.Log("Player " + idx + " attempted to ready with color taken by Player " + i);
-                            _characterSelectScreen.ShowColorTakenWarning(idx);
+                            _characterSelectScreen.ShowColorConflictWarning(idx, i);
                             return;
                         }
                     }
@@ -118,6 +118,7 @@ public class GlobalPlayerManager : MonoBehaviour
                     _characterSelectScreen.ReadyPlayer(idx);
                     _players[idx].Ready = true;
                     _players[idx].PlayerColor = currentColor;
+                    _characterSelectScreen.HideColorConflictWarning(idx); // hide any previous warning
                     
                 }
                 Debug.Log("submit action");
@@ -130,7 +131,18 @@ public class GlobalPlayerManager : MonoBehaviour
                     Debug.Log("Player " + idx + " not ready");
                     _characterSelectScreen.UnreadyPlayer(idx);
                     _players[idx].Ready = false;
-                    _players[idx].PlayerColor = Color.clear;
+                    var previousColor = _players[idx].PlayerColor;
+                    _players[idx].PlayerColor = Color.clear; // make player color free
+                    
+                    // Hide any warnings for other players that were blocked by this color
+                    for (int i = 0; i < _playerLimit; i++)
+                    {
+                        if (_players[i].Valid && playerColorSelector[i] == previousColor)
+                        {
+                            _characterSelectScreen.HideColorConflictWarning(i);
+                        }
+                    }
+                    
                 }
                 else
                 {
@@ -285,6 +297,7 @@ public interface ICharacterSelectScreen
     /// <param name="playerIndex">The index of the player changing their color</param
     public void ChangeColor(int playerIndex, int direction);
     
-    public void ShowColorTakenWarning(int playerIndex);
+    public void ShowColorConflictWarning(int playerIndex, int otherIndex);
 
+    public void HideColorConflictWarning(int playerIndex);
 }

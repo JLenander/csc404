@@ -14,6 +14,7 @@ namespace UIScripts
         
         private VisualElement[] _playerBoxes;
         private VisualElement _readyText;
+        private Label[] _playerColorWarnings;
         
         private int _readyPlayers = 0;
         private int _playerCount = 0;
@@ -24,22 +25,27 @@ namespace UIScripts
             Color.yellow,   // Player 3
         };
         
-        private int[] _playerColorIndices = { -1, -1, -1, -1 };
+        private int[] _playerColorIndices = { -1, -1, -1 };
         
         private GlobalPlayerManager _playerManager;
         
         void Start()
         {
             // TODO: no need after new design, just cue scene + spawn anchors
-            _playerBoxes = new VisualElement[4];
+            _playerBoxes = new VisualElement[3];
             
             var root = gameObject.GetComponent<UIDocument>().rootVisualElement;
             _playerBoxes[0] = root.Query<VisualElement>("Player1Selector");
             _playerBoxes[1] = root.Query<VisualElement>("Player2Selector");
             _playerBoxes[2] = root.Query<VisualElement>("Player3Selector");
-            _playerBoxes[3] = root.Query<VisualElement>("Player4Selector");
 
             _readyText = root.Query<VisualElement>("StartGameText");
+            
+            _playerColorWarnings = new Label[3];
+            for (int i = 0; i < 3; i++)
+            {
+                _playerColorWarnings[i] = root.Query<Label>("Player" + (i+1) + "ColorWarning").First();
+            }
             
             SetupBoxes();
             
@@ -83,7 +89,6 @@ namespace UIScripts
             _playerCount--;
         }
         
-        // TODO: change order of call -- color check logic in GlobalPlayerManager first, then call here for visual effect
         // TODO: play ready animation instead
         public void ReadyPlayer(int playerIndex)
         {
@@ -120,6 +125,7 @@ namespace UIScripts
             return _readyPlayers == _playerCount && _playerCount > 0;
         }
         
+        // Called in GLobalPlayerManager when a player changes color (left/right bumper action)
         public void ChangeColor(int playerIndex, int direction)
         {
             // Ignore color change if player is ready
@@ -138,31 +144,19 @@ namespace UIScripts
 
             // Update GlobalPlayerManager’s color selector
             _playerManager.playerColorSelector[playerIndex] = newColor;
+            HideColorConflictWarning(playerIndex);
         }
 
-        public void ShowColorTakenWarning(int playerIndex)
+        public void ShowColorConflictWarning(int playerIndex, int otherIndex)
         {
-            throw new System.NotImplementedException();
+            string message = "Color taken by Player " + otherIndex;
+            _playerColorWarnings[playerIndex].text = message;
+            _playerColorWarnings[playerIndex].visible = true;
         }
 
-        // public void ShowColorTakenWarning(int playerIndex)
-        // {
-        //     var playerBox = _playerBoxes[playerIndex];
-        //     var warning = playerBox.Query<Label>("WarningText");
-        //     if (warning != null)
-        //     {
-        //         warning.text = "Color taken!";
-        //         warning.visible = true;
-        //         StartCoroutine(HideWarningAfterDelay(warning));
-        //     }
-        // }
-        //
-        // private IEnumerator HideWarningAfterDelay(VisualElement warning)
-        // {
-        //     yield return new WaitForSeconds(1.5f);
-        //     warning.visible = false;
-        // }
-
-
+        public void HideColorConflictWarning(int playerIndex)
+        {
+            _playerColorWarnings[playerIndex].visible = false;
+        }
     }
 }

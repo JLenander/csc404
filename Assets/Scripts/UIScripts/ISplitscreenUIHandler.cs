@@ -31,6 +31,10 @@ public interface ISplitscreenUIHandler
     /// <param name="playerIndex">The player to hide the interaction text for</param>
     public void DisablePlayerInteractionText(int playerIndex);
 
+    public void EnablePlayerScreenGreyscale(int playerIndex);
+    public void DisablePlayerScreenGreyscale(int playerIndex);
+
+
     /// <summary>
     /// Show the outside camera (or eye camera)
     /// </summary>

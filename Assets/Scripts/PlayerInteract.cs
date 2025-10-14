@@ -12,7 +12,6 @@ public class PlayerInteract : MonoBehaviour
     Interactable currentItem;
 
     private InputAction _interactAction;
-
     private InputAction _returnAction;
 
     private Interactable interacting;
@@ -37,8 +36,6 @@ public class PlayerInteract : MonoBehaviour
     {
         CheckInteraction();
 
-        // Debug.Log("Current Item: " + currentItem);
-        // Debug.Log("Current Item: " + interacting);
         if (_interactAction.WasPressedThisFrame() && currentItem != null && interacting == null)
         {
             if (currentItem.CanInteract())
@@ -46,6 +43,10 @@ public class PlayerInteract : MonoBehaviour
                 Debug.Log("Interacting with " + currentItem);
                 interacting = currentItem;
                 currentItem.Interact(gameObject);
+                DisableCurrInteractable();
+
+                if (GlobalPlayerUIManager.Instance != null)
+                    GlobalPlayerUIManager.Instance.EnableScreenGreyscale(playerId);
             }
         }
 
@@ -53,6 +54,8 @@ public class PlayerInteract : MonoBehaviour
         {
             interacting?.Return(gameObject);
             interacting = null;
+            if (GlobalPlayerUIManager.Instance != null)
+                GlobalPlayerUIManager.Instance.DisableScreenGreyscale(playerId);
         }
 
     }

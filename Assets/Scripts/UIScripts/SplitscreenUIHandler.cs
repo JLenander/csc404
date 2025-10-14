@@ -40,10 +40,7 @@ public class SplitscreenUIHandler : MonoBehaviour, ISplitscreenUIHandler
             _playerInteractionGroups[i] = root.Query<VisualElement>("Player" + (i + 1) + "InteractionGroup").First();
             _playerGreyscaleOverlays[i] = root.Query<VisualElement>("Player" + (i + 1) + "GreyscaleOverlay").First();
             if (_playerGreyscaleOverlays[i] != null)
-            {
                 _playerGreyscaleOverlays[i].visible = false;
-                _playerGreyscaleOverlays[i].SendToBack();
-            }
             else
             {
                 Debug.Log(_playerGreyscaleOverlays[i] + "no greyscale overlay found");

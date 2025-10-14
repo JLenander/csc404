@@ -179,6 +179,40 @@ public class SplitscreenUIHandler : MonoBehaviour, ISplitscreenUIHandler
         }
     }
 
+    public void EnablePlayerScreenGreyscale(int playerIndex)
+    {
+        if (playerIndex < 0 || playerIndex >= NumPlayers)
+        {
+            Debug.LogError("Player index out of range");
+            return;
+        }
+
+        var overlay = _playerGreyscaleOverlays[playerIndex];
+        if (overlay != null)
+        {
+            overlay.visible = true;
+        }
+        else
+        {
+            Debug.LogWarning($"Greyscale overlay for Player {playerIndex + 1} not found.");
+        }
+    }
+
+    public void DisablePlayerScreenGreyscale(int playerIndex)
+    {
+        if (playerIndex < 0 || playerIndex >= NumPlayers)
+        {
+            Debug.LogError("Player index out of range");
+            return;
+        }
+
+        var overlay = _playerGreyscaleOverlays[playerIndex];
+        if (overlay != null)
+        {
+            overlay.visible = false;
+        }
+    }
+
     // TODO transition animation
     public void ShowOutsideCamera()
     {

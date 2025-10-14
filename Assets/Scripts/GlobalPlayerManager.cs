@@ -62,6 +62,10 @@ public class GlobalPlayerManager : MonoBehaviour
 
             // Add player to the character selection screen so they can start selecting their character.
             _characterSelectScreen.AddPlayer(idx);
+            
+            // register callbacks for the character select screen color change actions
+            _players[idx].LeftActionDelegate = ctx => _characterSelectScreen.ChangeColor(idx, -1);
+            _players[idx].RightActionDelegate = ctx => _characterSelectScreen.ChangeColor(idx, +1);
 
             // register callbacks for the character select screen actions.
             _players[idx].SubmitActionDelegate = ctx =>
@@ -106,6 +110,7 @@ public class GlobalPlayerManager : MonoBehaviour
                         if (i != idx && _players[i].Valid && _players[i].Ready && _players[i].PlayerColor == currentColor)
                         {
                             Debug.Log("Player " + idx + " attempted to ready with color taken by Player " + i);
+                            _characterSelectScreen.ShowColorTakenWarning(idx);
                             return;
                         }
                     }
@@ -136,6 +141,8 @@ public class GlobalPlayerManager : MonoBehaviour
             };
             InputActionMapper.GetCharacterSelectSubmitAction(playerInput).started += _players[idx].SubmitActionDelegate;
             InputActionMapper.GetCharacterSelectCancelAction(playerInput).started += _players[idx].CancelActionDelegate;
+            InputActionMapper.GetCharacterSelectLeftAction(playerInput).started += _players[idx].LeftActionDelegate;
+            InputActionMapper.GetCharacterSelectRightAction(playerInput).started += _players[idx].RightActionDelegate;
 
             // Ensure player is on the character select screen action map
             playerInput.SwitchCurrentActionMap(InputActionMapper.CharacterSelectActionMapName);
@@ -160,6 +167,9 @@ public class GlobalPlayerManager : MonoBehaviour
             // Remove the registered callbacks
             InputActionMapper.GetCharacterSelectSubmitAction(playerInput).started -= _players[playerInput.playerIndex].SubmitActionDelegate;
             InputActionMapper.GetCharacterSelectCancelAction(playerInput).started -= _players[playerInput.playerIndex].CancelActionDelegate;
+            InputActionMapper.GetCharacterSelectLeftAction(playerInput).started -= _players[playerInput.playerIndex].LeftActionDelegate;
+            InputActionMapper.GetCharacterSelectRightAction(playerInput).started -= _players[playerInput.playerIndex].RightActionDelegate;
+            
         }
         else
         {
@@ -238,6 +248,8 @@ public struct PlayerData
     public GameObject PlayerObject { get; set; }
     public Action<InputAction.CallbackContext> SubmitActionDelegate { get; set; }
     public Action<InputAction.CallbackContext> CancelActionDelegate { get; set; }
+    public Action<InputAction.CallbackContext> LeftActionDelegate { get; set; }
+    public Action<InputAction.CallbackContext> RightActionDelegate { get; set; }
     public Color PlayerColor { get; set; }
 }
 
@@ -266,4 +278,13 @@ public interface ICharacterSelectScreen
     /// </summary>
     /// <param name="playerIndex"></param>
     public void UnreadyPlayer(int playerIndex);
+    
+    /// <summary>
+    /// Change the color selection for a player.
+    /// </summary>
+    /// <param name="playerIndex">The index of the player changing their color</param
+    public void ChangeColor(int playerIndex, int direction);
+    
+    public void ShowColorTakenWarning(int playerIndex);
+
 }

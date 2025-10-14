@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -17,11 +18,15 @@ namespace UIScripts
         private int _readyPlayers = 0;
         private int _playerCount = 0;
         
-        private readonly Color[] _playerColors = {
+        private readonly Color[] _availableColors = {
             Color.red,      // Player 1
             Color.blue,     // Player 2
             Color.yellow,   // Player 3
         };
+        
+        private int[] _playerColorIndices = { -1, -1, -1, -1 };
+        
+        private GlobalPlayerManager _playerManager;
         
         void Start()
         {
@@ -37,6 +42,8 @@ namespace UIScripts
             _readyText = root.Query<VisualElement>("StartGameText");
             
             SetupBoxes();
+            
+            _playerManager = FindAnyObjectByType<GlobalPlayerManager>();
         }
 
         // Setup the initial states of the player select boxes
@@ -59,7 +66,7 @@ namespace UIScripts
             previewImg.visible = true;
             
             // Set player select box background color to player color
-            previewImg.style.backgroundColor = _playerColors[playerIndex];
+            previewImg.style.backgroundColor = _availableColors[playerIndex];
             
             _playerCount++;
         }
@@ -112,5 +119,50 @@ namespace UIScripts
         {
             return _readyPlayers == _playerCount && _playerCount > 0;
         }
+        
+        public void ChangeColor(int playerIndex, int direction)
+        {
+            // Ignore color change if player is ready
+            if (_playerManager.Players[playerIndex].Ready)
+                return;
+
+            // Cycle index
+            var max = _availableColors.Length;
+            _playerColorIndices[playerIndex] = (_playerColorIndices[playerIndex] + direction + max) % max;
+            var newColor = _availableColors[_playerColorIndices[playerIndex]];
+
+            // Update color box
+            var playerBox = _playerBoxes[playerIndex];
+            var previewImg = playerBox.Query<VisualElement>("CharacterPreview").First();
+            previewImg.style.backgroundColor = newColor;
+
+            // Update GlobalPlayerManager’s color selector
+            _playerManager.playerColorSelector[playerIndex] = newColor;
+        }
+
+        public void ShowColorTakenWarning(int playerIndex)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        // public void ShowColorTakenWarning(int playerIndex)
+        // {
+        //     var playerBox = _playerBoxes[playerIndex];
+        //     var warning = playerBox.Query<Label>("WarningText");
+        //     if (warning != null)
+        //     {
+        //         warning.text = "Color taken!";
+        //         warning.visible = true;
+        //         StartCoroutine(HideWarningAfterDelay(warning));
+        //     }
+        // }
+        //
+        // private IEnumerator HideWarningAfterDelay(VisualElement warning)
+        // {
+        //     yield return new WaitForSeconds(1.5f);
+        //     warning.visible = false;
+        // }
+
+
     }
 }

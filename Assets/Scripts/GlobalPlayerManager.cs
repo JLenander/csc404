@@ -16,7 +16,7 @@ public class GlobalPlayerManager : MonoBehaviour
     [SerializeField] private GameObject characterSelectScreen;
     private ICharacterSelectScreen _characterSelectScreen;
     
-    // To replace by colors player pick when ready
+    // To replace by colors player pick - to ference for conflict or pass to PlayerData when all ready
     public Color[] playerColorSelector =
     {
         Color.clear,      // Player 1

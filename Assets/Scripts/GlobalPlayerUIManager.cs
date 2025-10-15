@@ -8,7 +8,7 @@ using UnityEngine.UI;
 // used to control player UI in the splitscreen view, used to shake and dim their cameras
 public class GlobalPlayerUIManager : MonoBehaviour
 {
-    public static GlobalPlayerUIManager Instance;
+    public static GlobalPlayerUIManager Instance { get; private set; }
     private ISplitscreenUIHandler _splitscreenUIHandler;
     [SerializeField] private TMP_Text textPrefab; // prefab of prompt text
     [SerializeField] private List<TMP_Text> interactionText = new List<TMP_Text>(); // player texts
@@ -31,11 +31,21 @@ public class GlobalPlayerUIManager : MonoBehaviour
 
     private bool start = false;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void Awake()
+    {
+        // Setup singleton
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        } else 
+        {
+            Instance = this;
+        }
+    }
+    
+    public void Start()
     {
         DontDestroyOnLoad(gameObject);
-        Instance = this; // easier to reference
         _splitscreenUIHandler = FindAnyObjectByType<SplitscreenUIHandler>();
         DisableDim();
         DisablePixelate();

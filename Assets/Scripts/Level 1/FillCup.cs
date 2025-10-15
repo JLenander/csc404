@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngineInternal;
 
 public class FillCup : MonoBehaviour
 {
@@ -18,10 +17,11 @@ public class FillCup : MonoBehaviour
 
     void Start()
     {
-        baseScale = new Vector3(3.5f, initialHeight, 3.5f);
-        liquid.localScale = baseScale;
-        liquid.localPosition = Vector3.zero;
-        counter = 0;
+        float newYScale = maxFillHeight;
+        float yOffset = (newYScale - initialHeight) / 1.5f;
+
+        liquid.localScale = new Vector3(baseScale.x, newYScale, baseScale.z);
+        liquid.localPosition = new Vector3(0f, yOffset, 0f);
         StartCoroutine(WaitForScoreKeeper());
         DisableOutline();
     }
@@ -32,10 +32,27 @@ public class FillCup : MonoBehaviour
         ScoreKeeper.Instance.AddScoring("Filled Nova's coffee", 5, false, true, 0);
     }
 
+    public void StartTask()
+    {
+        // trigger nova animation (maybe done outside)
+
+        // set coffee to empty
+
+        baseScale = new Vector3(3.5f, initialHeight, 3.5f);
+        liquid.localScale = baseScale;
+        liquid.localPosition = Vector3.zero;
+        counter = 0;
+
+        // allow filling
+        full = false;
+    }
+
     public void AddCoffee()
-    {   
-        EnableOutline();
+    {
         if (full) return;
+
+        EnableOutline();
+
         counter++;
         if (counter > fullCounter)
         {

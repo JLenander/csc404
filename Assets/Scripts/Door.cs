@@ -3,17 +3,40 @@ using UnityEngine;
 public class Door : Interactable
 {
     [SerializeField] private Transform Destination;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public bool locked;
 
-    // Update is called once per frame
+    private void Start()
+    {
+        DisableOutline();
+        LockDoor();
+    }
+
     public override void Interact(GameObject player)
     {
-        CharacterController charControl = player.GetComponent<CharacterController>();
-        charControl.enabled = false;
-        player.transform.position = Destination.position;
-        charControl.enabled = true;
+        if (!locked)
+        {
+            CharacterController charControl = player.GetComponent<CharacterController>();
+            charControl.enabled = false;
+            player.transform.position = Destination.position;
+            charControl.enabled = true;
+        }
 
         PlayerInteract playerInteract = player.GetComponent<PlayerInteract>();
         playerInteract.NullInteracting();
+    }
+
+    public void UnlockDoor()
+    {
+        locked = false;
+        hoverMessage = "Enter Arm Tunnel";
+        msgColour = new Color(1, 1, 1, 1);
+        outlineColour = new Color(1, 1, 1, 1);
+    }
+    public void LockDoor()
+    {
+        locked = true;
+        hoverMessage = "[DOOR LOCKED] Unlock at Brain";
+        msgColour = new Color(1, 0, 0, 1);
+        outlineColour = new Color(1, 0, 0, 1);
     }
 }

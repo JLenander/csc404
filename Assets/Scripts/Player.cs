@@ -48,7 +48,6 @@ public class Player : MonoBehaviour
         _characterController.enabled = false;
         this.transform.position = new Vector3(-1.0f, 5.0f, -3.0f);
         _characterController.enabled = true;
-        Cursor.lockState = CursorLockMode.Locked;
 
         _controlFunc = ControlPlayer;
     }
@@ -150,12 +149,18 @@ public class Player : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Disable all player control
+    /// </summary>
     public void TurnOff()
     {
         disableMovement = true;
         disableRotate = true;
     }
 
+    /// <summary>
+    /// Enable all player control
+    /// </summary>
     public void TurnOn()
     {
         disableMovement = false;

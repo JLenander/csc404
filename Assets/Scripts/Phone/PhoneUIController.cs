@@ -28,6 +28,10 @@ public class PhoneUIController : MonoBehaviour
 
     [SerializeField] private DialogueScriptableObj matchDialogue;
 
+    public SceneExitDoor sceneExitDoor;
+
+    public Vector3 target;
+
     private int index = 0;
     private int count = 0;
     private int swipeDirection = 0; // -1 = left, 1 = right
@@ -35,12 +39,20 @@ public class PhoneUIController : MonoBehaviour
     private bool swiping = false;
     private bool locked = true;
     private bool remarked = false;
+    private TaskManager taskManager;
+    private bool matchedText = false;
 
     private void Awake()
     {
         rt = screenImage.rectTransform;
+        StartCoroutine(WaitForTaskManager());
+    }
 
-        GlobalPlayerUIManager.Instance.LoadText(openingDialogue);
+    IEnumerator WaitForTaskManager()
+    {
+        yield return new WaitUntil(() => TaskManager.Instance != null);
+        taskManager = TaskManager.Instance;
+        taskManager.StartTask("GoPhone");
     }
 
     // Toggle between two swipe screens, for now
@@ -87,14 +99,15 @@ public class PhoneUIController : MonoBehaviour
 
         // once hit min swipes no matter left or right
         // start count down before showing nova's profile
-        if (count > profiles.Count && !remarked)
-        {
-            remarked = true;
-            GlobalPlayerUIManager.Instance.LoadText(cheekyDialogue);
-        }
+        // if (count > profiles.Count && !remarked)
+        // {
+        //     remarked = true;
+        //     GlobalPlayerUIManager.Instance.LoadText(cheekyDialogue);
+        // }
 
-        if (count > countBeforeMatch)
+        if (count > countBeforeMatch && !matchedText)
         {
+            matchedText = true;
             StartCoroutine(MatchRoutine());
         }
     }
@@ -132,10 +145,20 @@ public class PhoneUIController : MonoBehaviour
 
         GlobalPlayerUIManager.Instance.LoadText(matchDialogue);
 
+        // enable exit door
+        sceneExitDoor.enabled = true;
 
-        // exit this scene (fade cam to black)
+        // move the door into scene
+        while (Vector3.Distance(transform.position, target) > 0.01f)
+        {
+            sceneExitDoor.transform.position = Vector3.MoveTowards(sceneExitDoor.transform.position, target, 5 * Time.deltaTime);
+            yield return null;
+        }
 
-        // show scoreboard?
+        // Snap to target just in case
+        sceneExitDoor.transform.position = target;
+        taskManager.CompleteTask("Swipe");
+        taskManager.StartTask("LeavePhone");
     }
 
     public void Unlock()

@@ -6,6 +6,7 @@ public class TriggerSeat : MonoBehaviour
     public CharacterController robotCharController;
     public RobotMovement robotMovement;
     public Transform robot;
+    public SceneExitDoor sceneExitDoor;
 
     private bool triggered = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -30,9 +31,14 @@ public class TriggerSeat : MonoBehaviour
         robot.position = position;
         robot.rotation = new Quaternion(0, 180, 0, 0);
         GlobalPlayerUIManager.Instance.StopWalkingShake();
+        BoxCollider collider = GetComponent<BoxCollider>();
+        collider.enabled = false;
+    }
 
-        // robotCharController.enabled = true;
-
-        gameObject.SetActive(false);
+    public void StandRobot()
+    {
+        robotCharController.enabled = true;
+        // enable the exit door collier
+        sceneExitDoor.enabled = true;
     }
 }

@@ -83,6 +83,10 @@ public class TaskManager : MonoBehaviour
     {
         activeTasks.Add(task);
         PassDataUI();
+        if (task.id != "FixRight" && task.id != "FixLeft")
+        {
+            PopUpUIHandler.Instance.ShowPopUp();
+        }
     }
 
     public void RemoveActiveTask(Task task)

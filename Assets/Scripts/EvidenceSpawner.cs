@@ -15,9 +15,8 @@ public class EvidenceSpawner : MonoBehaviour
     public AudioSource audioSource;
 
     public GameObject uniqueEvidence;
-    public Transform uniqueAnchor;
 
-    public int numSeconds = 3;
+    public float numSeconds = 7;
     public int numTimes = 10;
     private float spawnTimer;
     private int evidenceCount; // keep track of num evidences in scene
@@ -55,16 +54,8 @@ public class EvidenceSpawner : MonoBehaviour
             audioSource.Play();
 
         uniqueEvidence.SetActive(true);
-        uniqueEvidence.transform.position = uniqueAnchor.position;
         Evidence evidence = uniqueEvidence.GetComponent<Evidence>();
         evidence.SetEvidenceSpawner(this);
-        Rigidbody rb = uniqueEvidence.GetComponent<Rigidbody>();
-
-        if (rb != null)
-        {
-            rb.linearVelocity = Vector3.zero; // reset before applying force
-            rb.AddForce(uniqueAnchor.forward * launchForce, ForceMode.Impulse);
-        }
     }
 
     public void EvidenceBurst()

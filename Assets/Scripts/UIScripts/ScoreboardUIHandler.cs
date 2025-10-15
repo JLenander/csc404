@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class ScoreboardUIHandler : MonoBehaviour
@@ -242,6 +245,34 @@ public class ScoreboardUIHandler : MonoBehaviour
 
         letterGrade.text = data.letter;
         letterGrade.visible = true;
+
+        bool inputDetected = false;
+
+        while (!inputDetected)
+        {
+
+            foreach (var gamepad in Gamepad.all)
+            {
+                if (gamepad == null) continue;
+
+                foreach (var control in gamepad.allControls)
+                {
+                    if (control is ButtonControl button && button.wasPressedThisFrame)
+                    {
+                        inputDetected = true;
+                        break;
+                    }
+                }
+
+                if (inputDetected)
+                    break;
+            }
+
+            yield return null; // wait next frame
+        }
+
+        // exit back to level select
+        CloseScoreboard();
     }
 
     void CloseScoreboard()
@@ -250,5 +281,7 @@ public class ScoreboardUIHandler : MonoBehaviour
         letterGrade.visible = false;
         scoreboardContent.visible = false;
         scoreboardContainer.visible = false;
+
+        SceneManager.LoadScene(SceneConstants.LevelSelectScene);
     }
 }

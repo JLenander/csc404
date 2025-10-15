@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Phone : InteractableObject
@@ -8,6 +9,10 @@ public class Phone : InteractableObject
     private Transform parent;
     private Rigidbody rg;
 
+    private TaskManager taskManager;
+
+    private bool first;
+
     public override void Start()
     {
         base.Start();
@@ -16,6 +21,8 @@ public class Phone : InteractableObject
         parent = transform.parent;
 
         rg = GetComponent<Rigidbody>();
+
+        first = true;
     }
 
     public override void InteractWithHand(Transform obj, HandMovement target)
@@ -36,6 +43,12 @@ public class Phone : InteractableObject
             target.SetTargetCurrentObject(this);
             target.oppositeHandAnimator.SetTrigger("Point"); // sets the opposite hand to point
             target.handAnimator.SetTrigger("Hold"); // sets current hand to hold anim
+
+            if (first)
+            {
+                TaskManager.Instance.CompleteTask("Pickup");
+                TaskManager.Instance.StartTask("Swipe");
+            }
         }
     }
 

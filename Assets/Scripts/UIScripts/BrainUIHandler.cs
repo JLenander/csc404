@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 public class BrainUIHandler : OverlayUIHandler
 {
     public static BrainUIHandler Instance;
-
+    public PopUpUIHandler popUpUIHandler;
     private VisualElement doorUI;
     private VisualElement taskUI;
     private Label leftDoorText, rightDoorText, l2, r2;

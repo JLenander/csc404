@@ -15,6 +15,7 @@ public class GlobalPlayerManager : MonoBehaviour
     // The UI handler for the character select screen
     [SerializeField] private GameObject characterSelectScreen;
     private ICharacterSelectScreen _characterSelectScreen;
+    [SerializeField] private Camera mainCamera;
     
     // To replace by colors player pick - to ference for conflict or pass to PlayerData when all ready
     public Color[] playerColorSelector =
@@ -35,7 +36,8 @@ public class GlobalPlayerManager : MonoBehaviour
         _players = new PlayerData[_playerLimit];
         for (int i = 0; i < _playerLimit; i++)
         {
-            _players[i].Index = i;
+            // _players[i].Index = i;
+            _players[i] = new PlayerData { Index = i };
         }
 
         // Register handlers for when a player joins or leaves
@@ -61,7 +63,7 @@ public class GlobalPlayerManager : MonoBehaviour
             _players[idx].Valid = true;
 
             // Add player to the character selection screen so they can start selecting their character.
-            _characterSelectScreen.AddPlayer(idx);
+            _characterSelectScreen.AddPlayer(playerInput, idx);
             
             // register callbacks for the character select screen color change actions
             _players[idx].LeftActionDelegate = ctx => _characterSelectScreen.ChangeColor(idx, -1);
@@ -91,6 +93,8 @@ public class GlobalPlayerManager : MonoBehaviour
                             }
                         }
                     }
+                    // disable main camera
+                    mainCamera.enabled = false;
 
                     // pass these players to UI manager
                     GlobalPlayerUIManager.Instance.PassPlayers(_players);
@@ -270,8 +274,9 @@ public interface ICharacterSelectScreen
     /// <summary>
     /// Add a player to the character selection screen to allow them to select their character.
     /// </summary>
+    /// <param name="playerInput"></param>
     /// <param name="playerIndex"></param>
-    public void AddPlayer(int playerIndex);
+    public void AddPlayer(PlayerInput playerInput, int playerIndex);
 
     /// <summary>
     /// Remove a player by index from the character selection screen.

@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -10,12 +12,14 @@ namespace UIScripts
     /// </summary>
     public class CharacterSelectHandler : MonoBehaviour, ICharacterSelectScreen
     {
-        private const string PlayerCharacterPreviewName = "CharacterPreview";
+        [SerializeField] private Transform[] spawnPoints;
+        [SerializeField] private GameObject playerCharacterPrefab;
         
-        private VisualElement[] _playerBoxes;
-        private VisualElement _readyText;
-        private Label[] _playerColorWarnings;
+        private readonly Dictionary<int, GameObject> _playerModels = new();
+        private readonly Dictionary<int, CharacterSelectController> _playerController = new();
         
+        private GlobalPlayerManager _playerManager;
+          
         private int _readyPlayers = 0;
         private int _playerCount = 0;
         
@@ -27,63 +31,57 @@ namespace UIScripts
         
         private int[] _playerColorIndices = { -1, -1, -1 };
         
-        private GlobalPlayerManager _playerManager;
+        // private CharacterSelectController _controller;
+        
+        [SerializeField] private UIDocument characterSelectUIDocument;
+        [SerializeField] private Camera playerSelectCamera;
         
         void Start()
         {
-            // TODO: no need after new design, just cue scene + spawn anchors
-            _playerBoxes = new VisualElement[3];
-            
-            var root = gameObject.GetComponent<UIDocument>().rootVisualElement;
-            _playerBoxes[0] = root.Query<VisualElement>("Player1Selector");
-            _playerBoxes[1] = root.Query<VisualElement>("Player2Selector");
-            _playerBoxes[2] = root.Query<VisualElement>("Player3Selector");
-
-            _readyText = root.Query<VisualElement>("StartGameText");
-            
-            _playerColorWarnings = new Label[3];
-            for (int i = 0; i < 3; i++)
-            {
-                _playerColorWarnings[i] = root.Query<Label>("Player" + (i+1) + "ColorWarning").First();
-            }
-            
-            SetupBoxes();
-            
             _playerManager = FindAnyObjectByType<GlobalPlayerManager>();
+            if (playerSelectCamera != null)
+                playerSelectCamera.gameObject.SetActive(true);   
+            if (characterSelectUIDocument != null)
+                characterSelectUIDocument.rootVisualElement.visible = false;
         }
+        // void OnDestroy()
+        // {
+        //     if (playerSelectCamera != null)
+        //         playerSelectCamera.gameObject.SetActive(false);   
+        //     if (characterSelectUIDocument != null)
+        //         characterSelectUIDocument.rootVisualElement.visible = false;
+        // }
+        public void AddPlayer(PlayerInput playerInput, int playerIndex)
+        {
+            // Spawn the 3D model
+            var spawn = spawnPoints[playerIndex];
+            var model = Instantiate(playerCharacterPrefab, spawn.position, spawn.rotation);
+            model.transform.localScale *= 20f;
+            // disable model camera
+            var modelCamera = model.GetComponentsInChildren<Camera>();
+            foreach (var cam in modelCamera)
+                cam.enabled = false;
+            // Set the model color
+            var outline = model.GetComponent<Outline>();
+            outline.OutlineColor = _availableColors[playerIndex];
+            // Track the model for despawning later
+            _playerModels[playerIndex] = model;
 
-        // Setup the initial states of the player select boxes
-        // TODO: no need after new design
-        private void SetupBoxes()
-        {
-            foreach (var playerBox in _playerBoxes)
-            {
-                var previewImg = playerBox.Query<VisualElement>(name: PlayerCharacterPreviewName).First();
-                previewImg.visible = false;
-            }
-        }
-        
-        // TODO: spawn players at anchors instead
-        public void AddPlayer(int playerIndex)
-        {
-            // show the character select preview img
-            var playerBox =  _playerBoxes[playerIndex];
-            var previewImg = playerBox.Query<VisualElement>(name: PlayerCharacterPreviewName).First();
-            previewImg.visible = true;
-            
-            // Set player select box background color to player color
-            previewImg.style.backgroundColor = _availableColors[playerIndex];
+            // Link model to player input
+            var _controller = model.GetComponent<CharacterSelectController>();
+            _controller.Init(playerInput, playerIndex);
+            _playerController[playerIndex] = _controller;
             
             _playerCount++;
         }
 
-        // TODO: despawn players instead
         public void RemovePlayer(int playerIndex)
         {
-            // hide character select preview image
-            var playerBox =  _playerBoxes[playerIndex];
-            var previewImg = playerBox.Query<VisualElement>(name: PlayerCharacterPreviewName).First();
-            previewImg.visible = false;
+            if (_playerModels.TryGetValue(playerIndex, out var model))
+            {
+                Destroy(model);
+                _playerModels.Remove(playerIndex);
+            }             
             
             UnreadyPlayer(playerIndex);
             _playerCount--;
@@ -92,29 +90,37 @@ namespace UIScripts
         // TODO: play ready animation instead
         public void ReadyPlayer(int playerIndex)
         {
-            // highlight the player box with an outline to indicate they have readied up
-            var playerBox =  _playerBoxes[playerIndex];
-            playerBox.AddToClassList("playerConfirmed");
+            // TODO: highlight player box to indicate readied up
+            // var playerBox =  _playerBoxes[playerIndex];
+            // playerBox.AddToClassList("playerConfirmed");
+            
+            _playerController[playerIndex].ToggleReady(true);
             
             _readyPlayers++;
-            if (AllPlayersReady())
-            {
-                _readyText.visible = true;
-            }
-            else
-            {
-                _readyText.visible = false;
-            }
             
+            if (AllPlayersReady())
+                Debug.Log("All players ready!");
+            
+            // TODO: Show "Press __ to start game" text if all players are ready
+            // if (AllPlayersReady())
+            // {
+            //     _readyText.visible = true;
+            // }
+            // else
+            // {
+            //     _readyText.visible = false;
+            // }
             
         }       
         
         // TODO: play unready animation instead
         public void UnreadyPlayer(int playerIndex)
         {
-            // unhighlight the player box
-            var playerBox =  _playerBoxes[playerIndex];
-            playerBox.RemoveFromClassList("playerConfirmed");
+            // TODO: unhighlight the player box
+            // var playerBox =  _playerBoxes[playerIndex];
+            // playerBox.RemoveFromClassList("playerConfirmed");
+            
+            _playerController[playerIndex].ToggleReady(false);
             
             _readyPlayers--;
         }
@@ -136,12 +142,8 @@ namespace UIScripts
             var max = _availableColors.Length;
             _playerColorIndices[playerIndex] = (_playerColorIndices[playerIndex] + direction + max) % max;
             var newColor = _availableColors[_playerColorIndices[playerIndex]];
-
-            // Update color box
-            var playerBox = _playerBoxes[playerIndex];
-            var previewImg = playerBox.Query<VisualElement>("CharacterPreview").First();
-            previewImg.style.backgroundColor = newColor;
-
+            _playerController[playerIndex].ChangeColor(newColor);
+            
             // Update GlobalPlayerManager’s color selector
             _playerManager.playerColorSelector[playerIndex] = newColor;
             HideColorConflictWarning(playerIndex);
@@ -150,13 +152,34 @@ namespace UIScripts
         public void ShowColorConflictWarning(int playerIndex, int otherIndex)
         {
             string message = "Color taken by Player " + otherIndex;
-            _playerColorWarnings[playerIndex].text = message;
-            _playerColorWarnings[playerIndex].visible = true;
+            
+            _playerController[playerIndex].ShowLabel(message);
         }
 
         public void HideColorConflictWarning(int playerIndex)
         {
-            _playerColorWarnings[playerIndex].visible = false;
+            _playerController[playerIndex].HideLabel();
+        }
+        
+        // Visualize spawn points in the Scene view
+        private void OnDrawGizmos()
+        {
+            if (spawnPoints == null) return;
+
+            Gizmos.color = Color.green;
+            for (int i = 0; i < spawnPoints.Length; i++)
+            {
+                if (spawnPoints[i] != null)
+                {
+                    // Draw a sphere at the spawn point
+                    Gizmos.DrawWireSphere(spawnPoints[i].position, 0.25f);
+
+                    // Draw a label with the player number
+                    #if UNITY_EDITOR
+                    UnityEditor.Handles.Label(spawnPoints[i].position + Vector3.up * 0.3f, "P" + (i + 1));
+                    #endif
+                }
+            }
         }
     }
 }

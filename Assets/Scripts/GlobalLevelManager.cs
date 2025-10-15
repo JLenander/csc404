@@ -73,11 +73,32 @@ public class GlobalLevelManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Load the Level Select screen, running all pre-scene loading handlers and handling the loading screen
+    /// </summary>
     public void LoadLevelSelectScreen()
     {
         SceneManager.LoadScene(SceneConstants.LevelSelectScene);
     }
     
+    /// <summary>
+    /// Load a scene, running all pre-level loading handlers (TODO and handling the loading screen)
+    /// <br />
+    /// The Level Select manager handles loading <i>game levels</i> (and their locked/unlocked status) through the <see cref="StartLevel"/> method.
+    /// Do not use this method for <i>game levels</i> unless you want to bypass the level select screen and ignore level locked status.
+    /// </summary>
+    /// <param name="sceneName">The name of the scene to load. Do not use magic strings, see <see cref="SceneConstants"/></param>
+    public void LoadLevel(string sceneName)
+    {
+        GlobalPlayerManager.Instance?.PrepareAllPlayersForSceneChange();
+        // TODO: Add a loading screen or loading animation
+        SceneManager.LoadScene(sceneName);
+    }
+    
+    /// <summary>
+    /// Start a level based on the levelIndex. Used in the level select screen / level select manager.
+    /// </summary>
+    /// <param name="levelIndex"></param>
     public void StartLevel(int levelIndex)
     {
         Debug.Log("Starting Level at index " + levelIndex + " (" + GameConfig.Levels[levelIndex].sceneName + ")");
@@ -91,7 +112,7 @@ public class GlobalLevelManager : MonoBehaviour
         
         if (level.status != LevelStatus.Locked)
         {
-            SceneManager.LoadScene(level.sceneName);
+            LoadLevel(level.sceneName);
         }
         else
         {

@@ -68,14 +68,20 @@ public class PlayerInteract : MonoBehaviour
     void CheckInteraction()
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> d40fb4e (interaction group)
         if (interacting != null)
         {
             SetReturnText(interacting);
             return;
         }
+<<<<<<< HEAD
 =======
         if (interacting != null) return;
 >>>>>>> 8608942 (transparent black screen overlay)
+=======
+>>>>>>> d40fb4e (interaction group)
 
         RaycastHit hit;
 
@@ -123,10 +129,13 @@ public class PlayerInteract : MonoBehaviour
             GlobalPlayerUIManager.Instance.EnableInteractionText(playerId, "To Return", currItem.msgColour);
     }
 
+<<<<<<< HEAD
     /// <summary>
     /// Visually enable the interaction prompt for the Interactable object newInteractable that this player is looking at
     /// </summary>
     /// <param name="newInteractable"></param>
+=======
+>>>>>>> d40fb4e (interaction group)
     void SetNewCurrInteractable(Interactable newInteractable)
     {
         currentItem = newInteractable;

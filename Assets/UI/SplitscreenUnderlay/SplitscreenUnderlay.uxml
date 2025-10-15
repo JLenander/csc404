@@ -19,7 +19,6 @@
             <ui:VisualElement name="Player2NotJoined" style="flex-grow: 1; background-color: rgb(193, 193, 193); justify-content: center;">
                 <ui:Label text="Player 2&#10;Not Joined" style="-unity-text-align: middle-center; font-size: 96px; justify-content: flex-start; align-self: center;" />
             </ui:VisualElement>
-            <ui:VisualElement name="Player2GreyscaleOverlay" class="greyscale-overlay" />
         </ui:VisualElement>
         <ui:VisualElement name="Player3" style="flex-grow: 0; width: 50%; height: 50%; position: absolute; top: auto; left: 0; right: auto; bottom: 0;">
             <ui:VisualElement name="Player3GreyscaleOverlay" class="greyscale-overlay" />
@@ -31,7 +30,6 @@
             <ui:VisualElement name="Player3NotJoined" style="flex-grow: 1; background-color: rgb(193, 193, 193); justify-content: center;">
                 <ui:Label text="Player 3&#10;Not Joined" style="-unity-text-align: middle-center; font-size: 96px; justify-content: flex-start; align-self: center;" />
             </ui:VisualElement>
-            <ui:VisualElement name="Player3GreyscaleOverlay" class="greyscale-overlay" />
         </ui:VisualElement>
         <ui:VisualElement name="OutsideCamera" style="flex-grow: 0; width: 50%; height: 50%; position: absolute; top: auto; left: auto; right: 0; bottom: 0;">
             <ui:VisualElement name="OutsideCamOffOverlay" style="flex-grow: 1; background-color: rgb(193, 193, 193); justify-content: center; opacity: 1;">

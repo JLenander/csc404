@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TaskInfoSO
   title: Refill coffee
   description: Find a coffee pot and refill Nova's coffee cup.
-  location: Right Arm
-  urgency: High
+  location: Arms
+  urgency: Normal
   targetProgress: 1

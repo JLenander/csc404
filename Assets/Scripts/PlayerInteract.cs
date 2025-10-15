@@ -64,7 +64,11 @@ public class PlayerInteract : MonoBehaviour
 
     void CheckInteraction()
     {
-        if (interacting != null) return;
+        if (interacting != null)
+        {
+            SetReturnText(interacting);
+            return;
+        }
 
         RaycastHit hit;
 
@@ -104,6 +108,12 @@ public class PlayerInteract : MonoBehaviour
         {
             DisableCurrInteractable();
         }
+    }
+
+    void SetReturnText(Interactable currItem)
+    {
+        if (GlobalPlayerUIManager.Instance != null)
+            GlobalPlayerUIManager.Instance.EnableInteractionText(playerId, "To Return", currItem.msgColour);
     }
 
     /// <summary>

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
@@ -11,6 +12,7 @@ public class SplitscreenUIHandler : MonoBehaviour, ISplitscreenUIHandler
     private VisualElement _player2Overlay;
     private VisualElement _player3Overlay;
     // Player Interaction texts
+    private VisualElement[] _playerInteractionGroups;
     private Label[] _playerInteractionTexts;
     private VisualElement[] _playerGreyscaleOverlays;
 
@@ -30,14 +32,19 @@ public class SplitscreenUIHandler : MonoBehaviour, ISplitscreenUIHandler
         _player2Overlay = root.Query<VisualElement>("Player2NotJoined").First();
         _player3Overlay = root.Query<VisualElement>("Player3NotJoined").First();
 
+        _playerInteractionGroups = new VisualElement[NumPlayers];
         _playerInteractionTexts = new Label[NumPlayers];
         _playerGreyscaleOverlays = new VisualElement[NumPlayers];
         for (int i = 0; i < NumPlayers; i++)
         {
-            _playerInteractionTexts[i] = root.Query<Label>("Player" + (i + 1) + "InteractionText").First();
+            _playerInteractionGroups[i] = root.Query<VisualElement>("Player" + (i + 1) + "InteractionGroup").First();
+            //_playerInteractionTexts[i] = root.Query<Label>("Player" + (i + 1) + "InteractionText").First();
             _playerGreyscaleOverlays[i] = root.Query<VisualElement>("Player" + (i + 1) + "GreyscaleOverlay").First();
             if (_playerGreyscaleOverlays[i] != null)
+            {
                 _playerGreyscaleOverlays[i].visible = false;
+                _playerGreyscaleOverlays[i].SendToBack();
+            }
             else
             {
                 Debug.Log(_playerGreyscaleOverlays[i] + "no greyscale overlay found");
@@ -119,10 +126,14 @@ public class SplitscreenUIHandler : MonoBehaviour, ISplitscreenUIHandler
             Debug.LogError("PlayerIndex out of range");
             return;
         }
+        var group = _playerInteractionGroups[playerIndex];
+        if (group == null) return;
 
-        _playerInteractionTexts[playerIndex].style.color = msgColour;
-        _playerInteractionTexts[playerIndex].text = content;
-        _playerInteractionTexts[playerIndex].visible = true;
+        var interactionText = group.Q<Label>("InteractionText");
+        interactionText.style.color = msgColour;
+        interactionText.text = content;
+
+        group.visible = true;
     }
 
     public void DisablePlayerInteractionText(int playerIndex)
@@ -132,8 +143,7 @@ public class SplitscreenUIHandler : MonoBehaviour, ISplitscreenUIHandler
             Debug.LogError("PlayerIndex out of range");
             return;
         }
-
-        _playerInteractionTexts[playerIndex].visible = false;
+        _playerInteractionGroups[playerIndex].visible = false;
     }
 
     public void EnablePlayerScreenGreyscale(int playerIndex)

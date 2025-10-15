@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,6 +22,7 @@ public class HeadConsole : Interactable
     public AudioSource hookSource;
     public AudioSource interactSource;
     public AudioSource denySource;
+    private TaskManager taskManager;
 
     void Start()
     {
@@ -29,6 +31,14 @@ public class HeadConsole : Interactable
         // for grapple arm
         _leftJammed = _rightJammed = false;
         _leftShot = _rightShot = false;
+
+        StartCoroutine(WaitForTaskManager());
+    }
+
+    IEnumerator WaitForTaskManager()
+    {
+        yield return new WaitUntil(() => TaskManager.Instance != null);
+        taskManager = TaskManager.Instance;
     }
 
     // for grapple arm, check trigger input to shoot or retract
@@ -161,8 +171,30 @@ public class HeadConsole : Interactable
     public void JamArm(bool left, bool state)
     {
         if (left)
+        {
             _leftJammed = state;
+            if (state)
+            {
+                taskManager.StartTask("FixLeft");
+            }
+            else
+            {
+                taskManager.CompleteTask("FixLeft");
+            }
+        }
+
         else
+        {
             _rightJammed = state;
+            if (state)
+            {
+                taskManager.StartTask("FixRight");
+            }
+            else
+            {
+                taskManager.CompleteTask("FixRight");
+            }
+        }
+
     }
 }

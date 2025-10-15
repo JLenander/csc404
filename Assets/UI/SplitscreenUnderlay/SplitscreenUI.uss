@@ -48,5 +48,4 @@
     left-margin: 8px;
     background-color: rgba(0, 0, 0, 0.4);
     opacity: 0;
-    z-index: 10;
 }

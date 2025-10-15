@@ -32,8 +32,7 @@ public class TaskManager : MonoBehaviour
 
     public void RegisterTask(Task task)
     {
-        if (!_tasks.ContainsKey(task.id))
-            _tasks.Add(task.id, task);
+        _tasks.TryAdd(task.id, task);
     }
 
     public Task GetTask(string id)

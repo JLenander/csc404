@@ -35,6 +35,10 @@ public class HeadConsole : Interactable
         StartCoroutine(WaitForTaskManager());
     }
 
+    /// <summary>
+    /// Needed to ensure the instance isn't null before referencing it (although this shouldn't happen) - Joshua Li
+    /// </summary>
+    /// <returns></returns>
     IEnumerator WaitForTaskManager()
     {
         yield return new WaitUntil(() => TaskManager.Instance != null);

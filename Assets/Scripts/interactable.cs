@@ -23,9 +23,11 @@ public class Interactable : MonoBehaviour
     {
         onInteraction.Invoke();
 
-        // most interactables will not be stuck on interaction
+        // By default an Interactable Object is a one time interaction.
+        // Override this and don't call `playerInteract.LeaveCurrInteractable()` if you want the interaction to require a leave action.
+        // TODO one time interactable vs continous interactable class?
         PlayerInteract playerInteract = player.GetComponent<PlayerInteract>();
-        playerInteract.NullInteracting();
+        playerInteract.LeaveCurrInteractable();
     }
 
     public virtual void Return(GameObject player)

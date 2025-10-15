@@ -142,8 +142,9 @@ public class PhoneUIController : MonoBehaviour
 
         locked = true; // lock swiping
         screenImage.sprite = match;
+        nextImage.sprite = match;
 
-        GlobalPlayerUIManager.Instance.LoadText(matchDialogue);
+        taskManager.CompleteTask("Swipe");
 
         // enable exit door
         sceneExitDoor.enabled = true;
@@ -151,14 +152,16 @@ public class PhoneUIController : MonoBehaviour
         // move the door into scene
         while (Vector3.Distance(transform.position, target) > 0.01f)
         {
-            sceneExitDoor.transform.position = Vector3.MoveTowards(sceneExitDoor.transform.position, target, 5 * Time.deltaTime);
+            sceneExitDoor.transform.position = Vector3.MoveTowards(sceneExitDoor.transform.position, target, 10 * Time.deltaTime);
             yield return null;
         }
 
         // Snap to target just in case
         sceneExitDoor.transform.position = target;
-        taskManager.CompleteTask("Swipe");
+
         taskManager.StartTask("LeavePhone");
+
+        // GlobalPlayerUIManager.Instance.LoadText(matchDialogue);
     }
 
     public void Unlock()

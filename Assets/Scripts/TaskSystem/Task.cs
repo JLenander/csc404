@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 [Serializable]
 public class Task
@@ -7,6 +8,8 @@ public class Task
     public string id;
     public string title;
     [TextArea] public string description;
+    public string location;
+    public string urgency;
 
     public int currentProgress;
     public int targetProgress = 1;
@@ -14,11 +17,11 @@ public class Task
     public bool canStart;
     public bool isActive;
 
-    public bool isCompleted => currentProgress >= targetProgress;
+    public UnityEvent onStart;
 
-    public event Action<Task> OnProgressUpdated;
-    public event Action<Task> OnCompleted;
-    public event Action<Task> OnStarted;
+    public UnityEvent onComplete;
+
+    public bool isCompleted => currentProgress >= targetProgress;
 
     // start task only if it can start and not completed
     public void StartTask()
@@ -28,7 +31,7 @@ public class Task
             Debug.LogWarning($"Task '{id}' already completed!");
             return;
         }
-         
+
         if (!canStart)
         {
             Debug.LogWarning($"Task '{id}' cannot start yet!");
@@ -38,11 +41,40 @@ public class Task
         currentProgress = 0;
         isActive = true;
         Debug.Log($"Task '{id}' started!");
-        OnStarted?.Invoke(this);
+
+        onStart?.Invoke();
+
+        TaskManager.Instance.AppendActiveTask(this);
     }
 
     // Add progress (only if started and not already complete)
-    public void AddProgress(int amount)
+    // public void AddProgress()
+    // {
+    //     if (!canStart)
+    //     {
+    //         Debug.LogWarning($"Task '{id}' can't progress because it hasn't started.");
+    //         return;
+    //     }
+
+    //     if (isCompleted)
+    //     {
+    //         Debug.Log($"Task '{id}' is already completed!");
+    //         return;
+    //     }
+    //     currentProgress = Mathf.Min(currentProgress + amount, targetProgress);
+    //     Debug.Log(currentProgress);
+
+    //     if (isCompleted)
+    //     {
+    //         Debug.Log($"Task '{id}' completed!");
+    //         ResetTask();
+
+    //         // TASK COMPLETED
+    //         TaskManager.Instance.RemoveActiveTask(this);
+    //     }
+    // }
+
+    public void CompleteTask()
     {
         if (!canStart)
         {
@@ -50,21 +82,13 @@ public class Task
             return;
         }
 
-        if (isCompleted)
-        {
-            Debug.Log($"Task '{id}' is already completed!");
-            return;
-        }
-        currentProgress = Mathf.Min(currentProgress + amount, targetProgress);
-        Debug.Log(currentProgress);
-        OnProgressUpdated?.Invoke(this);
+        Debug.Log($"Task '{id}' completed!");
+        ResetTask();
 
-        if (isCompleted)
-        {
-            Debug.Log($"Task '{id}' completed!");
-            OnCompleted?.Invoke(this);
-            ResetTask();
-        }
+        onComplete?.Invoke();
+
+        // TASK COMPLETED
+        TaskManager.Instance.RemoveActiveTask(this);
     }
 
     public void ResetTask()

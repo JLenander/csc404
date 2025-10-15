@@ -16,7 +16,8 @@ public class BrainConsole : Interactable
     [SerializeField] GameObject rightEscapeDoorObj;
 
     private Door leftDoor, rightDoor, leftEscapeDoor, rightEscapeDoor;
-    private InputAction _leftTriggerAction, _rightTriggerAction, _leftBumperAction, _rightBumperAction;
+    private InputAction _leftTriggerAction, _rightTriggerAction,
+                        _leftBumperAction, _rightBumperAction, _lookAction;
 
     private BrainUIHandler uIHandler;
 
@@ -25,6 +26,7 @@ public class BrainConsole : Interactable
     private bool leftLock, rightLock;
 
     private bool wasBumperPressed = false;
+    private int lastStickDir = 0;
 
     //public GameObject playerTaskPanel; 
     //public TMPro.TextMeshPro tasksList; 
@@ -63,6 +65,8 @@ public class BrainConsole : Interactable
         _rightBumperAction = input.actions.FindAction("RightBumper");
 
         uIHandler.ShowContainer(player);
+
+        _lookAction = input.actions.FindAction("Look");
 
         //playerTaskPanel.SetActive(true);
         //UpdateTaskList();
@@ -121,6 +125,28 @@ public class BrainConsole : Interactable
                     StartCoroutine(LockDoorRoutine(false));
                 }
             }
+        }
+        else
+        {
+            // handle task UI switching
+            float rightInput = _lookAction.ReadValue<Vector2>().y;
+
+            int dir = 0;
+            if (rightInput > 0.5)
+            {
+                dir = -1;
+            }
+            else if (rightInput < -0.5)
+            {
+                dir = 1;
+            }
+
+            if (dir != 0 && lastStickDir == 0)
+            {
+                uIHandler.ChangeActiveTask(dir == -1);
+            }
+
+            lastStickDir = dir;
         }
     }
 

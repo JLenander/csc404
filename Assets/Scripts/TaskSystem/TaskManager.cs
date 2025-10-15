@@ -1,12 +1,15 @@
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class TaskManager : MonoBehaviour
 {
     public static TaskManager Instance { get; private set; }
+    BrainUIHandler uIHandler;
 
     private Dictionary<string, Task> _tasks = new Dictionary<string, Task>();
+
+    private List<Task> activeTasks = new List<Task>(); // a list of active tasks ordered chronologically
 
     private void Awake()
     {
@@ -14,6 +17,17 @@ public class TaskManager : MonoBehaviour
         else { Destroy(gameObject); return; }
 
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void Start()
+    {
+        StartCoroutine(WaitForBrainUIHandler());
+    }
+
+    IEnumerator WaitForBrainUIHandler()
+    {
+        yield return new WaitUntil(() => BrainUIHandler.Instance != null);
+        uIHandler = BrainUIHandler.Instance;
     }
 
     public void RegisterTask(Task task)
@@ -28,17 +42,17 @@ public class TaskManager : MonoBehaviour
         return task;
     }
 
-    public void AddProgress(string id, int amount)
-    {
-        if (_tasks.TryGetValue(id, out var task))
-        {
-            if (!task.isActive)
-                StartTask(id);
-            task.AddProgress(amount);
-        }
-        else
-            Debug.LogWarning($"Task '{id}' not found!");
-    }
+    // public void AddProgress(string id, int amount)
+    // {
+    //     if (_tasks.TryGetValue(id, out var task))
+    //     {
+    //         if (!task.isActive)
+    //             StartTask(id);
+    //         task.AddProgress(amount);
+    //     }
+    //     else
+    //         Debug.LogWarning($"Task '{id}' not found!");
+    // }
 
     public void StartTask(string id)
     {
@@ -49,13 +63,73 @@ public class TaskManager : MonoBehaviour
         }
     }
 
-    public List<Task> GetAllTasks()
+    public void CompleteTask(string id)
     {
-        return new List<Task>(_tasks.Values);
+        if (_tasks.TryGetValue(id, out var task))
+        {
+            task.CompleteTask();
+        }
     }
 
-    public List<Task> GetAllActiveTasks()
+    public void ResetTask(string id)
     {
-        return _tasks.Values.Where(t => t.isActive).ToList();
+        if (_tasks.TryGetValue(id, out var task))
+        {
+            task.ResetTask();
+        }
     }
+
+    public void AppendActiveTask(Task task)
+    {
+        activeTasks.Add(task);
+        PassDataUI();
+    }
+
+    public void RemoveActiveTask(Task task)
+    {
+        activeTasks.Remove(task);
+        PassDataUI();
+    }
+
+    // called whenever active tasks are changed
+    private void PassDataUI()
+    {
+        List<string> taskNames = new List<string>();
+
+        foreach (Task task in activeTasks)
+        {
+            taskNames.Add(task.title);
+        }
+
+        uIHandler.UpdateTasks(taskNames);
+    }
+
+    public Task TaskData(string name)
+    {
+        // get data of active task from name
+        foreach (Task task in activeTasks)
+        {
+            if (task.title == name)
+            {
+                return task;
+            }
+        }
+
+        return null;
+    }
+
+    public List<Task> GetActiveTasks()
+    {
+        return activeTasks;
+    }
+
+    // public List<Task> GetAllTasks()
+    // {
+    //     return new List<Task>(_tasks.Values);
+    // }
+
+    // public List<Task> GetAllActiveTasks()
+    // {
+    //     return _tasks.Values.Where(t => t.isActive).ToList();
+    // }
 }

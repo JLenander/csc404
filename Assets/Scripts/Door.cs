@@ -28,7 +28,7 @@ public class Door : Interactable
     public void UnlockDoor()
     {
         locked = false;
-        hoverMessage = "Control Arm";
+        hoverMessage = "Enter Arm Tunnel";
         msgColour = new Color(1, 1, 1, 1);
         outlineColour = new Color(1, 1, 1, 1);
     }

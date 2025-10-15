@@ -29,7 +29,6 @@
     left: 0;
     right: 0;
     bottom: 0;
-<<<<<<< HEAD
     background-color: rgba(0, 0, 0, 0.9);
 }
 
@@ -47,13 +46,7 @@
     height: 24px;
     width: 24px;
     left-margin: 8px;
-=======
     background-color: rgba(0, 0, 0, 0.4);
     opacity: 0;
     z-index: 10;
-}
-
-.greyscale-overlay.visible {
-    opacity: 1;
->>>>>>> d6fe016 (init greyscale)
 }

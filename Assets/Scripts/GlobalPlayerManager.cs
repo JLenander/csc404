@@ -152,7 +152,10 @@ public class GlobalPlayerManager : MonoBehaviour
     {
         foreach (var player in _players)
         {
-            player.PlayerObject.GetComponent<PlayerInteract>().LeaveCurrInteractable();
+            if (player.Valid)
+            {
+                player.PlayerObject.GetComponent<PlayerInteract>().LeaveCurrInteractable();
+            }
         }
     }
 

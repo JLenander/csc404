@@ -49,9 +49,9 @@ public class PlayerInteract : MonoBehaviour
             }
         }
 
-        if (_returnAction.WasPressedThisFrame() && interacting != null)
+        if (_returnAction.WasPressedThisFrame())
         {
-            interacting.Return(gameObject);
+            interacting?.Return(gameObject);
             interacting = null;
         }
 
@@ -128,12 +128,12 @@ public class PlayerInteract : MonoBehaviour
     }
 
     /// <summary>
-    /// Leave the current Interactable object this Player is interacting with
+    /// Leave the current Interactable object this Player is interacting with (if any)
     /// (used for interactable objects that the player enters and stays in like terminals)
     /// </summary>
     public void LeaveCurrInteractable()
     {
-        interacting.Return(gameObject);
+        interacting?.Return(gameObject);
         interacting = null;
     }
 }

@@ -46,7 +46,9 @@ public class PlayerInteract : MonoBehaviour
                 DisableCurrInteractable();
 
                 if (GlobalPlayerUIManager.Instance != null)
+                {
                     GlobalPlayerUIManager.Instance.EnableScreenGreyscale(playerId);
+                }
             }
         }
 
@@ -62,14 +64,11 @@ public class PlayerInteract : MonoBehaviour
 
     void CheckInteraction()
     {
-
         if (interacting != null)
         {
             SetReturnText(interacting);
             return;
         }
-        if (interacting != null) return;
-
 
         RaycastHit hit;
 

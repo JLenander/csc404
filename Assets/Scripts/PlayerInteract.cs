@@ -43,6 +43,15 @@ public class PlayerInteract : MonoBehaviour
                 Debug.Log("Interacting with " + currentItem);
                 interacting = currentItem;
                 currentItem.Interact(gameObject);
+<<<<<<< HEAD
+=======
+                DisableCurrInteractable();
+
+                if (GlobalPlayerUIManager.Instance != null)
+                {
+                    GlobalPlayerUIManager.Instance.EnableScreenGreyscale(playerId);
+                }
+>>>>>>> 8608942 (transparent black screen overlay)
             }
         }
 
@@ -58,11 +67,15 @@ public class PlayerInteract : MonoBehaviour
 
     void CheckInteraction()
     {
+<<<<<<< HEAD
         if (interacting != null)
         {
             SetReturnText(interacting);
             return;
         }
+=======
+        if (interacting != null) return;
+>>>>>>> 8608942 (transparent black screen overlay)
 
         RaycastHit hit;
 

@@ -9,8 +9,6 @@
 
 .interaction-text {
     flex-wrap: wrap;
-    align-self: center;
-    max-width: 90%;
     -unity-font-definition: url("project://database/Assets/Fonts/AreaKilometer50-gxmEq.otf?fileID=12800000&guid=ef001ebbe0814b84986d79c8d1de465a&type=3#AreaKilometer50-gxmEq");
     -unity-text-align: upper-center;
     font-size: 40px;
@@ -31,5 +29,21 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.interaction-group {
+    position: absolute;
+    align-self: center;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    max-width: 90%;
+}
+
+.interaction-button {
+    height: 24px;
+    width: 24px;
+    left-margin: 8px;
 }

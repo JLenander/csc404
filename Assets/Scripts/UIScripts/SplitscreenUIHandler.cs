@@ -38,20 +38,12 @@ public class SplitscreenUIHandler : MonoBehaviour, ISplitscreenUIHandler
         for (int i = 0; i < NumPlayers; i++)
         {
             _playerInteractionGroups[i] = root.Query<VisualElement>("Player" + (i + 1) + "InteractionGroup").First();
-<<<<<<< HEAD
-=======
-            //_playerInteractionTexts[i] = root.Query<Label>("Player" + (i + 1) + "InteractionText").First();
->>>>>>> d40fb4e (interaction group)
             _playerGreyscaleOverlays[i] = root.Query<VisualElement>("Player" + (i + 1) + "GreyscaleOverlay").First();
             if (_playerGreyscaleOverlays[i] != null)
             {
                 _playerGreyscaleOverlays[i].visible = false;
                 _playerGreyscaleOverlays[i].SendToBack();
             }
-<<<<<<< HEAD
-
-=======
->>>>>>> d40fb4e (interaction group)
             else
             {
                 Debug.Log(_playerGreyscaleOverlays[i] + "no greyscale overlay found");

@@ -50,7 +50,6 @@ public class PhoneUIController : MonoBehaviour
     private void Start()
     {
         Level0TaskManager.StartTaskGoToPhone();
-        StartCoroutine(MatchRoutine());
     }
 
     // Toggle between two swipe screens, for now

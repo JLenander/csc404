@@ -46,8 +46,8 @@ public class Phone : InteractableObject
 
             if (first)
             {
-                TaskManager.Instance.CompleteTask("Pickup");
-                TaskManager.Instance.StartTask("Swipe");
+                Level0TaskManager.CompleteTaskPickupPhone();
+                Level0TaskManager.StartTaskSwipe();
             }
         }
     }

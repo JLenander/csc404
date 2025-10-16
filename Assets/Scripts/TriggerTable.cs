@@ -8,8 +8,8 @@ public class TriggerTable : MonoBehaviour
         if (triggered) return;
         if (other != null && other.CompareTag("Hand"))
         {
-            TaskManager.Instance.CompleteTask("GoPhone");
-            TaskManager.Instance.StartTask("Pickup");
+            Level0TaskManager.CompleteTaskGoToPhone();
+            Level0TaskManager.StartTaskPickupPhone();
             triggered = true;
         }
     }

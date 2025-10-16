@@ -17,11 +17,15 @@ public class BrainUIHandler : OverlayUIHandler
     private Label taskDescription, terminalDesc, urgencyDesc;
     private string activeTitle;
     private List<string> visibleTitles = new List<string>();
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    public void Awake()
+    {
+        Instance = this;
+    }
+    
     protected override void Start()
     {
         base.Start();
-        Instance = this;
         doorUI = root.Query<VisualElement>("DoorWindow").First();
         taskUI = root.Query<VisualElement>("TaskWindow").First();
         leftDoorText = root.Query<Label>("LeftDoorDesc").First();
@@ -168,7 +172,7 @@ public class BrainUIHandler : OverlayUIHandler
     public void UpdateTaskInfo()
     {
         //string desc, string terminal, string urgency
-        Task task = TaskManager.Instance.TaskData(activeTitle);
+        Task task = TaskManager.GenericInstance.GetTaskData(activeTitle);
 
         taskDescription.text = task.description;
         terminalDesc.text = task.location;

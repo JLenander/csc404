@@ -22,7 +22,7 @@ public class Door : Interactable
         }
 
         PlayerInteract playerInteract = player.GetComponent<PlayerInteract>();
-        playerInteract.NullInteracting();
+        playerInteract.LeaveCurrInteractable();
     }
 
     public void UnlockDoor()

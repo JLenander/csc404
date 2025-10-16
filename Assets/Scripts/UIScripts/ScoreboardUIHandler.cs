@@ -273,15 +273,17 @@ public class ScoreboardUIHandler : MonoBehaviour
 
         // exit back to level select
         CloseScoreboard();
+        GlobalLevelManager.Instance.LoadLevelSelectScreen();
     }
 
+    /// <summary>
+    /// Close the scoreboard (visibly hide it)
+    /// </summary>
     void CloseScoreboard()
     {
         letterGradeTitle.visible = false;
         letterGrade.visible = false;
         scoreboardContent.visible = false;
         scoreboardContainer.visible = false;
-
-        SceneManager.LoadScene(SceneConstants.LevelSelectScene);
     }
 }

@@ -44,7 +44,7 @@ public class SplitscreenUIHandler : MonoBehaviour, ISplitscreenUIHandler
         _dialogueUI.visible = false;
 
         // Disable Root to start until scene is switched
-        root.visible = false;
+        root.style.display = DisplayStyle.None;
         SceneManager.activeSceneChanged += OnSceneChange;
     }
 
@@ -52,7 +52,14 @@ public class SplitscreenUIHandler : MonoBehaviour, ISplitscreenUIHandler
     private void OnSceneChange(Scene oldScene, Scene newScene)
     {
         // Activate the UI when we enter a scene that is not the Main Menu, Level Select, or Character Select scenes.
-        uiDoc.rootVisualElement.visible = true;
+        if (SceneConstants.IsCharacterSelectScene() || SceneConstants.IsLevelSelectScene())
+        {
+            uiDoc.rootVisualElement.style.display = DisplayStyle.None;
+        }
+        else
+        {
+            uiDoc.rootVisualElement.style.display = DisplayStyle.Flex;
+        }
     }
 
     public void EnablePlayerOverlay(int playerIndex)

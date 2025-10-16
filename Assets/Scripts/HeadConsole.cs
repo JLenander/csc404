@@ -24,6 +24,8 @@ public class HeadConsole : Interactable
     public AudioSource interactSource;
     public AudioSource denySource;
 
+    private OverlayUIHandler uIHandler;
+
     void Start()
     {
         DisableOutline();
@@ -31,6 +33,7 @@ public class HeadConsole : Interactable
         // for grapple arm
         _leftJammed = _rightJammed = false;
         _leftShot = _rightShot = false;
+        uIHandler = HeadUIHandler.Instance;
     }
 
     // for grapple arm, check trigger input to shoot or retract
@@ -122,7 +125,7 @@ public class HeadConsole : Interactable
         var input = _currPlayer.GetComponent<PlayerInput>();
         _leftTriggerAction = input.actions.FindAction("LeftTrigger");
         _rightTriggerAction = input.actions.FindAction("RightTrigger");
-        //uIHandler.ShowContainer(player);
+        uIHandler.ShowContainer(player);
     }
 
     public override void Return(GameObject player)
@@ -138,6 +141,7 @@ public class HeadConsole : Interactable
         _currPlayer = null;
         _leftTriggerAction = null;
         _rightTriggerAction = null;
+        uIHandler.HideContainer(player);
     }
     public override bool CanInteract()
     {

@@ -78,6 +78,11 @@ public class Food : InteractableObject
             currIndex++;
             foodStates[currIndex].SetActive(true);
         }
+
+        if (foodBiteCount == totalBites)
+        {
+            Level1TaskManager.CompleteTaskEatFood();
+        }
     }
 
     public void PlayForOneSecond()

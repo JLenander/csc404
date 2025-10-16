@@ -552,7 +552,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5743451173590391459}
-  - component: {fileID: 4953558641041451490}
+  - component: {fileID: 8611903618419740721}
   m_Layer: 0
   m_Name: Rig 1_target
   m_TagString: Untagged
@@ -575,7 +575,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7884659697658922727}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4953558641041451490
+--- !u!114 &8611903618419740721
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -589,13 +589,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RoomRotation
   forearmBone: {fileID: 0}
   upperarmBone: {fileID: 0}
-  wristBone: {fileID: 0}
+  wristRollSource: {fileID: 0}
+  wristPitchYawSource: {fileID: 0}
   forearmCopier: {fileID: 6427864248112553536}
   upperarmCopier: {fileID: 4013126382983178151}
   wristCopier: {fileID: 0}
   robotTarget: {fileID: 0}
-  speed: 0
-  isHologram: 0
+  speed: 20
 --- !u!1 &6996305120073175723
 GameObject:
   m_ObjectHideFlags: 0
@@ -786,7 +786,7 @@ PrefabInstance:
     - target: {fileID: 3620852893234782568, guid: 71984428cc323d946b785101561d3dab, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 165994214ccbbec418a3969b3a4001d5, type: 2}
+      objectReference: {fileID: 2100000, guid: 9ac8924a79febb947a2ef9739b201a5c, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: -474726021971127464, guid: 71984428cc323d946b785101561d3dab, type: 3}
@@ -947,7 +947,7 @@ PrefabInstance:
     - target: {fileID: 1097990766212619697, guid: 5398ea82530591c489fc08f67aeb1e0e, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 165994214ccbbec418a3969b3a4001d5, type: 2}
+      objectReference: {fileID: 2100000, guid: 2e7628ca02f5c0d42a7d2dcbc6d62c92, type: 2}
     - target: {fileID: 1097990766212619697, guid: 5398ea82530591c489fc08f67aeb1e0e, type: 3}
       propertyPath: 'm_Materials.Array.data[1]'
       value: 

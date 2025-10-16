@@ -44,7 +44,7 @@ public class Task
 
         onStart?.Invoke();
 
-        TaskManager.Instance.AppendActiveTask(this);
+        TaskManager.GenericInstance.AppendActiveTask(this);
     }
 
     // Add progress (only if started and not already complete)
@@ -88,7 +88,7 @@ public class Task
         onComplete?.Invoke();
 
         // TASK COMPLETED
-        TaskManager.Instance.RemoveActiveTask(this);
+        TaskManager.GenericInstance.RemoveActiveTask(this);
     }
 
     public void ResetTask()

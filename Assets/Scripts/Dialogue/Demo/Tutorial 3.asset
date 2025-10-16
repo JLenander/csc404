@@ -14,8 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueScriptableObj
   lines:
   - Nova huh.......
-  - She sounds amazing..
-  - ' I can''t wait to meet her'
-  - 'Dev note: she is sitting in front of us'
   spirteA: {fileID: 21300000, guid: 7cf1f3e381de4504d8c4445353b39e1d, type: 3}
   spirteB: {fileID: 21300000, guid: 14195ce6032b9da4ab6a0eba52e7c89b, type: 3}

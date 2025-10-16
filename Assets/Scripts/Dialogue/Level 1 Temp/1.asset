@@ -16,5 +16,5 @@ MonoBehaviour:
   - I am so excited!
   - I have never been on a date before
   - I hope you don't mind me ordering us food already
-  spirteA: {fileID: 21300000, guid: 08f1040868d165349bbca8d747914490, type: 3}
-  spirteB: {fileID: 21300000, guid: 08f1040868d165349bbca8d747914490, type: 3}
+  spirteA: {fileID: 21300000, guid: c879e5dc88cd6b54883e90583eb8da78, type: 3}
+  spirteB: {fileID: 21300000, guid: d8665aaa2da204c4090b2027ed9ab093, type: 3}

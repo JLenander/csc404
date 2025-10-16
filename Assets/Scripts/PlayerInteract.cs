@@ -49,9 +49,9 @@ public class PlayerInteract : MonoBehaviour
             }
         }
 
-        if (_returnAction.WasPressedThisFrame() && interacting != null)
+        if (_returnAction.WasPressedThisFrame())
         {
-            interacting.Return(gameObject);
+            interacting?.Return(gameObject);
             interacting = null;
         }
 
@@ -99,6 +99,10 @@ public class PlayerInteract : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Visually enable the interaction prompt for the Interactable object newInteractable that this player is looking at
+    /// </summary>
+    /// <param name="newInteractable"></param>
     void SetNewCurrInteractable(Interactable newInteractable)
     {
         currentItem = newInteractable;
@@ -108,6 +112,9 @@ public class PlayerInteract : MonoBehaviour
             GlobalPlayerUIManager.Instance.EnableInteractionText(playerId, currentItem.hoverMessage, currentItem.msgColour);
     }
 
+    /// <summary>
+    /// Visually disable the current interaction prompt for this player
+    /// </summary>
     void DisableCurrInteractable()
     {
         if (GlobalPlayerUIManager.Instance != null)
@@ -120,9 +127,13 @@ public class PlayerInteract : MonoBehaviour
         }
     }
 
-    public void NullInteracting()
+    /// <summary>
+    /// Leave the current Interactable object this Player is interacting with (if any)
+    /// (used for interactable objects that the player enters and stays in like terminals)
+    /// </summary>
+    public void LeaveCurrInteractable()
     {
-        interacting.Return(gameObject);
+        interacting?.Return(gameObject);
         interacting = null;
     }
 }

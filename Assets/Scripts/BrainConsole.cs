@@ -15,6 +15,9 @@ public class BrainConsole : Interactable
     [SerializeField] GameObject leftEscapeDoorObj;
     [SerializeField] GameObject rightEscapeDoorObj;
 
+    public AudioSource interactSound;
+    public AudioSource buttonSound;
+
     private Door leftDoor, rightDoor, leftEscapeDoor, rightEscapeDoor;
     private InputAction _leftTriggerAction, _rightTriggerAction,
                         _leftBumperAction, _rightBumperAction, _lookAction;
@@ -67,6 +70,12 @@ public class BrainConsole : Interactable
         uIHandler.ShowContainer(player);
 
         _lookAction = input.actions.FindAction("Look");
+
+        if (interactSound != null)
+            interactSound.Play();
+
+        // hide popup
+        PopUpUIHandler.Instance.HidePopUp();
 
         //playerTaskPanel.SetActive(true);
         //UpdateTaskList();
@@ -143,6 +152,8 @@ public class BrainConsole : Interactable
 
             if (dir != 0 && lastStickDir == 0)
             {
+                if (buttonSound != null)
+                    buttonSound.Play();
                 uIHandler.ChangeActiveTask(dir == -1);
             }
 

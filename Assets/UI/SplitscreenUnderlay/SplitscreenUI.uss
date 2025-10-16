@@ -46,6 +46,4 @@
     height: 24px;
     width: 24px;
     left-margin: 8px;
-    background-color: rgba(0, 0, 0, 0.4);
-    opacity: 0;
 }

@@ -71,8 +71,6 @@ public class PlayerInteract : MonoBehaviour
             SetReturnText(interacting);
             return;
         }
-        if (interacting != null) return;
-
 
         RaycastHit hit;
 

@@ -113,7 +113,7 @@ public class PlayerInteract : MonoBehaviour
     void SetReturnText(Interactable currItem)
     {
         if (GlobalPlayerUIManager.Instance != null)
-            GlobalPlayerUIManager.Instance.EnableInteractionText(playerId, "To Return", currItem.msgColour);
+            GlobalPlayerUIManager.Instance.EnableInteractionText(playerId, "To Return", currItem.msgColour, "UI/KeysPNG/PS4KEYS_BnW/Circle");
     }
 
     /// <summary>
@@ -126,7 +126,7 @@ public class PlayerInteract : MonoBehaviour
         currentItem.EnableOutline();
 
         if (GlobalPlayerUIManager.Instance != null)
-            GlobalPlayerUIManager.Instance.EnableInteractionText(playerId, currentItem.hoverMessage, currentItem.msgColour);
+            GlobalPlayerUIManager.Instance.EnableInteractionText(playerId, currentItem.hoverMessage, currentItem.msgColour, "UI/KeysPNG/PS4KEYS_BnW/Cross");
     }
 
     /// <summary>

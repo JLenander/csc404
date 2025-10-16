@@ -47,6 +47,8 @@ public class BrainConsole : Interactable
         task = true;
         leftLock = true;
         rightLock = true;
+
+        //showOverlay = false;
     }
 
     IEnumerator WaitForBrainUIHandler()

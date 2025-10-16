@@ -43,7 +43,8 @@
 }
 
 .interaction-button {
-    height: 24px;
-    width: 24px;
-    left-margin: 8px;
+    height: 50px;
+    width: 50px;
+    margin-bottom: 8px;
+    margin-right: 20px;
 }

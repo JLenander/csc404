@@ -1,4 +1,7 @@
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class HandConsole : Interactable
 {
@@ -11,9 +14,19 @@ public class HandConsole : Interactable
 
     private GameObject _currPlayer;
 
+    private OverlayUIHandler uIHandler;
+
     void Start()
     {
         DisableOutline();
+        if (left)
+        {
+            uIHandler = LeftArmUIHandler.Instance;
+        }
+        else
+        {
+            uIHandler = RightArmUIHandler.Instance;
+        }
     }
 
     public override void Interact(GameObject player)
@@ -26,6 +39,7 @@ public class HandConsole : Interactable
 
         if (audioSource != null)
             audioSource.Play();
+        uIHandler.ShowContainer(player);
     }
 
     public override void Return(GameObject player)
@@ -34,6 +48,7 @@ public class HandConsole : Interactable
         handRigTarget.GetComponent<HandMovement>().TurnOff(player);
         _canInteract = true; // current player leaves
         _currPlayer = null;
+        uIHandler.HideContainer(player);
     }
 
     public override bool CanInteract()

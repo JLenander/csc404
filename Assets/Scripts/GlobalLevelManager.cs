@@ -78,7 +78,7 @@ public class GlobalLevelManager : MonoBehaviour
     /// </summary>
     public void LoadLevelSelectScreen()
     {
-        SceneManager.LoadScene(SceneConstants.LevelSelectScene);
+        LoadScene(SceneConstants.LevelSelectScene);
     }
     
     /// <summary>
@@ -88,7 +88,7 @@ public class GlobalLevelManager : MonoBehaviour
     /// Do not use this method for <i>game levels</i> unless you want to bypass the level select screen and ignore level locked status.
     /// </summary>
     /// <param name="sceneName">The name of the scene to load. Do not use magic strings, see <see cref="SceneConstants"/></param>
-    public void LoadLevel(string sceneName)
+    public void LoadScene(string sceneName)
     {
         GlobalPlayerManager.Instance?.PrepareAllPlayersForSceneChange();
         // TODO: Add a loading screen or loading animation
@@ -112,7 +112,7 @@ public class GlobalLevelManager : MonoBehaviour
         
         if (level.status != LevelStatus.Locked)
         {
-            LoadLevel(level.sceneName);
+            LoadScene(level.sceneName);
         }
         else
         {

@@ -43,10 +43,6 @@ public class PlayerInteract : MonoBehaviour
                 Debug.Log("Interacting with " + currentItem);
                 interacting = currentItem;
                 currentItem.Interact(gameObject);
-<<<<<<< HEAD
-=======
-
->>>>>>> b3f785f276ccb08a738e640eb98983e865764cee
                 DisableCurrInteractable();
 
                 if (GlobalPlayerUIManager.Instance != null)
@@ -68,10 +64,6 @@ public class PlayerInteract : MonoBehaviour
 
     void CheckInteraction()
     {
-<<<<<<< HEAD
-=======
-
->>>>>>> b3f785f276ccb08a738e640eb98983e865764cee
         if (interacting != null)
         {
             SetReturnText(interacting);

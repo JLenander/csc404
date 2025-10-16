@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9042cc798f65d943b9f8673ad0b6227, type: 3}
   m_Name: Food
   m_EditorClassIdentifier: Assembly-CSharp::TaskInfoSO
+  id: Food
   title: Dispose food
   description: Dispose all of our food, if only there was some kind of bag nearby
   location: Arms

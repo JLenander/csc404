@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9042cc798f65d943b9f8673ad0b6227, type: 3}
   m_Name: FixRight
   m_EditorClassIdentifier: Assembly-CSharp::TaskInfoSO
+  id: FixRight
   title: Right Grapple
   description: Unlock the door and go into the right arm to fix it!
   location: Right Arm Interior

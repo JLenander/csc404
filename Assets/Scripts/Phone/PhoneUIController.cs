@@ -50,6 +50,7 @@ public class PhoneUIController : MonoBehaviour
     private void Start()
     {
         Level0TaskManager.StartTaskGoToPhone();
+        StartCoroutine(MatchRoutine());
     }
 
     // Toggle between two swipe screens, for now
@@ -147,12 +148,12 @@ public class PhoneUIController : MonoBehaviour
         sceneExitDoor.enabled = true;
 
         // move the door into scene
-        while (Vector3.Distance(transform.position, target) > 0.01f)
+        while (Vector3.Distance(sceneExitDoor.transform.position, target) > 0.01f)
         {
             sceneExitDoor.transform.position = Vector3.MoveTowards(sceneExitDoor.transform.position, target, 10 * Time.deltaTime);
             yield return null;
         }
-
+        
         // Snap to target just in case
         sceneExitDoor.transform.position = target;
 

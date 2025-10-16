@@ -55,23 +55,18 @@ public class RobotMovement : MonoBehaviour
         Vector3 moveDir = transform.forward * moveInput + _robotVelocity;
         _robotCharacterController.Move(moveDir * robotMoveSpeed * Time.deltaTime);
 
-        float speed = moveDir.magnitude;
-        if (speed != 0)
-        {
-            stepTimer -= Time.fixedDeltaTime;
-            if (stepTimer <= 0f)
-            {
-                PlayFootstep();
-                stepTimer = stepInterval;
-            }
-        }
-
         float rotateInput = (leftInput - rightInput);
         transform.Rotate(Vector3.up, rotateInput * robotLookSensitivity * Time.deltaTime);
 
         if (Mathf.Abs(moveInput) > 0 || Mathf.Abs(rotateInput) > 0)
         {
             GlobalPlayerUIManager.Instance.StartWalkingShake();
+            stepTimer -= Time.fixedDeltaTime;
+            if (stepTimer <= 0f)
+            {
+                PlayFootstep();
+                stepTimer = stepInterval;
+            }
         }
         else
         {

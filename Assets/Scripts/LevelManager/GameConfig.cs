@@ -7,6 +7,7 @@ public class GameConfig
     // For some reason when I serialize this it curses my unity
     // Holds the level configuration for the game.
     public static readonly Level[] Levels = {
-        new("Level 1 - Cafe", "Cafe", LevelStatus.Unlocked, levelArtSpriteName: "LevelCafe"),
+        new("Level 0 - ???", "Level0", LevelStatus.Unlocked, levelArtSpriteName: "Level0"),
+        new("Level 1 - Cafe", "Cafe", LevelStatus.Unlocked, levelArtSpriteName: "Level1"),
     };
 }

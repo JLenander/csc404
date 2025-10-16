@@ -278,8 +278,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.030616673, y: 0.09322485, z: 0.06871773}
-  m_Center: {x: 0.002158284, y: -0.018387524, z: 0.02529134}
+  m_Size: {x: 0.06442456, y: 0.31473264, z: 0.06871773}
+  m_Center: {x: 0.002158285, y: 0.092366725, z: 0.025291339}
 --- !u!114 &5052670524838258855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -611,6 +611,9 @@ MonoBehaviour:
   countBeforeMatch: 8
   openingDialogue: {fileID: 11400000, guid: dd9ec0c25f4b5434d807fd5409053d54, type: 2}
   cheekyDialogue: {fileID: 11400000, guid: dcc8cb46290c3cc40846f21b1904c14f, type: 2}
+  matchDialogue: {fileID: 0}
+  sceneExitDoor: {fileID: 0}
+  target: {x: 0, y: 0, z: 0}
 --- !u!54 &6953405278679250526
 Rigidbody:
   m_ObjectHideFlags: 0

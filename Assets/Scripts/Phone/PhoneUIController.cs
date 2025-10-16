@@ -28,6 +28,10 @@ public class PhoneUIController : MonoBehaviour
 
     [SerializeField] private DialogueScriptableObj matchDialogue;
 
+    public SceneExitDoor sceneExitDoor;
+
+    public Vector3 target;
+
     private int index = 0;
     private int count = 0;
     private int swipeDirection = 0; // -1 = left, 1 = right
@@ -35,12 +39,18 @@ public class PhoneUIController : MonoBehaviour
     private bool swiping = false;
     private bool locked = true;
     private bool remarked = false;
+    private TaskManager taskManager;
+    private bool matchedText = false;
 
     private void Awake()
     {
         rt = screenImage.rectTransform;
+    }
 
-        GlobalPlayerUIManager.Instance.LoadText(openingDialogue);
+    private void Start()
+    {
+        Level0TaskManager.StartTaskGoToPhone();
+        StartCoroutine(MatchRoutine());
     }
 
     // Toggle between two swipe screens, for now
@@ -87,14 +97,15 @@ public class PhoneUIController : MonoBehaviour
 
         // once hit min swipes no matter left or right
         // start count down before showing nova's profile
-        if (count > profiles.Count && !remarked)
-        {
-            remarked = true;
-            GlobalPlayerUIManager.Instance.LoadText(cheekyDialogue);
-        }
+        // if (count > profiles.Count && !remarked)
+        // {
+        //     remarked = true;
+        //     GlobalPlayerUIManager.Instance.LoadText(cheekyDialogue);
+        // }
 
-        if (count > countBeforeMatch)
+        if (count > countBeforeMatch && !matchedText)
         {
+            matchedText = true;
             StartCoroutine(MatchRoutine());
         }
     }
@@ -129,13 +140,26 @@ public class PhoneUIController : MonoBehaviour
 
         locked = true; // lock swiping
         screenImage.sprite = match;
+        nextImage.sprite = match;
 
-        GlobalPlayerUIManager.Instance.LoadText(matchDialogue);
+        Level0TaskManager.CompleteTaskSwipe();
 
+        // enable exit door
+        sceneExitDoor.enabled = true;
 
-        // exit this scene (fade cam to black)
+        // move the door into scene
+        while (Vector3.Distance(sceneExitDoor.transform.position, target) > 0.01f)
+        {
+            sceneExitDoor.transform.position = Vector3.MoveTowards(sceneExitDoor.transform.position, target, 10 * Time.deltaTime);
+            yield return null;
+        }
+        
+        // Snap to target just in case
+        sceneExitDoor.transform.position = target;
 
-        // show scoreboard?
+        Level0TaskManager.StartTaskLeavePhone();
+
+        // GlobalPlayerUIManager.Instance.LoadText(matchDialogue);
     }
 
     public void Unlock()

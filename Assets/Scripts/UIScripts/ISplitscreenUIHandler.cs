@@ -43,32 +43,6 @@ public interface ISplitscreenUIHandler
     /// <param name="playerIndex">The player to hide the interaction text for</param>
     public void DisablePlayerScreenGreyscale(int playerIndex);
 
-
-    /// <summary>
-    /// Dim player's screen 
-    /// </summary>
-    /// <param name="playerIndex">The player to hide the interaction text for</param>
-    public void EnablePlayerScreenGreyscale(int playerIndex);
-
-    /// <summary>
-    /// Undim player's screen 
-    /// </summary>
-    /// <param name="playerIndex">The player to hide the interaction text for</param>
-    public void DisablePlayerScreenGreyscale(int playerIndex);
-
-
-    /// <summary>
-    /// Dim player's screen 
-    /// </summary>
-    /// <param name="playerIndex">The player to hide the interaction text for</param>
-    public void EnablePlayerScreenGreyscale(int playerIndex);
-
-    /// <summary>
-    /// Undim player's screen 
-    /// </summary>
-    /// <param name="playerIndex">The player to hide the interaction text for</param>
-    public void DisablePlayerScreenGreyscale(int playerIndex);
-
     /// <summary>
     /// Show the outside camera (or eye camera)
     /// </summary>

@@ -38,6 +38,7 @@ public class TriggerSeat : MonoBehaviour
     public void StandRobot()
     {
         robotCharController.enabled = true;
+        robotMovement.disable = false;
         // enable the exit door collier
         sceneExitDoor.enabled = true;
     }

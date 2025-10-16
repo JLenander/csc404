@@ -24,8 +24,8 @@ public class EmergencyEvent : MonoBehaviour
 
     private int leftArmShotCount;
     private int rightArmShotCount;
-    private bool leftShutdown; // bool used to show left arm is shutdown
-    private bool rightShutdown; // bool used to show left arm is shutdown
+    private bool leftShutdown; // bool used to show left arm is shutdown (grapple is broken)
+    private bool rightShutdown; // bool used to show right arm is shutdown (grapple is broken)
     private bool emergency;
     private Coroutine toggleCoroutine;
 
@@ -70,7 +70,7 @@ public class EmergencyEvent : MonoBehaviour
         defaultLight.SetActive(true);
         redLight.SetActive(false);
         flashLight.SetActive(false);
-
+        
         if (toggleCoroutine != null)
             StopCoroutine(toggleCoroutine);
     }
@@ -101,7 +101,7 @@ public class EmergencyEvent : MonoBehaviour
         {
             rightArmShotCount++;
         }
-
+        
         TestBreak(left);
     }
 
@@ -118,13 +118,11 @@ public class EmergencyEvent : MonoBehaviour
         {
             useCount = leftArmShotCount;
             handConsole = leftArmTerminal;
-            leftShutdown = true;
         }
         else
         {
             useCount = rightArmShotCount;
             handConsole = rightArmTerminal;
-            rightShutdown = true;
         }
 
         int riskyUses = Mathf.Max(0, useCount - safeUses);
@@ -133,6 +131,14 @@ public class EmergencyEvent : MonoBehaviour
         if (Random.value < breakChance) // random is [0,1], chance gets higher with more breaks
         {
             // time to break!
+            if (left)
+            {
+                leftShutdown = true;
+            }
+            else
+            {
+                rightShutdown = true;
+            }
             handConsole.DisableInteract();
             if (!emergency)
             {
@@ -146,7 +152,6 @@ public class EmergencyEvent : MonoBehaviour
     /// </summary>
     public void FixLeftArm()
     {
-
         leftShutdown = false;
         // turn hand console back on
         leftArmTerminal.EnableInteract();
@@ -159,7 +164,6 @@ public class EmergencyEvent : MonoBehaviour
     /// </summary>
     public void FixRightArm()
     {
-
         rightShutdown = false;
         // turn hand console back on
         rightArmTerminal.EnableInteract();

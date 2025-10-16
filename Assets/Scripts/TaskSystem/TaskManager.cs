@@ -66,9 +66,7 @@ public abstract class TaskManager : MonoBehaviour
                 onComplete = data.onComplete
             };
 
-            Debug.Log("Registering task " + taskInfo.id);
-            var added = _tasks.TryAdd(task.id, task);
-            Debug.Log("was added: " + added);
+            _tasks.TryAdd(task.id, task);
         }
     }
     

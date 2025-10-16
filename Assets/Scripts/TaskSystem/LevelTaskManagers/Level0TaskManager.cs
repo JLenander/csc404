@@ -20,8 +20,8 @@ public class Level0TaskManager : TaskManager
     public static void StartTaskGoToPhone() { Instance.StartTask("GoPhone"); }
     public static void CompleteTaskGoToPhone() { Instance.CompleteTask("GoPhone"); }
     // 2. Pickup Phone
-    public static void StartTaskPickupPhone() { Instance.StartTask("Pickup"); }
-    public static void CompleteTaskPickupPhone() { Instance.CompleteTask("Pickup"); }
+    public static void StartTaskPickupPhone() { Instance.StartTask("PickupPhone"); }
+    public static void CompleteTaskPickupPhone() { Instance.CompleteTask("PickupPhone"); }
     // 3. Swipe on Phone
     public static void StartTaskSwipe() { Instance.StartTask("Swipe"); }
     public static void CompleteTaskSwipe() { Instance.CompleteTask("Swipe"); }

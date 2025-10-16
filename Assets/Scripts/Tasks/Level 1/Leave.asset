@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9042cc798f65d943b9f8673ad0b6227, type: 3}
   m_Name: Leave
   m_EditorClassIdentifier: Assembly-CSharp::TaskInfoSO
+  id: Leave
   title: Exit
   description: Wow! We were really good, let's head home
   location: Legs

@@ -108,6 +108,10 @@ public abstract class TaskManager : MonoBehaviour
             task.canStart = true;
             task.StartTask();
         }
+        else
+        {
+            Debug.LogError($"Task {id} can't start: not found");
+        }
     }
 
     protected void CompleteTask(string id)
@@ -115,6 +119,10 @@ public abstract class TaskManager : MonoBehaviour
         if (_tasks.TryGetValue(id, out var task))
         {
             task.CompleteTask();
+        }
+        else
+        {
+            Debug.LogError($"Task {id} can't complete: not found");
         }
     }
 

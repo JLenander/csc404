@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9042cc798f65d943b9f8673ad0b6227, type: 3}
   m_Name: Start1
   m_EditorClassIdentifier: Assembly-CSharp::TaskInfoSO
+  id: Start1
   title: Meet Nova
   description: Our date arrived early, let's go sit at the table
   location: Legs

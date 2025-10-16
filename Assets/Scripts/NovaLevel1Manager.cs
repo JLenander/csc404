@@ -25,7 +25,6 @@ public class NovaLevel1Manager : MonoBehaviour
     private float timer = 0f;
     private int cakeIndex = 0;
     public bool ate = false;
-    TaskManager taskManager;
 
     void Start()
     {
@@ -50,9 +49,8 @@ public class NovaLevel1Manager : MonoBehaviour
 
     IEnumerator WaitForTaskManager()
     {
-        yield return new WaitUntil(() => TaskManager.Instance != null);
-        taskManager = TaskManager.Instance;
-        taskManager.StartTask("Start1");
+        yield return new WaitUntil(() => Level1TaskManager.Instance != null);
+        Level1TaskManager.StartTaskLevel1Intro();
     }
 
     IEnumerator DrinkCoffee()
@@ -80,7 +78,7 @@ public class NovaLevel1Manager : MonoBehaviour
         talking = true;
 
         // start the drink task
-        taskManager.StartTask("Coffee");
+        Level1TaskManager.StartTaskPourCoffee();
     }
 
     public void PlayLevelRoutine()
@@ -90,7 +88,7 @@ public class NovaLevel1Manager : MonoBehaviour
 
     public IEnumerator LevelStart()
     {
-        taskManager.CompleteTask("Start1");
+        Level1TaskManager.CompleteTaskLevel1Intro();
 
         int index = 0;
         // seat nova at seat, intro dialogue
@@ -108,7 +106,7 @@ public class NovaLevel1Manager : MonoBehaviour
         GlobalPlayerUIManager.Instance.LoadText(dialogues[index]);
         index++;
         yield return new WaitForSeconds(10f);
-        taskManager.StartTask("Food");
+        Level1TaskManager.StartTaskEatFood();
         yield return new WaitUntil(() => ate);
 
         // evidence falls out
@@ -137,7 +135,7 @@ public class NovaLevel1Manager : MonoBehaviour
 
         yield return new WaitForSeconds(15f);
 
-        taskManager.StartTask("Evidence");
+        Level1TaskManager.StartTaskPickupEvidence();
 
         yield return new WaitForSeconds(60f);
 
@@ -171,7 +169,7 @@ public class NovaLevel1Manager : MonoBehaviour
 
         GlobalPlayerUIManager.Instance.LoadText(dialogues[index]); // times up!!
         index++;
-        taskManager.StartTask("Leave");
+        Level1TaskManager.StartTaskLeaveCafe();
         yield return new WaitForSeconds(10f);
     }
     // Update is called once per frame

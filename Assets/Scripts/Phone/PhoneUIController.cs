@@ -45,14 +45,11 @@ public class PhoneUIController : MonoBehaviour
     private void Awake()
     {
         rt = screenImage.rectTransform;
-        StartCoroutine(WaitForTaskManager());
     }
 
-    IEnumerator WaitForTaskManager()
+    private void Start()
     {
-        yield return new WaitUntil(() => TaskManager.Instance != null);
-        taskManager = TaskManager.Instance;
-        taskManager.StartTask("GoPhone");
+        Level0TaskManager.StartTaskGoToPhone();
     }
 
     // Toggle between two swipe screens, for now
@@ -144,7 +141,7 @@ public class PhoneUIController : MonoBehaviour
         screenImage.sprite = match;
         nextImage.sprite = match;
 
-        taskManager.CompleteTask("Swipe");
+        Level0TaskManager.CompleteTaskSwipe();
 
         // enable exit door
         sceneExitDoor.enabled = true;
@@ -159,7 +156,7 @@ public class PhoneUIController : MonoBehaviour
         // Snap to target just in case
         sceneExitDoor.transform.position = target;
 
-        taskManager.StartTask("LeavePhone");
+        Level0TaskManager.StartTaskLeavePhone();
 
         // GlobalPlayerUIManager.Instance.LoadText(matchDialogue);
     }

@@ -172,7 +172,7 @@ public class BrainUIHandler : OverlayUIHandler
     public void UpdateTaskInfo()
     {
         //string desc, string terminal, string urgency
-        Task task = TaskManager.Instance.TaskData(activeTitle);
+        Task task = TaskManager.GenericInstance.GetTaskData(activeTitle);
 
         taskDescription.text = task.description;
         terminalDesc.text = task.location;

@@ -22,7 +22,6 @@ public class HeadConsole : Interactable
     public AudioSource hookSource;
     public AudioSource interactSource;
     public AudioSource denySource;
-    private TaskManager taskManager;
 
     void Start()
     {
@@ -31,18 +30,6 @@ public class HeadConsole : Interactable
         // for grapple arm
         _leftJammed = _rightJammed = false;
         _leftShot = _rightShot = false;
-
-        StartCoroutine(WaitForTaskManager());
-    }
-
-    /// <summary>
-    /// Needed to ensure the instance isn't null before referencing it (although this shouldn't happen) - Joshua Li
-    /// </summary>
-    /// <returns></returns>
-    IEnumerator WaitForTaskManager()
-    {
-        yield return new WaitUntil(() => TaskManager.Instance != null);
-        taskManager = TaskManager.Instance;
     }
 
     // for grapple arm, check trigger input to shoot or retract
@@ -179,11 +166,11 @@ public class HeadConsole : Interactable
             _leftJammed = state;
             if (state)
             {
-                taskManager.StartTask("FixLeft");
+                TaskManager.StartTaskFixLeftArm();
             }
             else
             {
-                taskManager.CompleteTask("FixLeft");
+                TaskManager.CompleteTaskFixLeftArm();
             }
         }
 
@@ -192,11 +179,11 @@ public class HeadConsole : Interactable
             _rightJammed = state;
             if (state)
             {
-                taskManager.StartTask("FixRight");
+                TaskManager.StartTaskFixRightArm();
             }
             else
             {
-                taskManager.CompleteTask("FixRight");
+                TaskManager.CompleteTaskFixRightArm();
             }
         }
 

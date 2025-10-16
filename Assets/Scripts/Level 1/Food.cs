@@ -81,7 +81,7 @@ public class Food : InteractableObject
 
         if (foodBiteCount == totalBites)
         {
-            TaskManager.Instance.CompleteTask("Food");
+            Level1TaskManager.CompleteTaskEatFood();
         }
     }
 

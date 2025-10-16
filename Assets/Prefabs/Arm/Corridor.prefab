@@ -1239,6 +1239,10 @@ PrefabInstance:
       value: Corridor
       objectReference: {fileID: 0}
     - target: {fileID: 3620852893234782568, guid: 71984428cc323d946b785101561d3dab, type: 3}
+      propertyPath: m_UpdateWhenOffscreen
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3620852893234782568, guid: 71984428cc323d946b785101561d3dab, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 9ac8924a79febb947a2ef9739b201a5c, type: 2}

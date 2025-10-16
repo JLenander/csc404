@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2224537017524967362}
   - component: {fileID: 8167638348671643393}
   m_Layer: 0
-  m_Name: Left Fix Button
+  m_Name: Fix Arm Button
   m_TagString: interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

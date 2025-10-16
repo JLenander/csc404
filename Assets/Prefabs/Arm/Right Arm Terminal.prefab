@@ -61,6 +61,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5916554466945693436, guid: 01a1e9d0b9355e64090d303385451c90, type: 3}
+      propertyPath: left
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5916554466945693436, guid: 01a1e9d0b9355e64090d303385451c90, type: 3}
       propertyPath: hoverMessage
       value: Control Right Arm
       objectReference: {fileID: 0}

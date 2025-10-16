@@ -10,11 +10,14 @@ public class MinimapController : MonoBehaviour
     private List<VisualElement> _playerDots = new();
     private List<Transform> _playerTransforms = new();
 
-    // TODO: change after ship cahnge (test with last log)
-    private Vector2 worldMin = new Vector2(-9, -3);
-    private Vector2 worldMax = new Vector2(15, 16);
-    // x: -8.2, 12.9 (actual data by playtest)
-    // y: -1.7, 13.3
+    // TODO: test after new map ui
+    private Vector2 worldMin = new Vector2(-6, 1);
+    private Vector2 worldMax = new Vector2(12, 19);
+    // log: world to map --> x-0.5/1&+1.5/2, y-1.5&+test more
+    // x: -8.2, 12.9 -> -9, 15
+    // y: -1.7, 13.3 -> -3, 16
+    // x: -5.34, 10.34 -> -6, 12
+    // y: 2.88, 13.11 -> 1, 19
 
     private GlobalPlayerManager _playerManager;
     private PlayerData[] players;

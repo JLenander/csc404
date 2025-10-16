@@ -52,7 +52,14 @@ public class SplitscreenUIHandler : MonoBehaviour, ISplitscreenUIHandler
     private void OnSceneChange(Scene oldScene, Scene newScene)
     {
         // Activate the UI when we enter a scene that is not the Main Menu, Level Select, or Character Select scenes.
-        uiDoc.rootVisualElement.visible = true;
+        if (SceneConstants.IsCharacterSelectScene() || SceneConstants.IsLevelSelectScene())
+        {
+            uiDoc.rootVisualElement.visible = false;
+        }
+        else
+        {
+            uiDoc.rootVisualElement.visible = true;
+        }
     }
 
     public void EnablePlayerOverlay(int playerIndex)

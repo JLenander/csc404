@@ -70,9 +70,9 @@ public class GlobalPlayerUIManager : MonoBehaviour
         start = true;
     }
 
-    public void EnableInteractionText(int player, string content, Color msgColour)
+    public void EnableInteractionText(int player, string content, Color msgColour, string buttonPath)
     {
-        _splitscreenUIHandler.EnablePlayerInteractionText(player, content, msgColour);
+        _splitscreenUIHandler.EnablePlayerInteractionText(player, content, msgColour, buttonPath);
     }
 
     public void DisableInteractionText(int player)

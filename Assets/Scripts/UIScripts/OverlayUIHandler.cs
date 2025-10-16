@@ -46,7 +46,7 @@ public class OverlayUIHandler : MonoBehaviour
 
         // move to player's screen
         int playerId = player.GetComponent<PlayerInput>().playerIndex;
-
+        
         MoveToPlayer(playerId);
     }
 

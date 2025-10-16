@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -121,6 +122,7 @@ public class HeadConsole : Interactable
         var input = _currPlayer.GetComponent<PlayerInput>();
         _leftTriggerAction = input.actions.FindAction("LeftTrigger");
         _rightTriggerAction = input.actions.FindAction("RightTrigger");
+        //uIHandler.ShowContainer(player);
     }
 
     public override void Return(GameObject player)

@@ -11,10 +11,12 @@ public class SplitscreenUIHandler : MonoBehaviour, ISplitscreenUIHandler
     // private VisualElement _player1Overlay;
     private VisualElement _player2Overlay;
     private VisualElement _player3Overlay;
+
     // Player Interaction texts
     private VisualElement[] _playerInteractionGroups;
     private Label[] _playerInteractionTexts;
     private VisualElement[] _playerGreyscaleOverlays;
+    private Color[] _playerColors;
 
     // Camera (outside view or eyes) off overlay
     private VisualElement _outsideCamOverlay;
@@ -49,6 +51,13 @@ public class SplitscreenUIHandler : MonoBehaviour, ISplitscreenUIHandler
                 Debug.Log(_playerGreyscaleOverlays[i] + "no greyscale overlay found");
             }
         }
+
+        _playerColors = new Color[NumPlayers] {
+            Color.red,
+            Color.blue,
+            Color.yellow
+        };
+
 
         _outsideCamOverlay = root.Query<VisualElement>("OutsideCamOffOverlay").First();
 
@@ -118,7 +127,7 @@ public class SplitscreenUIHandler : MonoBehaviour, ISplitscreenUIHandler
         }
     }
 
-    public void EnablePlayerInteractionText(int playerIndex, string content, Color msgColour)
+    public void EnablePlayerInteractionText(int playerIndex, string content, Color msgColour, string buttonPath)
     {
         if (playerIndex < 0 || playerIndex >= NumPlayers)
         {
@@ -131,6 +140,10 @@ public class SplitscreenUIHandler : MonoBehaviour, ISplitscreenUIHandler
         var interactionText = group.Q<Label>("InteractionText");
         interactionText.style.color = msgColour;
         interactionText.text = content;
+
+        var interactionButton = group.Q<VisualElement>("InteractionButton");
+        interactionButton.style.backgroundImage = new StyleBackground(GetArtSprite(buttonPath));
+        interactionButton.style.unityBackgroundImageTintColor = _playerColors[playerIndex];
 
         group.visible = true;
     }
@@ -209,6 +222,15 @@ public class SplitscreenUIHandler : MonoBehaviour, ISplitscreenUIHandler
     public void HideDialogue()
     {
         _dialogueUI.visible = false;
+    }
+
+
+    public Sprite GetArtSprite(string artSrpiteName)
+    {
+        // For some reason Resources.Load<Sprite> doesn't work
+        var texture = Resources.Load<Texture2D>(artSrpiteName);
+        var resource = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
+        return resource;
     }
 
 }

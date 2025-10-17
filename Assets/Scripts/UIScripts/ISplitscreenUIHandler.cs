@@ -23,13 +23,25 @@ public interface ISplitscreenUIHandler
     /// <param name="playerIndex">The index of the player to set the interaction text for</param>
     /// <param name="content">The text to set</param>
     /// <param name="msgColour">The color of the text</param>
-    public void EnablePlayerInteractionText(int playerIndex, string content, Color msgColour);
+    public void EnablePlayerInteractionText(int playerIndex, string content, Color msgColour, string buttonPath);
 
     /// <summary>
     /// Disable (hide) the player's interaction text
     /// </summary>
     /// <param name="playerIndex">The player to hide the interaction text for</param>
     public void DisablePlayerInteractionText(int playerIndex);
+
+    /// <summary>
+    /// Dim player's screen 
+    /// </summary>
+    /// <param name="playerIndex">The player to hide the interaction text for</param>
+    public void EnablePlayerScreenGreyscale(int playerIndex);
+
+    /// <summary>
+    /// Undim player's screen 
+    /// </summary>
+    /// <param name="playerIndex">The player to hide the interaction text for</param>
+    public void DisablePlayerScreenGreyscale(int playerIndex);
 
     /// <summary>
     /// Show the outside camera (or eye camera)

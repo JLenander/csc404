@@ -1,23 +1,33 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/CharacterSelect/CharacterSelect.uss?fileID=7433441132597879392&amp;guid=dc71b3340487bd840ad68aa282f11ad4&amp;type=3#CharacterSelect" />
     <ui:VisualElement name="PlainColorBackground" style="flex-grow: 1; background-color: rgb(242, 241, 232); justify-content: space-evenly; align-content: center; align-items: center; flex-direction: column;">
-        <ui:VisualElement name="JoinBoxes" style="flex-grow: 0; flex-direction: row; align-items: center; justify-content: space-evenly; align-self: flex-start; width: 100%; top: auto;">
-            <ui:VisualElement name="Player1Selector" class="characterPreview" style="width: 250px; height: 250px;">
-                <ui:VisualElement name="CharacterPreview" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/UI/Images/Plorp-2D-Drawn.png?fileID=2800000&amp;guid=a1e3570009a22c14d9f0025596811366&amp;type=3#Plorp-2D-Drawn&quot;); background-color: rgba(0, 0, 0, 0); width: 70%; height: 70%;" />
+        <ui:VisualElement name="JoinBoxes" style="flex-grow: 0; flex-direction: row; align-items: center; justify-content: space-evenly; align-self: flex-start; width: 100%; top: auto;  margin-top: 50px;">
+            <ui:VisualElement name="Player1SelectorWrapper" style="flex-direction: column; align-items: center; width: 300px; height: 300px; justify-content: flex-start;">
+                <ui:VisualElement name="Player1Selector" class="characterPreview" style="width: 250px; height: 250px;">
+                    <ui:VisualElement name="CharacterPreview" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/UI/Images/Plorp-2D-Drawn.png?fileID=2800000&amp;guid=a1e3570009a22c14d9f0025596811366&amp;type=3#Plorp-2D-Drawn&quot;); background-color: rgba(0, 0, 0, 0); width: 70%; height: 70%;" />
+                </ui:VisualElement>
+                <ui:Label name="Player1ColorWarning" text="" style="color: red; font-size: 24px; unity-text-align: middle; margin-top: 5px; height: 25px; visibility: hidden;" />
             </ui:VisualElement>
-            <ui:VisualElement name="Player2Selector" class="characterPreview" style="width: 250px; height: 250px;">
-                <ui:VisualElement name="CharacterPreview" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/UI/Images/Plorp-2D-Drawn.png?fileID=2800000&amp;guid=a1e3570009a22c14d9f0025596811366&amp;type=3#Plorp-2D-Drawn&quot;); background-color: rgba(0, 0, 0, 0); width: 70%; height: 70%;" />
+            <ui:VisualElement name="Player2SelectorWrapper" style="flex-direction: column; align-items: center; width: 300px; height: 300px; justify-content: flex-start;">
+                <ui:VisualElement name="Player2Selector" class="characterPreview" style="width: 250px; height: 250px;">
+                    <ui:VisualElement name="CharacterPreview" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/UI/Images/Plorp-2D-Drawn.png?fileID=2800000&amp;guid=a1e3570009a22c14d9f0025596811366&amp;type=3#Plorp-2D-Drawn&quot;); background-color: rgba(0, 0, 0, 0); width: 70%; height: 70%;" />
+                </ui:VisualElement>
+                <ui:Label name="Player2ColorWarning" text="" style="color: red; font-size: 24px; unity-text-align: middle; margin-top: 5px; height: 25px; visibility: hidden;" />
             </ui:VisualElement>
-            <ui:VisualElement name="Player3Selector" class="characterPreview" style="width: 250px; height: 250px;">
-                <ui:VisualElement name="CharacterPreview" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/UI/Images/Plorp-2D-Drawn.png?fileID=2800000&amp;guid=a1e3570009a22c14d9f0025596811366&amp;type=3#Plorp-2D-Drawn&quot;); background-color: rgba(0, 0, 0, 0); width: 70%; height: 70%;" />
-            </ui:VisualElement>
-            <ui:VisualElement name="Player4Selector" class="characterPreview" style="width: 250px; height: 250px; display: none;">
-                <ui:VisualElement name="CharacterPreview" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/UI/Images/Plorp-2D-Drawn.png?fileID=2800000&amp;guid=a1e3570009a22c14d9f0025596811366&amp;type=3#Plorp-2D-Drawn&quot;); background-color: rgba(0, 0, 0, 0); width: 70%; height: 70%;" />
+            <ui:VisualElement name="Player3SelectorWrapper" style="flex-direction: column; align-items: center; width: 300px; height: 300px; justify-content: flex-start;">
+                <ui:VisualElement name="Player3Selector" class="characterPreview" style="width: 250px; height: 250px;">
+                    <ui:VisualElement name="CharacterPreview" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/UI/Images/Plorp-2D-Drawn.png?fileID=2800000&amp;guid=a1e3570009a22c14d9f0025596811366&amp;type=3#Plorp-2D-Drawn&quot;); background-color: rgba(0, 0, 0, 0); width: 70%; height: 70%;" />
+                </ui:VisualElement>
+                <ui:Label name="Player3ColorWarning" text="" style="color: red; font-size: 24px; unity-text-align: middle; margin-top: 5px; height: 25px; visibility: hidden;" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:Label text="Any button to join&#10;B (xbox) or q (keyboard) to leave&#10;A (xbox) or space (keyboard) to accept" name="Instructions" style="bottom: auto; top: auto; font-size: 36px;" />
         <ui:VisualElement name="StartGameBox" style="flex-grow: 0; top: 0%; visibility: visible;">
             <ui:Label text="Press A (xbox) or space (keyboard) to start game" name="StartGameText" enabled="true" style="font-size: 36px; top: 50%; visibility: hidden;" />
         </ui:VisualElement>
+        <ui:Label 
+            name="ColorConflictWarning" 
+            text="Color already taken by another player!" 
+            style="font-size: 28px; color: red; align-self: center; margin-top: 20px; visibility: hidden;" />
     </ui:VisualElement>
 </ui:UXML>

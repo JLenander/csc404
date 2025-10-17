@@ -12,6 +12,9 @@ public class SplitscreenUIHandler : MonoBehaviour, ISplitscreenUIHandler
     private VisualElement _player3Overlay;
     // Player Interaction texts
     private Label[] _playerInteractionTexts;
+    // Player Labels and Borders
+    private Label[] _playerLabels;
+    private VisualElement[] _playerBoxBorders;
 
     // Camera (outside view or eyes) off overlay
     private VisualElement _outsideCamOverlay;
@@ -30,9 +33,13 @@ public class SplitscreenUIHandler : MonoBehaviour, ISplitscreenUIHandler
         _player3Overlay = root.Query<VisualElement>("Player3NotJoined").First();
 
         _playerInteractionTexts = new Label[NumPlayers];
+        _playerLabels = new Label[NumPlayers];
+        _playerBoxBorders = new VisualElement[NumPlayers];
         for (int i = 0; i < NumPlayers; i++)
         {
             _playerInteractionTexts[i] = root.Query<Label>("Player" + (i + 1) + "InteractionText").First();
+            _playerLabels[i] = root.Query<Label>("Player" + (i + 1) + "Label").First();
+            _playerBoxBorders[i] = root.Query<VisualElement>("Player" + (i + 1));
         }
 
         _outsideCamOverlay = root.Query<VisualElement>("OutsideCamOffOverlay").First();
@@ -59,6 +66,21 @@ public class SplitscreenUIHandler : MonoBehaviour, ISplitscreenUIHandler
         else
         {
             uiDoc.rootVisualElement.style.display = DisplayStyle.Flex;
+            
+            // Change player box border and label colors based on player colors
+            var playerManager = FindAnyObjectByType<GlobalPlayerManager>();
+            if (playerManager != null)
+            {
+                for (int i = 0; i < NumPlayers; i++)
+                {
+                    var playerColor = playerManager.Players[i].PlayerColor;
+                    _playerBoxBorders[i].style.borderTopColor = playerColor;
+                    _playerBoxBorders[i].style.borderBottomColor = playerColor;
+                    _playerBoxBorders[i].style.borderLeftColor = playerColor;
+                    _playerBoxBorders[i].style.borderRightColor = playerColor;
+                    _playerLabels[i].style.color = playerColor;
+                }
+            }
         }
     }
 

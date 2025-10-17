@@ -13,8 +13,8 @@ public class Interactable : MonoBehaviour
 
     public UnityEvent onInteraction;
     public UnityEvent onReturn;
+    public bool showOverlay = true;
 
-    //public bool showOverlay = true;
     // Start is called before the first frame update
     void Start()
     {

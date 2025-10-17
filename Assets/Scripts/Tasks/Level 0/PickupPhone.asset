@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TaskInfoSO
   id: PickupPhone
   title: The Phone?
-  description: Pick up the electronic
+  description: Pick up the electronic device
   location: Arms
   urgency: ???
   targetProgress: 1

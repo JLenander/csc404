@@ -5,7 +5,7 @@ using UnityEngine;
 public class PhoneScreen : MonoBehaviour
 {
     public Transform playerCamera;   // assign in Inspector, make angle relative to player view
-    private readonly float _maxAngle = 10f;  // tolerance (CHANGEABLE)
+    private readonly float _maxAngle = 20f;  // tolerance (CHANGEABLE)
     // Note 10f leaves a bit of room, 7f needs some adjusting but not too much
     private bool _faceIDDone;
     private PhoneUIController _phoneUI;

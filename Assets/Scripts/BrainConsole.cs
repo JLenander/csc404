@@ -31,9 +31,6 @@ public class BrainConsole : Interactable
     private bool wasBumperPressed = false;
     private int lastStickDir = 0;
 
-    //public GameObject playerTaskPanel; 
-    //public TMPro.TextMeshPro tasksList; 
-
     private void Start()
     {
         DisableOutline();
@@ -47,8 +44,6 @@ public class BrainConsole : Interactable
         task = true;
         leftLock = true;
         rightLock = true;
-
-        //showOverlay = false;
     }
 
     IEnumerator WaitForBrainUIHandler()

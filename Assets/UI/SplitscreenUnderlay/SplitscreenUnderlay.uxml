@@ -13,7 +13,7 @@
             <ui:VisualElement name="Player2GreyscaleOverlay" class="greyscale-overlay" />
             <ui:Label text="Player 2" name="PlayerLabel" enable-rich-text="true" emoji-fallback-support="true" class="player-label" style="-unity-text-align: upper-right; position: absolute; top: 0; right: 0; color: rgb(0, 0, 255); -unity-font-definition: url(&quot;project://database/Assets/Fonts/AreaKilometer50-gxmEq.otf?fileID=12800000&amp;guid=ef001ebbe0814b84986d79c8d1de465a&amp;type=3#AreaKilometer50-gxmEq&quot;); -unity-font-style: bold; text-shadow: 2px 2px 0 rgb(0, 0, 0);" />
             <ui:VisualElement name="Player2InteractionGroup" class="interaction-group" style="bottom: 0; flex-direction: row;">
-                <ui:Image name="InteractionButton" class="interaction-button" style="flex-grow: 1;" />
+                <ui:Image name="InteractionButton" class="interaction-button" style="flex-grow: 1; margin-top: 10px; margin-right: 10px; margin-bottom: 10px; margin-left: 10px;" />
                 <ui:Label text="Interaction" name="InteractionText" class="interaction-text" style="bottom: 0;" />
             </ui:VisualElement>
             <ui:VisualElement name="Player2NotJoined" style="flex-grow: 1; background-color: rgb(193, 193, 193); justify-content: center;">

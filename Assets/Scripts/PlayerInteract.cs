@@ -42,10 +42,10 @@ public class PlayerInteract : MonoBehaviour
                 Debug.Log("Interacting with " + currentItem);
                 interacting = currentItem;
                 currentItem.Interact(gameObject);
-                if (GlobalPlayerUIManager.Instance != null && interacting)
-                {
-                    GlobalPlayerUIManager.Instance.EnableScreenGreyscale(playerId);
-                }
+                //if (GlobalPlayerUIManager.Instance != null && interacting)
+                //{
+                //    GlobalPlayerUIManager.Instance.EnableScreenGreyscale(playerId);
+                //}
                 DisableCurrInteractable();
             }
         }
@@ -54,8 +54,8 @@ public class PlayerInteract : MonoBehaviour
         {
             interacting?.Return(gameObject);
             interacting = null;
-            if (GlobalPlayerUIManager.Instance != null)
-                GlobalPlayerUIManager.Instance.DisableScreenGreyscale(playerId);
+            //if (GlobalPlayerUIManager.Instance != null)
+            //    GlobalPlayerUIManager.Instance.DisableScreenGreyscale(playerId);
         }
 
     }

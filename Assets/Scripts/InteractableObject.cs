@@ -1,6 +1,8 @@
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using UnityEngine.Windows;
 
 public abstract class InteractableObject : MonoBehaviour
@@ -38,6 +40,8 @@ public abstract class InteractableObject : MonoBehaviour
                 {
                     interactPopUp.LookAt(_robotHead);
                     interactPopUp.Rotate(0f, 180f, 0f);
+                    GameObject currPlayer = handMovement.GetCurrPlayer();
+                    interactPopUp.GetComponent<TextMeshProUGUI>().color = currPlayer.GetComponent<Player>().GetPlayerColor();
                     interactPopUp.gameObject.SetActive(true);
                 }
             }

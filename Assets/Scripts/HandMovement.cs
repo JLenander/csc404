@@ -245,4 +245,9 @@ public class HandMovement : MonoBehaviour
     {
         currObj = obj;
     }
+
+    public GameObject GetCurrPlayer()
+    {
+        return _currPlayer;
+    }
 }

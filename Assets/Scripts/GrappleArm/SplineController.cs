@@ -46,6 +46,8 @@ public class SplineController : MonoBehaviour
     // Private vars for smooth motion.
     private Vector3 _currEndPointForce;
     private Vector3 _currMidPointForce;
+
+    private Vector3 targetObjRest;
     
     private void Start()
     {
@@ -57,6 +59,7 @@ public class SplineController : MonoBehaviour
         
         _currEndPointForce = Vector3.zero;
         _currMidPointForce = Vector3.zero;
+        targetObjRest = targetObject.localPosition;
     }
 
     private void FixedUpdate()
@@ -65,8 +68,9 @@ public class SplineController : MonoBehaviour
         UpdateSplineSegment();
     }
     
-    public void SetExtending()
+    public void SetExtending(float value)
     {
+        targetObject.localPosition = targetObjRest + new Vector3(0f, value * 15f, 0f);
         extending = true;
     }
 

@@ -28,7 +28,6 @@ public class PlayerInteract : MonoBehaviour
 
         PlayerInput playerInput = GetComponent<PlayerInput>();
         playerId = playerInput.playerIndex;
-
     }
 
     // Update is called once per frame
@@ -48,7 +47,6 @@ public class PlayerInteract : MonoBehaviour
                     GlobalPlayerUIManager.Instance.EnableScreenGreyscale(playerId);
                 }
                 DisableCurrInteractable();
-
             }
         }
 

@@ -26,12 +26,6 @@ public class MinimapController : MonoBehaviour
     private GlobalPlayerManager _playerManager;
     private PlayerData[] _players;
 
-    private readonly Color[] _playerColors = {
-        Color.red,      // Player 1
-        Color.blue,     // Player 2
-        Color.yellow,   // Player 3
-    };
-
     private bool _initialized;
 
     // instance to be used in GlobalPlayerManager to call initialize player dots after players added
@@ -108,7 +102,7 @@ public class MinimapController : MonoBehaviour
                         borderBottomWidth = 0,
                         borderLeftColor = Color.clear,
                         borderRightColor = Color.clear,
-                        borderTopColor = _playerColors[i],
+                        borderTopColor = _players[i].PlayerColor,
                         backgroundColor = Color.clear
                     }
                 };
@@ -127,7 +121,7 @@ public class MinimapController : MonoBehaviour
                         borderBottomRightRadius = Length.Percent(50),
                         borderTopLeftRadius = Length.Percent(50),
                         borderTopRightRadius = Length.Percent(50),
-                        backgroundColor = _playerColors[i]
+                        backgroundColor = _players[i].PlayerColor
                     }
                 };
 

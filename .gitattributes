@@ -1,4 +1,5 @@
 *.xsd linguist-generated=true
+*.unity linguist-generated=true
 *.prefab linguist-generated=true
 *.asset linguist-generated=true
 *.renderTexture linguist-generated=true

@@ -68,6 +68,7 @@ public class FoodBite : InteractableObject, IPooledObject
     public void SetFoodBiteSpawner(Food foodBiteSpawner)
     {
         _foodBiteSpawner = foodBiteSpawner;
+        _robotHead = _foodBiteSpawner._robotHead;
     }
 
     public void SetBag(GameObject bagObj)
@@ -106,7 +107,7 @@ public class FoodBite : InteractableObject, IPooledObject
 
         Vector3 startPos = transform.position;
         rb.isKinematic = true;
-        popUp.LookAt(_foodBiteSpawner.robotHead);
+        popUp.LookAt(_foodBiteSpawner._robotHead);
         popUp.Rotate(0f, 180f, 0f);
         popUp.gameObject.SetActive(true);
         graphic.gameObject.SetActive(false);

@@ -2,17 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.Subsystems;
 
 public class Food : InteractableObject
 {
     // spawn food bites
-
     public int totalBites = 10;
     private int foodBiteCount;
     private ObjectPooler objectPooler;
-    public Transform robotHead;
-
     [SerializeField] private ParticleSystem particle;
 
     [SerializeField] private GameObject[] foodStates;
@@ -41,7 +39,7 @@ public class Food : InteractableObject
 
     public override void InteractWithHand(Transform wrist, HandMovement target)
     {
-        if (foodBiteCount < totalBites && canInteract)
+        if (foodBiteCount < totalBites && canPickup)
         {
             // spawn a food bite from the object pooler
             GameObject foodBiteObj = objectPooler.SpawnFromPool("FoodBite", transform.position, transform.rotation);
@@ -66,12 +64,12 @@ public class Food : InteractableObject
         {
             Debug.Log("No more food bites!");
             target.StopInteractingWithObject(this);
-            canInteract = false;
+            canPickup = false;
         }
     }
 
     private void ChangeFoodState(int foodBiteCount)
-    {
+    { 
         if (foodStateChange.Contains(foodBiteCount))
         {
             foodStates[currIndex].SetActive(false);
@@ -82,6 +80,7 @@ public class Food : InteractableObject
         if (foodBiteCount == totalBites)
         {
             Level1TaskManager.CompleteTaskEatFood();
+            canPickup = false;
         }
     }
 

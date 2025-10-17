@@ -1,6 +1,8 @@
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using UnityEngine.Windows;
 
 public abstract class InteractableObject : MonoBehaviour
@@ -10,15 +12,21 @@ public abstract class InteractableObject : MonoBehaviour
     public bool canPickup = true;
     private HandMovement handMovement;
     private Hand hand;
+    [SerializeField] protected Transform interactPopUp;
+    public Transform _robotHead;
 
     public virtual void Start()
     {
         DisableOutline();
+        if (interactPopUp != null)
+        {
+            interactPopUp.gameObject.SetActive(false);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other != null && other.CompareTag("Hand"))
+        if (other != null && other.CompareTag("Hand") && canPickup)
         {
             EnableOutline();
             canInteract = true;
@@ -27,6 +35,15 @@ public abstract class InteractableObject : MonoBehaviour
             {
                 handMovement = hand.GetHandMovement();
                 handMovement.SetCurrentInteractableObject(gameObject, true);
+
+                if (interactPopUp != null && _robotHead != null)
+                {
+                    interactPopUp.LookAt(_robotHead);
+                    interactPopUp.Rotate(0f, 180f, 0f);
+                    GameObject currPlayer = handMovement.GetCurrPlayer();
+                    interactPopUp.GetComponent<TextMeshProUGUI>().color = currPlayer.GetComponent<Player>().GetPlayerColor();
+                    interactPopUp.gameObject.SetActive(true);
+                }
             }
         }
     }
@@ -37,6 +54,10 @@ public abstract class InteractableObject : MonoBehaviour
         canInteract = false;
         if (handMovement != null)
             handMovement.SetCurrentInteractableObject(null, false);
+        if (interactPopUp != null)
+        {
+            interactPopUp.gameObject.SetActive(false);
+        }
     }
 
     public void DisableOutline()

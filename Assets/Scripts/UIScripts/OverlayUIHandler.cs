@@ -46,7 +46,7 @@ public class OverlayUIHandler : MonoBehaviour
 
         // move to player's screen
         int playerId = player.GetComponent<PlayerInput>().playerIndex;
-
+        
         MoveToPlayer(playerId);
     }
 
@@ -65,8 +65,8 @@ public class OverlayUIHandler : MonoBehaviour
                 leftPercent = 50f;
                 topPercent = 0f;
                 break;
-            case 2: // top-left
-                leftPercent = 50f;
+            case 2: // bot-left
+                leftPercent = 0f;
                 topPercent = 50f;
                 break;
         }

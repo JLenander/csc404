@@ -7,6 +7,12 @@ public class HipConsole : Interactable
     [SerializeField] Transform robotBody;
     public AudioSource audioSource;
 
+    private OverlayUIHandler uIHandler;
+    void Start()
+    {
+        DisableOutline();
+        uIHandler = LegUIHandler.Instance;
+    }
     public override void Interact(GameObject player)
     {
         player.GetComponent<Player>().TurnOff();
@@ -15,6 +21,7 @@ public class HipConsole : Interactable
         _canInteract = false;
         if (audioSource != null)
             audioSource.Play();
+        uIHandler.ShowContainer(player);
     }
 
     public override void Return(GameObject player)
@@ -23,6 +30,7 @@ public class HipConsole : Interactable
         player.GetComponent<Player>().switchOffLegs();
 
         _canInteract = true;
+        uIHandler.HideContainer(player);
     }
 
 

@@ -73,6 +73,7 @@ public class GlobalPlayerManager : MonoBehaviour
             Debug.Log("Player " + idx + " Joined - Character Select Scene");
             _players[idx].Input = playerInput;
             _players[idx].PlayerObject = playerInput.gameObject; // This might change so it's a separate field.
+            _players[idx].PlayerObject.GetComponent<Player>().SetPlayerID(playerInput.playerIndex);
             _players[idx].Valid = true;
 
             // Add player to the character selection screen so they can start selecting their character.

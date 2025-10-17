@@ -1535,6 +1535,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2651139117455627972, guid: 08b2094efe6813847a68ed2ada05a34f, type: 3}
   m_PrefabInstance: {fileID: 3233634353991162672}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &3233634353991162677 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7839684266347174250, guid: 08b2094efe6813847a68ed2ada05a34f, type: 3}
+  m_PrefabInstance: {fileID: 3233634353991162672}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3329251025354599602
 GameObject:
   m_ObjectHideFlags: 0
@@ -1772,6 +1777,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 267966554777334505, guid: f099881265806844bab8a0fc9e63c918, type: 3}
+      propertyPath: _robotHead
+      value: 
+      objectReference: {fileID: 3233634353991162677}
     - target: {fileID: 614543523816022516, guid: f099881265806844bab8a0fc9e63c918, type: 3}
       propertyPath: m_Name
       value: TutorialRoom

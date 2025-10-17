@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TaskInfoSO
   id: Leave
   title: Exit
-  description: Wow! We were really good, let's head home
+  description: Nailed it! let's head home
   location: Legs
   urgency: Normal
   targetProgress: 1

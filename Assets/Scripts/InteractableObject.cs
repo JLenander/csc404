@@ -41,7 +41,14 @@ public abstract class InteractableObject : MonoBehaviour
                     interactPopUp.LookAt(_robotHead);
                     interactPopUp.Rotate(0f, 180f, 0f);
                     GameObject currPlayer = handMovement.GetCurrPlayer();
-                    interactPopUp.GetComponent<TextMeshProUGUI>().color = currPlayer.GetComponent<Player>().GetPlayerColor();
+                    if (currPlayer != null)
+                    {
+                        if (interactPopUp.GetComponent<TextMeshProUGUI>() != null)
+                        {
+                            interactPopUp.GetComponent<TextMeshProUGUI>().color = currPlayer.GetComponent<Player>().GetPlayerColor();
+                        }
+                    }
+
                     interactPopUp.gameObject.SetActive(true);
                 }
             }

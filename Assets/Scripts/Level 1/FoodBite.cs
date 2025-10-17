@@ -89,6 +89,8 @@ public class FoodBite : InteractableObject, IPooledObject
             rb.isKinematic = true;
 
             transform.position = collision.contacts[0].point + Vector3.up * 0.01f;
+
+            canInteract = false;
         }
         else if (collision.gameObject.CompareTag("Bag"))
         {

@@ -153,7 +153,7 @@ namespace UIScripts
 
         public void ShowColorConflictWarning(int playerIndex, int otherIndex)
         {
-            string message = "Color taken by Player " + otherIndex;
+            string message = "Color taken by Player " + (otherIndex + 1);
             _playerColorWarnings[playerIndex].text = message;
             _playerColorWarnings[playerIndex].visible = true;
         }

@@ -6,10 +6,10 @@
     border-right-width: 4px;
     border-bottom-width: 4px;
     border-left-width: 4px;
-    border-left-color: rgb(230, 230, 230);
-    border-right-color: rgb(230, 230, 230);
-    border-top-color: rgb(230, 230, 230);
-    border-bottom-color: rgb(230, 230, 230);
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
 }
 
 .unity-button {
@@ -36,4 +36,7 @@
     border-right-color: rgb(230, 230, 230);
     border-top-color: rgb(230, 230, 230);
     border-bottom-color: rgb(230, 230, 230);
+}
+
+.button {
 }

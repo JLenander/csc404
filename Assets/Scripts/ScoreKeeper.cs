@@ -146,7 +146,8 @@ public class ScoreKeeper : MonoBehaviour
     string LetterScore(int currScore)
     {
         // give the player a letter grade based on what they got compared
-        if (maxScore <= 0) return "F";
+        if (maxScore == 0) return "N/A";
+        if (maxScore < 0) return "F";
 
         float ratio = currScore / maxScore;
 

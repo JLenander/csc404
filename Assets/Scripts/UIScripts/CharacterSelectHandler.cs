@@ -15,6 +15,8 @@ namespace UIScripts
         private VisualElement[] _playerBoxes;
         private VisualElement _readyText;
         private Label[] _playerColorWarnings;
+        // private Label[] _playerNumbers;
+        // Note: not doing because label solors are hard to change in code (IResolvedStyle)
         
         private int _readyPlayers = 0;
         private int _playerCount = 0;
@@ -39,7 +41,7 @@ namespace UIScripts
             _playerBoxes[1] = root.Query<VisualElement>("Player2Selector");
             _playerBoxes[2] = root.Query<VisualElement>("Player3Selector");
 
-            _readyText = root.Query<VisualElement>("StartGameText");
+            _readyText = root.Query<VisualElement>("StartInstruction");
             
             _playerColorWarnings = new Label[3];
             for (int i = 0; i < 3; i++)

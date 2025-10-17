@@ -20,14 +20,14 @@ public class FoodBite : InteractableObject, IPooledObject
     public override void Start()
     {
         base.Start();
-        popUp.gameObject.SetActive(false);
+        // popUp.gameObject.SetActive(false);
         rb = GetComponent<Rigidbody>();
     }
 
     public void OnSpawn()
     {
-        popUp.gameObject.SetActive(false);
-        graphic.gameObject.SetActive(true);
+        // popUp.gameObject.SetActive(false);
+        // graphic.gameObject.SetActive(true);
         gameObject.SetActive(true);
         ogParent = transform.parent;
 
@@ -39,7 +39,7 @@ public class FoodBite : InteractableObject, IPooledObject
         if (canInteract && canPickup)
         {
             // move to hand
-            DisableOutline();
+            // DisableOutline();
             transform.parent = obj;
             transform.localPosition = new Vector3(0.0f, 5.2f, -1.0f);
             transform.localRotation = Quaternion.Euler(-88f, 10f, 0f);
@@ -112,7 +112,7 @@ public class FoodBite : InteractableObject, IPooledObject
         popUp.LookAt(_foodBiteSpawner._robotHead);
         popUp.Rotate(0f, 180f, 0f);
         popUp.gameObject.SetActive(true);
-        graphic.gameObject.SetActive(false);
+        // graphic.gameObject.SetActive(false);
 
         while (elapsed < duration)
         {

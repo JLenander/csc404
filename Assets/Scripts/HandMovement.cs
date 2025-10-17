@@ -145,6 +145,7 @@ public class HandMovement : MonoBehaviour
         {
             Vector3 totalMvt = movement * speed + _ogPosition;
             totalMvt.z = Mathf.Clamp(totalMvt.z, -1f, 13f);
+            totalMvt.y = Mathf.Clamp(totalMvt.y, -28f, 2f);
             transform.localPosition = totalMvt;
         }
         else
@@ -153,6 +154,7 @@ public class HandMovement : MonoBehaviour
             tmpMvt.x *= -1.0f;
             tmpMvt = tmpMvt * speed + _ogPosition;
             tmpMvt.z = Mathf.Clamp(tmpMvt.z, -1f, 13f);
+            tmpMvt.y = Mathf.Clamp(tmpMvt.y, -28f, 2f);
             transform.localPosition = tmpMvt;
         }
         

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -25,6 +26,9 @@ public class SplitscreenUIHandler : MonoBehaviour, ISplitscreenUIHandler
     private VisualElement _dialogueIcon;
 
     private const int NumPlayers = 3;
+    
+    // Cache for art sprites
+    private Dictionary<string, Sprite> _spriteCache = new();
 
     void Start()
     {
@@ -228,14 +232,23 @@ public class SplitscreenUIHandler : MonoBehaviour, ISplitscreenUIHandler
     {
         _dialogueUI.visible = false;
     }
-
-
+    
     public Sprite GetArtSprite(string artSrpiteName)
     {
+        // Cache the sprites or else we blow up
+        if (_spriteCache.TryGetValue(artSrpiteName, out var cachedSprite))
+        {
+            return cachedSprite;
+        }
+        
         // For some reason Resources.Load<Sprite> doesn't work
         var texture = Resources.Load<Texture2D>(artSrpiteName);
-        var resource = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
-        return resource;
+        var sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
+        if (!_spriteCache.TryAdd(artSrpiteName, sprite))
+        {
+            Debug.LogError("Sprite already exists in cache but recreated: " + artSrpiteName);
+        }
+        return sprite;
     }
 
 }

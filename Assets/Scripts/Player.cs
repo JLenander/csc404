@@ -36,12 +36,6 @@ public class Player : MonoBehaviour
     private float stepTimer;
 
     private RobotMovement _robotMovement;
-    
-    private readonly Color[] _playerColors = {
-        Color.red,      // Player 1
-        Color.blue,     // Player 2
-        Color.yellow,   // Player 3
-    };
 
     void Start()
     {
@@ -54,13 +48,6 @@ public class Player : MonoBehaviour
         _characterController.enabled = false;
         this.transform.position = new Vector3(-1.0f, 5.0f, -3.0f);
         _characterController.enabled = true;
-        
-        var index = input.playerIndex;
-        var outline = GetComponent<Outline>();
-        if (outline != null)
-        {
-            outline.OutlineColor = _playerColors[index];
-        }
 
         _controlFunc = ControlPlayer;
     }

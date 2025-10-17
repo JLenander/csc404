@@ -53,6 +53,16 @@ public static class InputActionMapper
         return playerInput.actions.FindAction("RightBumper", throwIfNotFound: true);
     }
     
+    public static InputAction GetCharacterSelectLeftAction(PlayerInput playerInput)
+    {
+        return playerInput.actions.FindAction("LeftBumper", throwIfNotFound: true);
+    }
+    
+    public static InputAction GetCharacterSelectRightAction(PlayerInput playerInput)
+    {
+        return playerInput.actions.FindAction("RightBumper", throwIfNotFound: true);
+    }
+    
     public const string CharacterSelectActionMapName = "CharacterSelect";
     public const string LevelSelectActionMapName = "LevelSelect";
     public const string PlayerActionMapName = "Player";

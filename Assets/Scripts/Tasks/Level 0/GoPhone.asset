@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TaskInfoSO
   id: GoPhone
   title: A Phone
-  description: Walk over to the electronic
+  description: Walk over to the table
   location: Legs
   urgency: ???
   targetProgress: 1

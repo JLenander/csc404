@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TaskInfoSO
   id: LeavePhone
   title: Leave
-  description: Go meet our matched  date
-  location: Arms
+  description: Find a way out to go meet your date
+  location: Legs
   urgency: ???
   targetProgress: 1

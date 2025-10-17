@@ -12,7 +12,6 @@ public class PlayerInteract : MonoBehaviour
     Interactable currentItem;
 
     private InputAction _interactAction;
-
     private InputAction _returnAction;
 
     private Interactable interacting;
@@ -29,7 +28,6 @@ public class PlayerInteract : MonoBehaviour
 
         PlayerInput playerInput = GetComponent<PlayerInput>();
         playerId = playerInput.playerIndex;
-
     }
 
     // Update is called once per frame
@@ -37,8 +35,6 @@ public class PlayerInteract : MonoBehaviour
     {
         CheckInteraction();
 
-        // Debug.Log("Current Item: " + currentItem);
-        // Debug.Log("Current Item: " + interacting);
         if (_interactAction.WasPressedThisFrame() && currentItem != null && interacting == null)
         {
             if (currentItem.CanInteract())
@@ -46,6 +42,11 @@ public class PlayerInteract : MonoBehaviour
                 Debug.Log("Interacting with " + currentItem);
                 interacting = currentItem;
                 currentItem.Interact(gameObject);
+                //if (GlobalPlayerUIManager.Instance != null && interacting)
+                //{
+                //    GlobalPlayerUIManager.Instance.EnableScreenGreyscale(playerId);
+                //}
+                DisableCurrInteractable();
             }
         }
 
@@ -53,12 +54,20 @@ public class PlayerInteract : MonoBehaviour
         {
             interacting?.Return(gameObject);
             interacting = null;
+            //if (GlobalPlayerUIManager.Instance != null)
+            //    GlobalPlayerUIManager.Instance.DisableScreenGreyscale(playerId);
         }
 
     }
 
     void CheckInteraction()
     {
+        if (interacting != null)
+        {
+            SetReturnText(interacting);
+            return;
+        }
+
         RaycastHit hit;
 
         Ray ray = new Ray(fpsCam.transform.position, fpsCam.transform.forward);
@@ -99,6 +108,12 @@ public class PlayerInteract : MonoBehaviour
         }
     }
 
+    void SetReturnText(Interactable currItem)
+    {
+        if (GlobalPlayerUIManager.Instance != null)
+            GlobalPlayerUIManager.Instance.EnableInteractionText(playerId, "To Return", currItem.msgColour, "UI/KeysPNG/PS4KEYS_BnW/Circle");
+    }
+
     /// <summary>
     /// Visually enable the interaction prompt for the Interactable object newInteractable that this player is looking at
     /// </summary>
@@ -109,7 +124,7 @@ public class PlayerInteract : MonoBehaviour
         currentItem.EnableOutline();
 
         if (GlobalPlayerUIManager.Instance != null)
-            GlobalPlayerUIManager.Instance.EnableInteractionText(playerId, currentItem.hoverMessage, currentItem.msgColour);
+            GlobalPlayerUIManager.Instance.EnableInteractionText(playerId, currentItem.hoverMessage, currentItem.msgColour, "UI/KeysPNG/PS4KEYS_BnW/Cross");
     }
 
     /// <summary>

@@ -31,6 +31,11 @@ public class Phone : InteractableObject
         {
             // move to hand
             DisableOutline();
+            if (interactPopUp != null)
+            {
+                interactPopUp.gameObject.SetActive(false);
+            }
+
             transform.parent = obj;
             transform.localPosition = new Vector3(0.0f, 5.2f, -1.0f);
             transform.localRotation = Quaternion.Euler(-88f, 10f, 0f);

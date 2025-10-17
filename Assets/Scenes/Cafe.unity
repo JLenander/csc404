@@ -6859,6 +6859,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1119936598}
     - target: {fileID: 411164773002391776, guid: 771f9bf88273ec14788dbd89fc8792e7, type: 3}
+      propertyPath: _robotHead
+      value: 
+      objectReference: {fileID: 524322326}
+    - target: {fileID: 411164773002391776, guid: 771f9bf88273ec14788dbd89fc8792e7, type: 3}
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 687215443}
@@ -7321,6 +7325,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 524322326}
     - target: {fileID: 3265662710650802601, guid: 62613715ed8ac874094a3f4c5dd1da6d, type: 3}
+      propertyPath: _robotHead
+      value: 
+      objectReference: {fileID: 524322326}
+    - target: {fileID: 3265662710650802601, guid: 62613715ed8ac874094a3f4c5dd1da6d, type: 3}
       propertyPath: totalBites
       value: 10
       objectReference: {fileID: 0}
@@ -7350,23 +7358,23 @@ PrefabInstance:
       objectReference: {fileID: 1828224157}
     - target: {fileID: 3265662710650802601, guid: 62613715ed8ac874094a3f4c5dd1da6d, type: 3}
       propertyPath: foodStateChange.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3265662710650802601, guid: 62613715ed8ac874094a3f4c5dd1da6d, type: 3}
-      propertyPath: 'foodStateChange.Array.data[0]'
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3265662710650802601, guid: 62613715ed8ac874094a3f4c5dd1da6d, type: 3}
-      propertyPath: 'foodStateChange.Array.data[1]'
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3265662710650802601, guid: 62613715ed8ac874094a3f4c5dd1da6d, type: 3}
-      propertyPath: 'foodStateChange.Array.data[2]'
+      propertyPath: 'foodStateChange.Array.data[0]'
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3265662710650802601, guid: 62613715ed8ac874094a3f4c5dd1da6d, type: 3}
+      propertyPath: 'foodStateChange.Array.data[1]'
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3265662710650802601, guid: 62613715ed8ac874094a3f4c5dd1da6d, type: 3}
+      propertyPath: 'foodStateChange.Array.data[2]'
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3265662710650802601, guid: 62613715ed8ac874094a3f4c5dd1da6d, type: 3}
       propertyPath: 'foodStateChange.Array.data[3]'
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3265662710650802601, guid: 62613715ed8ac874094a3f4c5dd1da6d, type: 3}
       propertyPath: 'foodStateChange.Array.data[4]'

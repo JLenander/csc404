@@ -70,9 +70,9 @@ public class GlobalPlayerUIManager : MonoBehaviour
         start = true;
     }
 
-    public void EnableInteractionText(int player, string content, Color msgColour)
+    public void EnableInteractionText(int player, string content, Color msgColour, string buttonPath)
     {
-        _splitscreenUIHandler.EnablePlayerInteractionText(player, content, msgColour);
+        _splitscreenUIHandler.EnablePlayerInteractionText(player, content, msgColour, buttonPath);
     }
 
     public void DisableInteractionText(int player)
@@ -80,6 +80,17 @@ public class GlobalPlayerUIManager : MonoBehaviour
         if (!start) return;
         _splitscreenUIHandler.DisablePlayerInteractionText(player);
 
+    }
+
+    public void EnableScreenGreyscale(int player)
+    {
+        _splitscreenUIHandler.EnablePlayerScreenGreyscale(player);
+    }
+
+    public void DisableScreenGreyscale(int player)
+    {
+        if (!start) return;
+        _splitscreenUIHandler.DisablePlayerScreenGreyscale(player);
     }
 
     // fades image into view based on *time* seconds, used for blink terminal

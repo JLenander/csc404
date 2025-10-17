@@ -68,6 +68,7 @@ public class Evidence : InteractableObject, IPooledObject
     public void SetEvidenceSpawner(EvidenceSpawner evidenceSpawner)
     {
         _evidenceSpawner = evidenceSpawner;
+        _robotHead = _evidenceSpawner.robotHead;
     }
 
     // public override void StopInteractWithHand(HandMovement target)

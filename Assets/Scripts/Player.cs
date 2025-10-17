@@ -36,6 +36,7 @@ public class Player : MonoBehaviour
     private float stepTimer;
 
     private RobotMovement _robotMovement;
+    private int playerID;
 
     void Start()
     {
@@ -195,5 +196,20 @@ public class Player : MonoBehaviour
         _robotMovement = null;
 
         _controlFunc = ControlPlayer;
+    }
+
+    public Color GetPlayerColor()
+    {
+        return GlobalPlayerManager.Instance.Players[playerID].PlayerColor;
+    }
+
+    public int GetPlayerID()
+    {
+        return playerID;
+    }
+
+    public void SetPlayerID(int num)
+    {
+        playerID = num;
     }
 }

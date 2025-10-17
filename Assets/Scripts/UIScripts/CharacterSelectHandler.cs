@@ -27,7 +27,7 @@ namespace UIScripts
             Color.yellow,   // Player 3
         };
         
-        private int[] _playerColorIndices = { -1, -1, -1 };
+        private int[] _playerColorIndices = { 0, 1, 2 };
         
         private GlobalPlayerManager _playerManager;
         
@@ -153,7 +153,7 @@ namespace UIScripts
 
         public void ShowColorConflictWarning(int playerIndex, int otherIndex)
         {
-            string message = "Color taken by Player " + otherIndex;
+            string message = "Color taken by Player " + (otherIndex + 1);
             _playerColorWarnings[playerIndex].text = message;
             _playerColorWarnings[playerIndex].visible = true;
         }

@@ -23,8 +23,8 @@ public class Evidence : InteractableObject, IPooledObject
     public void OnSpawn()
     {
         // enable object
-        popUp.gameObject.SetActive(false);
-        graphic.gameObject.SetActive(true);
+        // popUp.gameObject.SetActive(false);
+        // graphic.gameObject.SetActive(true);
         gameObject.SetActive(true);
         grabbed = false;
     }
@@ -86,7 +86,7 @@ public class Evidence : InteractableObject, IPooledObject
         popUp.LookAt(_evidenceSpawner.robotHead);
         popUp.Rotate(0f, 180f, 0f);
         popUp.gameObject.SetActive(true);
-        graphic.gameObject.SetActive(false);
+        // graphic.gameObject.SetActive(false);
 
         while (elapsed < duration)
         {

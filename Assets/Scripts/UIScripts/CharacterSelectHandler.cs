@@ -103,14 +103,8 @@ namespace UIScripts
             playerBox.AddToClassList("playerConfirmed");
             
             _readyPlayers++;
-            if (AllPlayersReady())
-            {
-                _readyText.visible = true;
-            }
-            else
-            {
-                _readyText.visible = false;
-            }
+            // if that was last player to ready, show "all players ready" text
+            _readyText.visible = AllPlayersReady();
 
         }       
         
@@ -122,6 +116,9 @@ namespace UIScripts
             playerBox.RemoveFromClassList("playerConfirmed");
             
             _readyPlayers--;
+            
+            // if all players were ready now not, hide "all players ready" text
+            _readyText.visible = AllPlayersReady();
         }
         
         // True if all players (at least 1) have readied up

@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "TaskInfoSO", menuName = "Scriptable Objects/TaskInfoSO", order = 1)]
 public class TaskInfoSO : ScriptableObject
 {
-    [SerializeField] public string id { get; private set; }
+    public string id;
     public string title;
     [TextArea] public string description;
 

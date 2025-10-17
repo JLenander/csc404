@@ -3,7 +3,22 @@ guid: a8f999ea47e30334986a39f185d9b1dd
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_meatball
+    second: {fileID: 2100000, guid: f512afa338770e7449dd5aac1ea3e818, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_noodle
+    second: {fileID: 2100000, guid: 0e16c3276bc0e594b97a462a30ca6c9a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_sauce
+    second: {fileID: 2100000, guid: 15601e48dfa6a014d8b109ebd7165685, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

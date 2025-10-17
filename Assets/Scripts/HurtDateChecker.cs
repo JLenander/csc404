@@ -8,17 +8,22 @@ public class HurtDateChecker : MonoBehaviour
     [SerializeField] private float bendDistance = 0.2f;
     [SerializeField] private float returnSpeed = 0.5f;
 
-    [SerializeField] private DialogueScriptableObj hurtDialogue;
+    // [SerializeField] private DialogueScriptableObj hurtDialogue;
 
     public AudioSource audioSource;
     private Vector3 original;
+    private Quaternion startRot;
     private Coroutine bendRoutine;
     private ScoreKeeper scoreKeeper;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         if (spineTarget != null)
+        {
             original = spineTarget.localPosition;
+            startRot = spineTarget.localRotation;
+        }
+
 
         scoreKeeper = ScoreKeeper.Instance;
     }
@@ -43,14 +48,13 @@ public class HurtDateChecker : MonoBehaviour
             scoreKeeper.IncrementHurtDate();
             scoreKeeper.ModifyScore(-1);
 
-            GlobalPlayerUIManager.Instance.LoadText(hurtDialogue);
+            // GlobalPlayerUIManager.Instance.LoadText(hurtDialogue);
         }
     }
 
     IEnumerator BendOpposite(Vector3 bendOffset)
     {
         Vector3 targetPos = original + bendOffset;
-        Quaternion startRot = spineTarget.localRotation;
         float t = 0;
 
         Quaternion targetRot = startRot * Quaternion.Euler(bendOffset.z * 5f, -bendOffset.x * 5f, 0f);

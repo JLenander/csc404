@@ -76,7 +76,7 @@ public class BlinkConsole : Interactable
     {
         PlayerInteract playerInteract = player.GetComponent<PlayerInteract>();
         ResetTimers();
-        playerInteract.NullInteracting();
+        playerInteract.LeaveCurrInteractable();
 
         if (audioSource != null)
             audioSource.Play();

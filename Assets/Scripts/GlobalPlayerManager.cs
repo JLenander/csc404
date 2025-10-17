@@ -5,10 +5,13 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// This script is intended to be on a persistent object handling player input across scenes
+/// This script is intended to be on a persistent object handling player input across scenes.
+/// This script also manages pre and post scene change code to prepare the player for the scene change.
 /// </summary>
 public class GlobalPlayerManager : MonoBehaviour
 {
+    public static GlobalPlayerManager Instance;
+    
     private int _playerLimit;
     private PlayerData[] _players;
     private GlobalPlayerUIManager uiManager; // use to aggregate player UI
@@ -24,10 +27,22 @@ public class GlobalPlayerManager : MonoBehaviour
         Color.clear,   // Player 3
     };
 
+    public void Awake()
+    {
+        // Only allow one Global Player Manager
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        } else 
+        {
+            Instance = this;
+        }
+        
+        DontDestroyOnLoad(this);
+    }
+    
     void Start()
     {
-        DontDestroyOnLoad(this);
-
         _characterSelectScreen = characterSelectScreen.GetComponent<ICharacterSelectScreen>();
 
         // initalize player data
@@ -39,11 +54,11 @@ public class GlobalPlayerManager : MonoBehaviour
         }
 
         // Register handlers for when a player joins or leaves
-        PlayerInputManager.instance.onPlayerJoined += OnPlayerJoined;
-        PlayerInputManager.instance.onPlayerLeft += OnPlayerLeft;
+        PlayerInputManager.instance.onPlayerJoined += Instance.OnPlayerJoined;
+        PlayerInputManager.instance.onPlayerLeft += Instance.OnPlayerLeft;
 
         // Register handler for when the scene changes
-        SceneManager.activeSceneChanged += ActiveSceneChanged;
+        SceneManager.activeSceneChanged += Instance.ActiveSceneChanged;
     }
 
     /// <summary>
@@ -189,6 +204,21 @@ public class GlobalPlayerManager : MonoBehaviour
         else
         {
             Debug.Log("Player Left - Other Scene");
+        }
+    }
+
+    /// <summary>
+    /// Prepare all players for a scene change: <br />
+    /// - Kick players off terminal if they are currently interacting with one
+    /// </summary>
+    public void PrepareAllPlayersForSceneChange()
+    {
+        foreach (var player in _players)
+        {
+            if (player.Valid)
+            {
+                player.PlayerObject.GetComponent<PlayerInteract>().LeaveCurrInteractable();
+            }
         }
     }
 

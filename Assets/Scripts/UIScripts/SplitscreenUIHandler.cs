@@ -51,7 +51,7 @@ public class SplitscreenUIHandler : MonoBehaviour, ISplitscreenUIHandler
         _dialogueUI.visible = false;
 
         // Disable Root to start until scene is switched
-        root.visible = false;
+        root.style.display = DisplayStyle.None;
         SceneManager.activeSceneChanged += OnSceneChange;
     }
 
@@ -59,20 +59,27 @@ public class SplitscreenUIHandler : MonoBehaviour, ISplitscreenUIHandler
     private void OnSceneChange(Scene oldScene, Scene newScene)
     {
         // Activate the UI when we enter a scene that is not the Main Menu, Level Select, or Character Select scenes.
-        uiDoc.rootVisualElement.visible = true;
-        
-        // Change player box border and label colors based on player colors
-        var playerManager = FindAnyObjectByType<GlobalPlayerManager>();
-        if (playerManager != null)
+        if (SceneConstants.IsCharacterSelectScene() || SceneConstants.IsLevelSelectScene())
         {
-            for (int i = 0; i < NumPlayers; i++)
+            uiDoc.rootVisualElement.style.display = DisplayStyle.None;
+        }
+        else
+        {
+            uiDoc.rootVisualElement.style.display = DisplayStyle.Flex;
+            
+            // Change player box border and label colors based on player colors
+            var playerManager = FindAnyObjectByType<GlobalPlayerManager>();
+            if (playerManager != null)
             {
-                var playerColor = playerManager.Players[i].PlayerColor;
-                _playerBoxBorders[i].style.borderTopColor = playerColor;
-                _playerBoxBorders[i].style.borderBottomColor = playerColor;
-                _playerBoxBorders[i].style.borderLeftColor = playerColor;
-                _playerBoxBorders[i].style.borderRightColor = playerColor;
-                _playerLabels[i].style.color = playerColor;
+                for (int i = 0; i < NumPlayers; i++)
+                {
+                    var playerColor = playerManager.Players[i].PlayerColor;
+                    _playerBoxBorders[i].style.borderTopColor = playerColor;
+                    _playerBoxBorders[i].style.borderBottomColor = playerColor;
+                    _playerBoxBorders[i].style.borderLeftColor = playerColor;
+                    _playerBoxBorders[i].style.borderRightColor = playerColor;
+                    _playerLabels[i].style.color = playerColor;
+                }
             }
         }
     }

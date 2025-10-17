@@ -1,0 +1,126 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &4806983860392848693
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3991127919084210946, guid: 39a4e1222be1c17469792cc73d504932, type: 3}
+      propertyPath: m_Name
+      value: Level 0 Manager Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 5703288102659666927, guid: 39a4e1222be1c17469792cc73d504932, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 71.88863
+      objectReference: {fileID: 0}
+    - target: {fileID: 5703288102659666927, guid: 39a4e1222be1c17469792cc73d504932, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 20.32122
+      objectReference: {fileID: 0}
+    - target: {fileID: 5703288102659666927, guid: 39a4e1222be1c17469792cc73d504932, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 41.71225
+      objectReference: {fileID: 0}
+    - target: {fileID: 5703288102659666927, guid: 39a4e1222be1c17469792cc73d504932, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5703288102659666927, guid: 39a4e1222be1c17469792cc73d504932, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5703288102659666927, guid: 39a4e1222be1c17469792cc73d504932, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5703288102659666927, guid: 39a4e1222be1c17469792cc73d504932, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5703288102659666927, guid: 39a4e1222be1c17469792cc73d504932, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5703288102659666927, guid: 39a4e1222be1c17469792cc73d504932, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5703288102659666927, guid: 39a4e1222be1c17469792cc73d504932, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5755218583959652013, guid: 39a4e1222be1c17469792cc73d504932, type: 3}
+      propertyPath: maxScore
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3991127919084210946, guid: 39a4e1222be1c17469792cc73d504932, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8746698519389500898}
+  m_SourcePrefab: {fileID: 100100000, guid: 39a4e1222be1c17469792cc73d504932, type: 3}
+--- !u!1 &8491119181820388919 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3991127919084210946, guid: 39a4e1222be1c17469792cc73d504932, type: 3}
+  m_PrefabInstance: {fileID: 4806983860392848693}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8746698519389500898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8491119181820388919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ce3486adc4132b4392e61720f4cec40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Level0TaskManager
+  tasksToRegister:
+  - taskInfoSO: {fileID: 11400000, guid: 9a91a5b7a5fd9e1479d1b107700e61d8, type: 2}
+    onStart:
+      m_PersistentCalls:
+        m_Calls: []
+    onComplete:
+      m_PersistentCalls:
+        m_Calls: []
+  - taskInfoSO: {fileID: 11400000, guid: 194ffaa3a18b6e7448e6235632adcf69, type: 2}
+    onStart:
+      m_PersistentCalls:
+        m_Calls: []
+    onComplete:
+      m_PersistentCalls:
+        m_Calls: []
+  - taskInfoSO: {fileID: 11400000, guid: 33a89a7d39033c64dae0effd7c53eb79, type: 2}
+    onStart:
+      m_PersistentCalls:
+        m_Calls: []
+    onComplete:
+      m_PersistentCalls:
+        m_Calls: []
+  - taskInfoSO: {fileID: 11400000, guid: f54821fb61943814ea4b3d6828f7c47d, type: 2}
+    onStart:
+      m_PersistentCalls:
+        m_Calls: []
+    onComplete:
+      m_PersistentCalls:
+        m_Calls: []
+  - taskInfoSO: {fileID: 11400000, guid: 2d1b608f5f105fe4bb733eafafdd55eb, type: 2}
+    onStart:
+      m_PersistentCalls:
+        m_Calls: []
+    onComplete:
+      m_PersistentCalls:
+        m_Calls: []
+  - taskInfoSO: {fileID: 11400000, guid: 373471d28104e63458c5b49967bab4b5, type: 2}
+    onStart:
+      m_PersistentCalls:
+        m_Calls: []
+    onComplete:
+      m_PersistentCalls:
+        m_Calls: []

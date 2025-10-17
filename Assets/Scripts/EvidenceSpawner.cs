@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,7 +15,9 @@ public class EvidenceSpawner : MonoBehaviour
     public AudioSource audioSource;
 
     public GameObject uniqueEvidence;
-    public Transform uniqueAnchor;
+
+    public float numSeconds = 7;
+    public int numTimes = 10;
     private float spawnTimer;
     private int evidenceCount; // keep track of num evidences in scene
     private ObjectPooler objectPooler;
@@ -25,23 +28,22 @@ public class EvidenceSpawner : MonoBehaviour
     {
         objectPooler = ObjectPooler.Instance;
         evidenceCount = 0;
-        spawnTimer = spawnInterval; // start the timer
+        spawnTimer = 0; // start the timer
         uniqueEvidence.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        // only spawn 5 evidences max
-        if (evidenceCount < maxEvidence && !disabled) // make sure it is less than the max
+        if (disabled) return;
+        spawnTimer += Time.deltaTime;
+        if (spawnTimer >= spawnInterval)
         {
-            spawnTimer -= Time.deltaTime;
-
-            if (spawnTimer <= 0f)
+            spawnTimer = 0;
+            // if half grabbed, respawn evidence
+            if (evidenceCount < maxEvidence) // make sure it is less than the max
             {
-                SpawnEvidence();
-
-                spawnTimer = spawnInterval; // reset timer
+                EvidenceBurst();
             }
         }
     }
@@ -52,18 +54,29 @@ public class EvidenceSpawner : MonoBehaviour
             audioSource.Play();
 
         uniqueEvidence.SetActive(true);
-        uniqueEvidence.transform.position = uniqueAnchor.position;
         Evidence evidence = uniqueEvidence.GetComponent<Evidence>();
         evidence.SetEvidenceSpawner(this);
-        Rigidbody rb = uniqueEvidence.GetComponent<Rigidbody>();
-
-        if (rb != null)
-        {
-            rb.linearVelocity = Vector3.zero; // reset before applying force
-            rb.AddForce(uniqueAnchor.forward * launchForce, ForceMode.Impulse);
-        }
     }
 
+    public void EvidenceBurst()
+    {
+        if (NovaLevel1Manager.Instance.talking)
+            StartCoroutine(SpawnRoutine());
+    }
+
+    IEnumerator SpawnRoutine()
+    {
+        NovaLevel1Manager.Instance.talking = false;
+        NovaLevel1Manager.Instance.novaAnimator.SetTrigger("Bag");
+        float delay = numSeconds / numTimes;
+
+        for (int i = 0; i < numTimes; i++)
+        {
+            SpawnEvidence();
+            yield return new WaitForSeconds(delay);
+        }
+        NovaLevel1Manager.Instance.talking = true;
+    }
     void SpawnEvidence()
     {
         if (audioSource != null)

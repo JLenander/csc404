@@ -15,7 +15,7 @@ public class RobotMovement : MonoBehaviour
     public float robotLookSensitivity = 50f;
     public bool disable = false;
 
-    [SerializeField] private AudioSource footstepSource;
+    // [SerializeField] private AudioSource footstepSource;
     [SerializeField] private AudioClip[] footstepClips;
     [SerializeField] private float stepInterval = 0.5f;
     private float stepTimer;
@@ -64,7 +64,7 @@ public class RobotMovement : MonoBehaviour
             stepTimer -= Time.fixedDeltaTime;
             if (stepTimer <= 0f)
             {
-                PlayFootstep();
+                // PlayFootstep();
                 stepTimer = stepInterval;
             }
         }
@@ -74,14 +74,14 @@ public class RobotMovement : MonoBehaviour
         }
     }
 
-    public void PlayFootstep()
-    {
-        if (footstepClips.Length > 0)
-        {
-            int index = UnityEngine.Random.Range(0, footstepClips.Length);
-            footstepSource.PlayOneShot(footstepClips[index]);
-        }
-    }
+    // public void PlayFootstep()
+    // {
+    //     if (footstepClips.Length > 0)
+    //     {
+    //         int index = UnityEngine.Random.Range(0, footstepClips.Length);
+    //         footstepSource.PlayOneShot(footstepClips[index]);
+    //     }
+    // }
 
     public void SetMoveAction(InputAction moveAction)
     { _moveAction = moveAction; }

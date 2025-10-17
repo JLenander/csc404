@@ -66,8 +66,6 @@ public class EvidenceSpawner : MonoBehaviour
 
     IEnumerator SpawnRoutine()
     {
-        NovaLevel1Manager.Instance.talking = false;
-        NovaLevel1Manager.Instance.novaAnimator.SetTrigger("Bag");
         float delay = numSeconds / numTimes;
 
         for (int i = 0; i < numTimes; i++)
@@ -75,7 +73,6 @@ public class EvidenceSpawner : MonoBehaviour
             SpawnEvidence();
             yield return new WaitForSeconds(delay);
         }
-        NovaLevel1Manager.Instance.talking = true;
     }
     void SpawnEvidence()
     {

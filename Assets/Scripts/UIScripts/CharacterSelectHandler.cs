@@ -74,6 +74,9 @@ namespace UIScripts
             // Set player select box background color to player color
             previewImg.style.backgroundColor = _availableColors[playerIndex];
             
+            // Player default select default color
+            _playerManager.playerColorSelector[playerIndex] = _availableColors[playerIndex];
+            
             _playerCount++;
         }
 
@@ -84,6 +87,9 @@ namespace UIScripts
             var playerBox =  _playerBoxes[playerIndex];
             var previewImg = playerBox.Query<VisualElement>(name: PlayerCharacterPreviewName).First();
             previewImg.visible = false;
+            
+            // Free up color from selector
+            _playerManager.playerColorSelector[playerIndex] = Color.clear;
             
             UnreadyPlayer(playerIndex);
             _playerCount--;
@@ -105,8 +111,7 @@ namespace UIScripts
             {
                 _readyText.visible = false;
             }
-            
-            
+
         }       
         
         // TODO: play unready animation instead

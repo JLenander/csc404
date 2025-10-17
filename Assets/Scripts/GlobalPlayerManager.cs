@@ -102,6 +102,9 @@ public class GlobalPlayerManager : MonoBehaviour
                 }
                 else
                 {
+                    // If player already ready, ignore
+                    if (_players[idx].Ready) return;
+                    
                     // If current color taken, do not allow ready
                     // else assign color and ready up
                     var currentColor = playerColorSelector[idx];

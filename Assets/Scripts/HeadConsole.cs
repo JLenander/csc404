@@ -54,7 +54,7 @@ public class HeadConsole : Interactable
                         if (hookSource != null)
                             hookSource.Play();
                     }
-                    leftGrappleArmSpline.GetComponent<SplineController>().SetExtending();
+                    leftGrappleArmSpline.GetComponent<SplineController>().SetExtending(_leftTriggerAction.ReadValue<float>());
                 }
                 else
                 {
@@ -85,7 +85,7 @@ public class HeadConsole : Interactable
                         if (hookSource != null)
                             hookSource.Play();
                     }
-                    rightGrappleArmSpline.GetComponent<SplineController>().SetExtending();
+                    rightGrappleArmSpline.GetComponent<SplineController>().SetExtending(_rightTriggerAction.ReadValue<float>());
                 }
                 else
                 {

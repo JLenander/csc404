@@ -2,6 +2,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
+using static UnityEngine.Rendering.DebugUI;
 
 public class HandMovement : MonoBehaviour
 {
@@ -142,13 +143,21 @@ public class HandMovement : MonoBehaviour
         // Movement
         if (left)
         {
-            transform.localPosition = movement * speed + _ogPosition;
+            Vector3 totalMvt = movement * speed + _ogPosition;
+            totalMvt.x = Mathf.Clamp(totalMvt.x, 70f, 140f);
+            totalMvt.y = Mathf.Clamp(totalMvt.y, -28f, 2f);
+            totalMvt.z = Mathf.Clamp(totalMvt.z, -1f, 13f);
+            transform.localPosition = totalMvt;
         }
         else
         {
             Vector3 tmpMvt = movement;
             tmpMvt.x *= -1.0f;
-            transform.localPosition = tmpMvt * speed + _ogPosition;
+            tmpMvt = tmpMvt * speed + _ogPosition;
+            tmpMvt.x = Mathf.Clamp(tmpMvt.x, 70f, 140f);
+            tmpMvt.y = Mathf.Clamp(tmpMvt.y, -28f, 2f);
+            tmpMvt.z = Mathf.Clamp(tmpMvt.z, -1f, 13f);
+            transform.localPosition = tmpMvt;
         }
         
         // Rotation

@@ -891,6 +891,28 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7905343436617202237, guid: 08b2094efe6813847a68ed2ada05a34f, type: 3}
   m_PrefabInstance: {fileID: 3233634353991162672}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2013113684 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8163664760754894619, guid: 08b2094efe6813847a68ed2ada05a34f, type: 3}
+  m_PrefabInstance: {fileID: 3233634353991162672}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 396891100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fae98d8f9f96e9942a4cba3fd16bf15c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HandMovement
+--- !u!114 &2013113685 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4672791790501556749, guid: 08b2094efe6813847a68ed2ada05a34f, type: 3}
+  m_PrefabInstance: {fileID: 3233634353991162672}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430151590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fae98d8f9f96e9942a4cba3fd16bf15c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HandMovement
 --- !u!4 &24436835919466013
 Transform:
   m_ObjectHideFlags: 0
@@ -1157,6 +1179,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level 0 Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 8746698519389500898, guid: 983cfa441a10cbb4b956ca30dd5755ff, type: 3}
+      propertyPath: tasksToRegister.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8746698519389500898, guid: 983cfa441a10cbb4b956ca30dd5755ff, type: 3}
+      propertyPath: tasksToRegister.Array.data[6].taskInfoSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 1e4de38f3858dab429826ae0bf5a0c76, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1781,6 +1811,14 @@ PrefabInstance:
       propertyPath: _robotHead
       value: 
       objectReference: {fileID: 3233634353991162677}
+    - target: {fileID: 267966554777334505, guid: f099881265806844bab8a0fc9e63c918, type: 3}
+      propertyPath: leftHandTarget
+      value: 
+      objectReference: {fileID: 2013113685}
+    - target: {fileID: 267966554777334505, guid: f099881265806844bab8a0fc9e63c918, type: 3}
+      propertyPath: rightHandTarget
+      value: 
+      objectReference: {fileID: 2013113684}
     - target: {fileID: 614543523816022516, guid: f099881265806844bab8a0fc9e63c918, type: 3}
       propertyPath: m_Name
       value: TutorialRoom
@@ -1789,6 +1827,18 @@ PrefabInstance:
       propertyPath: playerCamera
       value: 
       objectReference: {fileID: 220409569139395829}
+    - target: {fileID: 2349044254729525231, guid: f099881265806844bab8a0fc9e63c918, type: 3}
+      propertyPath: m_Size.x
+      value: 0.03442456
+      objectReference: {fileID: 0}
+    - target: {fileID: 2349044254729525231, guid: f099881265806844bab8a0fc9e63c918, type: 3}
+      propertyPath: m_Size.y
+      value: 0.5147326
+      objectReference: {fileID: 0}
+    - target: {fileID: 2349044254729525231, guid: f099881265806844bab8a0fc9e63c918, type: 3}
+      propertyPath: m_Center.y
+      value: 0.06
+      objectReference: {fileID: 0}
     - target: {fileID: 3072628963163858906, guid: f099881265806844bab8a0fc9e63c918, type: 3}
       propertyPath: sceneExitDoor
       value: 

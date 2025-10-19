@@ -1,4 +1,3 @@
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
@@ -17,6 +16,8 @@ public class HandMovement : MonoBehaviour
     private InputAction _interactAction;
 
     public Vector3 movement = Vector3.zero;
+
+    public float baseZ = 4.23f;
     private Vector3 _ogPosition;
     private bool _disable;
 
@@ -46,7 +47,7 @@ public class HandMovement : MonoBehaviour
 
     [SerializeField] private GameObject grappleArmSpline;
     public bool left;
-    
+
     private void Start()
     {
         _ogPosition = transform.localPosition;
@@ -61,26 +62,26 @@ public class HandMovement : MonoBehaviour
             // hand rigid body movement
             Vector2 stickMove = _moveAction.ReadValue<Vector2>();
             Vector3 stickMovement = new Vector3(stickMove.x, stickMove.y, 0);
-            
+
             float leftTrigger = _leftTriggerAction.ReadValue<float>();
             float rightTrigger = _rightTriggerAction.ReadValue<float>();
-            Vector3 triggerMovement = new Vector3(0, 0, leftTrigger - rightTrigger);
-            
-            movement += (stickMovement + triggerMovement) * Time.deltaTime;
+            // Vector3 triggerMovement = new Vector3(0, 0, leftTrigger - rightTrigger);
+
+            movement += stickMovement * Time.deltaTime;
             // movement done in FixedUpdate
 
             // wrist rotation (done in FixedUpdate)
             Vector2 lookMove = _lookAction.ReadValue<Vector2>() * Time.deltaTime;
-            // yaw
-            _wristRotation.x += lookMove.x * handPitchYawSensitivity;
+            // // yaw
+            // _wristRotation.x += lookMove.x * handPitchYawSensitivity;
             // pitch
             _wristRotation.y += lookMove.y * handPitchYawSensitivity;
             // roll
             _wristRotation.z += (_leftBumperAction.ReadValue<float>() * -1 + _rightBumperAction.ReadValue<float>()) * wristRotationSpeed * Time.deltaTime;
             ClampWristRotate();
-            
+
             // changed from movement.magnitude to this addition because movement is now += instead of =
-            bool movingNow = ((stickMovement + triggerMovement).magnitude > 0.5f) || (lookMove.magnitude > 0.3f);
+            bool movingNow = (stickMovement.magnitude > 0.5f) || (lookMove.magnitude > 0.3f);
 
             // Movement started
             if (movingNow && !_isMoving)
@@ -139,33 +140,38 @@ public class HandMovement : MonoBehaviour
         {
             return;
         }
-        
+
         // Movement
+        Vector3 totalMvt;
         if (left)
         {
-            Vector3 totalMvt = movement * speed + _ogPosition;
-            totalMvt.x = Mathf.Clamp(totalMvt.x, 70f, 140f);
-            totalMvt.y = Mathf.Clamp(totalMvt.y, -28f, 2f);
-            totalMvt.z = Mathf.Clamp(totalMvt.z, -1f, 13f);
-            transform.localPosition = totalMvt;
+            totalMvt = movement * speed + _ogPosition;
         }
         else
         {
             Vector3 tmpMvt = movement;
             tmpMvt.x *= -1.0f;
-            tmpMvt = tmpMvt * speed + _ogPosition;
-            tmpMvt.x = Mathf.Clamp(tmpMvt.x, 70f, 140f);
-            tmpMvt.y = Mathf.Clamp(tmpMvt.y, -28f, 2f);
-            tmpMvt.z = Mathf.Clamp(tmpMvt.z, -1f, 13f);
-            transform.localPosition = tmpMvt;
+            totalMvt = tmpMvt * speed + _ogPosition;
         }
-        
+
+        totalMvt.x = Mathf.Clamp(totalMvt.x, 97f, 117f);
+        totalMvt.y = Mathf.Clamp(totalMvt.y, -21.8f, -4.5f);
+        float currentZ = transform.localPosition.z;
+
+        transform.localPosition = new Vector3(totalMvt.x, totalMvt.y, currentZ);
+
+        Vector3 clampedMovement = (transform.localPosition - _ogPosition) / speed;
+        if (!left)
+            clampedMovement.x *= -1.0f;
+
+        movement = clampedMovement;
+
         // Rotation
         // pitch and yaw on parent object so the direction is independent of the wrist roll orientation.
         if (left)
         {
             // left hand pitch and yaw
-            wristPitchYaw.localRotation = Quaternion.Euler(_wristRotation.y, 0, _wristRotation.x * -1.0f);
+            wristPitchYaw.localRotation = Quaternion.Euler(_wristRotation.y, 0, 0);
             wristAim.localRotation = Quaternion.Euler(_wristRotation.y, 0, _wristRotation.x * -1.0f);
             // left hand roll
             wristRoll.localRotation = Quaternion.Euler(0, _wristRotation.z, 0);
@@ -173,7 +179,7 @@ public class HandMovement : MonoBehaviour
         else
         {
             // right hand pitch and yaw
-            wristPitchYaw.localRotation = Quaternion.Euler(_wristRotation.y, 0, _wristRotation.x);
+            wristPitchYaw.localRotation = Quaternion.Euler(_wristRotation.y, 0, 0);
             wristAim.localRotation = Quaternion.Euler(_wristRotation.y, 0, _wristRotation.x);
             // right hand roll
             wristRoll.localRotation = Quaternion.Euler(0, _wristRotation.z * -1.0f, 0);
@@ -185,8 +191,8 @@ public class HandMovement : MonoBehaviour
     /// </summary>
     private void ClampWristRotate()
     {
-        _wristRotation.x = Mathf.Clamp(_wristRotation.x, -100f, 100f);
-        _wristRotation.y = Mathf.Clamp(_wristRotation.y, -100f, 100f);
+        _wristRotation.x = Mathf.Clamp(_wristRotation.x, -110f, 110f);
+        _wristRotation.y = Mathf.Clamp(_wristRotation.y, -110f, 110f);
     }
 
     public Vector3 GetWristRotation()
@@ -198,6 +204,22 @@ public class HandMovement : MonoBehaviour
     {
         _wristRotation = wristRotation;
         ClampWristRotate();
+    }
+
+    public void MoveTargetZ(float z)
+    {
+        // Vector3 triggerMovement = new Vector3(0, 0, leftTrigger - rightTrigger);
+        Vector3 pos = transform.localPosition;
+        pos.z = z;
+        transform.localPosition = pos;
+    }
+
+    public void RevertTargetZ()
+    {
+        // Vector3 triggerMovement = new Vector3(0, 0, leftTrigger - rightTrigger);
+        Vector3 pos = transform.localPosition;
+        pos.z = baseZ;
+        transform.localPosition = pos;
     }
 
     // using TurnOn to initialize when player starts using the hand, not in Start() when object instantiate
@@ -218,14 +240,14 @@ public class HandMovement : MonoBehaviour
     public void TurnOff(GameObject playerUsing)
     {
         _disable = true;
-        
+
         // Stop movement sound and play stop sound if we were moving
         if (moveSource != null && moveSource.isPlaying)
             moveSource.Stop();
         if (_isMoving)
         {
             _isMoving = false;
-            
+
             if (stopSource != null)
                 stopSource.Play();
         }

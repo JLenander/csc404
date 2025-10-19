@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9042cc798f65d943b9f8673ad0b6227, type: 3}
-  m_Name: Swipe
+  m_Name: Unlock
   m_EditorClassIdentifier: Assembly-CSharp::TaskInfoSO
-  id: Swipe
-  title: Our Phone
-  description: Open the app, and start swiping left or right
+  id: Unlock
+  title: Access Phone
+  description: Unlock the electronic with our face
   location: Arms
   urgency: ???
   targetProgress: 1

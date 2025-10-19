@@ -92,7 +92,6 @@ public class PhoneUIController : MonoBehaviour
     private void StartSwipe(int direction)
     {
         swipeDirection = direction;
-        swiping = true;
 
         // once hit min swipes no matter left or right
         // start count down before showing nova's profile
@@ -105,7 +104,12 @@ public class PhoneUIController : MonoBehaviour
         if (count > countBeforeMatch && !matchedText)
         {
             matchedText = true;
+            swiping = false;
             StartCoroutine(MatchRoutine());
+        }
+        else
+        {
+            swiping = true;
         }
     }
 
@@ -135,11 +139,13 @@ public class PhoneUIController : MonoBehaviour
 
     IEnumerator MatchRoutine()
     {
-        yield return new WaitForSeconds(2);
+        // yield return new WaitForSeconds(2);
 
         locked = true; // lock swiping
         screenImage.sprite = match;
         nextImage.sprite = match;
+
+        yield return null;
 
         Level0TaskManager.CompleteTaskSwipe();
 
@@ -152,7 +158,7 @@ public class PhoneUIController : MonoBehaviour
             sceneExitDoor.transform.position = Vector3.MoveTowards(sceneExitDoor.transform.position, target, 10 * Time.deltaTime);
             yield return null;
         }
-        
+
         // Snap to target just in case
         sceneExitDoor.transform.position = target;
 

@@ -100,12 +100,12 @@ public class NovaLevel1Manager : MonoBehaviour
         // blurb about herself
         GlobalPlayerUIManager.Instance.LoadText(dialogues[index]);
         index++;
-        yield return new WaitForSeconds(15f);
+        yield return new WaitForSeconds(12f);
 
         // blurb about food
         GlobalPlayerUIManager.Instance.LoadText(dialogues[index]);
         index++;
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(7f);
         Level1TaskManager.StartTaskEatFood();
         yield return new WaitUntil(() => ate);
 

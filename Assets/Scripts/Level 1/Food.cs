@@ -34,7 +34,7 @@ public class Food : InteractableObject
     IEnumerator WaitForScoreKeeper()
     {
         yield return new WaitUntil(() => ScoreKeeper.Instance != null);
-        ScoreKeeper.Instance.AddScoring("Spaghetti completion", 2, true, false, 5);
+        ScoreKeeper.Instance.AddScoring("Spaghetti completion", 2, true, false, totalBites);
     }
 
     public override void InteractWithHand(Transform wrist, HandMovement target)
@@ -69,7 +69,7 @@ public class Food : InteractableObject
     }
 
     private void ChangeFoodState(int foodBiteCount)
-    { 
+    {
         if (foodStateChange.Contains(foodBiteCount))
         {
             foodStates[currIndex].SetActive(false);

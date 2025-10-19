@@ -51,6 +51,8 @@ public class Player : MonoBehaviour
         _characterController.enabled = true;
 
         _controlFunc = ControlPlayer;
+
+        footstepSource.volume = 0.1f;
     }
 
     void FixedUpdate()

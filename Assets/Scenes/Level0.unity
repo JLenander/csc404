@@ -1900,6 +1900,42 @@ PrefabInstance:
       propertyPath: sceneExitDoor
       value: 
       objectReference: {fileID: 788622201}
+    - target: {fileID: 3072628963163858906, guid: f099881265806844bab8a0fc9e63c918, type: 3}
+      propertyPath: countBeforeMatch
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3072628963163858906, guid: f099881265806844bab8a0fc9e63c918, type: 3}
+      propertyPath: profiles.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3072628963163858906, guid: f099881265806844bab8a0fc9e63c918, type: 3}
+      propertyPath: 'profiles.Array.data[3]'
+      value: 
+      objectReference: {fileID: 21300000, guid: 5a0edf5e6950b64499da27b70e72cba0, type: 3}
+    - target: {fileID: 3072628963163858906, guid: f099881265806844bab8a0fc9e63c918, type: 3}
+      propertyPath: 'profiles.Array.data[4]'
+      value: 
+      objectReference: {fileID: 21300000, guid: 7754ceefefa8474438184660b68f31ac, type: 3}
+    - target: {fileID: 3072628963163858906, guid: f099881265806844bab8a0fc9e63c918, type: 3}
+      propertyPath: 'profiles.Array.data[5]'
+      value: 
+      objectReference: {fileID: 21300000, guid: 4e03687f1c1709842885e184f5ebdac4, type: 3}
+    - target: {fileID: 3072628963163858906, guid: f099881265806844bab8a0fc9e63c918, type: 3}
+      propertyPath: 'profiles.Array.data[6]'
+      value: 
+      objectReference: {fileID: 21300000, guid: 63937f3c40a4d7244aa0e77a05c2c404, type: 3}
+    - target: {fileID: 3072628963163858906, guid: f099881265806844bab8a0fc9e63c918, type: 3}
+      propertyPath: 'profiles.Array.data[7]'
+      value: 
+      objectReference: {fileID: 21300000, guid: 9156bb9656e15b04b9b3b62149cb4176, type: 3}
+    - target: {fileID: 3072628963163858906, guid: f099881265806844bab8a0fc9e63c918, type: 3}
+      propertyPath: 'profiles.Array.data[8]'
+      value: 
+      objectReference: {fileID: 21300000, guid: e64d7dccc860d9642a3bbe6063a7db93, type: 3}
+    - target: {fileID: 3072628963163858906, guid: f099881265806844bab8a0fc9e63c918, type: 3}
+      propertyPath: 'profiles.Array.data[9]'
+      value: 
+      objectReference: {fileID: 21300000, guid: 0cec10264201998438fb667a26a54098, type: 3}
     - target: {fileID: 7435921387804796096, guid: f099881265806844bab8a0fc9e63c918, type: 3}
       propertyPath: m_LocalPosition.x
       value: 297.00266

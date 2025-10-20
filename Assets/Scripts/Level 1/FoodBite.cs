@@ -39,7 +39,6 @@ public class FoodBite : InteractableObject, IPooledObject
         if (canInteract && canPickup)
         {
             // move to hand
-            DisableOutline();
             transform.parent = obj;
             transform.localPosition = new Vector3(0.0f, 5.2f, -1.0f);
             transform.localRotation = Quaternion.Euler(-88f, 10f, 0f);
@@ -63,6 +62,7 @@ public class FoodBite : InteractableObject, IPooledObject
         rb.isKinematic = false;
         target.handAnimator.SetTrigger("Neutral"); // sets the current hand back to neutral
         if (bag != null) bag.DisableOutline();
+        DisableOutline();
     }
 
     public void SetFoodBiteSpawner(Food foodBiteSpawner)

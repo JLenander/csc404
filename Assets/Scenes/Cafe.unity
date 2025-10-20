@@ -1303,7 +1303,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.07, y: 0.13, z: 0.16}
+  m_Size: {x: 0.1, y: 0.19, z: 0.16}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &232728259 stripped
 GameObject:
@@ -10702,6 +10702,30 @@ PrefabInstance:
     - target: {fileID: 4695632327651796600, guid: d30d701aceece8f48a6aad419a40b296, type: 3}
       propertyPath: m_IsKinematic
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7578101743643841969, guid: d30d701aceece8f48a6aad419a40b296, type: 3}
+      propertyPath: m_Size.y
+      value: 0.120000005
+      objectReference: {fileID: 0}
+    - target: {fileID: 7578101743643841969, guid: d30d701aceece8f48a6aad419a40b296, type: 3}
+      propertyPath: m_Size.z
+      value: 0.116910696
+      objectReference: {fileID: 0}
+    - target: {fileID: 7578101743643841969, guid: d30d701aceece8f48a6aad419a40b296, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7578101743643841969, guid: d30d701aceece8f48a6aad419a40b296, type: 3}
+      propertyPath: m_Center.x
+      value: 0.0005698842
+      objectReference: {fileID: 0}
+    - target: {fileID: 7578101743643841969, guid: d30d701aceece8f48a6aad419a40b296, type: 3}
+      propertyPath: m_Center.y
+      value: 0.0016106311
+      objectReference: {fileID: 0}
+    - target: {fileID: 7578101743643841969, guid: d30d701aceece8f48a6aad419a40b296, type: 3}
+      propertyPath: m_Center.z
+      value: 0.0053381203
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

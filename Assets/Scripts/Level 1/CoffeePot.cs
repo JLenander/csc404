@@ -3,6 +3,7 @@ using UnityEngine;
 public class CoffeePot : InteractableObject
 {
     public Collider triggerCollider;
+    public Collider grappleCollider;
     private Quaternion ogRotation;
     private Transform ogParent;
     private Rigidbody rb;
@@ -119,6 +120,8 @@ public class CoffeePot : InteractableObject
 
             target.SetTargetCurrentObject(this);
             target.handAnimator.SetTrigger("Pot"); // sets current hand to pot anim
+
+            grappleCollider.enabled = false;
         }
     }
 
@@ -135,5 +138,7 @@ public class CoffeePot : InteractableObject
         canPickup = true;
         triggerCollider.enabled = true;
         target.handAnimator.SetTrigger("Neutral"); // sets the opposite hand back to neutral
+
+        grappleCollider.enabled = true;
     }
 }

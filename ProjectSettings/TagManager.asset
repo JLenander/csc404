@@ -11,6 +11,7 @@ TagManager:
   - PlayerSpawnAnchor
   - Bag
   - Cup
+  - GrappleStop
   layers:
   - Default
   - TransparentFX

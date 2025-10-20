@@ -8,12 +8,9 @@ public class HeadConsole : Interactable
     private ISplitscreenUIHandler _splitscreenUIHandler;
 
     [SerializeField] private Camera exteriorCamera; //reference for robot head camera
-    [SerializeField] private Quaternion camAngle; // current robot head angle
+    public float reach = 1000f;
 
     private bool _canInteract = true;
-
-    [SerializeField] private GameObject leftGrappleArmSpline;
-    [SerializeField] private GameObject rightGrappleArmSpline;
 
     private bool _leftJammed, _rightJammed;
     private bool _leftShot, _rightShot;
@@ -37,68 +34,86 @@ public class HeadConsole : Interactable
     }
 
     // for grapple arm, check trigger input to shoot or retract
+    // void Update()
+    // {
+    //     if (_currPlayer != null)
+    //     {
+    //         // Left arm
+    //         if (_leftTriggerAction != null && _leftTriggerAction.ReadValue<float>() > 0.1f)
+    //         {
+    //             if (!_leftJammed)
+    //             {
+    //                 if (!_leftShot)
+    //                 {
+    //                     _leftShot = true;
+    //                     EmergencyEvent.Instance.IncrementCount(true); // or pass correct value
+
+    //                     if (hookSource != null)
+    //                         hookSource.Play();
+    //                 }
+    //                 leftGrappleArmSpline.GetComponent<SplineController>().SetExtending(_leftTriggerAction.ReadValue<float>());
+    //             }
+    //             else
+    //             {
+    //                 if (denySource != null)
+    //                     denySource.Play();
+    //             }
+
+    //         }
+    //         else
+    //         {
+    //             if (_leftShot)
+    //             {
+    //                 _leftShot = false;
+    //             }
+    //             leftGrappleArmSpline.GetComponent<SplineController>().SetRetracting();
+    //         }
+
+    //         // Right arm
+    //         if (_rightTriggerAction != null && _rightTriggerAction.ReadValue<float>() > 0.1f && !_rightJammed)
+    //         {
+    //             if (!_rightJammed)
+    //             {
+    //                 if (!_rightShot)
+    //                 {
+    //                     _rightShot = true;
+    //                     EmergencyEvent.Instance.IncrementCount(false);
+
+    //                     if (hookSource != null)
+    //                         hookSource.Play();
+    //                 }
+    //                 rightGrappleArmSpline.GetComponent<SplineController>().SetExtending(_rightTriggerAction.ReadValue<float>());
+    //             }
+    //             else
+    //             {
+    //                 if (denySource != null)
+    //                     denySource.Play();
+    //             }
+
+    //         }
+    //         else
+    //         {
+    //             if (_rightShot)
+    //                 _rightShot = false;
+    //             rightGrappleArmSpline.GetComponent<SplineController>().SetRetracting();
+    //         }
+    //     }
+    // }
+
     void Update()
     {
-        if (_currPlayer != null)
+        Ray ray = new Ray(exteriorCamera.transform.position, exteriorCamera.transform.forward);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, reach))
         {
-            // Left arm
-            if (_leftTriggerAction != null && _leftTriggerAction.ReadValue<float>() > 0.1f)
+            if (hit.collider.CompareTag("GrappleStop"))
             {
-                if (!_leftJammed)
-                {
-                    if (!_leftShot)
-                    {
-                        _leftShot = true;
-                        EmergencyEvent.Instance.IncrementCount(true); // or pass correct value
-
-                        if (hookSource != null)
-                            hookSource.Play();
-                    }
-                    leftGrappleArmSpline.GetComponent<SplineController>().SetExtending(_leftTriggerAction.ReadValue<float>());
-                }
-                else
-                {
-                    if (denySource != null)
-                        denySource.Play();
-                }
-
+                _splitscreenUIHandler.ReticleHit();
             }
             else
             {
-                if (_leftShot)
-                {
-                    _leftShot = false;
-                }
-                leftGrappleArmSpline.GetComponent<SplineController>().SetRetracting();
-            }
-
-            // Right arm
-            if (_rightTriggerAction != null && _rightTriggerAction.ReadValue<float>() > 0.1f && !_rightJammed)
-            {
-                if (!_rightJammed)
-                {
-                    if (!_rightShot)
-                    {
-                        _rightShot = true;
-                        EmergencyEvent.Instance.IncrementCount(false);
-
-                        if (hookSource != null)
-                            hookSource.Play();
-                    }
-                    rightGrappleArmSpline.GetComponent<SplineController>().SetExtending(_rightTriggerAction.ReadValue<float>());
-                }
-                else
-                {
-                    if (denySource != null)
-                        denySource.Play();
-                }
-
-            }
-            else
-            {
-                if (_rightShot)
-                    _rightShot = false;
-                rightGrappleArmSpline.GetComponent<SplineController>().SetRetracting();
+                _splitscreenUIHandler.ReticleNeutral();
             }
         }
     }
@@ -193,5 +208,39 @@ public class HeadConsole : Interactable
             }
         }
 
+    }
+
+    /// <summary>
+    /// calculates the distance based on first POI struck
+    /// </summary>
+    /// <returns></returns>
+    public bool GrappleDistance(out float dist, out Vector3 direction)
+    {
+        dist = 0;
+        direction = Vector3.zero;
+
+        Ray ray = new Ray(exteriorCamera.transform.position, exteriorCamera.transform.forward);
+        RaycastHit hit;
+
+        Debug.DrawRay(exteriorCamera.transform.position, exteriorCamera.transform.forward * reach, Color.green, 10f);
+
+        if (Physics.Raycast(ray, out hit, reach))
+        {
+            if (hit.collider.CompareTag("GrappleStop"))
+            {
+                Vector3 targetPos = hit.collider.bounds.center;
+
+                // end up above the centre
+                float yOffset = 10.0f;
+                targetPos.y += yOffset;
+
+
+                direction = targetPos;
+                dist = hit.distance;
+                return true;
+            }
+        }
+
+        return false;
     }
 }

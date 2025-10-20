@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
     private ControlFunc _controlFunc;
 
     private Animator animator;
-    
+
     private float stepTimer;
 
     private RobotMovement _robotMovement;
@@ -100,7 +100,7 @@ public class Player : MonoBehaviour
                 }
             }
         }
-        
+
         if (!disableRotate)
         {
             // Look
@@ -108,13 +108,13 @@ public class Player : MonoBehaviour
             Vector3 lookRotate = new Vector3(0, lookValue.x * lookSensitivity * -1, 0);
             xRotation -= lookValue.y * lookSensitivity;
             yRotation -= lookValue.x * lookSensitivity * -1;
-            
+
             transform.localRotation = Quaternion.Euler(0f, yRotation, 0f);
             xRotation = Math.Clamp(xRotation, -90f, 90f);
             _playerCamera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         }
     }
-    
+
     private void ControlEyeCam()
     {
         // Look
@@ -122,9 +122,9 @@ public class Player : MonoBehaviour
         Vector3 lookRotate = new Vector3(0, lookValue.x * lookSensitivity * -1, 0);
         xRotation -= lookValue.y * lookSensitivity;
         yRotation -= lookValue.x * lookSensitivity * -1;
-        
-        yRotation = Math.Clamp(yRotation, -30f, 30f);
-        xRotation = Math.Clamp(xRotation, -70f, 70f);
+
+        yRotation = Math.Clamp(yRotation, -70f, 70f);
+        xRotation = Math.Clamp(xRotation, -50f, 70f);
         _outsideCamera.transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
     }
 

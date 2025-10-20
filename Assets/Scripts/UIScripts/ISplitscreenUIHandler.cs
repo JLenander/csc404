@@ -74,4 +74,15 @@ public interface ISplitscreenUIHandler
     /// hides dialogue ui container
     /// </summary>
     public void HideDialogue();
+
+    /// <summary>
+    /// for when reticle hits a grapple stop collider
+    /// </summary>
+    public void ReticleHit();
+
+
+    /// <summary>
+    /// neutralize the reticle when nothing is hit
+    /// </summary>
+    public void ReticleNeutral();
 }

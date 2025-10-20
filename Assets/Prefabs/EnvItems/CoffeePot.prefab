@@ -1,5 +1,58 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1129756130809792025
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7494219197368693531}
+  - component: {fileID: 739928607601017466}
+  m_Layer: 0
+  m_Name: GrappleStopper
+  m_TagString: GrappleStop
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7494219197368693531
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1129756130809792025}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.99999887, z: -0, w: 0.0015403905}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 3.43, y: 3.43, z: 3.43}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 7071939707644096687}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &739928607601017466
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1129756130809792025}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.81, y: 3.88, z: 4}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4215062268385602936
 GameObject:
   m_ObjectHideFlags: 0
@@ -204,6 +257,7 @@ Transform:
   - {fileID: 5080135519069269495}
   - {fileID: 228214157781448378}
   - {fileID: 838067025856432034}
+  - {fileID: 7494219197368693531}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &7334841506576856424
@@ -245,6 +299,7 @@ MonoBehaviour:
   interactPopUp: {fileID: 8636394465124362591}
   _robotHead: {fileID: 0}
   triggerCollider: {fileID: 7334841506576856424}
+  grappleCollider: {fileID: 0}
   rayLength: 3
   pourThresholdAngle: 50
   audioSource: {fileID: 0}

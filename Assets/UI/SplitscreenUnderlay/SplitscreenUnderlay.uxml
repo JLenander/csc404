@@ -32,6 +32,7 @@
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="OutsideCamera" style="flex-grow: 0; width: 50%; height: 50%; position: absolute; top: auto; left: auto; right: 0; bottom: 0;">
+            <ui:VisualElement name="AimReticle" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Sprites/reticle.png?fileID=2800000&amp;guid=22fbb23f6d6240940a711f035ad3e0ad&amp;type=3#reticle&quot;); position: absolute; left: 464px; top: 50%; width: 34px; height: 34px; background-color: rgba(255, 255, 255, 0); -unity-background-image-tint-color: rgb(255, 255, 255);" />
             <ui:VisualElement name="OutsideCamOffOverlay" style="flex-grow: 1; background-color: rgb(193, 193, 193); justify-content: center; opacity: 1;">
                 <ui:VisualElement name="CamOffIndicator" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/UI/Images/eyes_closed_mock.png?fileID=2800000&amp;guid=49517d5a4862a4a46852b47cbb33185f&amp;type=3#eyes_closed_mock&quot;); -unity-background-scale-mode: scale-to-fit;" />
             </ui:VisualElement>

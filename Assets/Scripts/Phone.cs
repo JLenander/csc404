@@ -6,6 +6,7 @@ public class Phone : InteractableObject
     public Collider triggerCollider;
     public HandMovement leftHandTarget;
     public HandMovement rightHandTarget;
+    public Collider grappleCollider;
     private Vector3 ogPosition;
     private Quaternion ogRotation;
     private Transform parent;
@@ -72,6 +73,8 @@ public class Phone : InteractableObject
                 Level0TaskManager.CompleteTaskPickupPhone();
                 Level0TaskManager.StartTaskUnlock();
             }
+
+            grappleCollider.enabled = false;
         }
     }
 
@@ -92,5 +95,7 @@ public class Phone : InteractableObject
         triggerCollider.enabled = true;
         target.oppositeHandAnimator.SetTrigger("Neutral"); // sets the opposite hand back to neutral
         target.handAnimator.SetTrigger("Neutral"); // sets the current hand back to neutral
+
+        grappleCollider.enabled = true;
     }
 }

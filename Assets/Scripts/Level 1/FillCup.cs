@@ -19,8 +19,7 @@ public class FillCup : MonoBehaviour
     {
         float newYScale = maxFillHeight;
         float yOffset = (newYScale - initialHeight) / 1.5f;
-
-        liquid.localScale = new Vector3(baseScale.x, newYScale, baseScale.z);
+        liquid.localScale = new Vector3(baseScale.x, initialHeight, baseScale.z);
         liquid.localPosition = new Vector3(0f, yOffset, 0f);
         StartCoroutine(WaitForScoreKeeper());
         DisableOutline();

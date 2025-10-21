@@ -100,6 +100,7 @@ GameObject:
   - component: {fileID: 5000562115679632805}
   - component: {fileID: 4616084694294514346}
   - component: {fileID: 7025801148230926443}
+  - component: {fileID: 300403850476083074}
   m_Layer: 0
   m_Name: Cup
   m_TagString: Cup
@@ -143,10 +144,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2.222781
-  m_Height: 7.3146806
+  m_Radius: 4
+  m_Height: 14
   m_Direction: 1
-  m_Center: {x: 0, y: 1.4309804, z: 0}
+  m_Center: {x: 0, y: 2, z: 0}
 --- !u!114 &7025801148230926443
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,9 +162,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   liquid: {fileID: 90708576353505251}
   fullCounter: 500
-  maxFillHeight: 2.4
+  maxFillHeight: 2.2
   initialHeight: 0.1
-  outline: {fileID: 0}
+  outline: {fileID: 300403850476083074}
+--- !u!114 &300403850476083074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8599105018881482518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline
+  outlineMode: 1
+  outlineColor: {r: 0.21698111, g: 0.1832276, b: 0.17501779, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1001 &6512891287607886366
 PrefabInstance:
   m_ObjectHideFlags: 0

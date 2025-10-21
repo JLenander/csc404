@@ -8,8 +8,8 @@ public class CoffeePot : InteractableObject
     private Transform ogParent;
     private Rigidbody rb;
 
-    public float rayLength = 50f;
-    public float pourThresholdAngle = 30f; // degrees below horizontal
+    public float rayLength = 10f;
+    public float pourThresholdAngle = 60f; // degrees below horizontal
 
     public AudioSource audioSource;
     private bool isPouring = false;

@@ -2974,11 +2974,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 0b0319350ae20cc408553c647cba6a81, type: 2}
     - target: {fileID: 4616084694294514346, guid: 86df93a7914d2644fbfd58e017a35572, type: 3}
       propertyPath: m_Height
-      value: 10
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 4616084694294514346, guid: 86df93a7914d2644fbfd58e017a35572, type: 3}
       propertyPath: m_Radius
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4616084694294514346, guid: 86df93a7914d2644fbfd58e017a35572, type: 3}
       propertyPath: m_Center.y
@@ -3028,10 +3028,6 @@ PrefabInstance:
       propertyPath: outline
       value: 
       objectReference: {fileID: 450646049}
-    - target: {fileID: 7025801148230926443, guid: 86df93a7914d2644fbfd58e017a35572, type: 3}
-      propertyPath: maxFillHeight
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 8599105018881482518, guid: 86df93a7914d2644fbfd58e017a35572, type: 3}
       propertyPath: m_Name
       value: Cup
@@ -3042,21 +3038,17 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5000562115679632805, guid: 86df93a7914d2644fbfd58e017a35572, type: 3}
       insertIndex: -1
       addedObject: {fileID: 291582760}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8599105018881482518, guid: 86df93a7914d2644fbfd58e017a35572, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 450646049}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 86df93a7914d2644fbfd58e017a35572, type: 3}
 --- !u!1 &450646048 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8599105018881482518, guid: 86df93a7914d2644fbfd58e017a35572, type: 3}
   m_PrefabInstance: {fileID: 450646047}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &450646049
+--- !u!114 &450646049 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 300403850476083074, guid: 86df93a7914d2644fbfd58e017a35572, type: 3}
+  m_PrefabInstance: {fileID: 450646047}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 450646048}
   m_Enabled: 1
@@ -3064,12 +3056,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Outline
-  outlineMode: 1
-  outlineColor: {r: 0.21698111, g: 0.1832276, b: 0.17501779, a: 1}
-  outlineWidth: 10
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!114 &450646050 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7025801148230926443, guid: 86df93a7914d2644fbfd58e017a35572, type: 3}

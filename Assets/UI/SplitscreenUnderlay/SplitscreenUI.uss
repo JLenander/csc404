@@ -58,25 +58,32 @@
 .instructions-header {
     height: 60px;
     font-size: 40px;
-    background-color: rgb(43, 213, 117);
+    background-color: rgb(255, 255, 255);
     -unity-font-definition: url("project://database/Assets/Fonts/AreaKilometer50-gxmEq.otf?fileID=12800000&guid=ef001ebbe0814b84986d79c8d1de465a&type=3#AreaKilometer50-gxmEq");
     -unity-text-align: middle-center;
     -unity-font-style: bold;
+    top: auto;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
 .instructions-border {
-    border-left-color: rgb(43, 213, 117);
-    border-right-color: rgb(43, 213, 117);
-    border-top-color: rgb(43, 213, 117);
-    border-bottom-color: rgb(43, 213, 117);
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
     border-top-width: 3px;
     border-right-width: 3px;
     border-bottom-width: 3px;
     border-left-width: 3px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
 }
 
 .instructions-text {
-    color: rgb(43, 213, 117);
+    color: rgb(255, 255, 255);
     -unity-font-definition: url("project://database/Assets/Fonts/AreaKilometer50-gxmEq.otf?fileID=12800000&guid=ef001ebbe0814b84986d79c8d1de465a&type=3#AreaKilometer50-gxmEq");
 }
 

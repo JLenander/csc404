@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class LeftArmUIHandler : ConsoleUIHandler
+public class LeftArmUIHandler : OverlayUIHandler
 {
     public static LeftArmUIHandler Instance;
     public void Awake()

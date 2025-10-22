@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -16,6 +17,11 @@ public class PauseMenuUIHandler : MonoBehaviour
     private Slider[] _playerLookSensitivities = new Slider[NumPlayers];
     
     private const int NumPlayers = 3;
+
+    private List<VisualElement> borderedElements;
+
+    // The player color of the most recent player who was inputting to the pause menu
+    private StyleColor _currentActivePlayerColor;
     
     private void Awake()
     {
@@ -30,6 +36,35 @@ public class PauseMenuUIHandler : MonoBehaviour
         _playerLookSensitivities[0] = root.Query<Slider>("Player1InputSensitivity").First();
         _playerLookSensitivities[1] = root.Query<Slider>("Player2InputSensitivity").First();
         _playerLookSensitivities[2] = root.Query<Slider>("Player3InputSensitivity").First();
+
+        // Setup player colored border callbacks to update the border color on focus or slider change.
+        borderedElements = root.Query(className: "player-color-border").ToList();
+        foreach (var element in borderedElements)
+        {
+            var slider = element as Slider;
+            slider?.RegisterValueChangedCallback((evt) =>
+            {
+                element.style.borderBottomColor = _currentActivePlayerColor;
+                element.style.borderLeftColor = _currentActivePlayerColor;
+                element.style.borderRightColor = _currentActivePlayerColor;
+                element.style.borderTopColor = _currentActivePlayerColor;
+            });
+
+            element.RegisterCallback<FocusInEvent>(ctx =>
+            {
+                element.style.borderBottomColor = _currentActivePlayerColor;
+                element.style.borderLeftColor = _currentActivePlayerColor;
+                element.style.borderRightColor = _currentActivePlayerColor;
+                element.style.borderTopColor = _currentActivePlayerColor;
+            });
+            element.RegisterCallback<FocusOutEvent>(ctx =>
+            {
+                element.style.borderBottomColor = Color.clear;
+                element.style.borderLeftColor = Color.clear;
+                element.style.borderRightColor = Color.clear;
+                element.style.borderTopColor = Color.clear;
+            });
+        }
         
         HidePauseMenu();
     }
@@ -120,6 +155,11 @@ public class PauseMenuUIHandler : MonoBehaviour
     public void FocusPanel()
     {
         _returnToGameButton.Focus();
+    }
+
+    public void SetCurrentActivePlayerColor(Color color)
+    {
+        _currentActivePlayerColor = color;
     }
 }
 

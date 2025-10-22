@@ -75,8 +75,8 @@ public class GlobalPlayerManager : MonoBehaviour
             Debug.Log("Player " + idx + " Joined - Character Select Scene");
             _players[idx].Input = playerInput;
             _players[idx].PlayerObject = playerInput.gameObject; // This might change so it's a separate field.
-            _players[idx].player = _players[idx].PlayerObject.GetComponent<Player>();
-            _players[idx].player.SetPlayerID(playerInput.playerIndex);
+            _players[idx].Player = _players[idx].PlayerObject.GetComponent<Player>();
+            _players[idx].Player.SetPlayerID(playerInput.playerIndex);
             _players[idx].Valid = true;
 
             // Add player to the character selection screen so they can start selecting their character.
@@ -85,8 +85,15 @@ public class GlobalPlayerManager : MonoBehaviour
             // register callbacks for the character select screen color change actions
             _players[idx].LeftActionDelegate = ctx => _characterSelectScreen.ChangeColor(idx, -1);
             _players[idx].RightActionDelegate = ctx => _characterSelectScreen.ChangeColor(idx, +1);
+
+            // register callback for when the player navigates in order to set the current border color in the pause menu
+            playerInput.actions.FindAction("Navigate").performed += ctx =>
+            {
+                var playerColor = _players[idx].PlayerColor;
+                _pauseMenuUIHandler.SetCurrentActivePlayerColor(playerColor);
+            };
             
-            // register callback for pause menu
+            // register callback for opening pause menu
             _players[idx].PauseMenuDelegate = ctx =>
             {
                 // Set all players in UI
@@ -94,11 +101,13 @@ public class GlobalPlayerManager : MonoBehaviour
                 {
                     if (_players[i].Valid)
                     {
-                        _players[i].player.SetInPauseMenu();
+                        _players[i].Input.SwitchCurrentActionMap("UI");
+                        _players[i].Player.SetInPauseMenu();
                     }
                 }
                 Debug.Log("Player " + idx + " triggered pause menu");
                 
+                _pauseMenuUIHandler.SetCurrentActivePlayerColor(_players[idx].PlayerColor);
                 // Show and focus the pause menu.
                 _pauseMenuUIHandler.ShowPauseMenu();
                 _pauseMenuUIHandler.FocusPanel();
@@ -130,7 +139,7 @@ public class GlobalPlayerManager : MonoBehaviour
                             _pauseMenuUIHandler.SetPlayerSettings(i, new PlayerSettingsUI()
                             {
                                 // Downscale by 10
-                                LookSensitivity = _players[i].player.GetLookSensitivity() * 10.0f
+                                LookSensitivity = _players[i].Player.GetLookSensitivity() * 10.0f
                             });
                             _pauseMenuUIHandler.RegisterPlayerSettingsCallback(i, UpdatePlayerSettings);
                             _pauseMenuUIHandler.ShowPlayerSettings(i);
@@ -213,7 +222,7 @@ public class GlobalPlayerManager : MonoBehaviour
 
             // Ensure player is on the character select screen action map and disable by default
             playerInput.SwitchCurrentActionMap(InputActionMapper.CharacterSelectActionMapName);
-            _players[idx].player.TurnOff();
+            _players[idx].Player.TurnOff();
         }
         else
         {
@@ -256,7 +265,7 @@ public class GlobalPlayerManager : MonoBehaviour
             {
                 player.PlayerObject.GetComponent<PlayerInteract>().LeaveCurrInteractable();
                 // Leave UI state when changing scene.
-                player.player.SetNotInPauseMenu();
+                player.Player.SetNotInPauseMenu();
             }
         }
         
@@ -292,21 +301,21 @@ public class GlobalPlayerManager : MonoBehaviour
                 {
                     player.Input.SwitchCurrentActionMap(InputActionMapper.CharacterSelectActionMapName);
                     // Disable the player control
-                    player.player.TurnOff();
+                    player.Player.TurnOff();
                     Cursor.lockState = CursorLockMode.None;
                 }
                 else if (SceneConstants.IsLevelSelectScene())
                 {
                     player.Input.SwitchCurrentActionMap(InputActionMapper.LevelSelectActionMapName);
                     // Disable the player control
-                    player.player.TurnOff();
+                    player.Player.TurnOff();
                     Cursor.lockState = CursorLockMode.None;
                 }
                 else
                 {
                     player.Input.SwitchCurrentActionMap(InputActionMapper.PlayerActionMapName);
                     // enable player if not the character select scene or the level select scene
-                    player.player.TurnOn();
+                    player.Player.TurnOn();
                     Cursor.lockState = CursorLockMode.Locked;
                 }
 
@@ -330,14 +339,15 @@ public class GlobalPlayerManager : MonoBehaviour
     public PlayerData[] Players => _players;
 
     /// <summary>
-    /// Callback for the settings UI (from the pause menu) to update a particular player's settings
+    /// Callback for the settings UI (from the pause menu) to update a particular player's settings and return to game
     /// </summary>
     /// <param name="playerIndex"></param>
     /// <param name="playerSettings">The struct of new settings for this player</param>
     public void UpdatePlayerSettings(int playerIndex, PlayerSettingsUI playerSettings)
     {
-        _players[playerIndex].player.SetLookSensitivity(playerSettings.LookSensitivity / 10.0f);
-        _players[playerIndex].player.SetNotInPauseMenu();
+        _players[playerIndex].Player.SetLookSensitivity(playerSettings.LookSensitivity / 10.0f);
+        _players[playerIndex].Input.SwitchCurrentActionMap("Player");
+        _players[playerIndex].Player.SetNotInPauseMenu();
         _pauseMenuUIHandler.HidePauseMenu();
     }
 }
@@ -350,7 +360,7 @@ public struct PlayerData
     public bool Ready { get; set; }
     public int Index { get; set; }
     public PlayerInput Input { get; set; }
-    public Player player { get; set; }
+    public Player Player { get; set; }
     public GameObject PlayerObject { get; set; }
     public Action<InputAction.CallbackContext> SubmitActionDelegate { get; set; }
     public Action<InputAction.CallbackContext> CancelActionDelegate { get; set; }

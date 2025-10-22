@@ -53,28 +53,13 @@
     border-left-width: 4px;
 }
 
-.unity-base-slider--horizontal:focus {
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    border-top-width: 4px;
-    border-right-width: 4px;
-    border-bottom-width: 4px;
-    border-left-width: 4px;
-    border-left-color: rgb(150, 221, 136);
-    border-right-color: rgb(150, 221, 136);
-    border-top-color: rgb(150, 221, 136);
-    border-bottom-color: rgb(150, 221, 136);
-}
-
-.unity-base-slider__dragger:focus {
-    border-top-width: 8px;
-    border-right-width: 8px;
-    border-bottom-width: 8px;
-    border-left-width: 8px;
-    border-left-color: rgb(150, 221, 136);
-    border-right-color: rgb(150, 221, 136);
-    border-top-color: rgb(150, 221, 136);
-    border-bottom-color: rgb(150, 221, 136);
+.player-color-border {
+    border-top-width: 6px;
+    border-right-width: 6px;
+    border-bottom-width: 6px;
+    border-left-width: 6px;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
 }

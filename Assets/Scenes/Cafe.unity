@@ -1262,7 +1262,7 @@ GameObject:
   m_Component:
   - component: {fileID: 218074005}
   - component: {fileID: 218074006}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GrappleStop
   m_TagString: GrappleStop
   m_Icon: {fileID: 0}
@@ -1476,6 +1476,59 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -7759331768739107841, guid: 082c41686c23c064f94c12b3359df3e6, type: 3}
+--- !u!1 &266687165
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 266687166}
+  - component: {fileID: 266687167}
+  m_Layer: 10
+  m_Name: GrappleStop
+  m_TagString: GrappleStop
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &266687166
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 266687165}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1148863390}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &266687167
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 266687165}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 11.23, y: 1, z: 10.29}
+  m_Center: {x: 0, y: 0.33, z: 0}
 --- !u!1 &267777253
 GameObject:
   m_ObjectHideFlags: 0
@@ -1864,7 +1917,7 @@ GameObject:
   m_Component:
   - component: {fileID: 291582760}
   - component: {fileID: 291582761}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GrappleStop
   m_TagString: GrappleStop
   m_Icon: {fileID: 0}
@@ -5343,7 +5396,7 @@ GameObject:
   m_Component:
   - component: {fileID: 931953081}
   - component: {fileID: 931953082}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GrappleStop
   m_TagString: GrappleStop
   m_Icon: {fileID: 0}
@@ -6189,6 +6242,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1129756130809792025, guid: 771f9bf88273ec14788dbd89fc8792e7, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3713570294602077220, guid: 771f9bf88273ec14788dbd89fc8792e7, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -6781,6 +6838,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7057303446505312087, guid: 62613715ed8ac874094a3f4c5dd1da6d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1993643644}
+    - targetCorrespondingSourceObject: {fileID: 7057303446505312087, guid: 62613715ed8ac874094a3f4c5dd1da6d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 266687166}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62613715ed8ac874094a3f4c5dd1da6d, type: 3}
 --- !u!4 &1148863390 stripped

@@ -22,6 +22,7 @@ public class HeadConsole : Interactable
     public AudioSource denySource;
 
     private OverlayUIHandler uIHandler;
+    private int layerMask;
 
     void Start()
     {
@@ -31,6 +32,8 @@ public class HeadConsole : Interactable
         _leftJammed = _rightJammed = false;
         _leftShot = _rightShot = false;
         uIHandler = HeadUIHandler.Instance;
+
+        layerMask = LayerMask.GetMask("GrappleStop");
     }
 
     // for grapple arm, check trigger input to shoot or retract
@@ -105,16 +108,16 @@ public class HeadConsole : Interactable
         Ray ray = new Ray(exteriorCamera.transform.position, exteriorCamera.transform.forward);
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, reach))
+        if (Physics.Raycast(ray, out hit, reach, layerMask))
         {
             if (hit.collider.CompareTag("GrappleStop"))
             {
                 _splitscreenUIHandler.ReticleHit();
             }
-            else
-            {
-                _splitscreenUIHandler.ReticleNeutral();
-            }
+        }
+        else
+        {
+            _splitscreenUIHandler.ReticleNeutral();
         }
     }
 
@@ -222,9 +225,9 @@ public class HeadConsole : Interactable
         Ray ray = new Ray(exteriorCamera.transform.position, exteriorCamera.transform.forward);
         RaycastHit hit;
 
-        Debug.DrawRay(exteriorCamera.transform.position, exteriorCamera.transform.forward * reach, Color.green, 10f);
+        // Debug.DrawRay(exteriorCamera.transform.position, exteriorCamera.transform.forward * reach, Color.green, 10f);
 
-        if (Physics.Raycast(ray, out hit, reach))
+        if (Physics.Raycast(ray, out hit, reach, layerMask))
         {
             if (hit.collider.CompareTag("GrappleStop"))
             {

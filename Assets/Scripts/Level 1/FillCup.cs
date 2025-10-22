@@ -58,6 +58,7 @@ public class FillCup : MonoBehaviour
         {
             full = true;
             ScoreKeeper.Instance.IncrementScoring("Filled Nova's coffee");
+            Level1TaskManager.CompleteTaskPourCoffee();
         }
 
         float fillProgress = (float)counter / fullCounter;

@@ -17,7 +17,7 @@ public class RobotMovement : MonoBehaviour
 
     [SerializeField] private AudioSource footstepSource;
     [SerializeField] private AudioClip[] footstepClips;
-    [SerializeField] private float stepInterval = 0.8f;
+    [SerializeField] private float stepInterval = 0.02f;
     private float _stepTimer;
 
     [SerializeField] private float gravity = -9.81f;
@@ -32,7 +32,7 @@ public class RobotMovement : MonoBehaviour
         if (_robotCharacterController == null)
             Debug.LogError("No CharacterController found");
         
-        footstepSource.volume = 0.1f;
+        footstepSource.volume = 0.2f;
     }
 
     public void ControlRobotMovement()

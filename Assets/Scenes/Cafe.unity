@@ -1933,7 +1933,7 @@ Transform:
   m_GameObject: {fileID: 291582759}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.78, y: 0, z: 0}
+  m_LocalPosition: {x: 1.1, y: 0, z: 2.69}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6240,7 +6240,7 @@ PrefabInstance:
       objectReference: {fileID: 617736837}
     - target: {fileID: 739928607601017466, guid: 771f9bf88273ec14788dbd89fc8792e7, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1129756130809792025, guid: 771f9bf88273ec14788dbd89fc8792e7, type: 3}
       propertyPath: m_Layer
@@ -6479,6 +6479,22 @@ PrefabInstance:
     - target: {fileID: 605633835941839844, guid: 08b2094efe6813847a68ed2ada05a34f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4855593127019369385, guid: 08b2094efe6813847a68ed2ada05a34f, type: 3}
+      propertyPath: m_ItemsToInstantiate.Array.data[0].Prefab
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6799422800255914268, guid: 08b2094efe6813847a68ed2ada05a34f, type: 3}
+      propertyPath: m_ItemsToInstantiate.Array.data[0].Prefab
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8056475446913373194, guid: 08b2094efe6813847a68ed2ada05a34f, type: 3}
+      propertyPath: m_ItemsToInstantiate.Array.data[0].Prefab
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8282320384092460735, guid: 08b2094efe6813847a68ed2ada05a34f, type: 3}
+      propertyPath: m_ItemsToInstantiate.Array.data[0].Prefab
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

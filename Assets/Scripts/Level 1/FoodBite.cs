@@ -94,9 +94,12 @@ public class FoodBite : InteractableObject, IPooledObject
         }
         else if (collision.gameObject.CompareTag("Bag"))
         {
+            if (NovaLevel1Manager.Instance.ate) 
+            {
+                ScoreKeeper.Instance.ModifyScore(score);
+                ScoreKeeper.Instance.IncrementScoring("Spaghetti completion");
+            }
             Debug.Log("Eating point");
-            ScoreKeeper.Instance.ModifyScore(score);
-            ScoreKeeper.Instance.IncrementScoring("Spaghetti completion");
             NovaLevel1Manager.Instance.ate = true;
             StartCoroutine(DisappearRoutine());
         }

@@ -1,8 +1,6 @@
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
-using static UnityEngine.Rendering.DebugUI;
 
 public class HandMovement : MonoBehaviour
 {

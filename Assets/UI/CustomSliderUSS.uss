@@ -1,0 +1,80 @@
+:root {
+}
+
+.unity-base-slider--horizontal .unity-base-slider__text-field {
+    font-size: 18px;
+}
+
+.unity-base-slider__label {
+    font-size: 28px;
+    color: rgb(0, 0, 0);
+    background-color: rgb(228, 228, 228);
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+    border-bottom-left-radius: 2px;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    -unity-font-definition: url("project://database/Assets/TextMesh%20Pro/Examples%20&%20Extras/Fonts/Roboto-Bold.ttf?fileID=12800000&guid=4beb055f07aaff244873dec698d0363e&type=3#Roboto-Bold");
+}
+
+.unity-text-field__input {
+    padding-top: 2px;
+    padding-right: 2px;
+    padding-bottom: 2px;
+    padding-left: 2px;
+}
+
+.unity-base-slider__dragger {
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
+    border-top-width: 8px;
+    border-right-width: 8px;
+    border-bottom-width: 8px;
+    border-left-width: 8px;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+    border-bottom-left-radius: 2px;
+}
+
+.unity-base-slider--horizontal {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    border-top-width: 4px;
+    border-right-width: 4px;
+    border-bottom-width: 4px;
+    border-left-width: 4px;
+}
+
+.unity-base-slider--horizontal:focus {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    border-top-width: 4px;
+    border-right-width: 4px;
+    border-bottom-width: 4px;
+    border-left-width: 4px;
+    border-left-color: rgb(150, 221, 136);
+    border-right-color: rgb(150, 221, 136);
+    border-top-color: rgb(150, 221, 136);
+    border-bottom-color: rgb(150, 221, 136);
+}
+
+.unity-base-slider__dragger:focus {
+    border-top-width: 8px;
+    border-right-width: 8px;
+    border-bottom-width: 8px;
+    border-left-width: 8px;
+    border-left-color: rgb(150, 221, 136);
+    border-right-color: rgb(150, 221, 136);
+    border-top-color: rgb(150, 221, 136);
+    border-bottom-color: rgb(150, 221, 136);
+}

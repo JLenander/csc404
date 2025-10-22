@@ -4,10 +4,9 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-    // ID of player
-    // public int playerID;
-    public float moveSpeed;
-    public float lookSensitivity;
+    [SerializeField] private float moveSpeed;
+    // lookSensitivity controls the camera sensitivity for the player as a plorp only (not in terminal)
+    [SerializeField] private float lookSensitivity;
 
     [SerializeField] private AudioSource footstepSource;
     [SerializeField] private AudioClip[] footstepClips;
@@ -27,6 +26,8 @@ public class Player : MonoBehaviour
 
     private bool disableMovement = false;
     private bool disableRotate = false;
+    // If true, player is in some UI and should not have normal control.
+    private bool inPauseMenu = false;
 
     private delegate void ControlFunc();
     private ControlFunc _controlFunc;
@@ -37,14 +38,14 @@ public class Player : MonoBehaviour
 
     private RobotMovement _robotMovement;
     private int playerID;
-
+    
     void Start()
     {
         _characterController = GetComponent<CharacterController>();
         var input = GetComponent<PlayerInput>();
         _playerCamera = input.camera;
-        _moveAction = input.actions.FindAction("Move");
-        _lookAction = input.actions.FindAction("Look");
+        _moveAction = InputActionMapper.GetPlayerMoveAction(input);
+        _lookAction = InputActionMapper.GetPlayerLookAction(input);
         animator = GetComponentInChildren<Animator>();
         _characterController.enabled = false;
         this.transform.position = new Vector3(-1.0f, 5.0f, -3.0f);
@@ -57,6 +58,9 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
+        // No control if in some UI.
+        if (inPauseMenu) return;
+        
         _controlFunc();
     }
 
@@ -199,6 +203,22 @@ public class Player : MonoBehaviour
 
         _controlFunc = ControlPlayer;
     }
+    
+    /// <summary>
+    /// Set the player's state so they are in the pause menu and cannot control anything.
+    /// </summary>
+    public void SetInPauseMenu()
+    {
+        inPauseMenu = true;
+    }
+
+    /// <summary>
+    /// Set the player's state so they are not in the pause menu so they can control something.
+    /// </summary>
+    public void SetNotInPauseMenu()
+    {
+        inPauseMenu = false;
+    }
 
     public Color GetPlayerColor()
     {
@@ -213,5 +233,23 @@ public class Player : MonoBehaviour
     public void SetPlayerID(int num)
     {
         playerID = num;
+    }
+
+    /// <summary>
+    /// Get the look (camera) sensitivity for the player for when they are not in a terminal.
+    /// </summary>
+    /// <returns></returns>
+    public float GetLookSensitivity()
+    {
+        return lookSensitivity;
+    }
+
+    /// <summary>
+    /// Set the look (camera) sensitivity for the player for when they are not in a terminal.
+    /// </summary>
+    /// <param name="sensitivity"></param>
+    public void SetLookSensitivity(float sensitivity)
+    {
+        lookSensitivity = sensitivity;
     }
 }

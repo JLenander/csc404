@@ -1,0 +1,17 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/CustomSliderUSS.uss?fileID=7433441132597879392&amp;guid=5079578a7edc3d447bcc0fc7aa7753f3&amp;type=3#CustomSliderUSS" />
+    <Style src="project://database/Assets/UI/DefaultStyleSheet.uss?fileID=7433441132597879392&amp;guid=9107073a6abb0d64a85c8de9603265e8&amp;type=3#DefaultStyleSheet" />
+    <ui:VisualElement name="TransparentColoredBG" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.71);">
+        <ui:VisualElement name="ButtonContainer" style="flex-grow: 1; margin-top: 30px; margin-right: 30px; margin-bottom: 30px; margin-left: 30px; font-size: 26px;">
+            <ui:Button text="Return To Game" name="ReturnToGameButton" />
+            <ui:VisualElement name="PlayerSettingsContainer" style="flex-grow: 0; margin-top: 30px; margin-right: 0; margin-bottom: 30px; margin-left: 0; background-color: rgba(0, 0, 0, 0.54); padding-top: 30px; padding-right: 30px; padding-bottom: 30px; padding-left: 30px;">
+                <ui:Label text="Player Settings" name="SettingsLabel" style="-unity-text-align: upper-center; color: rgb(255, 255, 255); -unity-font-style: normal; font-size: 28px;" />
+                <ui:Slider value="100.2" high-value="100" show-input-field="true" fill="true" label="Player 1 Look Sensitivity" name="Player1InputSensitivity" page-size="2" low-value="1" inverted="false" />
+                <ui:Slider value="100.2" high-value="100" show-input-field="true" fill="true" label="Player 2 Look Sensitivity" name="Player2InputSensitivity" low-value="1" page-size="2" />
+                <ui:Slider value="100.2" high-value="100" show-input-field="true" fill="true" label="Player 3 Look Sensitivity" name="Player3InputSensitivity" low-value="1" page-size="2" />
+            </ui:VisualElement>
+            <ui:Button text="Leave Level (no progress saved)" name="LevelSelectButton" />
+            <ui:Button text="Exit Game" name="QuitGameButton" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

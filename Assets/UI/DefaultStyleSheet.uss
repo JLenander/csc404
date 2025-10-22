@@ -13,10 +13,10 @@
 }
 
 .unity-button {
-    border-top-width: 4px;
-    border-right-width: 4px;
-    border-bottom-width: 4px;
-    border-left-width: 4px;
+    border-top-width: 6px;
+    border-right-width: 6px;
+    border-bottom-width: 6px;
+    border-left-width: 6px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
@@ -32,10 +32,10 @@
     border-right-width: 6px;
     border-bottom-width: 6px;
     border-left-width: 6px;
-    border-left-color: rgb(150,221,136);
-    border-right-color: rgb(150,221,136);
-    border-top-color: rgb(150,221,136);
-    border-bottom-color: rgb(150,221,136);
+    border-left-color: rgb(150, 221, 136);
+    border-right-color: rgb(150, 221, 136);
+    border-top-color: rgb(150, 221, 136);
+    border-bottom-color: rgb(150, 221, 136);
 }
 
 .button {

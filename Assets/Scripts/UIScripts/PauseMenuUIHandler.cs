@@ -117,6 +117,17 @@ public class PauseMenuUIHandler : MonoBehaviour
         };
     }
 
+    /// <summary>
+    /// Close the pause menu and save all settings
+    /// </summary>
+    public void ClosePauseMenu()
+    {
+        // Janky hack to click the button
+        using var e = new NavigationSubmitEvent();
+        e.target = _returnToGameButton;
+        _returnToGameButton.SendEvent(e);
+    }
+
     // Enable settings panels for player <playerIndex>
     public void ShowPlayerSettings(int playerIndex)
     {

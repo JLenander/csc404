@@ -93,7 +93,7 @@ public class GlobalPlayerManager : MonoBehaviour
                 _pauseMenuUIHandler.SetCurrentActivePlayerColor(playerColor);
             };
             
-            // register callback for opening pause menu
+            // register callback for opening and closing pause menu
             _players[idx].PauseMenuDelegate = ctx =>
             {
                 // Set all players in UI
@@ -105,7 +105,6 @@ public class GlobalPlayerManager : MonoBehaviour
                         _players[i].Player.SetInPauseMenu();
                     }
                 }
-                Debug.Log("Player " + idx + " triggered pause menu");
                 
                 _pauseMenuUIHandler.SetCurrentActivePlayerColor(_players[idx].PlayerColor);
                 // Show and focus the pause menu.
@@ -145,7 +144,11 @@ public class GlobalPlayerManager : MonoBehaviour
                             _pauseMenuUIHandler.ShowPlayerSettings(i);
                             
                             // assign pause menu delegate
-                            InputActionMapper.GetPlayerPauseMenuAction(_players[i].Input).started += Players[i].PauseMenuDelegate;
+                            InputActionMapper.GetPlayerOpenPauseMenuAction(_players[i].Input).started += Players[i].PauseMenuDelegate;
+                            InputActionMapper.GetUIClosePauseMenuAction(_players[i].Input).started += ctx =>
+                            {
+                                _pauseMenuUIHandler.ClosePauseMenu();
+                            };
                         }
                         else
                         {

@@ -53,9 +53,13 @@ public static class InputActionMapper
         return playerInput.actions.FindAction("RightBumper", throwIfNotFound: true);
     }
     
-    public static InputAction GetPlayerPauseMenuAction(PlayerInput playerInput)
+    public static InputAction GetPlayerOpenPauseMenuAction(PlayerInput playerInput)
     {
-        return playerInput.actions.FindAction("PauseMenu", throwIfNotFound: true);
+        return playerInput.actions.FindAction("OpenPauseMenu", throwIfNotFound: true);
+    }
+    public static InputAction GetUIClosePauseMenuAction(PlayerInput playerInput)
+    {
+        return playerInput.actions.FindAction("ClosePauseMenu", throwIfNotFound: true);
     }
     
     public static InputAction GetCharacterSelectLeftAction(PlayerInput playerInput)

@@ -129,7 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 222108299}
   - component: {fileID: 222108300}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GrappleStop
   m_TagString: GrappleStop
   m_Icon: {fileID: 0}

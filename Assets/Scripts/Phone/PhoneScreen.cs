@@ -31,6 +31,8 @@ public class PhoneScreen : MonoBehaviour
             _faceIDDone = true;
             _phoneUI.ShowHome();
             Debug.Log("FaceID success! Phone screen facing camera.");
+            Level0TaskManager.CompleteTaskUnlock();
+            Level0TaskManager.StartTaskSwipe();
         }
     }
 

@@ -14,7 +14,7 @@ public class Level0TaskManager : TaskManager
         base.Awake();
         Instance = this;
     }
-    
+
     // Level 0 specific tasks
     // 1. Go to Phone
     public static void StartTaskGoToPhone() { Instance.StartTask("GoPhone"); }
@@ -25,6 +25,9 @@ public class Level0TaskManager : TaskManager
     // 3. Swipe on Phone
     public static void StartTaskSwipe() { Instance.StartTask("Swipe"); }
     public static void CompleteTaskSwipe() { Instance.CompleteTask("Swipe"); }
+
+    public static void StartTaskUnlock() { Instance.StartTask("Unlock"); }
+    public static void CompleteTaskUnlock() { Instance.CompleteTask("Unlock"); }
     // 4. Leave Phone
     public static void StartTaskLeavePhone() { Instance.StartTask("LeavePhone"); }
     public static void CompleteTaskLeavePhone() { Instance.CompleteTask("LeavePhone"); }

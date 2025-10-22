@@ -18,15 +18,17 @@ public class SplitscreenUIHandler : MonoBehaviour, ISplitscreenUIHandler
     // Player Labels and Borders
     private Label[] _playerLabels;
     private VisualElement[] _playerBoxBorders;
-    
+
     // Camera (outside view or eyes) off overlay
     private VisualElement _outsideCamOverlay;
     private VisualElement _dialogueUI;
     private Label _dialogueText;
     private VisualElement _dialogueIcon;
 
+    private VisualElement _reticle;
+
     private const int NumPlayers = 3;
-    
+
     // Cache for art sprites
     private Dictionary<string, Sprite> _spriteCache = new();
 
@@ -61,6 +63,9 @@ public class SplitscreenUIHandler : MonoBehaviour, ISplitscreenUIHandler
         _dialogueIcon = root.Query<VisualElement>("DialogueIcon").First();
         _dialogueUI.visible = false;
 
+        // aim reticle
+        _reticle = root.Query<VisualElement>("AimReticle").First();
+
         // Disable Root to start until scene is switched
         root.style.display = DisplayStyle.None;
         SceneManager.activeSceneChanged += OnSceneChange;
@@ -77,7 +82,7 @@ public class SplitscreenUIHandler : MonoBehaviour, ISplitscreenUIHandler
         else
         {
             uiDoc.rootVisualElement.style.display = DisplayStyle.Flex;
-            
+
             // Change player box border and label colors based on player colors
             var playerManager = FindAnyObjectByType<GlobalPlayerManager>();
             if (playerManager != null)
@@ -232,7 +237,7 @@ public class SplitscreenUIHandler : MonoBehaviour, ISplitscreenUIHandler
     {
         _dialogueUI.visible = false;
     }
-    
+
     public Sprite GetArtSprite(string artSrpiteName)
     {
         // Cache the sprites or else we blow up
@@ -240,7 +245,7 @@ public class SplitscreenUIHandler : MonoBehaviour, ISplitscreenUIHandler
         {
             return cachedSprite;
         }
-        
+
         // For some reason Resources.Load<Sprite> doesn't work
         var texture = Resources.Load<Texture2D>(artSrpiteName);
         var sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
@@ -249,6 +254,16 @@ public class SplitscreenUIHandler : MonoBehaviour, ISplitscreenUIHandler
             Debug.LogError("Sprite already exists in cache but recreated: " + artSrpiteName);
         }
         return sprite;
+    }
+
+    public void ReticleHit()
+    {
+        _reticle.style.unityBackgroundImageTintColor = new Color(0.176f, 0.773f, 0.157f, 1f);
+    }
+
+    public void ReticleNeutral()
+    {
+        _reticle.style.unityBackgroundImageTintColor = new Color(1f, 1f, 1f, 1f);
     }
 
 }

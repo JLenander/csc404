@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TaskInfoSO
   id: Swipe
   title: Our Phone
-  description: Unlock with our face, open the app, and swipe left or right
+  description: Open the app, and start swiping left or right
   location: Arms
   urgency: ???
   targetProgress: 1

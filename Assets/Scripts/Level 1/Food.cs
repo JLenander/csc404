@@ -55,7 +55,8 @@ public class Food : InteractableObject
             target.StopInteractingWithObject(this);
             target.InteractWithObject(foodBite);
 
-            foodBiteCount++;
+            if (NovaLevel1Manager.Instance.ate)
+                foodBiteCount++;
 
             // change animation state based on numbites
             ChangeFoodState(foodBiteCount);

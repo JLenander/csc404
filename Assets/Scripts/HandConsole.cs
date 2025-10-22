@@ -33,7 +33,9 @@ public class HandConsole : Interactable
     {
         if (!_canInteract) return;  // check if there is already a player on the console
         player.GetComponent<Player>().TurnOff();
-        handRigTarget.GetComponent<HandMovement>().TurnOn(player);
+        HandMovement target = handRigTarget.GetComponent<HandMovement>();
+        target.TurnOn(player);
+        target.headConsole = headConsole;
         _canInteract = false;
         _currPlayer = player;
 
@@ -62,7 +64,7 @@ public class HandConsole : Interactable
         msgColour = new Color(1, 0, 0, 1);
         outlineColour = new Color(1, 0, 0, 1);
         // handRigTarget.GetComponent<HandMovement>().JamArm(true);
-        headConsole.JamArm(left, true);
+        // headConsole.JamArm(left, true);
         _currPlayer = null;
     }
 
@@ -73,6 +75,6 @@ public class HandConsole : Interactable
         msgColour = new Color(1, 1, 1, 1);
         outlineColour = new Color(1, 1, 1, 1);
         // handRigTarget.GetComponent<HandMovement>().JamArm(false);
-        headConsole.JamArm(left, false);
+        // headConsole.JamArm(left, false);
     }
 }

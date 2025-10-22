@@ -12,6 +12,18 @@ PrefabInstance:
       propertyPath: startPositionOffset.x
       value: -0.59
       objectReference: {fileID: 0}
+    - target: {fileID: 2536348764463169634, guid: 39b5bbd54a019c84ab798ea6a4dad3fb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 107.14
+      objectReference: {fileID: 0}
+    - target: {fileID: 2536348764463169634, guid: 39b5bbd54a019c84ab798ea6a4dad3fb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -12.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 2536348764463169634, guid: 39b5bbd54a019c84ab798ea6a4dad3fb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.23
+      objectReference: {fileID: 0}
     - target: {fileID: 2727928652920761312, guid: 39b5bbd54a019c84ab798ea6a4dad3fb, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.4
@@ -91,6 +103,10 @@ PrefabInstance:
     - target: {fileID: 7258395926828420493, guid: 39b5bbd54a019c84ab798ea6a4dad3fb, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0.072496645
+      objectReference: {fileID: 0}
+    - target: {fileID: 7489968646445564626, guid: 39b5bbd54a019c84ab798ea6a4dad3fb, type: 3}
+      propertyPath: m_Name
+      value: ArmRigTargetL
       objectReference: {fileID: 0}
     - target: {fileID: 7489968646445564626, guid: 39b5bbd54a019c84ab798ea6a4dad3fb, type: 3}
       propertyPath: m_TagString

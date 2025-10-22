@@ -300,7 +300,7 @@ MonoBehaviour:
   _robotHead: {fileID: 0}
   triggerCollider: {fileID: 7334841506576856424}
   grappleCollider: {fileID: 0}
-  rayLength: 10
+  rayLength: 50
   pourThresholdAngle: 60
   audioSource: {fileID: 0}
   spoutTip: {fileID: 838067025856432034}

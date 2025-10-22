@@ -8,7 +8,7 @@ public class CoffeePot : InteractableObject
     private Transform ogParent;
     private Rigidbody rb;
 
-    public float rayLength = 10f;
+    public float rayLength = 40f;
     public float pourThresholdAngle = 60f; // degrees below horizontal
 
     public AudioSource audioSource;
@@ -20,6 +20,12 @@ public class CoffeePot : InteractableObject
 
     //[SerializeField] private float volume; // TODO: limit the pot
     private FillCup cup;
+    private LayerMask layerMask;
+
+    void Awake()
+    {
+        layerMask = LayerMask.GetMask("Cup");
+    }
 
     public override void Start()
     {
@@ -65,9 +71,10 @@ public class CoffeePot : InteractableObject
         // optional raycast visualization
         if (isPouring)
         {
-            if (Physics.Raycast(origin, direction, out RaycastHit hit, rayLength))
+            if (Physics.Raycast(origin, direction, out RaycastHit hit, rayLength, layerMask))
             {
                 Debug.DrawLine(origin, hit.point, Color.cyan);
+                Debug.Log(hit.transform);
                 if (hit.collider.CompareTag("Cup"))
                 {
                     cup = hit.collider.GetComponent<FillCup>();

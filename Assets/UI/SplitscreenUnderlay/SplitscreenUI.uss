@@ -54,3 +54,12 @@
     margin-bottom: 10px;
     margin-right: 10px;
 }
+
+.instructions-text {
+    -unity-font-definition: url("project://database/Assets/Fonts/AreaKilometer50-gxmEq.otf?fileID=12800000&guid=ef001ebbe0814b84986d79c8d1de465a&type=3#AreaKilometer50-gxmEq");
+    -unity-font-style: normal;
+}
+
+.instructions-label {
+    height: 60px;
+}

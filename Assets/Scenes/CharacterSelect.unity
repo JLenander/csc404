@@ -673,17 +673,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 912823605}
   m_CullTransparentMesh: 1
---- !u!114 &921738853 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8308932886316452829, guid: 6c951279af45d354090e2a145ecf5a12, type: 3}
-  m_PrefabInstance: {fileID: 1070582681}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
 --- !u!1 &931385284
 GameObject:
   m_ObjectHideFlags: 0
@@ -835,9 +824,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1761630039}
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2833034805337091610, guid: 6c951279af45d354090e2a145ecf5a12, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1413962067}
     - targetCorrespondingSourceObject: {fileID: 2833034805337091610, guid: 6c951279af45d354090e2a145ecf5a12, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1413962068}
@@ -993,19 +979,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfe93a77b6630934db4806b073b7a0f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SplitscreenUIHandler
---- !u!114 &1413962067
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1129552808}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cae933af0040c4f40bf650368fa6e11d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MinimapController
-  uiDocument: {fileID: 921738853}
 --- !u!114 &1413962068
 MonoBehaviour:
   m_ObjectHideFlags: 0

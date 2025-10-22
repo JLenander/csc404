@@ -110,8 +110,7 @@ public class GlobalPlayerManager : MonoBehaviour
                     // pass these players to UI manager
                     GlobalPlayerUIManager.Instance.PassPlayers(_players);
                     
-                    // initialize player dots, call here so it happens after players are passed to UI manager
-                    MinimapController.Instance.InitializePlayerDots();
+                    // minimap initialize player dots *removed*
 
                     // Load level select screen
                     GlobalLevelManager.Instance.LoadLevelSelectScreen();
@@ -285,7 +284,7 @@ public class GlobalPlayerManager : MonoBehaviour
         return _players.All(player => !player.Valid || player.Ready) && _players.Any(player => player.Valid);
     }
 
-    // delcare here so MinimapController can readonly it
+    // declare here so other scripts can readonly it
     public PlayerData[] Players => _players;
 }
 

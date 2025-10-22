@@ -15,8 +15,7 @@ namespace UIScripts
         private VisualElement[] _playerBoxes;
         private VisualElement _readyText;
         private Label[] _playerColorWarnings;
-        // private Label[] _playerNumbers;
-        // Note: not doing because label solors are hard to change in code (IResolvedStyle)
+        private VisualElement[] _playerArrows;
         
         private int _readyPlayers = 0;
         private int _playerCount = 0;
@@ -35,18 +34,20 @@ namespace UIScripts
         {
             // TODO: no need after new design, just cue scene + spawn anchors
             _playerBoxes = new VisualElement[3];
+            _playerColorWarnings = new Label[3];
+            _playerArrows = new VisualElement[6];
             
             var root = gameObject.GetComponent<UIDocument>().rootVisualElement;
-            _playerBoxes[0] = root.Query<VisualElement>("Player1Selector");
-            _playerBoxes[1] = root.Query<VisualElement>("Player2Selector");
-            _playerBoxes[2] = root.Query<VisualElement>("Player3Selector");
-
+            
             _readyText = root.Query<VisualElement>("StartInstruction");
             
-            _playerColorWarnings = new Label[3];
+            
             for (int i = 0; i < 3; i++)
             {
+                _playerBoxes[i] = root.Query<VisualElement>("Player" + (i+1) + "Selector").First();
                 _playerColorWarnings[i] = root.Query<Label>("Player" + (i+1) + "ColorWarning").First();
+                _playerArrows[i] = root.Query<VisualElement>("Player" + (i+1) + "LeftArrow").First();
+                _playerArrows[i + 3] = root.Query<VisualElement>("Player" + (i+1) + "RightArrow").First();
             }
             
             SetupBoxes();
@@ -72,6 +73,8 @@ namespace UIScripts
             var playerBox =  _playerBoxes[playerIndex];
             var previewImg = playerBox.Query<VisualElement>(name: PlayerCharacterPreviewName).First();
             previewImg.visible = true;
+            _playerArrows[playerIndex].visible = true;
+            _playerArrows[playerIndex + 3].visible = true;
             
             // Set player select box background color to player color
             previewImg.style.backgroundColor = _availableColors[playerIndex];
@@ -89,12 +92,16 @@ namespace UIScripts
             var playerBox =  _playerBoxes[playerIndex];
             var previewImg = playerBox.Query<VisualElement>(name: PlayerCharacterPreviewName).First();
             previewImg.visible = false;
+            _playerArrows[playerIndex].visible = false;
+            _playerArrows[playerIndex + 3].visible = false;
             
             // Free up color from selector
             _playerManager.playerColorSelector[playerIndex] = Color.clear;
             
-            UnreadyPlayer(playerIndex);
             _playerCount--;
+            
+            // if now rest of players all ready, show "all players ready" text
+            _readyText.visible = AllPlayersReady();
         }
         
         // TODO: play ready animation instead
@@ -107,7 +114,13 @@ namespace UIScripts
             _readyPlayers++;
             // if that was last player to ready, show "all players ready" text
             _readyText.visible = AllPlayersReady();
-
+            
+            string message = "Ready!";
+            _playerColorWarnings[playerIndex].text = message;
+            _playerColorWarnings[playerIndex].style.color = Color.black; // rgb not showing
+            _playerColorWarnings[playerIndex].visible = true;
+            _playerArrows[playerIndex].visible = false;
+            _playerArrows[playerIndex + 3].visible = false;
         }       
         
         // TODO: play unready animation instead
@@ -116,6 +129,10 @@ namespace UIScripts
             // unhighlight the player box
             var playerBox =  _playerBoxes[playerIndex];
             playerBox.RemoveFromClassList("playerConfirmed");
+            
+            _playerColorWarnings[playerIndex].visible = false;
+            _playerArrows[playerIndex].visible = true;
+            _playerArrows[playerIndex + 3].visible = true;
             
             _readyPlayers--;
             
@@ -141,7 +158,7 @@ namespace UIScripts
             _playerColorIndices[playerIndex] = (_playerColorIndices[playerIndex] + direction + max) % max;
             var newColor = _availableColors[_playerColorIndices[playerIndex]];
 
-            // Update color box
+            // Update color boxoh no 
             var playerBox = _playerBoxes[playerIndex];
             var previewImg = playerBox.Query<VisualElement>("CharacterPreview").First();
             previewImg.style.backgroundColor = newColor;
@@ -155,6 +172,7 @@ namespace UIScripts
         {
             string message = "Color taken by Player " + (otherIndex + 1);
             _playerColorWarnings[playerIndex].text = message;
+            _playerColorWarnings[playerIndex].style.color = Color.red;
             _playerColorWarnings[playerIndex].visible = true;
         }
 

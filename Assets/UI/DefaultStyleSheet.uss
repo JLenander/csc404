@@ -2,14 +2,14 @@
 }
 
 .unity-button:hover {
-    border-top-width: 4px;
-    border-right-width: 4px;
-    border-bottom-width: 4px;
-    border-left-width: 4px;
-    border-left-color: rgb(0, 0, 0);
-    border-right-color: rgb(0, 0, 0);
-    border-top-color: rgb(0, 0, 0);
-    border-bottom-color: rgb(0, 0, 0);
+    border-top-width: 6px;
+    border-right-width: 6px;
+    border-bottom-width: 6px;
+    border-left-width: 6px;
+    border-left-color: white;
+    border-right-color: white;
+    border-top-color: white;
+    border-bottom-color: white;
 }
 
 .unity-button {
@@ -28,14 +28,14 @@
 }
 
 .unity-button:focus {
-    border-top-width: 4px;
-    border-right-width: 4px;
-    border-bottom-width: 4px;
-    border-left-width: 4px;
-    border-left-color: rgb(230, 230, 230);
-    border-right-color: rgb(230, 230, 230);
-    border-top-color: rgb(230, 230, 230);
-    border-bottom-color: rgb(230, 230, 230);
+    border-top-width: 6px;
+    border-right-width: 6px;
+    border-bottom-width: 6px;
+    border-left-width: 6px;
+    border-left-color: rgb(150,221,136);
+    border-right-color: rgb(150,221,136);
+    border-top-color: rgb(150,221,136);
+    border-bottom-color: rgb(150,221,136);
 }
 
 .button {

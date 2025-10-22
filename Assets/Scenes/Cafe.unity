@@ -10204,12 +10204,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 276867141054492880, guid: b5a2c18e3581b4c4995cd16e7a91b516, type: 3}
       propertyPath: m_Volume
-      value: 0.112
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 276867141054492880, guid: b5a2c18e3581b4c4995cd16e7a91b516, type: 3}
       propertyPath: m_Resource
       value: 
-      objectReference: {fileID: 8300000, guid: 09a8d703feb13be4b9b898bfbac5cf43, type: 3}
+      objectReference: {fileID: 8300000, guid: 784d9d116c369c54f8b53a4d9929bf75, type: 3}
     - target: {fileID: 397365818852289157, guid: b5a2c18e3581b4c4995cd16e7a91b516, type: 3}
       propertyPath: m_Volume
       value: 0.108

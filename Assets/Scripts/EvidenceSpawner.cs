@@ -33,20 +33,22 @@ public class EvidenceSpawner : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        if (disabled) return;
-        spawnTimer += Time.deltaTime;
-        if (spawnTimer >= spawnInterval)
-        {
-            spawnTimer = 0;
-            // if half grabbed, respawn evidence
-            if (evidenceCount < maxEvidence) // make sure it is less than the max
-            {
-                EvidenceBurst();
-            }
-        }
-    }
+    // Disable for memory leak
+    // TODO: investigate
+    // void Update()
+    // {
+    //     if (disabled) return;
+    //     spawnTimer += Time.deltaTime;
+    //     if (spawnTimer >= spawnInterval)
+    //     {
+    //         spawnTimer = 0;
+    //         // if half grabbed, respawn evidence
+    //         if (evidenceCount < maxEvidence) // make sure it is less than the max
+    //         {
+    //             EvidenceBurst();
+    //         }
+    //     }
+    // }
 
     public void SpawnTempSpecial()
     {

@@ -13,10 +13,13 @@ public class PauseMenuUIHandler : MonoBehaviour
     private Button _returnToLevelSelectButton;
     private Button _quitGameButton;
     
+    private const int NumPlayers = 3;
+    
+    // Player colors
+    private Color[] playerColors = new Color[NumPlayers];
+    
     // Player Sensitivity Settings
     private Slider[] _playerLookSensitivities = new Slider[NumPlayers];
-    
-    private const int NumPlayers = 3;
 
     private List<VisualElement> borderedElements;
 
@@ -88,6 +91,26 @@ public class PauseMenuUIHandler : MonoBehaviour
         };
     }
 
+    /// <summary>
+    /// Set's the player's color so that those player's settings can be color coded for visual clarity
+    /// </summary>
+    /// <param name="playerIndex"></param>
+    /// <param name="playerColor"></param>
+    public void SetPlayerColor(int playerIndex, Color playerColor)
+    {
+        playerColors[playerIndex] = playerColor;
+        UpdatePlayerColoredElements();
+    }
+
+    // Update static elements that should be player colored
+    private void UpdatePlayerColoredElements()
+    {
+        for (var i = 0; i < NumPlayers; i++)
+        {
+            _playerLookSensitivities[i].labelElement.style.color = playerColors[i];
+        }
+    }
+
     public void SetPlayerSettings(int playerIndex, PlayerSettingsUI settings)
     {
         if (playerIndex > NumPlayers)
@@ -122,7 +145,7 @@ public class PauseMenuUIHandler : MonoBehaviour
     /// </summary>
     public void ClosePauseMenu()
     {
-        // Janky hack to click the button
+        // Janky hack to click the button to trigger proper callbacks
         using var e = new NavigationSubmitEvent();
         e.target = _returnToGameButton;
         _returnToGameButton.SendEvent(e);
@@ -168,6 +191,10 @@ public class PauseMenuUIHandler : MonoBehaviour
         _returnToGameButton.Focus();
     }
 
+    /// <summary>
+    /// Set the color of the current active player so that the pause menu can distinguish who is currently controlling the UI.
+    /// </summary>
+    /// <param name="color"></param>
     public void SetCurrentActivePlayerColor(Color color)
     {
         _currentActivePlayerColor = color;

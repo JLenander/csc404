@@ -143,12 +143,15 @@ public class GlobalPlayerManager : MonoBehaviour
                             _pauseMenuUIHandler.RegisterPlayerSettingsCallback(i, UpdatePlayerSettings);
                             _pauseMenuUIHandler.ShowPlayerSettings(i);
                             
-                            // assign pause menu delegate
+                            // assign pause menu open/close delegates
                             InputActionMapper.GetPlayerOpenPauseMenuAction(_players[i].Input).started += Players[i].PauseMenuDelegate;
                             InputActionMapper.GetUIClosePauseMenuAction(_players[i].Input).started += ctx =>
                             {
                                 _pauseMenuUIHandler.ClosePauseMenu();
                             };
+                            
+                            // Inform pause menu of player colors
+                            _pauseMenuUIHandler.SetPlayerColor(i, _players[i].PlayerColor);
                         }
                         else
                         {

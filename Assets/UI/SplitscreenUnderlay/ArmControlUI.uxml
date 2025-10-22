@@ -8,7 +8,7 @@
                     <ui:VisualElement style="flex-grow: 1; flex-direction: row; align-items: flex-start; top: -10px;">
                         <ui:Label text="move" name="DescText" class="instructions-text" style="background-color: rgba(43, 213, 117, 0); -unity-text-align: upper-right; padding-right: 11px; padding-bottom: 2px; padding-top: 13px; padding-left: 10px; margin-top: 1%; margin-right: 2%; margin-bottom: initial; margin-left: 2%; height: 169px; font-size: 36px; -unity-font-style: bold; border-left-color: rgb(43, 213, 117); border-right-color: rgb(43, 213, 117); border-top-color: rgb(43, 213, 117); border-bottom-color: rgb(43, 213, 117); border-top-width: 0; border-right-width: 0; border-left-width: 0; border-bottom-width: 0; white-space: normal; width: 206px;" />
                         <ui:VisualElement style="flex-grow: 1;">
-                            <ui:VisualElement style="flex-grow: 1; width: 182px; height: 40px; min-height: 0; left: 80px; background-image: resource(&apos;UI/KeysPNG/L_Joystick/default&apos;); -unity-background-scale-mode: scale-to-fit;" />
+                            <ui:VisualElement style="flex-grow: 1; width: 182px; height: 40px; min-height: 0; left: 80px; background-image: resource(&apos;UI/KeysPNG/L_Joystick/default&apos;); -unity-background-scale-mode: scale-and-crop; background-size: 50px 50px;" />
                         </ui:VisualElement>
                     </ui:VisualElement>
                     <ui:VisualElement name="VisualElement" style="flex-grow: 1; flex-direction: row; align-items: flex-start; top: -10px;">
@@ -17,22 +17,22 @@
                             <ui:VisualElement style="flex-grow: 1; width: 100px; height: 40px; min-height: auto; left: 0; background-image: resource(&apos;UI/KeysPNG/R_Joystick/Default&apos;); -unity-background-scale-mode: scale-to-fit; opacity: 1; background-size: contain; max-height: 60px; top: 5px;" />
                         </ui:VisualElement>
                         <ui:VisualElement style="flex-grow: 1;">
-                            <ui:VisualElement style="flex-grow: 1; width: 100px; height: 40px; min-height: 0; left: 0; background-image: resource(&apos;UI/KeysPNG/L1R1/L1&apos;); -unity-background-scale-mode: scale-to-fit;" />
+                            <ui:VisualElement style="flex-grow: 1; width: 100px; height: 40px; min-height: 0; left: 0; background-image: resource(&apos;UI/KeysPNG/L1R1/L1&apos;); -unity-background-scale-mode: scale-and-crop; background-size: 100px 100px;" />
                         </ui:VisualElement>
                         <ui:VisualElement style="flex-grow: 1;">
-                            <ui:VisualElement style="flex-grow: 1; width: 100px; height: 40px; min-height: 0; left: 0; background-image: resource(&apos;UI/KeysPNG/L1R1/R1&apos;); -unity-background-scale-mode: scale-to-fit;" />
+                            <ui:VisualElement style="flex-grow: 1; width: 100px; height: 40px; min-height: 0; left: 0; background-image: resource(&apos;UI/KeysPNG/L1R1/R1&apos;); -unity-background-scale-mode: scale-and-crop; background-size: 100px 100px;" />
                         </ui:VisualElement>
                     </ui:VisualElement>
                     <ui:VisualElement name="VisualElement" style="flex-grow: 1; flex-direction: row; align-items: flex-start; flex-wrap: nowrap; top: -10px;">
                         <ui:Label text="interact" name="DescText" class="instructions-text" style="-unity-text-align: upper-right; padding-right: 11px; padding-bottom: 2px; padding-top: 13px; padding-left: 10px; margin-top: 1%; margin-right: 2%; margin-bottom: initial; margin-left: 2%; height: 169px; font-size: 36px; -unity-font-style: bold; border-left-color: rgb(43, 213, 117); border-right-color: rgb(43, 213, 117); border-top-color: rgb(43, 213, 117); border-bottom-color: rgb(43, 213, 117); border-top-width: 0; border-right-width: 0; border-left-width: 0; border-bottom-width: 0; white-space: normal; justify-content: center; align-items: stretch; width: 206px;" />
                         <ui:VisualElement style="flex-grow: 1;">
-                            <ui:VisualElement style="flex-grow: 1; width: 182px; height: 40px; min-height: 0; left: 85px; background-image: resource(&apos;UI/KeysPNG/PS4KEYS_clr/Triangle&apos;); -unity-background-scale-mode: scale-to-fit; top: 5px;" />
+                            <ui:VisualElement name="VisualElement" style="flex-grow: 1; width: 182px; height: 40px; min-height: 0; left: 85px; background-image: resource(&apos;UI/KeysPNG/PS4KEYS_clr/Triangle&apos;); -unity-background-scale-mode: scale-and-crop; top: 5px; background-size: 50px 50px;" />
                         </ui:VisualElement>
                     </ui:VisualElement>
                     <ui:VisualElement name="VisualElement" style="flex-grow: 1; flex-direction: row; align-items: flex-start; flex-wrap: nowrap; top: 0;">
                         <ui:Label text="Launch" name="DescText" class="instructions-text" style="background-color: rgba(43, 213, 117, 0); -unity-text-align: upper-right; padding-right: 11px; padding-bottom: 2px; padding-top: 13px; padding-left: 10px; margin-top: 1%; margin-right: 2%; margin-bottom: initial; margin-left: 2%; height: 169px; font-size: 36px; -unity-font-style: bold; border-left-color: rgb(43, 213, 117); border-right-color: rgb(43, 213, 117); border-top-color: rgb(43, 213, 117); border-bottom-color: rgb(43, 213, 117); border-top-width: 0; border-right-width: 0; border-left-width: 0; border-bottom-width: 0; white-space: normal; justify-content: center; align-items: stretch; width: 206px;" />
                         <ui:VisualElement style="flex-grow: 1;">
-                            <ui:VisualElement style="flex-grow: 1; width: 182px; height: 40px; min-height: 0; left: 0; background-image: resource(&apos;UI/KeysPNG/L2R2/L2&apos;); -unity-background-scale-mode: scale-to-fit; top: 10px;" />
+                            <ui:VisualElement style="flex-grow: 1; width: 182px; height: 40px; min-height: 0; left: 0; background-image: resource(&apos;UI/KeysPNG/L2R2/L2&apos;); -unity-background-scale-mode: scale-to-fit; top: 10px; background-size: contain;" />
                         </ui:VisualElement>
                         <ui:VisualElement style="flex-grow: 1;">
                             <ui:VisualElement style="flex-grow: 1; width: 182px; height: 40px; min-height: 0; left: -20px; background-image: resource(&apos;UI/KeysPNG/L2R2/R2&apos;); -unity-background-scale-mode: scale-to-fit; top: 10px;" />

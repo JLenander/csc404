@@ -30,6 +30,7 @@ public class GlobalPlayerUIManager : MonoBehaviour
     private List<PlayerData> playerCam = new List<PlayerData>();
 
     private bool start = false;
+    private Coroutine pixelateCoroutine;
 
     public void Awake()
     {
@@ -97,7 +98,13 @@ public class GlobalPlayerUIManager : MonoBehaviour
     public void PixelateView(float time)
     {
         // StartCoroutine(FadeRoutine(time));
-        StartCoroutine(PixelateRoutine(time));
+        if (pixelateCoroutine != null)
+        {
+            StopCoroutine(pixelateCoroutine);
+            pixelateCoroutine = null;
+        }
+
+        pixelateCoroutine = StartCoroutine(PixelateRoutine(time));
         Debug.Log("Start telling the player");
     }
 
@@ -130,6 +137,12 @@ public class GlobalPlayerUIManager : MonoBehaviour
 
     public void DisablePixelate()
     {
+        if (pixelateCoroutine != null)
+        {
+            StopCoroutine(pixelateCoroutine);
+            pixelateCoroutine = null;
+        }
+
         outsideRenderTextureView.Release();
         outsideRenderTextureView.width = originalWidth;
         outsideRenderTextureView.height = originalHeight;

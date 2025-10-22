@@ -18,6 +18,7 @@ public class GlobalPlayerManager : MonoBehaviour
     // The UI handler for the character select screen
     [SerializeField] private GameObject characterSelectScreen;
     private ICharacterSelectScreen _characterSelectScreen;
+    private PauseMenuUIHandler _pauseMenuUIHandler;
     
     // To replace by colors player pick - to ference for conflict or pass to PlayerData when all ready
     public Color[] playerColorSelector =
@@ -44,6 +45,7 @@ public class GlobalPlayerManager : MonoBehaviour
     void Start()
     {
         _characterSelectScreen = characterSelectScreen.GetComponent<ICharacterSelectScreen>();
+        _pauseMenuUIHandler = FindAnyObjectByType<PauseMenuUIHandler>();
 
         // initalize player data
         _playerLimit = PlayerInputManager.instance.maxPlayerCount;
@@ -73,7 +75,8 @@ public class GlobalPlayerManager : MonoBehaviour
             Debug.Log("Player " + idx + " Joined - Character Select Scene");
             _players[idx].Input = playerInput;
             _players[idx].PlayerObject = playerInput.gameObject; // This might change so it's a separate field.
-            _players[idx].PlayerObject.GetComponent<Player>().SetPlayerID(playerInput.playerIndex);
+            _players[idx].Player = _players[idx].PlayerObject.GetComponent<Player>();
+            _players[idx].Player.SetPlayerID(playerInput.playerIndex);
             _players[idx].Valid = true;
 
             // Add player to the character selection screen so they can start selecting their character.
@@ -82,6 +85,32 @@ public class GlobalPlayerManager : MonoBehaviour
             // register callbacks for the character select screen color change actions
             _players[idx].LeftActionDelegate = ctx => _characterSelectScreen.ChangeColor(idx, -1);
             _players[idx].RightActionDelegate = ctx => _characterSelectScreen.ChangeColor(idx, +1);
+
+            // register callback for when the player navigates in order to set the current border color in the pause menu
+            playerInput.actions.FindAction("Navigate").performed += ctx =>
+            {
+                var playerColor = _players[idx].PlayerColor;
+                _pauseMenuUIHandler.SetCurrentActivePlayerColor(playerColor);
+            };
+            
+            // register callback for opening and closing pause menu
+            _players[idx].PauseMenuDelegate = ctx =>
+            {
+                // Set all players in UI
+                for (var i = 0; i < _players.Length; i++)
+                {
+                    if (_players[i].Valid)
+                    {
+                        _players[i].Input.SwitchCurrentActionMap("UI");
+                        _players[i].Player.SetInPauseMenu();
+                    }
+                }
+                
+                _pauseMenuUIHandler.SetCurrentActivePlayerColor(_players[idx].PlayerColor);
+                // Show and focus the pause menu.
+                _pauseMenuUIHandler.ShowPauseMenu();
+                _pauseMenuUIHandler.FocusPanel();
+            };
 
             // register callbacks for the character select screen actions.
             _players[idx].SubmitActionDelegate = ctx =>
@@ -104,6 +133,30 @@ public class GlobalPlayerManager : MonoBehaviour
                             {
                                 outline.OutlineColor = _players[i].PlayerColor;
                             }
+                            
+                            // Register settings UI callback and set default UI settings
+                            _pauseMenuUIHandler.SetPlayerSettings(i, new PlayerSettingsUI()
+                            {
+                                // Downscale by 10
+                                LookSensitivity = _players[i].Player.GetLookSensitivity() * 10.0f
+                            });
+                            _pauseMenuUIHandler.RegisterPlayerSettingsCallback(i, UpdatePlayerSettings);
+                            _pauseMenuUIHandler.ShowPlayerSettings(i);
+                            
+                            // assign pause menu open/close delegates
+                            InputActionMapper.GetPlayerOpenPauseMenuAction(_players[i].Input).started += Players[i].PauseMenuDelegate;
+                            InputActionMapper.GetUIClosePauseMenuAction(_players[i].Input).started += ctx =>
+                            {
+                                _pauseMenuUIHandler.ClosePauseMenu();
+                            };
+                            
+                            // Inform pause menu of player colors
+                            _pauseMenuUIHandler.SetPlayerColor(i, _players[i].PlayerColor);
+                        }
+                        else
+                        {
+                            // Invalid so hide player settings in menu
+                            _pauseMenuUIHandler.HidePlayerSettings(i);
                         }
                     }
 
@@ -160,7 +213,6 @@ public class GlobalPlayerManager : MonoBehaviour
                             _characterSelectScreen.HideColorConflictWarning(i);
                         }
                     }
-                    
                 }
                 else
                 {
@@ -176,7 +228,7 @@ public class GlobalPlayerManager : MonoBehaviour
 
             // Ensure player is on the character select screen action map and disable by default
             playerInput.SwitchCurrentActionMap(InputActionMapper.CharacterSelectActionMapName);
-            playerInput.gameObject.GetComponent<Player>().TurnOff();
+            _players[idx].Player.TurnOff();
         }
         else
         {
@@ -199,7 +251,6 @@ public class GlobalPlayerManager : MonoBehaviour
             InputActionMapper.GetCharacterSelectCancelAction(playerInput).started -= _players[playerInput.playerIndex].CancelActionDelegate;
             InputActionMapper.GetCharacterSelectLeftAction(playerInput).started -= _players[playerInput.playerIndex].LeftActionDelegate;
             InputActionMapper.GetCharacterSelectRightAction(playerInput).started -= _players[playerInput.playerIndex].RightActionDelegate;
-            
         }
         else
         {
@@ -210,6 +261,7 @@ public class GlobalPlayerManager : MonoBehaviour
     /// <summary>
     /// Prepare all players for a scene change: <br />
     /// - Kick players off terminal if they are currently interacting with one
+    /// - Leave Pause menu and player UI state if in one (changes are not saved)
     /// </summary>
     public void PrepareAllPlayersForSceneChange()
     {
@@ -218,8 +270,13 @@ public class GlobalPlayerManager : MonoBehaviour
             if (player.Valid)
             {
                 player.PlayerObject.GetComponent<PlayerInteract>().LeaveCurrInteractable();
+                // Leave UI state when changing scene.
+                player.Player.SetNotInPauseMenu();
             }
         }
+        
+        // Close Pause Menu UI if in it
+        _pauseMenuUIHandler.HidePauseMenu();
     }
 
     /// <summary>
@@ -250,21 +307,21 @@ public class GlobalPlayerManager : MonoBehaviour
                 {
                     player.Input.SwitchCurrentActionMap(InputActionMapper.CharacterSelectActionMapName);
                     // Disable the player control
-                    player.PlayerObject.GetComponent<Player>().TurnOff();
+                    player.Player.TurnOff();
                     Cursor.lockState = CursorLockMode.None;
                 }
                 else if (SceneConstants.IsLevelSelectScene())
                 {
                     player.Input.SwitchCurrentActionMap(InputActionMapper.LevelSelectActionMapName);
                     // Disable the player control
-                    player.PlayerObject.GetComponent<Player>().TurnOff();
+                    player.Player.TurnOff();
                     Cursor.lockState = CursorLockMode.None;
                 }
                 else
                 {
                     player.Input.SwitchCurrentActionMap(InputActionMapper.PlayerActionMapName);
                     // enable player if not the character select scene or the level select scene
-                    player.PlayerObject.GetComponent<Player>().TurnOn();
+                    player.Player.TurnOn();
                     Cursor.lockState = CursorLockMode.Locked;
                 }
 
@@ -286,6 +343,19 @@ public class GlobalPlayerManager : MonoBehaviour
 
     // declare here so other scripts can readonly it
     public PlayerData[] Players => _players;
+
+    /// <summary>
+    /// Callback for the settings UI (from the pause menu) to update a particular player's settings and return to game
+    /// </summary>
+    /// <param name="playerIndex"></param>
+    /// <param name="playerSettings">The struct of new settings for this player</param>
+    public void UpdatePlayerSettings(int playerIndex, PlayerSettingsUI playerSettings)
+    {
+        _players[playerIndex].Player.SetLookSensitivity(playerSettings.LookSensitivity / 10.0f);
+        _players[playerIndex].Input.SwitchCurrentActionMap("Player");
+        _players[playerIndex].Player.SetNotInPauseMenu();
+        _pauseMenuUIHandler.HidePauseMenu();
+    }
 }
 
 public struct PlayerData
@@ -296,11 +366,13 @@ public struct PlayerData
     public bool Ready { get; set; }
     public int Index { get; set; }
     public PlayerInput Input { get; set; }
+    public Player Player { get; set; }
     public GameObject PlayerObject { get; set; }
     public Action<InputAction.CallbackContext> SubmitActionDelegate { get; set; }
     public Action<InputAction.CallbackContext> CancelActionDelegate { get; set; }
     public Action<InputAction.CallbackContext> LeftActionDelegate { get; set; }
     public Action<InputAction.CallbackContext> RightActionDelegate { get; set; }
+    public Action<InputAction.CallbackContext> PauseMenuDelegate { get; set; }
     public Color PlayerColor { get; set; }
 }
 

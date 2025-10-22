@@ -126,8 +126,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed40283c00862dc1fb3b6b0c7f63344c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
-  moveSpeed: 8
-  lookSensitivity: 2.5
+  moveSpeed: 7
+  lookSensitivity: 3.5
   footstepSource: {fileID: 6477602773953544208}
   footstepClips:
   - {fileID: 8300000, guid: eb31fc05ea1e75b4c88a213489834bbd, type: 3}

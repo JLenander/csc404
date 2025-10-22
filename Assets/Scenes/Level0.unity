@@ -1873,6 +1873,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2013113685}
     - target: {fileID: 267966554777334505, guid: f099881265806844bab8a0fc9e63c918, type: 3}
+      propertyPath: grappleCollider
+      value: 
+      objectReference: {fileID: 222108300}
+    - target: {fileID: 267966554777334505, guid: f099881265806844bab8a0fc9e63c918, type: 3}
       propertyPath: rightHandTarget
       value: 
       objectReference: {fileID: 2013113684}
@@ -1902,7 +1906,7 @@ PrefabInstance:
       objectReference: {fileID: 788622201}
     - target: {fileID: 3072628963163858906, guid: f099881265806844bab8a0fc9e63c918, type: 3}
       propertyPath: countBeforeMatch
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3072628963163858906, guid: f099881265806844bab8a0fc9e63c918, type: 3}
       propertyPath: profiles.Array.size

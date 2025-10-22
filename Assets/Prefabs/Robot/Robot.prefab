@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RobotMovement
   robotMoveSpeed: 40
-  robotLookSensitivity: 50
+  robotLookSensitivity: 40
   disable: 0
   footstepSource: {fileID: 7151540355888902700}
   footstepClips:
@@ -59,7 +59,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f444c7adb1b624148b7a4821f51afefb, type: 3}
   - {fileID: 8300000, guid: a557227292187ac468dd81aa5fb2189b, type: 3}
   - {fileID: 8300000, guid: 2f41b4be010731741b3cf777c255f117, type: 3}
-  stepInterval: 2
+  stepInterval: 1
   gravity: -9.81
   groundCheckDistance: 0.2
   groundMask:

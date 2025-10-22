@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 90708576353505251}
   - component: {fileID: 982843238755236317}
   - component: {fileID: 8115683185566131707}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: CoffeeDrink
   m_TagString: Cup
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 4616084694294514346}
   - component: {fileID: 7025801148230926443}
   - component: {fileID: 300403850476083074}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cup
   m_TagString: Cup
   m_Icon: {fileID: 0}
@@ -144,8 +144,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 4
-  m_Height: 14
+  m_Radius: 6
+  m_Height: 8
   m_Direction: 1
   m_Center: {x: 0, y: 2, z: 0}
 --- !u!114 &7025801148230926443
@@ -247,9 +247,17 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -2794640641019423805, guid: bc60c691e40aa6341b39229dc5a39d94, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: bc60c691e40aa6341b39229dc5a39d94, type: 3}
       propertyPath: m_Name
       value: mugs
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: bc60c691e40aa6341b39229dc5a39d94, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 5682213011054637315, guid: bc60c691e40aa6341b39229dc5a39d94, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'

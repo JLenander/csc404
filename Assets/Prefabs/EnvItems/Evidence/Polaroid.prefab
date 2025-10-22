@@ -59,7 +59,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.06746006, y: 0.14676856, z: 0.15469433}
+  m_Size: {x: 0.08, y: 0.14676856, z: 0.15469433}
   m_Center: {x: 0.0005698845, y: 0.0016106307, z: 0.0053381207}
 --- !u!54 &4695632327651796600
 Rigidbody:
@@ -107,7 +107,7 @@ MonoBehaviour:
   _robotHead: {fileID: 0}
   score: 3
   popUp: {fileID: 1955467700380263624}
-  graphic: {fileID: 0}
+  graphic: {fileID: 5279410392637716891}
   floatSpeed: 1
   claimSource: {fileID: -132264575855697583}
 --- !u!114 &8732952145240023436

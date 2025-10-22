@@ -55,11 +55,32 @@
     margin-right: 10px;
 }
 
-.instructions-text {
+.instructions-header {
+    height: 60px;
+    font-size: 40px;
+    background-color: rgb(43, 213, 117);
     -unity-font-definition: url("project://database/Assets/Fonts/AreaKilometer50-gxmEq.otf?fileID=12800000&guid=ef001ebbe0814b84986d79c8d1de465a&type=3#AreaKilometer50-gxmEq");
-    -unity-font-style: normal;
+    -unity-text-align: middle-center;
+    -unity-font-style: bold;
+}
+
+.instructions-border {
+    border-left-color: rgb(43, 213, 117);
+    border-right-color: rgb(43, 213, 117);
+    border-top-color: rgb(43, 213, 117);
+    border-bottom-color: rgb(43, 213, 117);
+    border-top-width: 3px;
+    border-right-width: 3px;
+    border-bottom-width: 3px;
+    border-left-width: 3px;
+}
+
+.instructions-text {
+    color: rgb(43, 213, 117);
+    -unity-font-definition: url("project://database/Assets/Fonts/AreaKilometer50-gxmEq.otf?fileID=12800000&guid=ef001ebbe0814b84986d79c8d1de465a&type=3#AreaKilometer50-gxmEq");
 }
 
 .instructions-label {
-    height: 60px;
+    -unity-font-definition: url("project://database/Assets/Fonts/AreaKilometer50-gxmEq.otf?fileID=12800000&guid=ef001ebbe0814b84986d79c8d1de465a&type=3#AreaKilometer50-gxmEq");
+    font-size: 40px;
 }

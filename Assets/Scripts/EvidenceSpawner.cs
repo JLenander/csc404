@@ -33,6 +33,8 @@ public class EvidenceSpawner : MonoBehaviour
     }
 
     // Update is called once per frame
+    // Disable for memory leak
+    // TODO: investigate
     // void Update()
     // {
     //     if (disabled) return;

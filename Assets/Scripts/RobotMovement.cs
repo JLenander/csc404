@@ -15,10 +15,10 @@ public class RobotMovement : MonoBehaviour
     public float robotLookSensitivity = 50f;
     public bool disable = false;
 
-    // [SerializeField] private AudioSource footstepSource;
+    [SerializeField] private AudioSource footstepSource;
     [SerializeField] private AudioClip[] footstepClips;
-    [SerializeField] private float stepInterval = 0.5f;
-    private float stepTimer;
+    [SerializeField] private float stepInterval = 0.8f;
+    private float _stepTimer;
 
     [SerializeField] private float gravity = -9.81f;
     [SerializeField] private float groundCheckDistance = 0.2f;
@@ -31,6 +31,8 @@ public class RobotMovement : MonoBehaviour
 
         if (_robotCharacterController == null)
             Debug.LogError("No CharacterController found");
+        
+        footstepSource.volume = 0.1f;
     }
 
     public void ControlRobotMovement()
@@ -61,27 +63,29 @@ public class RobotMovement : MonoBehaviour
         if (Mathf.Abs(moveInput) > 0 || Mathf.Abs(rotateInput) > 0)
         {
             GlobalPlayerUIManager.Instance.StartWalkingShake();
-            stepTimer -= Time.fixedDeltaTime;
-            if (stepTimer <= 0f)
+            _stepTimer -= Time.fixedDeltaTime;
+            if (_stepTimer <= 0f)
             {
-                // PlayFootstep();
-                stepTimer = stepInterval;
+                PlayFootstep();
+                _stepTimer = stepInterval;
             }
         }
         else
         {
             GlobalPlayerUIManager.Instance.StopWalkingShake();
+            // Reset timer when stopping so next step plays immediately when moving starts
+            _stepTimer = stepInterval;
         }
     }
 
-    // public void PlayFootstep()
-    // {
-    //     if (footstepClips.Length > 0)
-    //     {
-    //         int index = UnityEngine.Random.Range(0, footstepClips.Length);
-    //         footstepSource.PlayOneShot(footstepClips[index]);
-    //     }
-    // }
+    public void PlayFootstep()
+    {
+        if (footstepClips.Length > 0)
+        {
+            int index = UnityEngine.Random.Range(0, footstepClips.Length);
+            footstepSource.PlayOneShot(footstepClips[index]);
+        }
+    }
 
     public void SetMoveAction(InputAction moveAction)
     { _moveAction = moveAction; }

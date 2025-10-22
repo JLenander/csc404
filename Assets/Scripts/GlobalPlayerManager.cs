@@ -110,8 +110,7 @@ public class GlobalPlayerManager : MonoBehaviour
                     // pass these players to UI manager
                     GlobalPlayerUIManager.Instance.PassPlayers(_players);
                     
-                    // initialize player dots, call here so it happens after players are passed to UI manager
-                    MinimapController.Instance.InitializePlayerDots();
+                    // minimap initialize player dots *removed*
 
                     // Load level select screen
                     GlobalLevelManager.Instance.LoadLevelSelectScreen();
@@ -134,11 +133,11 @@ public class GlobalPlayerManager : MonoBehaviour
                         }
                     }
                     Debug.Log("Player " + idx + " ready");
+                    // hide any previous warning, need do before ReadyPlayer, that uses warning area to show ready text
+                    _characterSelectScreen.HideColorConflictWarning(idx); 
                     _characterSelectScreen.ReadyPlayer(idx);
                     _players[idx].Ready = true;
                     _players[idx].PlayerColor = currentColor;
-                    _characterSelectScreen.HideColorConflictWarning(idx); // hide any previous warning
-                    
                 }
                 Debug.Log("submit action");
             };
@@ -285,7 +284,7 @@ public class GlobalPlayerManager : MonoBehaviour
         return _players.All(player => !player.Valid || player.Ready) && _players.Any(player => player.Valid);
     }
 
-    // delcare here so MinimapController can readonly it
+    // declare here so other scripts can readonly it
     public PlayerData[] Players => _players;
 }
 

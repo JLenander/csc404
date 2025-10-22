@@ -1262,7 +1262,7 @@ GameObject:
   m_Component:
   - component: {fileID: 218074005}
   - component: {fileID: 218074006}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GrappleStop
   m_TagString: GrappleStop
   m_Icon: {fileID: 0}
@@ -1476,6 +1476,59 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -7759331768739107841, guid: 082c41686c23c064f94c12b3359df3e6, type: 3}
+--- !u!1 &266687165
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 266687166}
+  - component: {fileID: 266687167}
+  m_Layer: 10
+  m_Name: GrappleStop
+  m_TagString: GrappleStop
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &266687166
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 266687165}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1148863390}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &266687167
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 266687165}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 11.23, y: 1, z: 10.29}
+  m_Center: {x: 0, y: 0.33, z: 0}
 --- !u!1 &267777253
 GameObject:
   m_ObjectHideFlags: 0
@@ -1864,7 +1917,7 @@ GameObject:
   m_Component:
   - component: {fileID: 291582760}
   - component: {fileID: 291582761}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GrappleStop
   m_TagString: GrappleStop
   m_Icon: {fileID: 0}
@@ -1880,7 +1933,7 @@ Transform:
   m_GameObject: {fileID: 291582759}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1.1, y: 0, z: 2.69}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2972,21 +3025,9 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 0b0319350ae20cc408553c647cba6a81, type: 2}
-    - target: {fileID: 4616084694294514346, guid: 86df93a7914d2644fbfd58e017a35572, type: 3}
-      propertyPath: m_Height
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4616084694294514346, guid: 86df93a7914d2644fbfd58e017a35572, type: 3}
-      propertyPath: m_Radius
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4616084694294514346, guid: 86df93a7914d2644fbfd58e017a35572, type: 3}
-      propertyPath: m_Center.y
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 5000562115679632805, guid: 86df93a7914d2644fbfd58e017a35572, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 268.0725
+      value: 267.91
       objectReference: {fileID: 0}
     - target: {fileID: 5000562115679632805, guid: 86df93a7914d2644fbfd58e017a35572, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2994,7 +3035,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5000562115679632805, guid: 86df93a7914d2644fbfd58e017a35572, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 27.26
+      value: 26.39
       objectReference: {fileID: 0}
     - target: {fileID: 5000562115679632805, guid: 86df93a7914d2644fbfd58e017a35572, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3024,14 +3065,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7025801148230926443, guid: 86df93a7914d2644fbfd58e017a35572, type: 3}
-      propertyPath: outline
-      value: 
-      objectReference: {fileID: 450646049}
-    - target: {fileID: 7025801148230926443, guid: 86df93a7914d2644fbfd58e017a35572, type: 3}
-      propertyPath: maxFillHeight
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 8599105018881482518, guid: 86df93a7914d2644fbfd58e017a35572, type: 3}
       propertyPath: m_Name
       value: Cup
@@ -3042,34 +3075,13 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5000562115679632805, guid: 86df93a7914d2644fbfd58e017a35572, type: 3}
       insertIndex: -1
       addedObject: {fileID: 291582760}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8599105018881482518, guid: 86df93a7914d2644fbfd58e017a35572, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 450646049}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 86df93a7914d2644fbfd58e017a35572, type: 3}
 --- !u!1 &450646048 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8599105018881482518, guid: 86df93a7914d2644fbfd58e017a35572, type: 3}
   m_PrefabInstance: {fileID: 450646047}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &450646049
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 450646048}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Outline
-  outlineMode: 1
-  outlineColor: {r: 0.21698111, g: 0.1832276, b: 0.17501779, a: 1}
-  outlineWidth: 10
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!114 &450646050 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7025801148230926443, guid: 86df93a7914d2644fbfd58e017a35572, type: 3}
@@ -5384,7 +5396,7 @@ GameObject:
   m_Component:
   - component: {fileID: 931953081}
   - component: {fileID: 931953082}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GrappleStop
   m_TagString: GrappleStop
   m_Icon: {fileID: 0}
@@ -6230,10 +6242,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1129756130809792025, guid: 771f9bf88273ec14788dbd89fc8792e7, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3713570294602077220, guid: 771f9bf88273ec14788dbd89fc8792e7, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 80bd0e73f4c0629429227e748c91ef78, type: 2}
+      objectReference: {fileID: 2100000, guid: c400a95cb312ad04b948a5da1a18481c, type: 2}
     - target: {fileID: 3763328431830505262, guid: 771f9bf88273ec14788dbd89fc8792e7, type: 3}
       propertyPath: m_IsKinematic
       value: 0
@@ -6301,7 +6317,7 @@ PrefabInstance:
     - target: {fileID: 8878622757462582814, guid: 771f9bf88273ec14788dbd89fc8792e7, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 3280921e8ad3f7041a1f074fcc1b1440, type: 2}
+      objectReference: {fileID: 2100000, guid: c400a95cb312ad04b948a5da1a18481c, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6822,6 +6838,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7057303446505312087, guid: 62613715ed8ac874094a3f4c5dd1da6d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1993643644}
+    - targetCorrespondingSourceObject: {fileID: 7057303446505312087, guid: 62613715ed8ac874094a3f4c5dd1da6d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 266687166}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62613715ed8ac874094a3f4c5dd1da6d, type: 3}
 --- !u!4 &1148863390 stripped
@@ -10733,19 +10752,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1819360954665482926, guid: d30d701aceece8f48a6aad419a40b296, type: 3}
       insertIndex: -1
       addedObject: {fileID: 218074005}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4168008604390611841, guid: d30d701aceece8f48a6aad419a40b296, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1545017748}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d30d701aceece8f48a6aad419a40b296, type: 3}
 --- !u!4 &1545017745 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1819360954665482926, guid: d30d701aceece8f48a6aad419a40b296, type: 3}
-  m_PrefabInstance: {fileID: 1545017744}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1545017746 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4168008604390611841, guid: d30d701aceece8f48a6aad419a40b296, type: 3}
   m_PrefabInstance: {fileID: 1545017744}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1545017747 stripped
@@ -10753,24 +10764,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2061832606263270835, guid: d30d701aceece8f48a6aad419a40b296, type: 3}
   m_PrefabInstance: {fileID: 1545017744}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1545017748
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1545017746}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Outline
-  outlineMode: 0
-  outlineColor: {r: 1, g: 0.8116398, b: 0, a: 1}
-  outlineWidth: 10
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!1 &1556195692 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -4026001597135795666, guid: 082c41686c23c064f94c12b3359df3e6, type: 3}

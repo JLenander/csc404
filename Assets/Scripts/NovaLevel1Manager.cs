@@ -133,22 +133,16 @@ public class NovaLevel1Manager : MonoBehaviour
         GlobalPlayerUIManager.Instance.LoadText(dialogues[index]);
         index++;
 
-        yield return new WaitForSeconds(15f);
+        yield return new WaitForSeconds(35f);
 
-        Level1TaskManager.StartTaskPickupEvidence();
+        //Level1TaskManager.StartTaskPickupEvidence();
 
-        yield return new WaitForSeconds(60f);
+        //yield return new WaitForSeconds(20f);
 
         // after a while she eats another slice
         yield return StartCoroutine(EatCake());
 
         yield return new WaitForSeconds(5f);
-
-
-        // eat third slice
-        yield return new WaitForSeconds(60f);
-
-        yield return StartCoroutine(EatCake());
 
         // drink coffee
         StartCoroutine(DrinkCoffee());
@@ -157,8 +151,13 @@ public class NovaLevel1Manager : MonoBehaviour
         GlobalPlayerUIManager.Instance.LoadText(dialogues[index]);
         index++;
 
+        // eat third slice
+        yield return new WaitForSeconds(30f);
+
+        yield return StartCoroutine(EatCake());
+
         // eat last slice
-        yield return new WaitForSeconds(60f);
+        yield return new WaitForSeconds(30f);
 
         yield return StartCoroutine(EatCake());
 

@@ -19,8 +19,8 @@ public class FillCup : MonoBehaviour
     {
         float newYScale = maxFillHeight;
         float yOffset = (newYScale - initialHeight) / 1.5f;
-
-        liquid.localScale = new Vector3(baseScale.x, newYScale, baseScale.z);
+        baseScale = new Vector3(3.5f, initialHeight, 3.5f);
+        liquid.localScale = baseScale;
         liquid.localPosition = new Vector3(0f, yOffset, 0f);
         StartCoroutine(WaitForScoreKeeper());
         DisableOutline();
@@ -58,6 +58,7 @@ public class FillCup : MonoBehaviour
         {
             full = true;
             ScoreKeeper.Instance.IncrementScoring("Filled Nova's coffee");
+            Level1TaskManager.CompleteTaskPourCoffee();
         }
 
         float fillProgress = (float)counter / fullCounter;

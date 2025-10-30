@@ -88,8 +88,6 @@ public class FireArea : MonoBehaviour
             fire.StartFire();
             fireCount++;
 
-            Debug.Log("firecount: " + fireCount);
-
             yield return new WaitForSeconds(2);
         }
     }
@@ -99,9 +97,6 @@ public class FireArea : MonoBehaviour
     {
         // reduce fire count
         fireCount--;
-
-        Debug.Log("firecount: " + fireCount);
-
         // stopIncreasing = true;
 
         // if count is 0, fire is put out

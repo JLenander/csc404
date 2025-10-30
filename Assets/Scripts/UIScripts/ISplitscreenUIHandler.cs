@@ -85,4 +85,14 @@ public interface ISplitscreenUIHandler
     /// neutralize the reticle when nothing is hit
     /// </summary>
     public void ReticleNeutral();
+
+    /// <summary>
+    /// enable burn overlay
+    /// </summary>
+    public void EnablePlayerBurnOverlay(int playerIndex);
+
+    /// <summary>
+    /// disable burn overlay
+    /// </summary>
+    public void DisablePlayerBurnOverlay(int playerIndex);
 }

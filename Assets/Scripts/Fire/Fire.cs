@@ -52,7 +52,8 @@ public class Fire : MonoBehaviour
         if (currFireCount <= 0)
         {
             // notify fire area
-            fireArea.DisableFire();
+            if (fireArea != null)
+                fireArea.DisableFire();
 
             // disable the collider
             detectCollider.enabled = false;
@@ -60,10 +61,5 @@ public class Fire : MonoBehaviour
             // disable particle
             fireParticle.SetActive(false);
         }
-    }
-
-    void Update()
-    {
-        // TODO: maybe distort plorp view when fire active
     }
 }

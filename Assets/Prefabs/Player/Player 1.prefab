@@ -197,6 +197,10 @@ MonoBehaviour:
   playerId: 0
   extinguisher: {fileID: 8279177825300555044}
   playerGraphic: {fileID: 4281077509006327130}
+  fireCheckRadius: 1.5
+  fireLayer:
+    serializedVersion: 2
+    m_Bits: 4096
 --- !u!1 &2729487947796311777
 GameObject:
   m_ObjectHideFlags: 0

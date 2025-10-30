@@ -6,6 +6,10 @@ public class PlayerSetup : MonoBehaviour
     private PlayerInput playerInput;
     public int playerId;
 
+    public Extinguisher extinguisher;
+
+    public GameObject playerGraphic;
+
     void Awake()
     {
         // Force load the player
@@ -17,7 +21,12 @@ public class PlayerSetup : MonoBehaviour
 
         // Put renderers on correct layer
         foreach (Renderer r in GetComponentsInChildren<Renderer>())
+        {
+            if (r.CompareTag("Ignore"))
+                continue;
+
             r.gameObject.layer = layer;
+        }
 
         // Setup that player’s camera (if it has one)
         Camera cam = GetComponentInChildren<Camera>();

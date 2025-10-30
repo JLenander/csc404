@@ -42,7 +42,6 @@ public class BlinkConsole : Interactable
                     timeToNextBlink = 0;
                     timerIsRunning = false;
                     timeToNextBlink = totalTimeBlink;
-                    Debug.Log("time to blink");
                     outlineColour = Color.red;
 
                     // start camera fade
@@ -63,9 +62,12 @@ public class BlinkConsole : Interactable
                 if (!danger) // so it doesnt trigger every frame
                 {
                     danger = true;
-                    Debug.Log("out of time you are sus");
+
                     // disable head console
                     headConsole.DisableInteract();
+
+                    // enable fire
+                    FireManager.Instance.StartFireArea("eye");
                 }
             }
         }
@@ -75,7 +77,8 @@ public class BlinkConsole : Interactable
     public override void Interact(GameObject player)
     {
         PlayerInteract playerInteract = player.GetComponent<PlayerInteract>();
-        ResetTimers();
+        if (!danger)
+            ResetTimers(); // only allow lever to reset timer if not at critical
         playerInteract.LeaveCurrInteractable();
 
         if (audioSource != null)
@@ -85,7 +88,7 @@ public class BlinkConsole : Interactable
             StartCoroutine(BlinkRoutine());
     }
 
-    private void ResetTimers()
+    public void ResetTimers()
     {
         DisableOutline();
         timerIsRunning = true;

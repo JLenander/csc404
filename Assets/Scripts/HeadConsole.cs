@@ -169,7 +169,7 @@ public class HeadConsole : Interactable
     public void DisableInteract()
     {
         _canInteract = false;
-        hoverMessage = "[DISABLED] Please Blink";
+        hoverMessage = "[CONTROL DISABLED]";
         msgColour = new Color(1, 0, 0, 1);
         outlineColour = new Color(1, 0, 0, 1);
     }

@@ -12,6 +12,7 @@ TagManager:
   - Bag
   - Cup
   - GrappleStop
+  - Table
   layers:
   - Default
   - TransparentFX

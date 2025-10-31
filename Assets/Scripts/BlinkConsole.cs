@@ -13,7 +13,7 @@ public class BlinkConsole : Interactable
     public AudioSource audioSource;
 
     private bool timerIsRunning;
-    private bool warning = false;
+    public bool warning = false;
     private bool danger = false;
 
     private void Start()
@@ -46,6 +46,9 @@ public class BlinkConsole : Interactable
 
                     // start camera fade
                     GlobalPlayerUIManager.Instance.PixelateView(pressCountdown);
+
+                    // player notification
+                    PopUpUIHandler.Instance.ShowBlinkPopUp();
                 }
 
                 EnableOutline();
@@ -102,6 +105,7 @@ public class BlinkConsole : Interactable
         danger = false; // remove flags
         warning = false; // remove flags
         GlobalPlayerUIManager.Instance.DisablePixelate(); // undo pixelate
+        PopUpUIHandler.Instance.HideBlinkPopUp();
     }
 
     private IEnumerator BlinkRoutine()

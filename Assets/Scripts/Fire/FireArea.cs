@@ -10,6 +10,7 @@ public class FireArea : MonoBehaviour
 {
     [SerializeField] private string areaName;
     [SerializeField] private List<Fire> fires = new List<Fire>();
+    public List<GameObject> notificationFire = new List<GameObject>();
     private bool active;
     private int fireCount;
     private Collider detectCollider;
@@ -32,6 +33,15 @@ public class FireArea : MonoBehaviour
         fireCount = 0;
 
         detectCollider = GetComponent<Collider>();
+
+        if (notificationFire.Count > 0)
+        {
+            foreach (GameObject fire in notificationFire)
+            {
+                fire.SetActive(false);
+            }
+
+        }
     }
 
     public void OnTriggerEnter(Collider other)
@@ -64,6 +74,15 @@ public class FireArea : MonoBehaviour
     public void EnableFires()
     {
         if (active) return;
+
+        if (notificationFire.Count > 0)
+        {
+            foreach (GameObject fire in notificationFire)
+            {
+                fire.SetActive(true);
+            }
+
+        }
 
         active = true;
         // stopIncreasing = false;
@@ -104,6 +123,15 @@ public class FireArea : MonoBehaviour
         {
             // notify fire manager area is safe
             active = false;
+
+            if (notificationFire.Count > 0)
+            {
+                foreach (GameObject fire in notificationFire)
+                {
+                    fire.SetActive(false);
+                }
+
+            }
 
             foreach (PlayerSetup playerSetup in playersInside)
             {

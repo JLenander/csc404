@@ -59,12 +59,10 @@ public class FireManager : MonoBehaviour
         }
         else if (name == "leftArm")
         {
-            // TODO: reenable arm
             leftArmConsole.EnableInteract();
         }
         else if (name == "rightArm")
         {
-            // TODO: reenable arm
             rightArmConsole.EnableInteract();
         }
         else if (name == "leg")

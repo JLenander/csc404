@@ -9,6 +9,7 @@ public class HeadConsole : Interactable
 
     [SerializeField] private Camera exteriorCamera; //reference for robot head camera
     public float reach = 1000f;
+    public float turnOffAfter = 3f;
 
     private bool _canInteract = true;
 
@@ -23,6 +24,8 @@ public class HeadConsole : Interactable
 
     private OverlayUIHandler uIHandler;
     private int layerMask;
+
+    private Coroutine exitCoroutine;
 
     void Start()
     {
@@ -129,6 +132,12 @@ public class HeadConsole : Interactable
                 denySource.Play();
             return;
         }
+
+        if (exitCoroutine != null)
+        {
+            StopCoroutine(exitCoroutine);
+        }
+
         _splitscreenUIHandler.ShowOutsideCamera();
 
         player.GetComponent<Player>().TurnOff();
@@ -148,7 +157,12 @@ public class HeadConsole : Interactable
 
     public override void Return(GameObject player)
     {
-        _splitscreenUIHandler.HideOutsideCamera();
+        if (exitCoroutine != null)
+        {
+            StopCoroutine(exitCoroutine);
+        }
+
+        exitCoroutine = StartCoroutine(HideOutsideCameraRoutine());
 
         player.GetComponent<Player>().TurnOn();
         player.GetComponent<Player>().switchOffHead();
@@ -161,6 +175,13 @@ public class HeadConsole : Interactable
         _rightTriggerAction = null;
         uIHandler.HideContainer(player);
     }
+
+    IEnumerator HideOutsideCameraRoutine()
+    {
+        yield return new WaitForSeconds(turnOffAfter);
+
+        _splitscreenUIHandler.HideOutsideCamera();
+    }
     public override bool CanInteract()
     {
         return _canInteract;
@@ -169,7 +190,7 @@ public class HeadConsole : Interactable
     public void DisableInteract()
     {
         _canInteract = false;
-        hoverMessage = "[DISABLED] Please Blink";
+        hoverMessage = "[CONTROL DISABLED]";
         msgColour = new Color(1, 0, 0, 1);
         outlineColour = new Color(1, 0, 0, 1);
     }

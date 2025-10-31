@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -18,6 +19,11 @@ public class SplitscreenUIHandler : MonoBehaviour, ISplitscreenUIHandler
     // Player Labels and Borders
     private Label[] _playerLabels;
     private VisualElement[] _playerBoxBorders;
+
+    // Player Burn overlay
+    private VisualElement[] _playerBurnOverlays;
+    private Coroutine[] _burnCoroutines;
+    private Color burnColour;
 
     // Camera (outside view or eyes) off overlay
     private VisualElement _outsideCamOverlay;
@@ -43,6 +49,7 @@ public class SplitscreenUIHandler : MonoBehaviour, ISplitscreenUIHandler
         _playerLabels = new Label[NumPlayers];
         _playerInteractionGroups = new VisualElement[NumPlayers];
         _playerGreyscaleOverlays = new VisualElement[NumPlayers];
+        _playerBurnOverlays = new VisualElement[NumPlayers];
         _playerBoxBorders = new VisualElement[NumPlayers];
 
         for (int i = 0; i < NumPlayers; i++)
@@ -53,7 +60,14 @@ public class SplitscreenUIHandler : MonoBehaviour, ISplitscreenUIHandler
 
             _playerGreyscaleOverlays[i] = root.Query<VisualElement>("Player" + (i + 1) + "GreyscaleOverlay").First();
             _playerGreyscaleOverlays[i].visible = false;
+
+            _playerBurnOverlays[i] = root.Query<VisualElement>("Player" + (i + 1) + "BurnOverlay").First();
+            Color startColor = _playerBurnOverlays[i].style.backgroundColor.value;
+            Color targetColor = new Color(startColor.r, startColor.g, startColor.b, 0f);
         }
+
+        _burnCoroutines = new Coroutine[NumPlayers];
+        ColorUtility.TryParseHtmlString("#FF6E45", out burnColour);
 
         _outsideCamOverlay = root.Query<VisualElement>("OutsideCamOffOverlay").First();
 
@@ -265,5 +279,80 @@ public class SplitscreenUIHandler : MonoBehaviour, ISplitscreenUIHandler
     {
         _reticle.style.unityBackgroundImageTintColor = new Color(1f, 1f, 1f, 1f);
     }
+    public void EnablePlayerBurnOverlay(int playerIndex)
+    {
+        if (playerIndex < 0 || playerIndex >= NumPlayers)
+        {
+            Debug.LogError("Player index out of range");
+            return;
+        }
 
+        if (_burnCoroutines[playerIndex] != null) // player already being burnt
+            return;
+
+        _burnCoroutines[playerIndex] = StartCoroutine(BurnRoutine(_playerBurnOverlays[playerIndex]));
+    }
+
+    public void DisablePlayerBurnOverlay(int playerIndex)
+    {
+        if (playerIndex < 0 || playerIndex >= NumPlayers)
+        {
+            Debug.LogError("Player index out of range");
+            return;
+        }
+
+        if (_burnCoroutines[playerIndex] != null)
+        {
+            StopCoroutine(_burnCoroutines[playerIndex]);
+            _burnCoroutines[playerIndex] = null;
+        }
+
+        // reset overlay to transparent
+        StartCoroutine(FadeOutOverlay(_playerBurnOverlays[playerIndex]));
+    }
+
+    IEnumerator BurnRoutine(VisualElement burnOverlay)
+    {
+        float time = 0f;
+
+        burnOverlay.visible = true;
+
+        Debug.Log("Starting burn");
+        float intensity = 0;
+
+        while (intensity < 1)
+        {
+            time += Time.deltaTime;
+
+            // pulsate alpha between 0.2 and 0.5, grows worse over time
+            float pulse = Mathf.PingPong(Time.time * 2f, 0.5f) + 0.5f;
+
+            // increase overall intensity over time
+            intensity = Mathf.Clamp01(time / 2f); // max intensity after 2 seconds
+
+            Debug.Log(intensity);
+
+            burnOverlay.style.backgroundColor = new Color(burnColour.r, burnColour.g, burnColour.b, pulse * intensity);
+
+            yield return null;
+        }
+
+        burnOverlay.style.backgroundColor = new StyleColor(new Color(burnColour.r, burnColour.g, burnColour.b, 1f));
+    }
+
+    private IEnumerator FadeOutOverlay(VisualElement burnOverlay, float duration = 0.5f)
+    {
+        Color startColor = burnOverlay.style.backgroundColor.value;
+        Color targetColor = new Color(startColor.r, startColor.g, startColor.b, 0f);
+
+        float t = 0f;
+        while (t < 1f)
+        {
+            t += Time.deltaTime / duration;
+            burnOverlay.style.backgroundColor = Color.Lerp(startColor, targetColor, t);
+            yield return null;
+        }
+
+        burnOverlay.style.backgroundColor = targetColor; //ensure fully transparent
+    }
 }

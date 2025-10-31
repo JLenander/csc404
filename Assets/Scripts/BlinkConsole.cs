@@ -13,7 +13,7 @@ public class BlinkConsole : Interactable
     public AudioSource audioSource;
 
     private bool timerIsRunning;
-    private bool warning = false;
+    public bool warning = false;
     private bool danger = false;
 
     private void Start()
@@ -42,11 +42,13 @@ public class BlinkConsole : Interactable
                     timeToNextBlink = 0;
                     timerIsRunning = false;
                     timeToNextBlink = totalTimeBlink;
-                    Debug.Log("time to blink");
                     outlineColour = Color.red;
 
                     // start camera fade
                     GlobalPlayerUIManager.Instance.PixelateView(pressCountdown);
+
+                    // player notification
+                    PopUpUIHandler.Instance.ShowBlinkPopUp();
                 }
 
                 EnableOutline();
@@ -63,9 +65,12 @@ public class BlinkConsole : Interactable
                 if (!danger) // so it doesnt trigger every frame
                 {
                     danger = true;
-                    Debug.Log("out of time you are sus");
+
                     // disable head console
                     headConsole.DisableInteract();
+
+                    // enable fire
+                    FireManager.Instance.StartFireArea("eye");
                 }
             }
         }
@@ -75,7 +80,8 @@ public class BlinkConsole : Interactable
     public override void Interact(GameObject player)
     {
         PlayerInteract playerInteract = player.GetComponent<PlayerInteract>();
-        ResetTimers();
+        if (!danger)
+            ResetTimers(); // only allow lever to reset timer if not at critical
         playerInteract.LeaveCurrInteractable();
 
         if (audioSource != null)
@@ -85,7 +91,7 @@ public class BlinkConsole : Interactable
             StartCoroutine(BlinkRoutine());
     }
 
-    private void ResetTimers()
+    public void ResetTimers()
     {
         DisableOutline();
         timerIsRunning = true;
@@ -99,6 +105,7 @@ public class BlinkConsole : Interactable
         danger = false; // remove flags
         warning = false; // remove flags
         GlobalPlayerUIManager.Instance.DisablePixelate(); // undo pixelate
+        PopUpUIHandler.Instance.HideBlinkPopUp();
     }
 
     private IEnumerator BlinkRoutine()

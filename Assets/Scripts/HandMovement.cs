@@ -1,3 +1,4 @@
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
@@ -23,6 +24,7 @@ public class HandMovement : MonoBehaviour
     private bool _isMoving;
     public AudioSource moveSource;
     public AudioSource stopSource;
+    public StudioEventEmitter eventEmitter;
 
     private GameObject _currPlayer;
 
@@ -114,8 +116,12 @@ public class HandMovement : MonoBehaviour
                 _isMoving = true;
 
                 // != expensive but confirmed the right approach
-                if (moveSource != null && !moveSource.isPlaying && !grappleShot)
-                    moveSource.Play();
+                if (eventEmitter != null)
+                {
+                    // Set parameter to 0 for moving
+                    eventEmitter.SetParameter("arm_stop", 0f);
+                    eventEmitter.Play();
+                }
             }
 
             // Movement stopped
@@ -123,11 +129,11 @@ public class HandMovement : MonoBehaviour
             {
                 _isMoving = false;
 
-                if (moveSource != null && moveSource.isPlaying)
-                    moveSource.Stop();
-
-                if (stopSource != null && !grappleShot)
-                    stopSource.Play();
+                if (eventEmitter != null)
+                {
+                    // Set parameter to 0 for moving
+                    eventEmitter.SetParameter("arm_stop", 1f);
+                }
             }
 
             // check if hand is empty and is there an object to interact with
@@ -346,14 +352,15 @@ public class HandMovement : MonoBehaviour
         grappleShot = false;
 
         // Stop movement sound and play stop sound if we were moving
-        if (moveSource != null && moveSource.isPlaying)
-            moveSource.Stop();
         if (_isMoving)
         {
             _isMoving = false;
 
-            if (stopSource != null)
-                stopSource.Play();
+            if (eventEmitter != null)
+            {
+                // Set parameter to 0 for moving
+                eventEmitter.SetParameter("arm_stop", 1f);
+            }
         }
     }
 

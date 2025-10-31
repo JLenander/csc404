@@ -2475,7 +2475,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 395270531}
-  - component: {fileID: 395270530}
+  - component: {fileID: 395270532}
   m_Layer: 0
   m_Name: Audio Listener
   m_TagString: Untagged
@@ -2483,14 +2483,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &395270530
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 395270529}
-  m_Enabled: 1
 --- !u!4 &395270531
 Transform:
   m_ObjectHideFlags: 0
@@ -2506,6 +2498,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &395270532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 395270529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioListener
+  nonRigidbodyVelocity: 0
+  attenuationObject: {fileID: 0}
 --- !u!1 &398299458 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: df27d24d0c87dd8449d7d0ecc7624cd5, type: 3}
@@ -4627,6 +4633,69 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6475709632847555445, guid: d37ab846ac72888419f7bf4c8180fd24, type: 3}
   m_PrefabInstance: {fileID: 5123334731536151489}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &813700732
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 813700734}
+  - component: {fileID: 813700733}
+  m_Layer: 0
+  m_Name: ArmSound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &813700733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 813700732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioEventEmitter
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1218737644
+      Data2: 1108320750
+      Data3: -890923384
+      Data4: 39634255
+    Path: event:/SFX/Robot/arm_move
+  Event: 
+  EventPlayTrigger: 0
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!4 &813700734
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 813700732}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524322326}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &814566139
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6427,7 +6496,146 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: df27d24d0c87dd8449d7d0ecc7624cd5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 398299460}
+    - targetCorrespondingSourceObject: {fileID: 3896057375287360396, guid: df27d24d0c87dd8449d7d0ecc7624cd5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1129066208}
+    - targetCorrespondingSourceObject: {fileID: 3896057375287360396, guid: df27d24d0c87dd8449d7d0ecc7624cd5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1129066207}
   m_SourcePrefab: {fileID: 100100000, guid: df27d24d0c87dd8449d7d0ecc7624cd5, type: 3}
+--- !u!1 &1129066206 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3896057375287360396, guid: df27d24d0c87dd8449d7d0ecc7624cd5, type: 3}
+  m_PrefabInstance: {fileID: 1129066205}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &1129066207
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1129066206}
+  m_Enabled: 0
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &1129066208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1129066206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioEventEmitter
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -365118129
+      Data2: 1105805914
+      Data3: -1222741119
+      Data4: -2001080630
+    Path: event:/Music/PlaceHolders/boingus
+  Event: 
+  EventPlayTrigger: 1
+  EventStopTrigger: 2
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1001 &1138850546
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6439,6 +6647,10 @@ PrefabInstance:
     - target: {fileID: 181067212562394993, guid: 08b2094efe6813847a68ed2ada05a34f, type: 3}
       propertyPath: m_Name
       value: Robot
+      objectReference: {fileID: 0}
+    - target: {fileID: 585833833204788680, guid: 08b2094efe6813847a68ed2ada05a34f, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 605633835941839844, guid: 08b2094efe6813847a68ed2ada05a34f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6480,10 +6692,39 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1071488220145331396, guid: 08b2094efe6813847a68ed2ada05a34f, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4672791790501556749, guid: 08b2094efe6813847a68ed2ada05a34f, type: 3}
+      propertyPath: eventEmitter
+      value: 
+      objectReference: {fileID: 813700733}
+    - target: {fileID: 6563188557207657235, guid: 08b2094efe6813847a68ed2ada05a34f, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8163664760754894619, guid: 08b2094efe6813847a68ed2ada05a34f, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8163664760754894619, guid: 08b2094efe6813847a68ed2ada05a34f, type: 3}
+      propertyPath: eventEmitter
+      value: 
+      objectReference: {fileID: 813700733}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 7839684266347174250, guid: 08b2094efe6813847a68ed2ada05a34f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1466123868}
+    - targetCorrespondingSourceObject: {fileID: 7839684266347174250, guid: 08b2094efe6813847a68ed2ada05a34f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 813700734}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 287237332282369568, guid: 08b2094efe6813847a68ed2ada05a34f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1692230856}
   m_SourcePrefab: {fileID: 100100000, guid: 08b2094efe6813847a68ed2ada05a34f, type: 3}
 --- !u!1 &1138850547 stripped
 GameObject:
@@ -10398,6 +10639,101 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5904948759087187704, guid: b5a2c18e3581b4c4995cd16e7a91b516, type: 3}
   m_PrefabInstance: {fileID: 1450802913}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1466123867
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1466123868}
+  - component: {fileID: 1466123869}
+  - component: {fileID: 1466123870}
+  m_Layer: 0
+  m_Name: Audio
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1466123868
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1466123867}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 524322326}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1466123869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1466123867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioEventEmitter
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -120154360
+      Data2: 1124927933
+      Data3: 1806355117
+      Data4: 638466250
+    Path: event:/Ambient/amb_cafe
+  Event: 
+  EventPlayTrigger: 1
+  EventStopTrigger: 2
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!114 &1466123870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1466123867}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioEventEmitter
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1218737644
+      Data2: 1108320750
+      Data3: -890923384
+      Data4: 39634255
+    Path: event:/SFX/Robot/arm_move
+  Event: 
+  EventPlayTrigger: 0
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &1476768494
 GameObject:
   m_ObjectHideFlags: 0
@@ -11666,6 +12002,37 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4089427463209296236, guid: 082c41686c23c064f94c12b3359df3e6, type: 3}
+--- !u!114 &1601934830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1601934825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioEventEmitter
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -365118129
+      Data2: 1105805914
+      Data3: -1222741119
+      Data4: -2001080630
+    Path: event:/Music/PlaceHolders/boingus
+  Event: 
+  EventPlayTrigger: 1
+  EventStopTrigger: 2
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1001 &1609978941
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12108,6 +12475,25 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 39bd74f452bd7744ba73b57911b06c9f, type: 3}
   m_PrefabInstance: {fileID: 1444512104}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1692230855 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 287237332282369568, guid: 08b2094efe6813847a68ed2ada05a34f, type: 3}
+  m_PrefabInstance: {fileID: 1138850546}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1692230856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1692230855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioListener
+  nonRigidbodyVelocity: 0
+  attenuationObject: {fileID: 0}
 --- !u!1 &1704961930
 GameObject:
   m_ObjectHideFlags: 0
@@ -15259,6 +15645,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7572376674797009771, guid: 082c41686c23c064f94c12b3359df3e6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1601934829}
+    - targetCorrespondingSourceObject: {fileID: 7572376674797009771, guid: 082c41686c23c064f94c12b3359df3e6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1601934830}
     - targetCorrespondingSourceObject: {fileID: -571832826580091602, guid: 082c41686c23c064f94c12b3359df3e6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 20480559}
